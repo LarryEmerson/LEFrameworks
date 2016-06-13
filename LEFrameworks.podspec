@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'LEUIFramework'
-s.version          = '1.0.0'
+s.version          = '0.1.0'
 s.summary          = 'IOS Development Frameworks 公司IOS开发库：自动排版、列表封装、数据模型、网络库封装'
 
 # This description is used to generate tags and improve search results.
