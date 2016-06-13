@@ -1,0 +1,16 @@
+PODS:
+  - LEFrameworks (0.1.0)
+
+DEPENDENCIES:
+  - LEFrameworks (from `../`)
+
+EXTERNAL SOURCES:
+  LEFrameworks:
+    :path: ../
+
+SPEC CHECKSUMS:
+  LEFrameworks: 1e830c0d97005ffd8b39cec461a6f9c173b4ffc8
+
+PODFILE CHECKSUM: 462f1ca5aaf6745aa3393e3ac371565a02172c8e
+
+COCOAPODS: 1.0.0
