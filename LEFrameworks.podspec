@@ -1,5 +1,5 @@
 #
-# Be sure to run `pod lib lint LEUIFramework.podspec' to ensure this is a
+# Be sure to run `pod lib lint LEFrameworks.podspec' to ensure this is a
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-s.name             = 'LEUIFramework'
+s.name             = 'LEFrameworks'
 s.version          = '0.1.0'
 s.summary          = 'IOS Development Frameworks 公司IOS开发库：自动排版、列表封装、数据模型、网络库封装'
 
@@ -29,19 +29,19 @@ Badge（LEBadge），
 蓝牙封装（LEBlueTooth），
 电池上涨动画（LEWaveProgressView）'
 
-s.homepage         = 'https://github.com/LarryEmerson/LEUIFramework'
+s.homepage         = 'https://github.com/LarryEmerson/LEFrameworks'
 # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
 s.license          = { :type => 'MIT', :file => 'LICENSE' }
 s.author           = { 'LarryEmerson' => 'larryemerson@163.com' }
-s.source           = { :git => 'https://github.com/LarryEmerson/LEUIFramework.git', :tag => s.version.to_s }
+s.source           = { :git => 'https://github.com/LarryEmerson/LEFrameworks.git', :tag => s.version.to_s }
 # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
 s.ios.deployment_target = '7.0'
 
-s.source_files = 'LEUIFramework/Classes/**/*'
+s.source_files = 'LEFrameworks/Classes/**/*'
 
 s.resource_bundles = {
-'LEUIFramework' => ['LEUIFramework/Assets/**/*.png','LEUIFramework/Assets/**/**/*.png']
+'LEFrameworks' => ['LEFrameworks/Assets/**/*.png','LEFrameworks/Assets/**/**/*.png']
 }
 
 # s.public_header_files = 'Pod/Classes/**/*.h'
