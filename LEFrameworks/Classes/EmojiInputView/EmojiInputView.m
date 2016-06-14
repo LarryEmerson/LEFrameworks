@@ -197,7 +197,7 @@
     }
     
     btn.selected = YES;
-    [self drawInputView:btn.tag];
+    [self drawInputView:(EMOJI_TYPE)btn.tag];
 }
 
 - (void)drawInputView:(EMOJI_TYPE)emojiType
@@ -250,7 +250,7 @@
     
     s_ScrollView.contentSize = CGSizeMake(UI_SCREEN_WIDTH * pageCount, EMOJI_VIEW_HEIGHT);
     
-    [self loadScrollViewWithPage:currentPage];
+    [self loadScrollViewWithPage:(int)currentPage];
     s_ScrollView.contentOffset = CGPointMake(UI_SCREEN_WIDTH * currentPage, 0);
 }
 
@@ -324,7 +324,7 @@
 
 - (void)clickpagecontrol:(id)sender
 {
-    int page = s_PageControl.currentPage;
+    int page = (int)s_PageControl.currentPage;
     
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
     [self loadScrollViewWithPage:page - 1];

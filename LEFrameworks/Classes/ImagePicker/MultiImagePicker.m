@@ -104,7 +104,7 @@
     
     [self.navigationController setNavigationBarHidden:NO];
     [self.view addSubview:page];
-//    [self setLeftBarButtonAsBackWith:IMG_ArrowLeft];
+    //    [self setLeftBarButtonAsBackWith:IMG_ArrowLeft];
     [self.navigationItem setTitle:@"照片图库"];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(onRight)]];
 }
@@ -144,7 +144,7 @@
         ALAssetsGroup *assetsGroup=[data objectForKey:@"group"];
         [curIcon setImage:[UIImage imageWithCGImage:assetsGroup.posterImage]];
         NSString *title=[NSString stringWithFormat:@"%@", [assetsGroup valueForProperty:ALAssetsGroupPropertyName]];
-        NSString *subTitle=[NSString stringWithFormat:@"(%d)", assetsGroup.numberOfAssets];
+        NSString *subTitle=[NSString stringWithFormat:@"(%d)", (int)assetsGroup.numberOfAssets];
         [curTitle leSetText:title];
         [curSubtitle leSetText:subTitle];
     }

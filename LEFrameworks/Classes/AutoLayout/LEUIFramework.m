@@ -114,7 +114,7 @@
 -(int) asciiLength{
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData* da = [self dataUsingEncoding:enc];
-    return [da length];
+    return (int)[da length];
     //    int strlength = 0;
     //    char* p = (char*)[self cStringUsingEncoding:NSUnicodeStringEncoding];
     //    for (int i=0 ; i<[self lengthOfBytesUsingEncoding:NSUnicodeStringEncoding] ;i++) {

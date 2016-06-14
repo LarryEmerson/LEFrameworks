@@ -7,7 +7,7 @@
 //
 
 #import "LESegmentView.h"
- 
+
 
 @interface LESegmentView ()<UIScrollViewDelegate>
 @end
@@ -20,7 +20,7 @@
     NSMutableArray *curTitlesWidth;
     NSMutableArray *curTitlesWidthSum;
     int segmentHeight;
-    int curSelectedIndex;
+    NSInteger curSelectedIndex;
     float segmentSpeed;
     UIView *curIndicator;
     UIColor *normalColor;
@@ -99,7 +99,7 @@
             [curTitlesCache addObject:btn];
         }
     }
-    for (int i=titles.count; i<curTitlesCache.count; i++) {
+    for (NSInteger i=titles.count; i<curTitlesCache.count; i++) {
         [[curTitlesCache objectAtIndex:i] setHidden:YES];
     }
     float finalWidth=last.frame.origin.x+last.frame.size.width;
@@ -132,7 +132,7 @@
     [curSegmentContainer setContentSize:CGSizeMake(finalWidth, curSegmentContainer.bounds.size.height)];
 } 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    int index=scrollView.contentOffset.x/pageWidth;
+    NSInteger index=scrollView.contentOffset.x/pageWidth;
     float widthSum=[[curTitlesWidthSum objectAtIndex:index] floatValue];
     float width=[[curTitlesWidth objectAtIndex:index] floatValue];
     float indicatorOffset=widthSum+(scrollView.contentOffset.x/pageWidth-index)*width-curIndicator.bounds.size.width/2;
@@ -142,7 +142,7 @@
     BOOL checkLeft=index<curSelectedIndex;
     float sumW=[[curTitlesWidthSum objectAtIndex:curSelectedIndex] floatValue];
     float curHalfW=[[curTitlesCache objectAtIndex:curSelectedIndex] bounds].size.width/2;
-    int finalIndex=curSelectedIndex;
+    NSInteger finalIndex=curSelectedIndex;
     if(checkLeft&&curIndicator.frame.origin.x<sumW-curHalfW){
         finalIndex=finalIndex-1;
     }else if(!checkLeft&&curIndicator.frame.origin.x>sumW+curHalfW){

@@ -47,9 +47,9 @@
     if (timeInterval < 60) {
         return @"1分钟内";
     } else if (timeInterval < 3600) {//1小时内
-        return [NSString stringWithFormat:@"%d分钟前", timeInterval / 60];
+        return [NSString stringWithFormat:@"%d分钟前", (int)timeInterval / 60];
     } else if (timeInterval < 3600*24) {//24小时内
-        return [NSString stringWithFormat:@"%d小时前", timeInterval / 3600];
+        return [NSString stringWithFormat:@"%d小时前", (int)timeInterval / 3600];
     } else if (timeInterval < 3600*24*2) {
         return @"昨天";
     } else if (timeInterval < 3600*24*3) {
@@ -71,7 +71,7 @@
     }else{
         NSDateComponents *components1 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
         NSDateComponents *components2 = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:[NSDate date]];
-        int monthCount=(components2.year-components1.year-1)*12+(12-components1.month)+components2.month;
+        int monthCount=(int)((components2.year-components1.year-1)*12+(12-components1.month)+components2.month);
         if(monthCount/12>0){
             return [NSString stringWithFormat:@"%d年前",monthCount/12];
         }else {
@@ -185,9 +185,9 @@
     if (timeInterval < 60) {
         return @"1分钟内";
     } else if (timeInterval < 3600) {//1小时内
-        return [NSString stringWithFormat:@"%d分钟前", timeInterval / 60];
+        return [NSString stringWithFormat:@"%d分钟前", (int)timeInterval / 60];
     } else if (timeInterval < 21600) {//6小时内
-        return [NSString stringWithFormat:@"%d小时前", timeInterval / 3600];
+        return [NSString stringWithFormat:@"%d小时前", (int)timeInterval / 3600];
     } else if ([theDay isEqualToString:currentDay]) {//当天
         [dateFormatter setDateFormat:@"HH:mm"];
         return [NSString stringWithFormat:@"今天 %@", [dateFormatter stringFromDate:self]];
