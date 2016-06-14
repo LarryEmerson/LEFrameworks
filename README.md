@@ -21,7 +21,7 @@ it, simply add the following line to your Podfile:
 
 platform :ios, '7.0'
 target "ProjectName” do 
-pod "LEFrameworks", :git => 'https://github.com/LarryEmerson/LEFrameworks.git'
+pod "LEFrameworks"
 end 
 ```
 
