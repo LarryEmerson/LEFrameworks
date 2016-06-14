@@ -198,10 +198,15 @@
     if(indexPath.section==0){
         UITableViewCell *cell=[self dequeueReusableCellWithIdentifier:CommonTableViewReuseableCellIdentifier];
         if(!cell){
-            cell=[[self.tableViewCellClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.cellSelectionDelegate]];
+            SuppressPerformSelectorLeakWarning(
+                                               cell=[[self.tableViewCellClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.cellSelectionDelegate]];
+                                               );
         }
-        if(self.itemsArray&&indexPath.row<self.itemsArray.count)
-        [cell performSelector:NSSelectorFromString(@"setData:IndexPath:") withObject:[self.itemsArray objectAtIndex:indexPath.row] withObject:indexPath];
+        if(self.itemsArray&&indexPath.row<self.itemsArray.count){
+            SuppressPerformSelectorLeakWarning(
+                                               [cell performSelector:NSSelectorFromString(@"setData:IndexPath:") withObject:[self.itemsArray objectAtIndex:indexPath.row] withObject:indexPath];
+                                               );
+        }
         return cell;
     }
     return nil;
@@ -232,7 +237,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section==0 && [self _numberOfRowsInSection:0]==0 && [self _numberOfSections] <=1){
         if(!self.emptyTableViewCell){
-            self.emptyTableViewCell=[[self.emptyTableViewCellClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:@{KeyOfCellTitle:@"暂时还没有相关内容"}];
+            SuppressPerformSelectorLeakWarning(
+                                               self.emptyTableViewCell=[[self.emptyTableViewCellClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:@{KeyOfCellTitle:@"暂时还没有相关内容"}];
+                                               );
         }
         return self.emptyTableViewCell;
     }

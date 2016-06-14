@@ -92,7 +92,7 @@
     {
         [_timer invalidate];
     }
-
+    
     _timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                               target:self
                                             selector:@selector(reset)
@@ -182,7 +182,7 @@
     for (int i = 0; i < _selectedCircleArray.count; i++)
     {
         JinnLockCircle *circle = _selectedCircleArray[i];
-        password = [password stringByAppendingFormat:@"%ld", circle.tag - JINN_LOCK_SUDOKO_LEVEL_BASE];
+        password = [password stringByAppendingFormat:@"%d", (int)(circle.tag - JINN_LOCK_SUDOKO_LEVEL_BASE)];
     }
     
     [self reset];

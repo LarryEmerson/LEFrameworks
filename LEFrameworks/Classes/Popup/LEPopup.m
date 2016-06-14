@@ -7,7 +7,7 @@
 //
 
 #import "LEPopup.h"
- 
+
 
 @implementation LEPopupSettings
 -(id) init{
@@ -132,7 +132,7 @@
     curSplit=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curContentContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:curTitle Offset:CGPointMake(0, LayoutSideSpace) CGSize:CGSizeMake(ContentW, 1)] Image:[ColorSplit imageStrechedFromSizeOne]];
     [curSplit setHidden:!curSettings.hasTopSplit];
     curSubtitle=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curContentContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:curSplit Offset:CGPointMake(0, curSettings.hasTopSplit?LayoutSideSpace:0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:curSettings.subtitle FontSize:0 Font:curSettings.subtitleFont Width:ContentW Height:0 Color:curSettings.subtitleColor Line:0 Alignment:curSettings.textAlignment]];
-//    [curSubtitle leSetLineSpace:LayoutTextLineSpace];
+    //    [curSubtitle leSetLineSpace:LayoutTextLineSpace];
     btnHeight=NavigationBarHeight;
     if(curSettings.leftButtonSetting.leBackgroundImage){
         btnHeight=MAX(NavigationBarHeight, curSettings.leftButtonSetting.leBackgroundImage.size.height);
@@ -156,7 +156,7 @@
     [curTitle leSetText:curSettings.title];
     [curSplit setHidden:!curSettings.hasTopSplit];
     [curSubtitle leSetText:curSettings.subtitle];
-//    [curSubtitle leSetLineSpace:LayoutTextLineSpace];
+    //    [curSubtitle leSetLineSpace:LayoutTextLineSpace];
     [curSubtitle leSetOffset:CGPointMake(0, curSettings.hasTopSplit?LayoutSideSpace:0)];
     [self initLeftButton];
     [self initRightButton];
@@ -253,7 +253,9 @@
         [self setAlpha:0];
     } completion:^(BOOL done){
         if(sel){
-            [self performSelector:sel];
+            SuppressPerformSelectorLeakWarning(
+                                               [self performSelector:sel];
+                                               );
         }
         [self removeFromSuperview];
     }];

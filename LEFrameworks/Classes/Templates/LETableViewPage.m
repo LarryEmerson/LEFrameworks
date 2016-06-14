@@ -27,7 +27,9 @@
     if(tabbarHeight>0){
         tableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.viewContainer.bounds.size.width, self.viewContainer.bounds.size.height-tabbarHeight)]];
     }
-    self.curTableView=[[tableViewClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewSettings alloc] initWithSuperViewContainer:self.superViewContainer ParentView:tableViewContainer?:self.viewContainer TableViewCell:cellClassName EmptyTableViewCell:emptyCellClassName GetDataDelegate:self TableViewCellSelectionDelegate:self]];
+    SuppressPerformSelectorLeakWarning(
+                                       self.curTableView=[[tableViewClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewSettings alloc] initWithSuperViewContainer:self.superViewContainer ParentView:tableViewContainer?:self.viewContainer TableViewCell:cellClassName EmptyTableViewCell:emptyCellClassName GetDataDelegate:self TableViewCellSelectionDelegate:self]];
+    );
     [self.curTableView setAlpha:0];
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^(void){
         [self.curTableView setAlpha:1];

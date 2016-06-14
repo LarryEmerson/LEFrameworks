@@ -10,6 +10,16 @@
 #import "sys/sysctl.h"
 #import <objc/runtime.h> 
 #import "LocalNotification.h"
+
+#define SuppressPerformSelectorLeakWarning(Stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Stuff; \
+_Pragma("clang diagnostic pop") \
+} while (0)
+
+
 #pragma mark 资源名称需要对应
 #define IMG_Cell_RightArrow @"tableview_icon_arrow"
 #define IMG_ArrowLeft @"common_navigation_btn_back"
@@ -217,7 +227,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 @end
 
 @interface UILabel (Extension)
-- (void)alignTop;
+//- (void)alignTop;
 //- (void)alignBottom;
 -(void) leSetText:(NSString *) text;
 -(CGSize) getLabelTextSize;

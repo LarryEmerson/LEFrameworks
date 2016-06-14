@@ -79,7 +79,9 @@
         code=KeyOfNavigationRightButton;
     }
     if([self.superview respondsToSelector:NSSelectorFromString(@"onNavigationBarClickedWithCode:")]){
-        [self.superview performSelector:NSSelectorFromString(@"onNavigationBarClickedWithCode:") withObject:code];
+        SuppressPerformSelectorLeakWarning(
+                                           [self.superview performSelector:NSSelectorFromString(@"onNavigationBarClickedWithCode:") withObject:code];
+                                           );
     }
 }
 @end
@@ -94,7 +96,7 @@
 @synthesize curFrameHight=_curFrameHight;
 @synthesize curFrameWidth=_curFrameWidth;
 -(void) onNavigationBarClickedWithCode:(NSString *) code{
-//    NSLogObject(code);
+    //    NSLogObject(code);
     if([code isEqualToString:KeyOfNavigationBackButton]){
         [self onClickedForLeftButton];
     }else if([code isEqualToString:KeyOfNavigationRightButton]){
@@ -142,9 +144,9 @@
     if(effectType==EffectTypeFromRight){
         [self leSetFrame:CGRectMake(self.curFrameWidth, 0, self.curFrameWidth, self.curFrameHight)];
     }
-        recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGesture:)];
-        [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
-        [self addGestureRecognizer:recognizerRight];
+    recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGesture:)];
+    [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self addGestureRecognizer:recognizerRight];
     //
     [view addSubview:self];
     [self setBackgroundColor:ColorWhite];
@@ -153,7 +155,9 @@
     [self.viewContainer setBackgroundColor:[LEUIFramework instance].colorViewContainer];
     //
     if(navigationClass&&navigationClass.length>0){
-        self.curNavigationView=[[NSClassFromString(navigationClass) alloc] performSelector:NSSelectorFromString(@"initWithAutoLayoutSettings:ViewDataModel:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, NavigationBarHeight+StatusBarHeight)] withObject:dataModel];
+        SuppressPerformSelectorLeakWarning(
+                                           self.curNavigationView=[[NSClassFromString(navigationClass) alloc] performSelector:NSSelectorFromString(@"initWithAutoLayoutSettings:ViewDataModel:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, NavigationBarHeight+StatusBarHeight)] withObject:dataModel];
+        );
     }
     [self setExtraViewInits];
     return self;

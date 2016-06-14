@@ -61,7 +61,7 @@
     BOOL isEmojiEnabled;
     
     BOOL isNotClearMessage;
-
+    
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -69,7 +69,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-         [self setUserInteractionEnabled:YES];
+        [self setUserInteractionEnabled:YES];
         [self initUI];
     }
     return self;
@@ -118,7 +118,7 @@
         }
     }
     [self addTopSplitWithColor:ColorSplit Offset:CGPointZero Width:globalVar.ScreenWidth];
-//    [self addBottomSplitWithColor:ColorSplit Offset:CGPointZero Width:globalVar.ScreenWidth];
+    //    [self addBottomSplitWithColor:ColorSplit Offset:CGPointZero Width:globalVar.ScreenWidth];
     if(!isEmojiEnabled){
         iconWidth=0;
     }
@@ -280,7 +280,7 @@
     [sendButton setTitleColor:buttonPressedColor forState:UIControlStateHighlighted];
     [sendButton addTarget:self action:@selector(sendText) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:sendButton];
-
+    
     switcherOfKeyboard=[[UIButton alloc]initWithFrame:CGRectMake(0, (topSpace-bottomSpace)/2, iconWidth, heightOfToolBar)];
     [switcherOfKeyboard setImage:emojiFaceIcon forState:UIControlStateNormal];
     [switcherOfKeyboard addTarget:self action:@selector(switchInput) forControlEvents:UIControlEventTouchUpInside];
@@ -376,20 +376,20 @@
 //}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-//    NSLog(@"shouldChangeTextInRange %@ %@ %d %d",textView.text,text,textView.selectedRange.length,msgForSomebody.length);
+    //    NSLog(@"shouldChangeTextInRange %@ %@ %d %d",textView.text,text,textView.selectedRange.length,msgForSomebody.length);
     if ([text isEqualToString:@""]) {
-//        NSLog(@"BackSpace Detected");
+        //        NSLog(@"BackSpace Detected");
         if(isNeedToSendMsgToSomebody&&![inputTextView.text isEqualToString:@""]&&[inputTextView.text isEqualToString:msgForSomebody]){
-//            isNeedToSendMsgToSomebody=NO;
-//            msgForSomebody=@"";
-//            inputTextView.text=@"";
+            //            isNeedToSendMsgToSomebody=NO;
+            //            msgForSomebody=@"";
+            //            inputTextView.text=@"";
         }else{
-            NSString *lang = [[UITextInputMode currentInputMode] primaryLanguage]; // 键盘输入模式
-            if ([lang isEqualToString:@"zh-Hans"]) {
-                return YES;
-            }else{
-                [inputTextView deleteBackward];
-            }
+            //            NSString *lang = [[UITextInputMode currentInputMode] primaryLanguage]; // 键盘输入模式
+            //            if ([lang isEqualToString:@"zh-Hans"]) {
+            //                return YES;
+            //            }else{
+            [inputTextView deleteBackward];
+            //            }
             
         }
         return NO;
@@ -407,7 +407,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView{
     if(textView==inputTextView){
-//        NSLog(@"textViewDidChange %@ ",textView.text);
+        //        NSLog(@"textViewDidChange %@ ",textView.text);
         if(isMeantToSentToSomebody&&![msgForSomebody isEqualToString:@""]&&![inputTextView.text isEqualToString:@""]&&![inputTextView.text hasPrefix:msgForSomebody]){
             inputTextView.text=lastText;
             return;
@@ -455,17 +455,17 @@
 }
 
 -(void) sendText{
-//    NSLog(@"%@",TextView.text);
+    //    NSLog(@"%@",TextView.text);
     if(self.delegate){
-//        if(isMeantToSentToSomebody){
-//            if([self.delegate respondsToSelector:@selector(setFinishedText:IsStillToTheOne:)]){
-//                [self.delegate setFinishedText:inputTextView.text IsStillToTheOne:isNeedToSendMsgToSomebody];
-//            }
-//        }else{
-            if([self.delegate respondsToSelector:@selector(setFinishedText:)]){
-                [self.delegate setFinishedText:isMeantToSentToSomebody?[inputTextView.text substringFromIndex:msgForSomebody.length]:inputTextView.text];
-            }
-//        }
+        //        if(isMeantToSentToSomebody){
+        //            if([self.delegate respondsToSelector:@selector(setFinishedText:IsStillToTheOne:)]){
+        //                [self.delegate setFinishedText:inputTextView.text IsStillToTheOne:isNeedToSendMsgToSomebody];
+        //            }
+        //        }else{
+        if([self.delegate respondsToSelector:@selector(setFinishedText:)]){
+            [self.delegate setFinishedText:isMeantToSentToSomebody?[inputTextView.text substringFromIndex:msgForSomebody.length]:inputTextView.text];
+        }
+        //        }
     }
     if(isNotClearMessage){
         [inputTextView resignFirstResponder];
@@ -478,7 +478,7 @@
 }
 
 -(void) switchInput{
-//    NSLog(@"switchInput");
+    //    NSLog(@"switchInput");
     if(isInEmojiState){
         [self switchEmojiInputView];
     }else{
@@ -492,7 +492,7 @@
 //
 - (void)switchEmojiInputView
 {
-//    NSLog(@"switchEmojiInputView");
+    //    NSLog(@"switchEmojiInputView");
     isInEmojiState=NO;
     [switcherOfKeyboard setImage:emojiFaceIcon forState:UIControlStateNormal];
     inputTextView.inputView = nil;
@@ -501,13 +501,13 @@
 
 - (void)setEmojiFromEmojiInputView:(NSString *)emojiStr
 {
-//    NSLog(@"setEmojiFromEmojiInputView %@",emojiStr);
+    //    NSLog(@"setEmojiFromEmojiInputView %@",emojiStr);
     [inputTextView insertText:emojiStr];
 }
 
 - (void)deleteEmoji
 {
-//    NSLog(@"deleteEmoji %d %@ %@",isNeedToSendMsgToSomebody,inputTextView.text,msgForSomebody);
+    //    NSLog(@"deleteEmoji %d %@ %@",isNeedToSendMsgToSomebody,inputTextView.text,msgForSomebody);
     if(isNeedToSendMsgToSomebody&&![inputTextView.text isEqualToString:@""]&&[inputTextView.text isEqualToString:msgForSomebody]){
         inputTextView.text=@"";
         isNeedToSendMsgToSomebody=NO;
@@ -518,12 +518,12 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

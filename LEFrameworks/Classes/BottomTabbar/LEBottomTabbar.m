@@ -98,7 +98,9 @@
         }
         id obj=[arrayPages objectAtIndex:i];
         if([obj isKindOfClass:[LETabbarRelatedPageView class]]){
-            [obj performSelector:NSSelectorFromString(i==index?@"easeInView":@"easeOutView")];
+            SuppressPerformSelectorLeakWarning(
+                                               [obj performSelector:NSSelectorFromString(i==index?@"easeInView":@"easeOutView")];
+            );
         }
     }
     if(self.delegate&&[self.delegate respondsToSelector:@selector(onTabbarTapped:)]){
