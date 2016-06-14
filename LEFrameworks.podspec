@@ -41,7 +41,7 @@ s.ios.deployment_target = '7.0'
 s.source_files = 'LEFrameworks/Classes/**/*'
 
 s.resource_bundles = {
-'LEFrameworks' => ['LEFrameworks/Assets/**/*.png','LEFrameworks/Assets/**/**/*.png']
+'LEFrameworks' => ['LEFrameworks/Assets/*.png']
 }
 
 # s.public_header_files = 'Pod/Classes/**/*.h'
