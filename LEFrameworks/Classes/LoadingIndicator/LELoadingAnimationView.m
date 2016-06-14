@@ -7,7 +7,7 @@
 //
 
 #import "LELoadingAnimationView.h" 
- 
+
 
 
 @implementation LELoadingAnimationView{
@@ -24,7 +24,9 @@
     return self;
 }
 -(void) initUI{
-    UIImage *img=[UIImage imageNamed:@"sr_refresh"];
+    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
+    UIImage *img=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"sr_refresh" ofType:@"png"]];
+    //    UIImage *img=[UIImage imageNamed:@"sr_refresh"];
     [self setFrame:CGRectMake(0,0, img.size.width, img.size.height)];
     self.viewWidth=img.size.width;
     self.viewHeight=img.size.height;
@@ -62,12 +64,12 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

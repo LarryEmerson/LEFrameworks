@@ -30,19 +30,19 @@
 
 - (void)dealloc
 {
-//    [m_EmojiCodeArray release];
-//    
-//    [super dealloc];
+    //    [m_EmojiCodeArray release];
+    //    
+    //    [super dealloc];
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 - (void)drawPageAtIndex:(NSInteger)index
 {
@@ -50,12 +50,13 @@
     CGFloat topGap = EMOJI_TOPGAP;
     CGFloat width = EMOJI_WIDTH;
     CGFloat height = EMOJI_HEIGHT;
-    
+    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
+    UIImage *img=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_btn_hbg" ofType:@"png"]];
     //row number
-	for (int i = 0; i < EMOJI_LINE; i++)
+    for (int i = 0; i < EMOJI_LINE; i++)
     {
-		//column numer
-		for (int j = 0; j < EMOJI_ONELINE_COUNT; j++)
+        //column numer
+        for (int j = 0; j < EMOJI_ONELINE_COUNT; j++)
         {
             if (i * EMOJI_ONELINE_COUNT + j + index * EMOJI_ONEPAGE_COUNT >= [m_EmojiCodeArray count])
             {
@@ -66,20 +67,20 @@
             [button setBackgroundColor:[UIColor clearColor]];
             button.titleLabel.font = [UIFont fontWithName:@"AppleColorEmoji" size:30.0f];
             [button setTitle:[m_EmojiCodeArray objectAtIndex:i * EMOJI_ONELINE_COUNT + j + index * EMOJI_ONEPAGE_COUNT] forState:UIControlStateNormal];
-            [button setBackgroundImage:[UIImage imageNamed:@"emoji_btn_hbg"] forState:UIControlStateHighlighted];
+            [button setBackgroundImage:img forState:UIControlStateHighlighted];
             [button setFrame:CGRectMake(leftGap + j * width, topGap + i * height, width, height)];
             button.tag = i*EMOJI_ONELINE_COUNT+j+(index*EMOJI_ONEPAGE_COUNT);
             [button addTarget:self action:@selector(selected:) forControlEvents:UIControlEventTouchUpInside];
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [button setTitleEdgeInsets:UIEdgeInsetsMake(8, 0, 0, 0)];
             [self addSubview:button];
-		}
-	}
+        }
+    }
 }
 
 -(void)selected:(UIButton*)button
 {
-//    NSString *str = [m_EmojiCodeArray objectAtIndex:button.tag];
+    //    NSString *str = [m_EmojiCodeArray objectAtIndex:button.tag];
     
     [self.delegate selectedEmojiatIndex:button.tag];
 }

@@ -791,6 +791,7 @@ static LEUIFramework *sharedInstance = nil;
         //
         self.curScreen=[UIScreen mainScreen];
         self.curScreenScale=(int)self.curScreen.scale;
+        self.leFrameworksBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
         [self extraInits];
     }
     return self;
@@ -1066,7 +1067,9 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
     }
     return nil;
 }
-
+- (UIImage *) getImageFromLEFrameworksWithName:(NSString *) name{
+    return [[UIImage alloc] initWithContentsOfFile:[self.leFrameworksBundle pathForResource:name ofType:@"png"]];
+}
 
 
 

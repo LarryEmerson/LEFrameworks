@@ -8,7 +8,7 @@
 
 #import "LEWaveProgressView.h"
 #import <QuartzCore/QuartzCore.h>
- 
+
 
 #define LEWaveDuration 2
 #define LEWaveMinHeight 0.15
@@ -17,7 +17,7 @@
     int curSize;
     int topHeight;
     float bottomHeight;
-
+    
     int startPoz;
     int endPoz;
     
@@ -46,15 +46,16 @@
     curSize=self.bounds.size.width;
     [self.layer setMasksToBounds:YES];
     [self.layer setCornerRadius:curSize/2];
-    UIImage *imgWave=[UIImage imageNamed:@"lewave"];
+    UIImage *imgWave=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"lewave"];
+    //    UIImage *imgWave=[UIImage imageNamed:@"lewave"];
     
     waveWidth=imgWave.size.width;
     
     movingWave =[[UIImageView alloc] initWithImage:[imgWave stretchableImageWithLeftCapWidth:0 topCapHeight:imgWave.size.height/2]];
-
+    
     topHeight    = curSize*LEWaveMinHeight;
     bottomHeight = curSize*(1-LEWaveMinHeight);
-
+    
     startPoz     =  -waveWidth*2.5/5.0;
     endPoz       =  -waveWidth*1.5/5.0;
     

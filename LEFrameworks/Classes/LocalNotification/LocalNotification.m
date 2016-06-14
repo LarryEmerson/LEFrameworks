@@ -8,7 +8,7 @@
 
 #import "LocalNotification.h"
 
- 
+
 
 #define MessageEnterTime 0.3
 #define MessagePauseTime    1.2
@@ -38,7 +38,8 @@
     self = [super initWithFrame:frame];
     [self setUserInteractionEnabled:NO];
     if (self) {
-        UIImage *BG=[UIImage imageNamed:@"MessageBackground"];
+        UIImage *BG=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"MessageBackground"];
+        //        UIImage *BG=[UIImage imageNamed:@"MessageBackground"];
         height=BG.size.height;
         space=10;
         MessageFontSize =20;

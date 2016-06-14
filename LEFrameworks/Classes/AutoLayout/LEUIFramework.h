@@ -338,6 +338,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 @property (nonatomic) BOOL IsIOS8;
 @property (nonatomic) BOOL IsIOS8OrLater;
 //
+@property (nonatomic) NSBundle *leFrameworksBundle;
 @property (nonatomic) NSDateFormatter *dateFormatter; 
 -(BOOL) canItBeTapped;
 #pragma Common
@@ -367,6 +368,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 + (BOOL)validateMobile:(NSString *)mobileNum ;
 + (NSString *) getComboString:(id) string,...;
 + (NSString *)typeForImageData:(NSData *)data;
+- (UIImage *) getImageFromLEFrameworksWithName:(NSString *) name;
 @end
 
 

@@ -152,13 +152,15 @@
     //
     scanSpaceW=(self.globalVar.ScreenWidth-DefaultScanRect)/2;
     //
-    UIImage *imgScanPickBG=[UIImage imageNamed:@"main_scan_pick_bg"];
+//    UIImage *imgScanPickBG=[UIImage imageNamed:@"main_scan_pick_bg"];
+    UIImage *imgScanPickBG=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"main_scan_pick_bg"];
     UIImageView *viewScanRect=[[UIImageView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, scanSpaceH) CGSize:CGSizeMake(DefaultScanRect, DefaultScanRect)]];
     [self.viewContainer addSubview:viewScanRect];
     [viewScanRect setBackgroundColor:[UIColor clearColor]];
     [viewScanRect setImage:imgScanPickBG];
     
-    UIImage *imgScanLine=[UIImage imageNamed:@"scan_line"];
+//    UIImage *imgScanLine=[UIImage imageNamed:@"scan_line"];
+    UIImage *imgScanLine=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"scan_line"];
     scanLine=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, DefaultScanRect, imgScanLine.size.height)];
     [scanLine setImage:imgScanLine];
     [viewScanRect addSubview:scanLine];

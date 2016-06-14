@@ -73,7 +73,8 @@
 -(void) setEnableArrow:(BOOL)hasArrow{
     self.hasArrow=hasArrow;
     if(self.hasArrow){
-        UIImage *img=[UIImage imageNamed:IMG_Cell_RightArrow];
+        UIImage *img=[[LEUIFramework instance] getImageFromLEFrameworksWithName:IMG_Cell_RightArrow];
+        //        UIImage *img=[UIImage imageNamed:IMG_Cell_RightArrow];
         [self.curArrow leSetImage:img WithSize:img.size];
     }else{
         [self.curArrow leSetImage:nil WithSize:CGSizeZero];

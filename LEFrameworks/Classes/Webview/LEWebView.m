@@ -12,7 +12,7 @@
     UIImageView *bottomView;
     //
     NSURL *curURL;
-//    int count;
+    //    int count;
     //
     UIImageView *viewRefresh;
     NSTimer *curTimer;
@@ -21,19 +21,28 @@
 }
 
 #define Space 6
- 
--(void) onShare{
 
+-(void) onShare{
+    
 }
 
 -(void) setExtraViewInits{
-    UIImage *imgIconRefresh=[UIImage imageNamed:@"web_icon_refresh"];
-    UIImage *imgIconBack=[UIImage imageNamed:@"web_icon_backward_on"];
-//    UIImage *imgIconBackDisabled=[UIImage imageNamed:@"browser_icon_back_disabled"];
-    UIImage *imgIconForward=[UIImage imageNamed:@"web_icon_forward_on"];
-//    UIImage *imgIconForwardDisabled=[UIImage imageNamed:@"browser_icon_forward_disabled"];
-    UIImage *imgIconShare=[UIImage imageNamed:@"web_icon_share"];
-    UIImage *imgBottom=[UIImage imageNamed:@"browser_bottombg"];
+    //    UIImage *imgIconRefresh=[UIImage imageNamed:@"web_icon_refresh"];
+    //    UIImage *imgIconBack=[UIImage imageNamed:@"web_icon_backward_on"];
+    //    UIImage *imgIconBackDisabled=[UIImage imageNamed:@"browser_icon_back_disabled"];
+    //    UIImage *imgIconForward=[UIImage imageNamed:@"web_icon_forward_on"];
+    //    UIImage *imgIconForwardDisabled=[UIImage imageNamed:@"browser_icon_forward_disabled"];
+    //    UIImage *imgIconShare=[UIImage imageNamed:@"web_icon_share"];
+    //    UIImage *imgBottom=[UIImage imageNamed:@"browser_bottombg"];
+    
+    UIImage *imgIconRefresh=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"web_icon_refresh"];
+    UIImage *imgIconBack   =[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"web_icon_backward_on"];
+    //    UIImage *imgIconBackDisabled   =[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"browser_icon_back_disabled"];
+    UIImage *imgIconForward=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"web_icon_forward_on"];
+    //    UIImage *imgIconForwardDisabled=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"browser_icon_forward_disabled"];
+    UIImage *imgIconShare=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"web_icon_share"];
+    UIImage *imgBottom=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"browser_bottombg"];
+    
     int bottomHeight=50;
     //
     bottomView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.viewContainer.bounds.size.height-bottomHeight, self.globalVar.ScreenWidth, bottomHeight)];
@@ -42,22 +51,22 @@
     [self.viewContainer addSubview:bottomView];
     //
     webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.globalVar.ScreenWidth, self.viewContainer.bounds.size.height-bottomHeight)];
-//    [webView setDelegate:self];
+    //    [webView setDelegate:self];
     [self.viewContainer addSubview:webView];
     //
     int buttonWidth=self.curFrameWidth/4;
     curButtons=[[NSMutableArray alloc] init];
     NSArray *array=[[NSArray alloc] initWithObjects:imgIconBack,imgIconForward,imgIconRefresh,imgIconShare, nil];
-//    NSArray *arrayDisabled=[[NSArray alloc] initWithObjects:imgIconBackDisabled,imgIconForwardDisabled, nil];
+    //    NSArray *arrayDisabled=[[NSArray alloc] initWithObjects:imgIconBackDisabled,imgIconForwardDisabled, nil];
     //
     for (int i=0; i<array.count; i++) {
         UIButton *button=[[UIButton alloc] initWithFrame:CGRectMake(buttonWidth*i, 0, buttonWidth, bottomHeight)];
         [bottomView addSubview:button];
         [button addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
         [button setImage:[array objectAtIndex:i] forState:UIControlStateNormal];
-//        if(i<arrayDisabled.count){
-//            [button setImage:[arrayDisabled objectAtIndex:i] forState:UIControlStateDisabled];
-//        }
+        //        if(i<arrayDisabled.count){
+        //            [button setImage:[arrayDisabled objectAtIndex:i] forState:UIControlStateDisabled];
+        //        }
         [curButtons addObject:button];
     }
     //
@@ -121,13 +130,13 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-//    count++;
-//    [[curButtons objectAtIndex:0] setEnabled:count>1];
-//    if(count<=1) {
-//        [self.title setFrame:CGRectMake(NavigationBarHeight, self.globalVar.IsStatusBarNotCovered?StatusBarHeight:0,self.globalVar.ScreenWidth-NavigationBarHeight*2, NavigationBarHeight)];
-//    }else{
-//        [self.title setFrame:CGRectMake(NavigationBarHeight*2+6, (self.globalVar.IsStatusBarNotCovered?StatusBarHeight:0), self.globalVar.ScreenWidth-NavigationBarHeight*3-6, NavigationBarHeight)];
-//    }
+    //    count++;
+    //    [[curButtons objectAtIndex:0] setEnabled:count>1];
+    //    if(count<=1) {
+    //        [self.title setFrame:CGRectMake(NavigationBarHeight, self.globalVar.IsStatusBarNotCovered?StatusBarHeight:0,self.globalVar.ScreenWidth-NavigationBarHeight*2, NavigationBarHeight)];
+    //    }else{
+    //        [self.title setFrame:CGRectMake(NavigationBarHeight*2+6, (self.globalVar.IsStatusBarNotCovered?StatusBarHeight:0), self.globalVar.ScreenWidth-NavigationBarHeight*3-6, NavigationBarHeight)];
+    //    }
     return YES;
 }
 
@@ -140,7 +149,7 @@
 }
 
 -(void) onWebRefresh{
-//    count-=1;
+    //    count-=1;
     [webView reload];
 }
 
@@ -185,11 +194,11 @@
 
 -(void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [self stopAnimation];
-//    NSLog(@"web didFailLoadWithError %@",error);
+    //    NSLog(@"web didFailLoadWithError %@",error);
     if ([error code] != NSURLErrorCancelled) {
         //show error alert, etc.
         [self addLocalNotification:error.localizedDescription];
     }
 }
- 
+
 @end

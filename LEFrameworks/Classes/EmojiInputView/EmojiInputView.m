@@ -60,12 +60,13 @@
     self = [super init];
     if (self)
     {
+        NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
         // Initialization code
         self.frame = CGRectMake(0, 0, UI_SCREEN_WIDTH, 216);
         self.backgroundColor = [UIColor clearColor];
         
         UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, 162)];
-        bgImageView.image = [[UIImage imageNamed:@"emoji_keybord_bg"] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
+        bgImageView.image = [[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_bg" ofType:@"png"]] stretchableImageWithLeftCapWidth:1 topCapHeight:0];
         [self addSubview:bgImageView];
         //[bgImageView release];
         
@@ -75,24 +76,32 @@
         //[bottomImageView release];
         
         NSArray *imagesForSelect = @[
-                                     [UIImage imageNamed:@"emoji_keybord_face_sicon"],
-                                     [UIImage imageNamed:@"emoji_keybord_bell_sicon"],
-                                     [UIImage imageNamed:@"emoji_keybord_flower_sicon"],
-                                     [UIImage imageNamed:@"emoji_keybord_car_sicon"],
-                                     [UIImage imageNamed:@"emoji_keybord_characters_sicon"],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_face_sicon" ofType:@"png"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_bell_sicon" ofType:@"png"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_flower_sicon" ofType:@"png"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_car_sicon" ofType:@"png"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_characters_sicon" ofType:@"png"]]
                                      ];
         
         NSArray *imagesForNormal = @[
-                                     [UIImage imageNamed:@"emoji_keybord_face_icon"],
-                                     [UIImage imageNamed:@"emoji_keybord_bell_icon"],
-                                     [UIImage imageNamed:@"emoji_keybord_flower_icon"],
-                                     [UIImage imageNamed:@"emoji_keybord_car_icon"],
-                                     [UIImage imageNamed:@"emoji_keybord_characters_icon"],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_face_icon" ofType:@"png"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_bell_icon" ofType:@"png"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_flower_icon" ofType:@"png"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_car_icon" ofType:@"png"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_characters_icon" ofType:@"png"]]
                                      ];
         
         self.m_BtnArray = [NSMutableArray arrayWithCapacity:0];
         
         CGFloat width = (UI_SCREEN_WIDTH-80)/5;
+        UIImage *imgKeyboardBG=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_icon_bg" ofType:@"png"]];
+        UIImage *imgKeyboardSBG=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_icon_sbg" ofType:@"png"]];
+        UIImage *imgSwitch=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_switch_icon" ofType:@"png"]];
+        UIImage *imgSwitchS=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_switch_sicon" ofType:@"png"]];
+        UIImage *imgDelete=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_delete_icon" ofType:@"png"]];
+        UIImage *imgDeleteS=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_delete_sicon" ofType:@"png"]];
+        UIImage *imgDot=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_page_dot" ofType:@"png"]];
+        UIImage *imgDots=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_page_dot_active" ofType:@"png"]];
         for (int i = 0 ; i < imagesForNormal.count; i++)
         {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -100,9 +109,9 @@
             [btn addTarget:self action:@selector(changeEmojiCategory:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = i;
             [btn setImage:[imagesForNormal objectAtIndex:i] forState:UIControlStateNormal];
-            [btn setBackgroundImage:[UIImage imageNamed:@"emoji_keybord_icon_bg"] forState:UIControlStateNormal];
+            [btn setBackgroundImage:imgKeyboardBG forState:UIControlStateNormal];
             [btn setImage:[imagesForSelect objectAtIndex:i] forState:UIControlStateSelected];
-            [btn setBackgroundImage:[UIImage imageNamed:@"emoji_keybord_icon_sbg"] forState:UIControlStateSelected];
+            [btn setBackgroundImage:imgKeyboardSBG forState:UIControlStateSelected];
             [bottomImageView addSubview:btn];
             
             [m_BtnArray addObject:btn];
@@ -111,15 +120,15 @@
         UIButton *lbtn = [UIButton buttonWithType:UIButtonTypeCustom];
         lbtn.frame = CGRectMake(0, 0, 40, 54);
         [lbtn addTarget:self action:@selector(switchEmoji:) forControlEvents:UIControlEventTouchUpInside];
-        [lbtn setImage:[UIImage imageNamed:@"emoji_keybord_switch_icon"] forState:UIControlStateNormal];
-        [lbtn setImage:[UIImage imageNamed:@"emoji_keybord_switch_sicon"] forState:UIControlStateHighlighted];
+        [lbtn setImage:imgSwitch forState:UIControlStateNormal];
+        [lbtn setImage:imgSwitchS forState:UIControlStateHighlighted];
         [bottomImageView addSubview:lbtn];
         
         UIButton *rbtn = [UIButton buttonWithType:UIButtonTypeCustom];
         rbtn.frame = CGRectMake(UI_SCREEN_WIDTH-40, 0, 40, 54);
         [rbtn addTarget:self action:@selector(deleteEmoji:) forControlEvents:UIControlEventTouchUpInside];
-        [rbtn setImage:[UIImage imageNamed:@"emoji_keybord_delete_icon"] forState:UIControlStateNormal];
-        [rbtn setImage:[UIImage imageNamed:@"emoji_keybord_delete_sicon"] forState:UIControlStateHighlighted];
+        [rbtn setImage:imgDelete forState:UIControlStateNormal];
+        [rbtn setImage:imgDeleteS forState:UIControlStateHighlighted];
         [bottomImageView addSubview:rbtn];
         
         s_ScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_WIDTH, EMOJI_VIEW_HEIGHT)];
@@ -139,8 +148,8 @@
         }
         else
         {
-            s_PageControl.imagePageStateNormal = [UIImage imageNamed:@"emoji_page_dot"];
-            s_PageControl.imagePageStateHighlighted = [UIImage imageNamed:@"emoji_page_dot_active"];
+            s_PageControl.imagePageStateNormal =imgDot;
+            s_PageControl.imagePageStateHighlighted = imgDots;
         }
         
         s_PageControl.frame = CGRectMake(0, EMOJI_VIEW_HEIGHT, UI_SCREEN_WIDTH, 10);

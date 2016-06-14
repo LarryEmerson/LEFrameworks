@@ -49,7 +49,9 @@
     _promptLabel=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:container Anchor:LEAnchorInsideCenter Offset:CGPointMake(NavigationBarHeight/3, 0) CGSize:CGSizeMake(screenWidth/2, container.bounds.size.height)] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:13 Font:nil Width:0 Height:0 Color:ColorBlack Line:1 Alignment:NSTextAlignmentLeft]];
     _promptLabel.backgroundColor=[UIColor clearColor];
     //
-    _imageView=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:aniView Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] Image: [UIImage imageNamed:@"dj_arrow_down"]];
+    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
+    UIImage *img=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"dj_arrow_down" ofType:@"png"]];
+    _imageView=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:aniView Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] Image:img];
     [self reset];
 }
 -(void) setOffset:(float) height{
