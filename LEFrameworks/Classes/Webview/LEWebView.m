@@ -26,15 +26,7 @@
     
 }
 
--(void) setExtraViewInits{
-    //    UIImage *imgIconRefresh=[UIImage imageNamed:@"web_icon_refresh"];
-    //    UIImage *imgIconBack=[UIImage imageNamed:@"web_icon_backward_on"];
-    //    UIImage *imgIconBackDisabled=[UIImage imageNamed:@"browser_icon_back_disabled"];
-    //    UIImage *imgIconForward=[UIImage imageNamed:@"web_icon_forward_on"];
-    //    UIImage *imgIconForwardDisabled=[UIImage imageNamed:@"browser_icon_forward_disabled"];
-    //    UIImage *imgIconShare=[UIImage imageNamed:@"web_icon_share"];
-    //    UIImage *imgBottom=[UIImage imageNamed:@"browser_bottombg"];
-    
+-(void) setExtraViewInits{ 
     UIImage *imgIconRefresh=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"web_icon_refresh"];
     UIImage *imgIconBack   =[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"web_icon_backward_on"];
     //    UIImage *imgIconBackDisabled   =[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"browser_icon_back_disabled"];

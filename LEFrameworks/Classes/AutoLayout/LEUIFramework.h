@@ -21,8 +21,8 @@ _Pragma("clang diagnostic pop") \
 
 
 #pragma mark 资源名称需要对应
-#define IMG_Cell_RightArrow @"tableview_icon_arrow"
-#define IMG_ArrowLeft @"common_navigation_btn_back"
+#define IMG_Cell_RightArrow     [[LEUIFramework instance] getImageFromLEFrameworksWithName:@"tableview_icon_arrow"]
+#define IMG_ArrowLeft           [[LEUIFramework instance] getImageFromLEFrameworksWithName:@"common_navigation_btn_back"]
 
 typedef NS_ENUM(NSInteger, LEAnchors) {
     //Inside
@@ -193,7 +193,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 @interface UIViewController (Extension)
 -(void) setLeftBarButtonWithImage:(UIImage *) img SEL:(SEL) sel;
 -(void) setRightBarButtonWithImage:(UIImage *)img SEL:(SEL) sel;
--(void) setLeftBarButtonAsBackWith:(NSString *) back;
+-(void) setLeftBarButtonAsBackWith:(UIImage *) back;
 @end
 @interface NSObject (Extension)
 -(NSString *) StringValue;
@@ -368,6 +368,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 + (BOOL)validateMobile:(NSString *)mobileNum ;
 + (NSString *) getComboString:(id) string,...;
 + (NSString *)typeForImageData:(NSData *)data;
+- (NSString *) getImagePathFromLEFrameworksWithName:(NSString *) name;
 - (UIImage *) getImageFromLEFrameworksWithName:(NSString *) name;
 @end
 

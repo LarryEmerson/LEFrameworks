@@ -28,9 +28,9 @@
     [self initUIWithData];
 }
 -(void) initUIWithData{}
--(void) setIcon:(NSString *) icon LeftText:(NSString *) left RightText:(NSString *) right{
+-(void) setIcon:(UIImage *) icon LeftText:(NSString *) left RightText:(NSString *) right{
     if(icon){
-        [curIcon setImage:[LEUIFramework getMiddleStrechedImage:[UIImage imageNamed:icon]]];
+        [curIcon setImage:[LEUIFramework getMiddleStrechedImage:icon]];
     }
     if(left){
         [labelLeft leSetText: left];

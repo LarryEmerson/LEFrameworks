@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'LEFrameworks'
-s.version          = '0.1.7'
+s.version          = '0.1.8'
 s.summary          = 'IOS Development Frameworks 公司IOS开发库：自动排版、列表封装、数据模型、网络库封装'
 
 # This description is used to generate tags and improve search results.
@@ -37,18 +37,10 @@ s.source           = { :git => 'https://github.com/LarryEmerson/LEFrameworks.git
 # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
 s.ios.deployment_target = '7.0'
-
-s.source_files = 'LEFrameworks/Classes/**/*'
-
 s.resource_bundles = {
 'LEFrameworks' => ['LEFrameworks/Assets/*.png']
 }
-
+s.source_files = 'LEFrameworks/Classes/**/*'
 # s.public_header_files = 'Pod/Classes/**/*.h'
-s.frameworks = 'UIKit', 'MapKit', 'AssetsLibrary', 'JavaScriptCore', 'CoreTelephony', 'CFNetwork'
-s.library = 'sqlite3', 'c', 'icucore', 'z', 'stdc++.6.0.9'
-s.dependency "Qiniu"
-s.dependency "FLAnimatedImage"
-s.dependency "SDWebImage"
-s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
+
 end

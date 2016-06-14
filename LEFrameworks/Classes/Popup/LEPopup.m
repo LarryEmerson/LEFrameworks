@@ -52,7 +52,7 @@
     return [LEPopup showQuestionPopupWithTitle:title Subtitle:subtitle Alignment:textAlignment LeftButtonText:@"取消" RightButtonText:@"确定" Delegate:delegate];
 }
 +(LEPopup *) showQuestionPopupWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Alignment:(NSTextAlignment) textAlignment LeftButtonText:(NSString *)leftText RightButtonText:(NSString *)rightText Delegate:(id<LEPopupDelegate>) delegate {
-    return [LEPopup showQuestionPopupWithTitle:title Subtitle:subtitle Alignment:textAlignment LeftButtonImage:[[UIImage imageNamed:LEPopupCancleImage] middleStrechedImage] RightButtonImage:[[UIImage imageNamed:@"common_btn_blue"] middleStrechedImage] LeftButtonText:leftText RightButtonText:rightText Delegate:delegate];
+    return [LEPopup showQuestionPopupWithTitle:title Subtitle:subtitle Alignment:textAlignment LeftButtonImage:[LEPopupCancleImage middleStrechedImage] RightButtonImage:[LEPopupOKImage middleStrechedImage] LeftButtonText:leftText RightButtonText:rightText Delegate:delegate];
 }
 +(LEPopup *) showQuestionPopupWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Alignment:(NSTextAlignment) textAlignment LeftButtonImage:(UIImage *)leftImg RightButtonImage:(UIImage *)rightImg LeftButtonText:(NSString *)leftText RightButtonText:(NSString *)rightText Delegate:(id<LEPopupDelegate>) delegate{
     LEPopupSettings *settings=[[LEPopupSettings alloc] init];
@@ -68,7 +68,7 @@
     return popup;
 }
 +(LEPopup *) showTipPopupWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Alignment:(NSTextAlignment) textAlignment{
-    return [LEPopup showTipPopupWithTitle:title Subtitle:subtitle Alignment:textAlignment ButtonImage:[[UIImage imageNamed:LEPopupOKImage] middleStrechedImage] ButtonText:@"确定"];
+    return [LEPopup showTipPopupWithTitle:title Subtitle:subtitle Alignment:textAlignment ButtonImage:[LEPopupOKImage middleStrechedImage] ButtonText:@"确定"];
 }
 +(LEPopup *) showTipPopupWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Alignment:(NSTextAlignment) textAlignment ButtonImage:(UIImage *)img ButtonText:(NSString *) text{
     LEPopupSettings *settings=[[LEPopupSettings alloc] init];
@@ -119,10 +119,7 @@
 -(void) initUI{
     [self setAlpha:0]; 
     [self addTapEventWithSEL:@selector(onBackgroundTapped) Target:self];
-    if(!curSettings.backgroundImage&&LEPopupBGImage.length>0){
-        curSettings.backgroundImage=LEPopupBGImage;
-    }
-    curBackground=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(W-curSettings.sideEdge*2, curSettings.maxHeight)] Image:curSettings.backgroundImage?[[UIImage imageNamed:curSettings.backgroundImage] middleStrechedImage]:[ColorWhite imageStrechedFromSizeOne]];
+    curBackground=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(W-curSettings.sideEdge*2, curSettings.maxHeight)] Image:curSettings.backgroundImage?[[UIImage imageNamed:curSettings.backgroundImage] middleStrechedImage]:(LEPopupBGImage?LEPopupBGImage:[ColorWhite imageStrechedFromSizeOne])];
     [curBackground setUserInteractionEnabled:YES];
     [curBackground addTapEventWithSEL:nil];
     curContentContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curBackground EdgeInsects:curSettings.contentInsects]];

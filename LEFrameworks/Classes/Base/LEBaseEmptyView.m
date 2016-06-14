@@ -33,9 +33,9 @@
         } 
         [self setUserInteractionEnabled:!fullScreen];
         [self setBackgroundColor:fullScreen?ColorClear:[LEUIFramework instance].colorNavigationBar];
-        NSString *background=[dataModel objectForKey:KeyOfNavigationBackground];
+        UIImage *background=[dataModel objectForKey:KeyOfNavigationBackground];
         if(background){
-            [self setImage:[[UIImage imageNamed:background] middleStrechedImage]];
+            [self setImage:[background middleStrechedImage]];
         }
     }
 }
@@ -50,26 +50,26 @@
 -(void) onUpdateViewWithDataModel:(NSDictionary *) dataModel{
     [super onUpdateViewWithDataModel:dataModel];
     self.navigationDataModel=dataModel;
-    NSString *back=nil;
+    UIImage *back=nil;
     NSString *title=nil;
-    NSString *right=nil;
+    UIImage *right=nil;
     if(dataModel){
         back=[dataModel objectForKey:KeyOfNavigationBackButton];
         title=[dataModel objectForKey:KeyOfNavigationTitle];
         right=[dataModel objectForKey:KeyOfNavigationRightButton];
-        if(back&&back.length>0){
-            [self.curButtonBack setImage:[UIImage imageNamed:back] forState:UIControlStateNormal];
+        if(back){
+            [self.curButtonBack setImage:back forState:UIControlStateNormal];
         }
         if(title){
             [self.curLabelTitle leSetText:title];
         }
-        if(right&&right.length>0){
-            [self.curButtonRight setImage:[UIImage imageNamed:right] forState:UIControlStateNormal];
+        if(right){
+            [self.curButtonRight setImage:right forState:UIControlStateNormal];
         }
     }
     [self.curViewMiddle setHidden:!title];
-    [self.curViewLeft setHidden:!(back&&back.length>0)];
-    [self.curViewRight setHidden:!(right&&right.length>0)]; 
+    [self.curViewLeft setHidden:(back==nil)];
+    [self.curViewRight setHidden:(right==nil)];
 }
 -(void) onButtonClicked:(UIButton *) button{
     NSString *code=@"";
@@ -157,7 +157,7 @@
     if(navigationClass&&navigationClass.length>0){
         SuppressPerformSelectorLeakWarning(
                                            self.curNavigationView=[[NSClassFromString(navigationClass) alloc] performSelector:NSSelectorFromString(@"initWithAutoLayoutSettings:ViewDataModel:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, NavigationBarHeight+StatusBarHeight)] withObject:dataModel];
-        );
+                                           );
     }
     [self setExtraViewInits];
     return self;

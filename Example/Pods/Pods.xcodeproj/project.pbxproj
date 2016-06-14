@@ -779,21 +779,11 @@
 		800104141D0EDAC5000A0F1B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				800104151D0EDAC5000A0F1B /* BabyBluetooth */,
 				800104161D0EDAC5000A0F1B /* Date */,
 				8001041B1D0EDAC5000A0F1B /* DJRefresh */,
-				800104261D0EDAC5000A0F1B /* fmdb */,
-				800104271D0EDAC5000A0F1B /* HMBannerView */,
 				800104291D0EDAC5000A0F1B /* JinnLock */,
 			);
 			path = ThirdParty;
-			sourceTree = "<group>";
-		};
-		800104151D0EDAC5000A0F1B /* BabyBluetooth */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BabyBluetooth;
 			sourceTree = "<group>";
 		};
 		800104161D0EDAC5000A0F1B /* Date */ = {
@@ -831,28 +821,6 @@
 			path = DJRefreshView;
 			sourceTree = "<group>";
 		};
-		800104261D0EDAC5000A0F1B /* fmdb */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = fmdb;
-			sourceTree = "<group>";
-		};
-		800104271D0EDAC5000A0F1B /* HMBannerView */ = {
-			isa = PBXGroup;
-			children = (
-				800104281D0EDAC5000A0F1B /* Images */,
-			);
-			path = HMBannerView;
-			sourceTree = "<group>";
-		};
-		800104281D0EDAC5000A0F1B /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
 		800104291D0EDAC5000A0F1B /* JinnLock */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,27 +839,6 @@
 			path = JinnLock;
 			sourceTree = "<group>";
 		};
-		800104351D0EDAC5000A0F1B /* BlueTooth */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BlueTooth;
-			sourceTree = "<group>";
-		};
-		800104361D0EDAC5000A0F1B /* Cache */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cache;
-			sourceTree = "<group>";
-		};
-		800104371D0EDAC5000A0F1B /* DataModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataModel;
-			sourceTree = "<group>";
-		};
 		800104381D0EDAC5000A0F1B /* Templates */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,13 +846,6 @@
 				8001043A1D0EDAC5000A0F1B /* LETableViewPage.m */,
 			);
 			path = Templates;
-			sourceTree = "<group>";
-		};
-		8001043B1D0EDAC5000A0F1B /* ImageViewer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ImageViewer;
 			sourceTree = "<group>";
 		};
 		8001043C1D0EDAC5000A0F1B /* ImagePicker */ = {
@@ -1230,11 +1170,7 @@
 				8001040C1D0EDAC5000A0F1B /* LocalNotification */,
 				8001040F1D0EDAC5000A0F1B /* Popup */,
 				800104141D0EDAC5000A0F1B /* ThirdParty */,
-				800104351D0EDAC5000A0F1B /* BlueTooth */,
-				800104361D0EDAC5000A0F1B /* Cache */,
-				800104371D0EDAC5000A0F1B /* DataModel */,
 				800104381D0EDAC5000A0F1B /* Templates */,
-				8001043B1D0EDAC5000A0F1B /* ImageViewer */,
 				8001043C1D0EDAC5000A0F1B /* ImagePicker */,
 				8001043F1D0EDAC6000A0F1B /* AutoLayout */,
 			);

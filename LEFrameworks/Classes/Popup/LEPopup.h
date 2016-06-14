@@ -7,9 +7,9 @@
 //
 #import <UIKit/UIKit.h>
 #import "LEUIFramework.h"
-#define LEPopupCancleImage @"common_btn_gray"
-#define LEPopupOKImage @"common_btn_blue"
-#define LEPopupBGImage @"popup_bg"
+#define LEPopupCancleImage  [[LEUIFramework instance] getImageFromLEFrameworksWithName:@"common_btn_gray"]
+#define LEPopupOKImage      [[LEUIFramework instance] getImageFromLEFrameworksWithName:@"common_btn_blue"]
+#define LEPopupBGImage      [[LEUIFramework instance] getImageFromLEFrameworksWithName:@"popup_bg"]
 
 
 @protocol LEPopupDelegate<NSObject>

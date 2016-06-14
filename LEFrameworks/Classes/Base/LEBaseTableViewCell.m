@@ -73,9 +73,7 @@
 -(void) setEnableArrow:(BOOL)hasArrow{
     self.hasArrow=hasArrow;
     if(self.hasArrow){
-        UIImage *img=[[LEUIFramework instance] getImageFromLEFrameworksWithName:IMG_Cell_RightArrow];
-        //        UIImage *img=[UIImage imageNamed:IMG_Cell_RightArrow];
-        [self.curArrow leSetImage:img WithSize:img.size];
+        [self.curArrow leSetImage:IMG_Cell_RightArrow WithSize:IMG_Cell_RightArrow.size];
     }else{
         [self.curArrow leSetImage:nil WithSize:CGSizeZero];
     }
@@ -85,7 +83,7 @@
         [LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.globalVar.ScreenWidth, 0.5)] Image:[imgSplit middleStrechedImage]];
     }
     if(self.hasArrow){
-        self.curArrow=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-CellArrowSpaceAs/2, 0) CGSize:CGSizeZero] Image:IMG_Cell_RightArrow Streched:NO];
+        self.curArrow=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-CellArrowSpaceAs/2, 0) CGSize:CGSizeZero] Image:IMG_Cell_RightArrow];
     }
 }
 -(void) setCellHeight:(int) height{

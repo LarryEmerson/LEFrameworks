@@ -20,8 +20,8 @@
 -(void) setRightBarButtonWithImage:(UIImage *)img SEL:(SEL)sel{
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:sel] animated:YES];
 }
--(void) setLeftBarButtonAsBackWith:(NSString *) back{
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:back] style:UIBarButtonItemStylePlain target:self action:@selector(onVCBack)] animated:YES];
+-(void) setLeftBarButtonAsBackWith:(UIImage *) back{
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithImage:back style:UIBarButtonItemStylePlain target:self action:@selector(onVCBack)] animated:YES];
 }
 -(void) onVCBack{
     [self.navigationController popViewControllerAnimated:YES];
@@ -1067,9 +1067,11 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
     }
     return nil;
 }
-- (UIImage *) getImageFromLEFrameworksWithName:(NSString *) name{
-    NSString *path= [NSString stringWithFormat:@"%@/%@.png",self.leFrameworksBundle.bundlePath,name];
-    return [[UIImage alloc] initWithContentsOfFile:path];
+- (NSString *) getImagePathFromLEFrameworksWithName:(NSString *) name{
+    return [NSString stringWithFormat:@"%@/%@.png",self.leFrameworksBundle.bundlePath,name];
+}
+- (UIImage *) getImageFromLEFrameworksWithName:(NSString *) name{ 
+    return [[UIImage alloc] initWithContentsOfFile:[self getImagePathFromLEFrameworksWithName:name]];
 }
 
 

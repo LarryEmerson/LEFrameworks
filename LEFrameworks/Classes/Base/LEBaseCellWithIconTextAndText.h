@@ -10,5 +10,5 @@
 @interface LEBaseCellWithIconTextAndText : LEBaseTableViewCell
 @property (nonatomic) UILabel *labelRight;
 -(void) initUIWithData;
--(void) setIcon:(NSString *) icon LeftText:(NSString *) left RightText:(NSString *) right;
+-(void) setIcon:(UIImage *) icon LeftText:(NSString *) left RightText:(NSString *) right;
 @end
