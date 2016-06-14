@@ -25,7 +25,7 @@
 }
 -(void) initUI{
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
-    UIImage *img=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"sr_refresh" ofType:@"png"]];
+    UIImage *img=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"sr_refresh"]];
     //    UIImage *img=[UIImage imageNamed:@"sr_refresh"];
     [self setFrame:CGRectMake(0,0, img.size.width, img.size.height)];
     self.viewWidth=img.size.width;

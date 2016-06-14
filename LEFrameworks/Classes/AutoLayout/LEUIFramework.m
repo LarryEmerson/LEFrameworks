@@ -1068,7 +1068,8 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
     return nil;
 }
 - (UIImage *) getImageFromLEFrameworksWithName:(NSString *) name{
-    return [[UIImage alloc] initWithContentsOfFile:[self.leFrameworksBundle pathForResource:name ofType:@"png"]];
+    NSString *path= [NSString stringWithFormat:@"%@/%@.png",self.leFrameworksBundle.bundlePath,name];
+    return [[UIImage alloc] initWithContentsOfFile:path];
 }
 
 

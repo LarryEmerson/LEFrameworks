@@ -27,8 +27,8 @@
 - (void)awakeFromNib
 {
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
-    self.imagePageStateNormal =[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"black_page_control" ofType:@"png"]] ;
-    self.imagePageStateHighlighted =[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"black_page_control_active" ofType:@"png"]];
+    self.imagePageStateNormal =[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"black_page_control"]];
+    self.imagePageStateHighlighted =[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"black_page_control_active"]];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -36,8 +36,8 @@
     // 初始化
     self = [super initWithFrame:frame];
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
-    self.imagePageStateNormal =[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"black_page_control" ofType:@"png"]];
-    self.imagePageStateHighlighted =[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"black_page_control_active" ofType:@"png"]];
+    self.imagePageStateNormal =[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"black_page_control"]];
+    self.imagePageStateHighlighted =[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"black_page_control_active"]];
     
     return self;
 }

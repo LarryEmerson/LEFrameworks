@@ -76,32 +76,32 @@
         //[bottomImageView release];
         
         NSArray *imagesForSelect = @[
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_face_sicon" ofType:@"png"]],
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_bell_sicon" ofType:@"png"]],
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_flower_sicon" ofType:@"png"]],
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_car_sicon" ofType:@"png"]],
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_characters_sicon" ofType:@"png"]]
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_face_sicon"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_bell_sicon"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_flower_sicon"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_car_sicon"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_characters_sicon"]]
                                      ];
         
         NSArray *imagesForNormal = @[
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_face_icon" ofType:@"png"]],
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_bell_icon" ofType:@"png"]],
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_flower_icon" ofType:@"png"]],
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_car_icon" ofType:@"png"]],
-                                     [[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_characters_icon" ofType:@"png"]]
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_face_icon"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_bell_icon"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_flower_icon"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_car_icon"]],
+                                     [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_characters_icon"]]
                                      ];
         
         self.m_BtnArray = [NSMutableArray arrayWithCapacity:0];
         
         CGFloat width = (UI_SCREEN_WIDTH-80)/5;
-        UIImage *imgKeyboardBG=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_icon_bg" ofType:@"png"]];
-        UIImage *imgKeyboardSBG=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_icon_sbg" ofType:@"png"]];
-        UIImage *imgSwitch=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_switch_icon" ofType:@"png"]];
-        UIImage *imgSwitchS=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_switch_sicon" ofType:@"png"]];
-        UIImage *imgDelete=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_delete_icon" ofType:@"png"]];
-        UIImage *imgDeleteS=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_keybord_delete_sicon" ofType:@"png"]];
-        UIImage *imgDot=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_page_dot" ofType:@"png"]];
-        UIImage *imgDots=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_page_dot_active" ofType:@"png"]];
+        UIImage *imgKeyboardBG=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_icon_bg"]] ;
+        UIImage *imgKeyboardSBG=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_icon_sbg"]] ;
+        UIImage *imgSwitch=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_switch_icon"]] ;
+        UIImage *imgSwitchS=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_switch_sicon"]] ;
+        UIImage *imgDelete=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_delete_icon"]] ;
+        UIImage *imgDeleteS=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_keybord_delete_sicon"]] ;
+        UIImage *imgDot=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_page_dot"]] ;
+        UIImage *imgDots=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_page_dot_active"]] ;
         for (int i = 0 ; i < imagesForNormal.count; i++)
         {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

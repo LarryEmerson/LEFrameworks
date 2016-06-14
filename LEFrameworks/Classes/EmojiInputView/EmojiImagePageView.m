@@ -51,7 +51,7 @@
     CGFloat width = EMOJI_WIDTH;
     CGFloat height = EMOJI_HEIGHT;
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
-    UIImage *img=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"emoji_btn_hbg" ofType:@"png"]];
+    UIImage *img=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"emoji_btn_hbg"]];
     //row number
     for (int i = 0; i < EMOJI_LINE; i++)
     {

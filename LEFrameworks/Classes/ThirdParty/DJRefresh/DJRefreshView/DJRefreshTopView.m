@@ -50,7 +50,7 @@
     _promptLabel.backgroundColor=[UIColor clearColor];
     //
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
-    UIImage *img=[[UIImage alloc] initWithContentsOfFile:[bundle pathForResource:@"dj_arrow_down" ofType:@"png"]];
+    UIImage *img=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"dj_arrow_down"]];
     _imageView=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:aniView Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] Image:img];
     [self reset];
 }
