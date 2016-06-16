@@ -865,7 +865,7 @@ static LEUIFramework *sharedInstance = nil;
     return label;
 }
 +(UILabel *) getUILabelWithSettings:(LEAutoLayoutSettings *) settings LabelSettings:(LEAutoLayoutLabelSettings *) labelSettings {
-    CGSize size;
+    CGSize size=CGSizeZero;
     int width=labelSettings.leWidth;
     int height=labelSettings.leHeight;
     if(width==0||width>[LEUIFramework instance].ScreenWidth){
