@@ -53,8 +53,9 @@
         if(self.curBottomSplit){
             [self.curBottomSplit setHidden:NO];
         }else{
-            self.curBottomSplit=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(self.globalVar.ScreenWidth-self.bottomSplitSpace*2, 0.5 )] Image:[ColorSplit imageStrechedFromSizeOne]];
+            self.curBottomSplit=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(self.bounds.size.width-self.bottomSplitSpace*2, 0.5 )] Image:[ColorSplit imageStrechedFromSizeOne]];
         }
+        [self addSubview:self.curBottomSplit];
     }else{
         if(self.curBottomSplit){
             [self.curBottomSplit setHidden:YES];
@@ -80,17 +81,17 @@
 }
 -(void) initCellStyle{
     if(self.hasTopSplit){
-        [LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.globalVar.ScreenWidth, 0.5)] Image:[imgSplit middleStrechedImage]];
+        [LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.bounds.size.width, 0.5)] Image:[imgSplit middleStrechedImage]];
     }
     if(self.hasArrow){
         self.curArrow=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-CellArrowSpaceAs/2, 0) CGSize:CGSizeZero] Image:IMG_Cell_RightArrow];
     }
 }
 -(void) setCellHeight:(int) height{
-    [self setCellHeight:height TapWidth:self.globalVar.ScreenWidth];
+    [self setCellHeight:height TapWidth:self.bounds.size.width];
 }
 -(void) setCellHeight:(int) height TapWidth:(int) width {
-    [self leSetSize:CGSizeMake(self.globalVar.ScreenWidth, height)];
+    [self leSetSize:CGSizeMake(self.bounds.size.width, height)];
     
 }
 -(void) onButtonTaped{
