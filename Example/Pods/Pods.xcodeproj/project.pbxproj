@@ -179,6 +179,16 @@
 		800104E71D0EDAC6000A0F1B /* LEUIFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 800104401D0EDAC6000A0F1B /* LEUIFramework.h */; };
 		800104E81D0EDAC6000A0F1B /* LEUIFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 800104411D0EDAC6000A0F1B /* LEUIFramework.m */; };
 		800104E91D0EDAC6000A0F1B /* LEUIFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 800104411D0EDAC6000A0F1B /* LEUIFramework.m */; };
+		80B6ACC31D152E420056EFE4 /* WPAttributedStyleAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B6ACB81D152E420056EFE4 /* WPAttributedStyleAction.h */; };
+		80B6ACC41D152E420056EFE4 /* WPAttributedStyleAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B6ACB91D152E420056EFE4 /* WPAttributedStyleAction.m */; };
+		80B6ACC51D152E420056EFE4 /* WPHotspotLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B6ACBA1D152E420056EFE4 /* WPHotspotLabel.h */; };
+		80B6ACC61D152E420056EFE4 /* WPHotspotLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B6ACBB1D152E420056EFE4 /* WPHotspotLabel.m */; };
+		80B6ACC71D152E420056EFE4 /* WPTappableLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B6ACBC1D152E420056EFE4 /* WPTappableLabel.h */; };
+		80B6ACC81D152E420056EFE4 /* WPTappableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B6ACBD1D152E420056EFE4 /* WPTappableLabel.m */; };
+		80B6ACC91D152E420056EFE4 /* NSMutableString+TagReplace.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B6ACBF1D152E420056EFE4 /* NSMutableString+TagReplace.h */; };
+		80B6ACCA1D152E420056EFE4 /* NSMutableString+TagReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B6ACC01D152E420056EFE4 /* NSMutableString+TagReplace.m */; };
+		80B6ACCB1D152E420056EFE4 /* NSString+WPAttributedMarkup.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B6ACC11D152E420056EFE4 /* NSString+WPAttributedMarkup.h */; };
+		80B6ACCC1D152E420056EFE4 /* NSString+WPAttributedMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B6ACC21D152E420056EFE4 /* NSString+WPAttributedMarkup.m */; };
 		CD9F5AC0B271F676FD64CDB9704BD958 /* Pods-LEFrameworks_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C552E31EE9E16DF118D3017BF4696DD5 /* Pods-LEFrameworks_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE9040E568DDF3E27ED3B74F7F635A98 /* Pods-LEFrameworks_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1A5F78578EBD137C3FCA388D662DB0 /* Pods-LEFrameworks_Tests-dummy.m */; };
 /* End PBXBuildFile section */
@@ -286,6 +296,16 @@
 		8001043E1D0EDAC6000A0F1B /* MultiImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiImagePicker.m; sourceTree = "<group>"; };
 		800104401D0EDAC6000A0F1B /* LEUIFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEUIFramework.h; sourceTree = "<group>"; };
 		800104411D0EDAC6000A0F1B /* LEUIFramework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEUIFramework.m; sourceTree = "<group>"; };
+		80B6ACB81D152E420056EFE4 /* WPAttributedStyleAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPAttributedStyleAction.h; sourceTree = "<group>"; };
+		80B6ACB91D152E420056EFE4 /* WPAttributedStyleAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPAttributedStyleAction.m; sourceTree = "<group>"; };
+		80B6ACBA1D152E420056EFE4 /* WPHotspotLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPHotspotLabel.h; sourceTree = "<group>"; };
+		80B6ACBB1D152E420056EFE4 /* WPHotspotLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPHotspotLabel.m; sourceTree = "<group>"; };
+		80B6ACBC1D152E420056EFE4 /* WPTappableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTappableLabel.h; sourceTree = "<group>"; };
+		80B6ACBD1D152E420056EFE4 /* WPTappableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTappableLabel.m; sourceTree = "<group>"; };
+		80B6ACBF1D152E420056EFE4 /* NSMutableString+TagReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+TagReplace.h"; sourceTree = "<group>"; };
+		80B6ACC01D152E420056EFE4 /* NSMutableString+TagReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+TagReplace.m"; sourceTree = "<group>"; };
+		80B6ACC11D152E420056EFE4 /* NSString+WPAttributedMarkup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WPAttributedMarkup.h"; sourceTree = "<group>"; };
+		80B6ACC21D152E420056EFE4 /* NSString+WPAttributedMarkup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WPAttributedMarkup.m"; sourceTree = "<group>"; };
 		80E0021C1D0FAADB0005E0DB /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		80E003081D0FDF6F0005E0DB /* banner_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_close@2x.png"; sourceTree = "<group>"; };
 		80E003091D0FDF6F0005E0DB /* banner_shadowline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_shadowline@2x.png"; sourceTree = "<group>"; };
@@ -779,6 +799,7 @@
 		800104141D0EDAC5000A0F1B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				80B6ACB61D152E420056EFE4 /* WPAttributedMarkup */,
 				800104161D0EDAC5000A0F1B /* Date */,
 				8001041B1D0EDAC5000A0F1B /* DJRefresh */,
 				800104291D0EDAC5000A0F1B /* JinnLock */,
@@ -864,6 +885,39 @@
 				800104411D0EDAC6000A0F1B /* LEUIFramework.m */,
 			);
 			path = AutoLayout;
+			sourceTree = "<group>";
+		};
+		80B6ACB61D152E420056EFE4 /* WPAttributedMarkup */ = {
+			isa = PBXGroup;
+			children = (
+				80B6ACB71D152E420056EFE4 /* Extras */,
+				80B6ACBE1D152E420056EFE4 /* WPAttributedMarkup */,
+			);
+			path = WPAttributedMarkup;
+			sourceTree = "<group>";
+		};
+		80B6ACB71D152E420056EFE4 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				80B6ACB81D152E420056EFE4 /* WPAttributedStyleAction.h */,
+				80B6ACB91D152E420056EFE4 /* WPAttributedStyleAction.m */,
+				80B6ACBA1D152E420056EFE4 /* WPHotspotLabel.h */,
+				80B6ACBB1D152E420056EFE4 /* WPHotspotLabel.m */,
+				80B6ACBC1D152E420056EFE4 /* WPTappableLabel.h */,
+				80B6ACBD1D152E420056EFE4 /* WPTappableLabel.m */,
+			);
+			path = Extras;
+			sourceTree = "<group>";
+		};
+		80B6ACBE1D152E420056EFE4 /* WPAttributedMarkup */ = {
+			isa = PBXGroup;
+			children = (
+				80B6ACBF1D152E420056EFE4 /* NSMutableString+TagReplace.h */,
+				80B6ACC01D152E420056EFE4 /* NSMutableString+TagReplace.m */,
+				80B6ACC11D152E420056EFE4 /* NSString+WPAttributedMarkup.h */,
+				80B6ACC21D152E420056EFE4 /* NSString+WPAttributedMarkup.m */,
+			);
+			path = WPAttributedMarkup;
 			sourceTree = "<group>";
 		};
 		80E0021B1D0FAADB0005E0DB /* Assets */ = {
@@ -1191,6 +1245,7 @@
 				800104561D0EDAC6000A0F1B /* AppMessageDelegate.h in Headers */,
 				800104BA1D0EDAC6000A0F1B /* DJRefreshBottomView.h in Headers */,
 				800104981D0EDAC6000A0F1B /* LEBaseTableViewSection.h in Headers */,
+				80B6ACC71D152E420056EFE4 /* WPTappableLabel.h in Headers */,
 				800104641D0EDAC6000A0F1B /* LESegmentView.h in Headers */,
 				800104E21D0EDAC6000A0F1B /* MultiImagePicker.h in Headers */,
 				800104A21D0EDAC6000A0F1B /* LocalNotification.h in Headers */,
@@ -1209,10 +1264,12 @@
 				800104C81D0EDAC6000A0F1B /* JinnLockCircle.h in Headers */,
 				800104801D0EDAC6000A0F1B /* LEBadge.h in Headers */,
 				800104701D0EDAC6000A0F1B /* EmojiImagePageView.h in Headers */,
+				80B6ACC31D152E420056EFE4 /* WPAttributedStyleAction.h in Headers */,
 				800104881D0EDAC6000A0F1B /* LEBaseEmptyTableViewCell.h in Headers */,
 				800104AE1D0EDAC6000A0F1B /* NSDate+Category.h in Headers */,
 				800104DE1D0EDAC6000A0F1B /* LETableViewPage.h in Headers */,
 				800104781D0EDAC6000A0F1B /* HMPageControl.h in Headers */,
+				80B6ACC51D152E420056EFE4 /* WPHotspotLabel.h in Headers */,
 				800104C41D0EDAC6000A0F1B /* DJRefreshView.h in Headers */,
 				800104741D0EDAC6000A0F1B /* EmojiInputView.h in Headers */,
 				8001047C1D0EDAC6000A0F1B /* LE_EmojiToolBar.h in Headers */,
@@ -1220,6 +1277,7 @@
 				8001048C1D0EDAC6000A0F1B /* LEBaseEmptyView.h in Headers */,
 				800104901D0EDAC6000A0F1B /* LEBaseTableView.h in Headers */,
 				800104601D0EDAC6000A0F1B /* LEScanQRCode.h in Headers */,
+				80B6ACCB1D152E420056EFE4 /* NSString+WPAttributedMarkup.h in Headers */,
 				800104DA1D0EDAC6000A0F1B /* JinnLockViewController.h in Headers */,
 				800104681D0EDAC6000A0F1B /* LEBottomTabbar.h in Headers */,
 				800104941D0EDAC6000A0F1B /* LEBaseTableViewCell.h in Headers */,
@@ -1229,6 +1287,7 @@
 				800104BE1D0EDAC6000A0F1B /* DJRefreshMacro.h in Headers */,
 				800104B61D0EDAC6000A0F1B /* DJRefresh.h in Headers */,
 				8001045C1D0EDAC6000A0F1B /* LELoadingAnimationView.h in Headers */,
+				80B6ACC91D152E420056EFE4 /* NSMutableString+TagReplace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1356,6 +1415,7 @@
 			files = (
 				800104E81D0EDAC6000A0F1B /* LEUIFramework.m in Sources */,
 				800104DC1D0EDAC6000A0F1B /* JinnLockViewController.m in Sources */,
+				80B6ACC41D152E420056EFE4 /* WPAttributedStyleAction.m in Sources */,
 				8001049E1D0EDAC6000A0F1B /* LEBaseTableViewSectionWithIcon.m in Sources */,
 				800104761D0EDAC6000A0F1B /* EmojiInputView.m in Sources */,
 				800104541D0EDAC6000A0F1B /* LEWebView.m in Sources */,
@@ -1364,6 +1424,8 @@
 				800104501D0EDAC6000A0F1B /* NSData+ImageContentType.m in Sources */,
 				800104481D0EDAC6000A0F1B /* XYPieChart.m in Sources */,
 				800104B81D0EDAC6000A0F1B /* DJRefresh.m in Sources */,
+				80B6ACC61D152E420056EFE4 /* WPHotspotLabel.m in Sources */,
+				80B6ACC81D152E420056EFE4 /* WPTappableLabel.m in Sources */,
 				800104861D0EDAC6000A0F1B /* LEBaseCellWithIconTextAndText.m in Sources */,
 				800104C61D0EDAC6000A0F1B /* DJRefreshView.m in Sources */,
 				800104921D0EDAC6000A0F1B /* LEBaseTableView.m in Sources */,
@@ -1371,6 +1433,7 @@
 				800104D41D0EDAC6000A0F1B /* JinnLockPassword.m in Sources */,
 				182D61E65E88CC20474B1F445D99E019 /* LEFrameworks-dummy.m in Sources */,
 				800104D81D0EDAC6000A0F1B /* JinnLockSudoko.m in Sources */,
+				80B6ACCA1D152E420056EFE4 /* NSMutableString+TagReplace.m in Sources */,
 				800104721D0EDAC6000A0F1B /* EmojiImagePageView.m in Sources */,
 				8001046E1D0EDAC6000A0F1B /* LETabbarRelatedPageView.m in Sources */,
 				800104E01D0EDAC6000A0F1B /* LETableViewPage.m in Sources */,
@@ -1394,6 +1457,7 @@
 				800104D01D0EDAC6000A0F1B /* JinnLockIndicator.m in Sources */,
 				800104A41D0EDAC6000A0F1B /* LocalNotification.m in Sources */,
 				800104AC1D0EDAC6000A0F1B /* LEPopup.m in Sources */,
+				80B6ACCC1D152E420056EFE4 /* NSString+WPAttributedMarkup.m in Sources */,
 				800104961D0EDAC6000A0F1B /* LEBaseTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
