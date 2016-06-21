@@ -83,7 +83,7 @@
 }
 -(id) initWithSettings:(LEPopupSettings *) settings{
     curSettings=settings;
-    self=[super initWithFrame:[LEUIFramework instance].ScreenBounds];
+    self=[super initWithFrame:[LEUIFramework sharedInstance].ScreenBounds];
     [self setBackgroundColor:ColorMask5];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     [self initExtra];

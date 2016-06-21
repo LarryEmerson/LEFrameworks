@@ -22,7 +22,7 @@
     hasGesture=settings.gesture;
     self = [super initWithStyle:settings.style reuseIdentifier:settings.reuseIdentifier]; 
     if (self) {
-        self.globalVar=[LEUIFramework instance];
+        self.globalVar=[LEUIFramework sharedInstance];
         self.CellLeftSpace=NavigationBarHeight/2;
         self.CellRightSpace=self.globalVar.ScreenWidth-NavigationBarHeight/2;
         [self setFrame:CGRectMake(0, 0, self.globalVar.ScreenWidth, DefaultCellHeight)];

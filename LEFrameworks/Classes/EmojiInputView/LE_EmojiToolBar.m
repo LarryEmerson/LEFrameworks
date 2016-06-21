@@ -76,7 +76,7 @@
 }
 
 -(void) setCustomToolbarSkinWithToolbarBackgroundColorAs:(UIColor *)bgColor BackgroundImage:(UIImage *)bgImage EmojiFaceIcon:(UIImage *)eIcon KeyboardIcon:(UIImage *)kIcon InputViewBackgroundColor:(UIColor *)ivBGColor InputViewBackground:(UIImage *) ivBGImage InputViewTextColor:(UIColor *) ivTextColor PlaceholderColor:(UIColor *)holderColor SendButtonBackgroundColor:(UIColor *) buttonBGColor SendButtonBackgroundNormalColor:(UIColor *) normalColor SendButtonBackgroundPressedColor:(UIColor *) pressedColor SendButtonNormalImage:(UIImage *) normalImage SendButtonPressedImage:(UIImage *) pressedImage IconWidth:(int) iconW SpaceBetweenIconAndInputView:(int) spaceIcon InputViewWidth:(int) inputViewW SpaceBetweenInputViewAndButton:(int) spaceButton SendButtonWidth:(int) buttonWidth TopSpaceForInputViewAndButton:(int) tSpace BottomSpaceForInputViewAndButton:(int) bSpace ToolbarHeight:(int) height PlaceholderOffsetX:(int) offsetx PlaceholderString:(NSString *) placeholderString SendButtonText:(NSString *) buttonText InputViewTextFontSize:(int) fontsize EnableEmoji:(BOOL) isEmoji{
-    globalVar=[LEUIFramework instance];
+    globalVar=[LEUIFramework sharedInstance];
     isEmojiEnabled=isEmoji;
     heightOfToolBar=height;
     toolbarBackgroundColor=bgColor;
@@ -193,7 +193,7 @@
 }
 
 - (void) setShowOrHideToolBar:(BOOL) isShow{
-    globalVar=[LEUIFramework instance];
+    globalVar=[LEUIFramework sharedInstance];
     if(isShow){
         [self setHidden:NO];
     }
@@ -219,13 +219,13 @@
 }
 
 -(void) initDefaultUI{
-    globalVar=[LEUIFramework instance];
+    globalVar=[LEUIFramework sharedInstance];
     lastText=@"";
     heightOfToolBar=BottomTabbarHeight;
     toolbarBackgroundColor=[[UIColor alloc]initWithRed:226.0/255 green:226.0/255 blue:226.0/255 alpha:1];
     toolbarBackgroundImage=nil;
-    emojiFaceIcon=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"emoji_smileface"];
-    keyboardIcon=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"emoji_keyboardface"]; 
+    emojiFaceIcon=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"emoji_smileface"];
+    keyboardIcon=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"emoji_keyboardface"]; 
     inputViewBackground=nil;
     inputViewBackgroundColor=[UIColor whiteColor];
     inputViewTextColor=[UIColor blackColor];

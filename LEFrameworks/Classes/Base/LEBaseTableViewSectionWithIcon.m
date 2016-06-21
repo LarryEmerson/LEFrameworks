@@ -11,7 +11,7 @@
 @implementation LEBaseTableViewSectionWithIcon
 
 -(id) initWithSectionText:(NSString *) title{
-    self=[super initWithFrame:CGRectMake(0, 0, [LEUIFramework instance].ScreenWidth, DefaultSectionHeight)];
+    self=[super initWithFrame:CGRectMake(0, 0, [LEUIFramework sharedInstance].ScreenWidth, DefaultSectionHeight)];
     [self setBackgroundColor:ColorTableViewGray];
     //
     self.curIcon=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(12, 0) CGSize:CGSizeZero] Image:@"main_section_icon" Streched:YES];

@@ -20,7 +20,7 @@
     return [self initWithSectionText:text Color:ColorTableViewGray Height:heiht Split:split];
 }
 -(id) initWithSectionText:(NSString *)text Color:(UIColor *)color  Height:(int)heiht Split:(BOOL)split{
-    self=[super initWithFrame:CGRectMake(0, 0, [LEUIFramework instance].ScreenWidth, heiht)];
+    self=[super initWithFrame:CGRectMake(0, 0, [LEUIFramework sharedInstance].ScreenWidth, heiht)];
     [self setBackgroundColor:color];
     self.curSplit=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsMake(heiht-1, 0, 0, 0)] Image:[ColorSplit imageStrechedFromSizeOne]];
     [self.curSplit setHidden:!split];

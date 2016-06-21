@@ -20,8 +20,8 @@
 +(WPHotspotLabel *) getUILabelWithSettings:(LEAutoLayoutSettings *) settings StyleBook:(NSDictionary *) stylebook AttributedString:(NSString *) attributedString AttributesForCalculateSize:(NSDictionary *) calculateSize  Alignment:(NSTextAlignment) alignment NumberOfLines:(int) lines{
     int width=settings.leSize.width;
     int height=settings.leSize.height;
-    if(width==0||width>[LEUIFramework instance].ScreenWidth){
-        width=[LEUIFramework instance].ScreenWidth;
+    if(width==0||width>[LEUIFramework sharedInstance].ScreenWidth){
+        width=[LEUIFramework sharedInstance].ScreenWidth;
     }
     if(height==0){
         height=LELabelMaxSize.height;

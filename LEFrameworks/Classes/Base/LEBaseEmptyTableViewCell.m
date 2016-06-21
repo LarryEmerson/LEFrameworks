@@ -12,7 +12,7 @@
 - (id)initWithSettings:(NSDictionary *) settings {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LEBaseEmptyTableViewCell"];
     if (self) {
-        self.globalVar=[LEUIFramework instance];
+        self.globalVar=[LEUIFramework sharedInstance];
         [self setFrame:CGRectMake(0, 0, self.globalVar.ScreenWidth, DefaultCellHeight)];
         [self setBackgroundColor:ColorClear];
         self.curSettings=settings;

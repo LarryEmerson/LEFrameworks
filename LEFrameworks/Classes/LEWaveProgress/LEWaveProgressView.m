@@ -46,7 +46,7 @@
     curSize=self.bounds.size.width;
     [self.layer setMasksToBounds:YES];
     [self.layer setCornerRadius:curSize/2];
-    UIImage *imgWave=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"lewave"];
+    UIImage *imgWave=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"lewave"];
     
     waveWidth=imgWave.size.width;
     

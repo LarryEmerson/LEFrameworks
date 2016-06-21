@@ -178,8 +178,8 @@
     if(self.leAutoLayoutSettings){
         int width=self.leAutoLayoutSettings.leLabelMaxWidth;
         int height=self.leAutoLayoutSettings.leLabelMaxHeight;
-        if(width==0||width>[LEUIFramework instance].ScreenWidth){
-            width=[LEUIFramework instance].ScreenWidth;
+        if(width==0||width>[LEUIFramework sharedInstance].ScreenWidth){
+            width=[LEUIFramework sharedInstance].ScreenWidth;
         }
         CGSize size=CGSizeZero;
         if(text){
@@ -232,8 +232,8 @@
         [self setAttributedText:attributedString];
         //
         int width=self.leAutoLayoutSettings.leLabelMaxWidth;
-        if(width==0||width>[LEUIFramework instance].ScreenWidth){
-            width=[LEUIFramework instance].ScreenWidth;
+        if(width==0||width>[LEUIFramework sharedInstance].ScreenWidth){
+            width=[LEUIFramework sharedInstance].ScreenWidth;
         }
         CGRect rect = [self.text boundingRectWithSize:CGSizeMake(width, LELabelMaxSize.height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
         [self leSetSize:CGSizeMake(rect.size.width, rect.size.height)]; 
@@ -754,13 +754,13 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 }
 
 #pragma Singleton
-static LEUIFramework *sharedInstance = nil;
-+ (LEUIFramework *) instance { @synchronized(self) { if (sharedInstance == nil) { sharedInstance = [[self alloc] init];
-    sharedInstance.colorNavigationBar=[UIColor colorWithRed:0.1686 green:0.1922 blue:0.2392 alpha:1.0];
-    sharedInstance.colorNavigationContent=[UIColor whiteColor];
-    sharedInstance.colorViewContainer=[UIColor colorWithRed:0.9647 green:0.9647 blue:0.9686 alpha:1.0];
-} } return sharedInstance; } 
-+ (id) allocWithZone:(NSZone *)zone { @synchronized(self) { if (sharedInstance == nil) { sharedInstance = [super allocWithZone:zone]; return sharedInstance; } } return nil; }
+static LEUIFramework *theSharedInstance = nil;
++ (instancetype) sharedInstance { @synchronized(self) { if (theSharedInstance == nil) { theSharedInstance = [[self alloc] init];
+    theSharedInstance.colorNavigationBar=[UIColor colorWithRed:0.1686 green:0.1922 blue:0.2392 alpha:1.0];
+    theSharedInstance.colorNavigationContent=[UIColor whiteColor];
+    theSharedInstance.colorViewContainer=[UIColor colorWithRed:0.9647 green:0.9647 blue:0.9686 alpha:1.0];
+} } return theSharedInstance; }
++ (id) allocWithZone:(NSZone *)zone { @synchronized(self) { if (theSharedInstance == nil) { theSharedInstance = [super allocWithZone:zone]; return theSharedInstance; } } return nil; }
 + (id) copyWithZone:(NSZone *)zone { return self; }
 + (id) mutableCopyWithZone:(NSZone *)zone { return self; }
 //
@@ -868,8 +868,8 @@ static LEUIFramework *sharedInstance = nil;
     CGSize size=CGSizeZero;
     int width=labelSettings.leWidth;
     int height=labelSettings.leHeight;
-    if(width==0||width>[LEUIFramework instance].ScreenWidth){
-        width=[LEUIFramework instance].ScreenWidth;
+    if(width==0||width>[LEUIFramework sharedInstance].ScreenWidth){
+        width=[LEUIFramework sharedInstance].ScreenWidth;
     }
     if(height==0){
         height=LELabelMaxSize.height;
@@ -894,7 +894,7 @@ static LEUIFramework *sharedInstance = nil;
     [label setNumberOfLines:labelSettings.leLine];
     [label setBackgroundColor:ColorClear];
     //    [label setLineBreakMode:NSLineBreakByWordWrapping];
-    label.leAutoLayoutSettings.leLabelMaxWidth=labelSettings.leWidth==0?[LEUIFramework instance].ScreenWidth:labelSettings.leWidth;
+    label.leAutoLayoutSettings.leLabelMaxWidth=labelSettings.leWidth==0?[LEUIFramework sharedInstance].ScreenWidth:labelSettings.leWidth;
     //    label.leAutoLayoutSettings.leLabelMaxHeight=height;
     label.leAutoLayoutSettings.leLabelNumberOfLines=labelSettings.leLine;
     [label setText:labelSettings.leText];

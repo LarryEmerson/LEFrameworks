@@ -21,8 +21,8 @@ _Pragma("clang diagnostic pop") \
 
 
 #pragma mark 资源名称需要对应
-#define IMG_Cell_RightArrow     [[LEUIFramework instance] getImageFromLEFrameworksWithName:@"tableview_icon_arrow"]
-#define IMG_ArrowLeft           [[LEUIFramework instance] getImageFromLEFrameworksWithName:@"common_navigation_btn_back"]
+#define IMG_Cell_RightArrow     [[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"tableview_icon_arrow"]
+#define IMG_ArrowLeft           [[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"common_navigation_btn_back"]
 
 typedef NS_ENUM(NSInteger, LEAnchors) {
     //Inside
@@ -322,7 +322,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
     BOOL canItBeTappedVariable;
 }
 #pragma Singleton
-+(LEUIFramework *) instance;
++(instancetype) sharedInstance;
 #pragma public Variables
 @property (nonatomic) UIColor *colorNavigationBar;
 @property (nonatomic) UIColor *colorNavigationContent;

@@ -32,7 +32,7 @@
             fullScreen=IsFullScreenMode;
         } 
         [self setUserInteractionEnabled:!fullScreen];
-        [self setBackgroundColor:fullScreen?ColorClear:[LEUIFramework instance].colorNavigationBar];
+        [self setBackgroundColor:fullScreen?ColorClear:[LEUIFramework sharedInstance].colorNavigationBar];
         UIImage *background=[dataModel objectForKey:KeyOfNavigationBackground];
         if(background){
             [self setImage:[background middleStrechedImage]];
@@ -42,10 +42,10 @@
 @end
 @implementation LENavigationView
 -(void) onSetupView{
-    [self setBackgroundColor:[LEUIFramework instance].colorNavigationBar];
+    [self setBackgroundColor:[LEUIFramework sharedInstance].colorNavigationBar];
     self.curButtonBack=[LEUIFramework getUIButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewLeft  Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:self.curViewLeft.bounds.size] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:nil FontSize:0 Font:nil Image:nil BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:@selector(onButtonClicked:) Target:self]];
     self.curButtonRight=[LEUIFramework getUIButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewRight Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:self.curViewRight.bounds.size] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:nil FontSize:0 Font:nil Image:nil BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:@selector(onButtonClicked:) Target:self]];
-    self.curLabelTitle=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewMiddle Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:[UIFont boldSystemFontOfSize:NavigationBarFontSize] Width:[LEUIFramework instance].ScreenWidth-LayoutSideSpace*4-NavigationBarHeight*2 Height:0 Color:[LEUIFramework instance].colorNavigationContent Line:1 Alignment:NSTextAlignmentCenter]];
+    self.curLabelTitle=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewMiddle Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:[UIFont boldSystemFontOfSize:NavigationBarFontSize] Width:[LEUIFramework sharedInstance].ScreenWidth-LayoutSideSpace*4-NavigationBarHeight*2 Height:0 Color:[LEUIFramework sharedInstance].colorNavigationContent Line:1 Alignment:NSTextAlignmentCenter]];
 }
 -(void) onUpdateViewWithDataModel:(NSDictionary *) dataModel{
     [super onUpdateViewWithDataModel:dataModel];
@@ -128,7 +128,7 @@
     curSuperViewContainer=view;
     self.curNavigationClassName=navigationClass;
     lastStatusStyle=[[UIApplication sharedApplication] statusBarStyle];
-    self.globalVar = [LEUIFramework instance];
+    self.globalVar = [LEUIFramework sharedInstance];
     self.curFrameWidth=self.globalVar.ScreenWidth;
     self.curFrameHight=self.globalVar.ScreenHeight;
     self.curFrameHight=view.frame.size.height;
@@ -152,7 +152,7 @@
     [self setBackgroundColor:ColorWhite];
     //Container
     self.viewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, fullScreen?0:(NavigationBarHeight+StatusBarHeight)) CGSize:CGSizeMake(self.curFrameWidth, self.curFrameHight-(fullScreen?0:(NavigationBarHeight+StatusBarHeight)))]];
-    [self.viewContainer setBackgroundColor:[LEUIFramework instance].colorViewContainer];
+    [self.viewContainer setBackgroundColor:[LEUIFramework sharedInstance].colorViewContainer];
     //
     if(navigationClass&&navigationClass.length>0){
         SuppressPerformSelectorLeakWarning(
@@ -229,7 +229,7 @@
     self.curFrameWidth=self.bounds.size.width;
     self.curFrameHight=self.bounds.size.height-(self.curViewController.extendedLayoutIncludesOpaqueBars?0:(StatusBarHeight+NavigationBarHeight));
     self.viewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth,self.curFrameHight)]];
-    [self.viewContainer setBackgroundColor:[LEUIFramework instance].colorViewContainer];
+    [self.viewContainer setBackgroundColor:[LEUIFramework sharedInstance].colorViewContainer];
     //
     self.recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGesture:)];
     [self.recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];

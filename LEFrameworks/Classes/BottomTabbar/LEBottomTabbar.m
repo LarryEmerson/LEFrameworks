@@ -28,7 +28,7 @@
     return [self initTabbarWithFrame:frame Delegate:delegate NormalIcons:icons HighlightedIcons:iconsSelected Titles:titles Pages:pages NormalColor:ColorGray HighlightedColor:ColorBlue];
 }
 -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages NormalColor:(UIColor *) normalColor HighlightedColor:(UIColor *) highlightedColor{
-    globalVar=[LEUIFramework instance];
+    globalVar=[LEUIFramework sharedInstance];
     arrayNormalIcons=icons;
     arrayHighlightedIcons=iconsSelected;
     arrayTitles=titles;
@@ -46,7 +46,7 @@
 }
 
 -(void) initUI{
-    [self addTopSplitWithColor:ColorSplit Offset:CGPointZero Width:[LEUIFramework instance].ScreenWidth];
+    [self addTopSplitWithColor:ColorSplit Offset:CGPointZero Width:[LEUIFramework sharedInstance].ScreenWidth];
     [self setBackgroundColor:ColorWhite]; 
     int buttonWidth=(int)globalVar.ScreenWidth/arrayNormalIcons.count;
     for (int i=0; i<arrayNormalIcons.count; i++) {

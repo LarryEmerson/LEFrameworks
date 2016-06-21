@@ -34,11 +34,11 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    globalVar=[LEUIFramework instance];
+    globalVar=[LEUIFramework sharedInstance];
     self = [super initWithFrame:frame];
     [self setUserInteractionEnabled:NO];
     if (self) {
-        UIImage *BG=[[LEUIFramework instance] getImageFromLEFrameworksWithName:@"MessageBackground"]; 
+        UIImage *BG=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"MessageBackground"]; 
         height=BG.size.height;
         space=10;
         MessageFontSize =20;
