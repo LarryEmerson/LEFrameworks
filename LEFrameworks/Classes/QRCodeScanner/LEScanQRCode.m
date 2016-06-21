@@ -152,13 +152,13 @@
     //
     scanSpaceW=(self.globalVar.ScreenWidth-DefaultScanRect)/2;
     // 
-    UIImage *imgScanPickBG=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"main_scan_pick_bg"];
+    UIImage *imgScanPickBG=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"qrcode_scan_bg"];
     UIImageView *viewScanRect=[[UIImageView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, scanSpaceH) CGSize:CGSizeMake(DefaultScanRect, DefaultScanRect)]];
     [self.viewContainer addSubview:viewScanRect];
     [viewScanRect setBackgroundColor:[UIColor clearColor]];
     [viewScanRect setImage:imgScanPickBG];
      
-    UIImage *imgScanLine=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"scan_line"];
+    UIImage *imgScanLine=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"qrcode_scan_line"];
     scanLine=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, DefaultScanRect, imgScanLine.size.height)];
     [scanLine setImage:imgScanLine];
     [viewScanRect addSubview:scanLine];

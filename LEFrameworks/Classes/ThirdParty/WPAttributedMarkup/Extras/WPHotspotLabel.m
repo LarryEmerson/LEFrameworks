@@ -26,7 +26,8 @@
     if(height==0){
         height=LELabelMaxSize.height;
     }
-    settings.leSize=CGSizeMake(width, height);
+    settings.leLabelMaxWidth=width;
+    settings.leLabelMaxHeight=height;
     WPHotspotLabel *label=[[WPHotspotLabel alloc] initWithAutoLayoutSettings:settings];
     [label setCurStyleBook:stylebook];
     [label setCurCalculateSize:calculateSize];
@@ -36,14 +37,14 @@
     [label setBackgroundColor:ColorClear];
     [label setAttributedText:[attributedString attributedStringWithStyleBook:stylebook]];
     CGRect rect = [label.text boundingRectWithSize:CGSizeMake(width, height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:calculateSize context:nil];
-    [label leSetSize:CGSizeMake(rect.size.width, rect.size.height)];
+    [label leSetSize:rect.size];
     return label;
 }
 
 -(void) leSetAttributedString:(NSString *) string StyleBook:(NSDictionary *) stylebook AttributesForCalculateSize:(NSDictionary *) calculateSize{
     [self setAttributedText:[string attributedStringWithStyleBook:self.curStyleBook=stylebook]];
-    CGRect rect = [self.text boundingRectWithSize:self.leAutoLayoutSettings.leSize options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:self.curCalculateSize=calculateSize context:nil];
-    [self leSetSize:CGSizeMake(rect.size.width, rect.size.height)];
+    CGRect rect = [self.text boundingRectWithSize:CGSizeMake(self.leAutoLayoutSettings.leLabelMaxWidth, self.leAutoLayoutSettings.leLabelMaxHeight) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:self.curCalculateSize=calculateSize context:nil];
+    [self leSetSize:rect.size];
 }
 -(void) leSetAttributedString:(NSString *) string{
     [self leSetAttributedString:string StyleBook:self.curStyleBook AttributesForCalculateSize:self.curCalculateSize];
