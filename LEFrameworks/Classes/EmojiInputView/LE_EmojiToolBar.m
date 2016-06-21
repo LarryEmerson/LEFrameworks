@@ -224,8 +224,8 @@
     heightOfToolBar=BottomTabbarHeight;
     toolbarBackgroundColor=[[UIColor alloc]initWithRed:226.0/255 green:226.0/255 blue:226.0/255 alpha:1];
     toolbarBackgroundImage=nil;
-    emojiFaceIcon=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"emoji_smileface"];
-    keyboardIcon=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"emoji_keyboardface"]; 
+    emojiFaceIcon=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_emoji_smileface"];
+    keyboardIcon=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_emoji_keyboardface"]; 
     inputViewBackground=nil;
     inputViewBackgroundColor=[UIColor whiteColor];
     inputViewTextColor=[UIColor blackColor];

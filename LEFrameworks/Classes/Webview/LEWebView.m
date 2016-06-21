@@ -27,13 +27,13 @@
 }
 
 -(void) setExtraViewInits{ 
-    UIImage *imgIconRefresh=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"web_icon_refresh"];
-    UIImage *imgIconBack   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"web_icon_backward_on"];
-    //    UIImage *imgIconBackDisabled   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"browser_icon_back_disabled"];
-    UIImage *imgIconForward=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"web_icon_forward_on"];
-    //    UIImage *imgIconForwardDisabled=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"browser_icon_forward_disabled"];
-    UIImage *imgIconShare=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"web_icon_share"];
-    UIImage *imgBottom=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"browser_bottombg"];
+    UIImage *imgIconRefresh=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_refresh"];
+    UIImage *imgIconBack   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"];
+    //    UIImage *imgIconBackDisabled   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_icon_back_disabled"];
+    UIImage *imgIconForward=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_forward_on"];
+    //    UIImage *imgIconForwardDisabled=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_icon_forward_disabled"];
+    UIImage *imgIconShare=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_share"];
+    UIImage *imgBottom=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_bottombg"];
     
     int bottomHeight=50;
     //

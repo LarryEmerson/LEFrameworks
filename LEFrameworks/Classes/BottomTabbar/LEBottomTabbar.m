@@ -24,10 +24,10 @@
 }
 
 
--(id) initTabbarWithFrame:(CGRect) frame Delegate:(id) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages{
+-(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages{
     return [self initTabbarWithFrame:frame Delegate:delegate NormalIcons:icons HighlightedIcons:iconsSelected Titles:titles Pages:pages NormalColor:ColorGray HighlightedColor:ColorBlue];
 }
--(id) initTabbarWithFrame:(CGRect) frame Delegate:(id) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages NormalColor:(UIColor *) normalColor HighlightedColor:(UIColor *) highlightedColor{
+-(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages NormalColor:(UIColor *) normalColor HighlightedColor:(UIColor *) highlightedColor{
     globalVar=[LEUIFramework sharedInstance];
     arrayNormalIcons=icons;
     arrayHighlightedIcons=iconsSelected;
@@ -84,7 +84,7 @@
         return;
     }
     BOOL okToGo=YES;
-    if(self.delegate&&[self.delegate isOkToShowPageWithIndex:index]){
+    if(self.delegate&&[self.delegate respondsToSelector:@selector(isOkToShowPageWithIndex:)]){
         okToGo=[self.delegate isOkToShowPageWithIndex:index];
     }
     if(!okToGo){
@@ -100,7 +100,7 @@
         if([obj isKindOfClass:[LETabbarRelatedPageView class]]){
             SuppressPerformSelectorLeakWarning(
                                                [obj performSelector:NSSelectorFromString(i==index?@"easeInView":@"easeOutView")];
-            );
+                                               );
         }
     }
     if(self.delegate&&[self.delegate respondsToSelector:@selector(onTabbarTapped:)]){

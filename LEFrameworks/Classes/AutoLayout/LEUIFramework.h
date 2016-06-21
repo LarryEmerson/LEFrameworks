@@ -21,8 +21,8 @@ _Pragma("clang diagnostic pop") \
 
 
 #pragma mark 资源名称需要对应
-#define IMG_Cell_RightArrow     [[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"tableview_icon_arrow"]
-#define IMG_ArrowLeft           [[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"common_navigation_btn_back"]
+#define IMG_Cell_RightArrow     [[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_tableview_icon_arrow"]
+#define IMG_ArrowLeft           [[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_common_navigation_btn_back"]
 
 typedef NS_ENUM(NSInteger, LEAnchors) {
     //Inside

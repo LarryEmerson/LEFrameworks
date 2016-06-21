@@ -38,7 +38,7 @@
     self = [super initWithFrame:frame];
     [self setUserInteractionEnabled:NO];
     if (self) {
-        UIImage *BG=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"MessageBackground"]; 
+        UIImage *BG=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_MessageBackground"]; 
         height=BG.size.height;
         space=10;
         MessageFontSize =20;
