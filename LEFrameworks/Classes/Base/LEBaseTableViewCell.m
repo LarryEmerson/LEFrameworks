@@ -84,7 +84,7 @@
         [LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.bounds.size.width, 0.5)] Image:[imgSplit middleStrechedImage]];
     }
     if(self.hasArrow){
-        self.curArrow=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-CellArrowSpaceAs/2, 0) CGSize:CGSizeZero] Image:IMG_Cell_RightArrow];
+        self.curArrow=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LayoutSideSpace20, 0) CGSize:CGSizeZero] Image:IMG_Cell_RightArrow];
     }
 }
 -(void) setCellHeight:(int) height{

@@ -146,13 +146,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 //#define iPhone6ScaleRate 1//(iPhone6||iPhone6Plus?1.25:1)
 //#define iPhone6ScaleRateSmall 1//(iPhone6||iPhone6Plus?1.1:1)
 //#define iPhoneBigScale  iPhone6||iPhone6Plus
-
-#pragma mark Define TableView
-#define CellLeftSpaceAs 12
-#define CellArrowSpaceAs 20
-#define CellRightSpaceAs 30
-//
-#define CellFontSizeTitle 12
+// 
 //
 #define DefaultCellHeightBig 64
 #define DefaultCellHeightMid 52
