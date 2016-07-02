@@ -1,5 +1,11 @@
 # LEFrameworks
-IOS Development Frameworks 持续更新中
+IOS Development Frameworks 持续更新中 
+
+请使用：
+
+#import "LEFrameworks.h"
+
+
 
 关于库中导航栏处理说明：
 
@@ -7,7 +13,55 @@ IOS Development Frameworks 持续更新中
 
 一、组件封装：
 
-    1- LESegmentView顶部封装
+    1- LECircleChart:圆形镂空进度组件（可以只显示一段弧形）
+    
+    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LECircleChart.gif)
+    
+    -(void) onTestCircleChart{
+        circleChart=[[LECircleChart alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideBottomCenter Offset:CGPointMake(0, StatusBarHeight) CGSize:CGSizeMake(240, 240)] MinAngle:-225 MaxAngle:45 Color:[UIColor colorWithRed:0.345 green:0.748 blue:0.885 alpha:1.000] ShadowColor:[UIColor colorWithRed:0.271 green:0.496 blue:0.712 alpha:1.000] LineWidth:12 ShadowLineWidth:6 Progrss:12];
+        [circleChart strokeChart];
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onCheckCircleChart) userInfo:nil repeats:YES];
+    }
+    -(void) onCheckCircleChart{
+        [circleChart growChartByAmount:12];
+    }
+    
+    2-LELineChart：统计线形图
+    
+    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LELineChart.gif)
+    
+    Gif中组件测试代码：
+    UILabel *labelLineChart;
+    -(void) onTestLELineChart{
+        LELineChart *line=[[LELineChart alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, self.curFrameWidth/2)] LineWidth:2 RulerLineWidth:1 Color:ColorRed RulerColor:[UIColor greenColor] Padding:14 VerticalPadding:20 Target:self];
+        labelLineChart=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:line Offset:CGPointMake(0, LayoutSideSpace) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorRed Line:1 Alignment:NSTextAlignmentCenter]];
+        [line onSetData:@[@"10",@"100",@"50",@"60",@"20",@"5",@"90",@"100",@"40",@"80"] Min:5 Max:100];
+        [line setBackgroundColor:[UIColor colorWithRed:0.4686 green:0.7222 blue:0.8368 alpha:1.0]];
+    }
+    -(void) onLineChartSelection:(NSUInteger)index{
+        [labelLineChart leSetText:[NSString stringWithFormat:@"当前移动到了第%d个位置",index+1]];
+    }
+    
+    
+    3-LEBarChart:统计柱状图
+    
+    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEBarChart.gif)
+    
+    GIF中组件测试代码：
+    UILabel *labelBarChart;
+    
+    -(void) onTestBarChart{
+        LEBarChart *bar=[[LEBarChart alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, self.curFrameWidth/2)] BarChartSettings:[[LEBarChartSettings alloc] init] Delegate:self];
+        labelBarChart=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:bar Offset:CGPointMake(0, LayoutSideSpace) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorRed Line:1 Alignment:NSTextAlignmentCenter]];
+        [bar onSetValues:@[@"10",@"100",@"50",@"60",@"20",@"5",@"90",@"100",@"40",@"80"] Tags:@[@"One",@"Two",@"Three",@"Four",@"Five",@"Six",@"Seven",@"Eight",@"Nine",@"Ten"]];
+    }
+    -(void) onBarSelectedWithIndex:(int)index{
+        [labelBarChart leSetText:[NSString stringWithFormat:@"当前点击了第%d个bar",index+1]];
+    }
+   
+    4- LESegmentView顶部封装
+    
+    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LESegmentView.gif)
     
     -(id) initWithTitles:(NSArray *) titles Pages:(NSArray *) pages ViewContainer:(UIView *) container SegmentHeight:(int) segmentHeight Indicator:(UIImage *) indicator SegmentSpace:(int) space;
     
@@ -27,36 +81,10 @@ IOS Development Frameworks 持续更新中
         [[LESegmentView alloc] initWithTitles:@[@"One",@"第二页",@"再来一个",@"这一个应该可以超出屏幕宽了吧",@"好了可以结束了"] Pages:@[v1,v2,v3,v4,v5] ViewContainer:self.viewContainer SegmentHeight:40 Indicator:[ColorRed imageWithSize:CGSizeMake(8, 4)] SegmentSpace:20];
     }
     
-    2-LELineChart：统计线形图
     
-    Gif中组件测试代码：
-    UILabel *labelLineChart;
-    -(void) onTestLELineChart{
-        LELineChart *line=[[LELineChart alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, self.curFrameWidth/2)] LineWidth:2 RulerLineWidth:1 Color:ColorRed RulerColor:[UIColor greenColor] Padding:14 VerticalPadding:20 Target:self];
-        labelLineChart=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:line Offset:CGPointMake(0, LayoutSideSpace) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorRed Line:1 Alignment:NSTextAlignmentCenter]];
-        [line onSetData:@[@"10",@"100",@"50",@"60",@"20",@"5",@"90",@"100",@"40",@"80"] Min:5 Max:100];
-        [line setBackgroundColor:[UIColor colorWithRed:0.4686 green:0.7222 blue:0.8368 alpha:1.0]];
-    }
-    -(void) onLineChartSelection:(NSUInteger)index{
-        [labelLineChart leSetText:[NSString stringWithFormat:@"当前移动到了第%d个位置",index+1]];
-    }
-    
-    
-    3-LEBarChart:统计柱状图
-    
-    GIF中组件测试代码：
-    UILabel *labelBarChart;
-    
-    -(void) onTestBarChart{
-        LEBarChart *bar=[[LEBarChart alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, self.curFrameWidth/2)] BarChartSettings:[[LEBarChartSettings alloc] init] Delegate:self];
-        labelBarChart=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:bar Offset:CGPointMake(0, LayoutSideSpace) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorRed Line:1 Alignment:NSTextAlignmentCenter]];
-        [bar onSetValues:@[@"10",@"100",@"50",@"60",@"20",@"5",@"90",@"100",@"40",@"80"] Tags:@[@"One",@"Two",@"Three",@"Four",@"Five",@"Six",@"Seven",@"Eight",@"Nine",@"Ten"]];
-    }
-    -(void) onBarSelectedWithIndex:(int)index{
-        [labelBarChart leSetText:[NSString stringWithFormat:@"当前点击了第%d个bar",index+1]];
-    }
+    5-LEWaveProgressView:波浪上涨动画
    
-    4-LEWaveProgressView:波浪上涨动画
+    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEWaveProgressView.gif)
    
     GIF中组件测试代码如下：
    
@@ -70,15 +98,64 @@ IOS Development Frameworks 持续更新中
         [curWave setPercentage:rand()%10*1.0/10];
     }
     
-    5-MultiImagePicker：图片多选组件（注意需要配合系统导航栏使用）
+    6-MultiImagePicker：图片多选组件（注意需要配合系统导航栏使用）
+    
+    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/MultiImagePicker.gif)
     
     GIF中组件测试代码如下：
     
     [self.navigationController setNavigationBarHidden:NO];
     MultiImagePicker *picker=[[MultiImagePicker alloc] initWithImagePickerDelegate:self];
     [self.navigationController pushViewController:picker animated:YES];
+    
+    7-ExcelView:表格方式展示数据
+    
+    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/ExcelView.gif)
+    
+    GIF中组件测试代码如下：
+    
+    UIView *view=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:self.viewContainer.bounds.size]];
+    curExcelView=[[ExcelView alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:view TableViewCell:@"TestExcelViewCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self] ImmovableViewWidth:120 MovableViewWidth:300 TabbarHeight:BottomTabbarHeight TabbarClassname:@"TestExcelViewTabbar"];
+    [curExcelView onRefreshedWithData:[@[@"",@"",@"",@"",@"",@"",@"",@""]mutableCopy]];
+    
+    @interface TestExcelViewCell : ExcelViewTableViewCell
+    @end
+    @implementation TestExcelViewCell{ 
+        UILabel *labelLeft;
+        UILabel *labelRight;
+    }
+    -(void) initUIForExcelView{
+        [self.immovableView setBackgroundColor:[UIColor colorWithRed:0.8947 green:0.527 blue:0.3107 alpha:1.0]];
+        [self.movableView setBackgroundColor:[UIColor colorWithRed:0.6922 green:0.4729 blue:0.6923 alpha:1.0]];
+        [LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.movableView EdgeInsects:UIEdgeInsetsZero] Image:[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"lewave"]];
+        [self addBottomSplitWithColor:ColorRed Offset:CGPointZero Width:self.bounds.size.width];
+        labelLeft=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.immovableView Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
+        labelRight=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.movableView Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LayoutSideSpace20, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorTextBlack Line:1 Alignment:NSTextAlignmentLeft]];
+    }
+    -(void) setData:(id)data IndexPath:(NSIndexPath *)path{
+        [super setData:data IndexPath:path];
+        [labelLeft leSetText:[NSString stringWithFormat:@"第%d行",path.row]];
+        [labelRight leSetText:[NSString stringWithFormat:@"第%d行右侧可移动的内容，我是第%d行内容",path.row,path.row]];
+    }
+    @end
+
+    @interface TestExcelViewTabbar : ExcelViewTabbar
+    @end
+    @implementation TestExcelViewTabbar
+    -(void) initUIForExcelViewTabbar{
+        [self.immovableView setBackgroundColor:[UIColor colorWithRed:0.9991 green:0.5522 blue:0.9683 alpha:1.0]];
+        [self.movableView setBackgroundColor:[UIColor colorWithRed:0.4642 green:0.6434 blue:0.9982 alpha:1.0]];
+        [LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.movableView EdgeInsects:UIEdgeInsetsZero] Image:[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"lewave"]];
+        [LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.immovableView Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"左侧行数" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
+        [LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.movableView Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LayoutSideSpace20, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"右侧内容1        右侧内容2" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorTextBlack Line:1 Alignment:NSTextAlignmentLeft]];
+    }
+    @end
 
 二、实用的自动排版的库:（原理解析）
+
+    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEUIFramework.gif)
+    
+    
     LEUIFramework，主要的用法是在新建视图时确定好其父视图，相对位置，大小后，之后父视图的变动，或者自身的变动无需花费大量监听代码去处理视图之间的关系。基本原理是子视图在初始化时，提供父视图、与父视图或者与其他子视图的相对位置、偏移量，大小（Label和Image可以设置为CGSizeZero，从而选择让库来自动处理大小）后，视图位置即可确定。当父视图或者相对位置的参考子视图有所变动时，子视图都会收到重排的指令，从而可以自动排版。而子视图在使用leSetOffset改变偏移量，leSetSize变动大小或者leSetFrame设置整个frame时，其他与之有相对位置关系的视图都会收到消息，从而所有视图都可以自动重排。
 
     1）、所有的view在新建时都可以使用如下的3个初始化方法
