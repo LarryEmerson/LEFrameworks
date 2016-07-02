@@ -78,7 +78,7 @@
     }
     lineH=max-min;
     curMinY=min;
-    lastIndex=curData.count-1;
+    lastIndex=(int)curData.count-1;
     //    [lineVertical setFrame:CGRectMake(curPadding+lineGap*curData.count-curLineWidth/2, 0, curLineWidth, self.bounds.size.height)];
     [lineVertical setHidden:min==max];
     [lineHorizontal setHidden:min==max];
@@ -116,7 +116,7 @@
                 break;
             }else if(pos.x>(p+lineGap/2)&&pos.x<(p+lineGap)){
                 int  last=i+1;
-                last=MIN(curData.count-1, last);
+                last=MIN((int)curData.count-1, last);
                 if(last!=i)reset=YES;
                 lastIndex=last;
                 break;
