@@ -14,7 +14,7 @@ IOS Development Frameworks 持续更新中
 一、组件封装：
 
     1- LECircleChart:圆形镂空进度组件（可以只显示一段弧形）
-    
+     
     ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LECircleChart.gif)
     
     -(void) onTestCircleChart{
