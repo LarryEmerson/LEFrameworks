@@ -110,7 +110,7 @@ IOS Development Frameworks 持续更新中
     
     7-ExcelView:表格方式展示数据
     
-    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/ExcelView.gif)
+    ![image](https://raw.githubusercontent.com/LarryEmerson/LEFrameworks/master/Example/ExcelView.gif)
     
     GIF中组件测试代码如下：
     
