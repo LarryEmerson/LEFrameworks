@@ -12,6 +12,14 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		80CEA6E61D27B33B007BA3C1 /* LEWaveProgressView.gif in Resources */ = {isa = PBXBuildFile; fileRef = 80CEA6DE1D27B33B007BA3C1 /* LEWaveProgressView.gif */; };
+		80CEA6E71D27B33B007BA3C1 /* ExcelView.gif in Resources */ = {isa = PBXBuildFile; fileRef = 80CEA6DF1D27B33B007BA3C1 /* ExcelView.gif */; };
+		80CEA6E81D27B33B007BA3C1 /* LEUIFramework.gif in Resources */ = {isa = PBXBuildFile; fileRef = 80CEA6E01D27B33B007BA3C1 /* LEUIFramework.gif */; };
+		80CEA6E91D27B33B007BA3C1 /* LECircleChart.gif in Resources */ = {isa = PBXBuildFile; fileRef = 80CEA6E11D27B33B007BA3C1 /* LECircleChart.gif */; };
+		80CEA6EA1D27B33B007BA3C1 /* LEBarChart.gif in Resources */ = {isa = PBXBuildFile; fileRef = 80CEA6E21D27B33B007BA3C1 /* LEBarChart.gif */; };
+		80CEA6EB1D27B33B007BA3C1 /* LELineChart.gif in Resources */ = {isa = PBXBuildFile; fileRef = 80CEA6E31D27B33B007BA3C1 /* LELineChart.gif */; };
+		80CEA6EC1D27B33B007BA3C1 /* LESegmentView.gif in Resources */ = {isa = PBXBuildFile; fileRef = 80CEA6E41D27B33B007BA3C1 /* LESegmentView.gif */; };
+		80CEA6ED1D27B33B007BA3C1 /* MultiImagePicker.gif in Resources */ = {isa = PBXBuildFile; fileRef = 80CEA6E51D27B33B007BA3C1 /* MultiImagePicker.gif */; };
 		F77063621310B83AF94FC39A /* Pods_LEFrameworks_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B20598E33F1FD41477AA3EA9 /* Pods_LEFrameworks_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +37,14 @@
 		732CABA964869407F4E54F98 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		80004348262857873DFFBB1D /* LEFrameworks.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LEFrameworks.podspec; path = ../LEFrameworks.podspec; sourceTree = "<group>"; };
 		8054A726C668DE5628EE0473 /* Pods-LEFrameworks_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LEFrameworks_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LEFrameworks_Tests/Pods-LEFrameworks_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		80CEA6DE1D27B33B007BA3C1 /* LEWaveProgressView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LEWaveProgressView.gif; sourceTree = "<group>"; };
+		80CEA6DF1D27B33B007BA3C1 /* ExcelView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ExcelView.gif; sourceTree = "<group>"; };
+		80CEA6E01D27B33B007BA3C1 /* LEUIFramework.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LEUIFramework.gif; sourceTree = "<group>"; };
+		80CEA6E11D27B33B007BA3C1 /* LECircleChart.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LECircleChart.gif; sourceTree = "<group>"; };
+		80CEA6E21D27B33B007BA3C1 /* LEBarChart.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LEBarChart.gif; sourceTree = "<group>"; };
+		80CEA6E31D27B33B007BA3C1 /* LELineChart.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LELineChart.gif; sourceTree = "<group>"; };
+		80CEA6E41D27B33B007BA3C1 /* LESegmentView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LESegmentView.gif; sourceTree = "<group>"; };
+		80CEA6E51D27B33B007BA3C1 /* MultiImagePicker.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MultiImagePicker.gif; sourceTree = "<group>"; };
 		98037C3B8C1F56F9159DBCA9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		B20598E33F1FD41477AA3EA9 /* Pods_LEFrameworks_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LEFrameworks_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -104,6 +120,14 @@
 				80004348262857873DFFBB1D /* LEFrameworks.podspec */,
 				732CABA964869407F4E54F98 /* README.md */,
 				98037C3B8C1F56F9159DBCA9 /* LICENSE */,
+				80CEA6DE1D27B33B007BA3C1 /* LEWaveProgressView.gif */,
+				80CEA6DF1D27B33B007BA3C1 /* ExcelView.gif */,
+				80CEA6E01D27B33B007BA3C1 /* LEUIFramework.gif */,
+				80CEA6E11D27B33B007BA3C1 /* LECircleChart.gif */,
+				80CEA6E21D27B33B007BA3C1 /* LEBarChart.gif */,
+				80CEA6E31D27B33B007BA3C1 /* LELineChart.gif */,
+				80CEA6E41D27B33B007BA3C1 /* LESegmentView.gif */,
+				80CEA6E51D27B33B007BA3C1 /* MultiImagePicker.gif */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
@@ -178,7 +202,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80CEA6E61D27B33B007BA3C1 /* LEWaveProgressView.gif in Resources */,
+				80CEA6E91D27B33B007BA3C1 /* LECircleChart.gif in Resources */,
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
+				80CEA6E81D27B33B007BA3C1 /* LEUIFramework.gif in Resources */,
+				80CEA6EC1D27B33B007BA3C1 /* LESegmentView.gif in Resources */,
+				80CEA6ED1D27B33B007BA3C1 /* MultiImagePicker.gif in Resources */,
+				80CEA6EA1D27B33B007BA3C1 /* LEBarChart.gif in Resources */,
+				80CEA6E71D27B33B007BA3C1 /* ExcelView.gif in Resources */,
+				80CEA6EB1D27B33B007BA3C1 /* LELineChart.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
