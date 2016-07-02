@@ -14,8 +14,9 @@ IOS Development Frameworks 持续更新中
 一、组件封装：
 
     1- LECircleChart:圆形镂空进度组件（可以只显示一段弧形）
-     
-    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LECircleChart.gif)
+      
+    
+![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LECircleChart.gif)
     
     -(void) onTestCircleChart{
         circleChart=[[LECircleChart alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideBottomCenter Offset:CGPointMake(0, StatusBarHeight) CGSize:CGSizeMake(240, 240)] MinAngle:-225 MaxAngle:45 Color:[UIColor colorWithRed:0.345 green:0.748 blue:0.885 alpha:1.000] ShadowColor:[UIColor colorWithRed:0.271 green:0.496 blue:0.712 alpha:1.000] LineWidth:12 ShadowLineWidth:6 Progrss:12];
@@ -28,7 +29,7 @@ IOS Development Frameworks 持续更新中
     
     2-LELineChart：统计线形图
     
-    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LELineChart.gif)
+![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LELineChart.gif)
     
     Gif中组件测试代码：
     UILabel *labelLineChart;
@@ -45,7 +46,7 @@ IOS Development Frameworks 持续更新中
     
     3-LEBarChart:统计柱状图
     
-    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEBarChart.gif)
+![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEBarChart.gif)
     
     GIF中组件测试代码：
     UILabel *labelBarChart;
@@ -61,7 +62,7 @@ IOS Development Frameworks 持续更新中
    
     4- LESegmentView顶部封装
     
-    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LESegmentView.gif)
+![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LESegmentView.gif)
     
     -(id) initWithTitles:(NSArray *) titles Pages:(NSArray *) pages ViewContainer:(UIView *) container SegmentHeight:(int) segmentHeight Indicator:(UIImage *) indicator SegmentSpace:(int) space;
     
@@ -84,7 +85,7 @@ IOS Development Frameworks 持续更新中
     
     5-LEWaveProgressView:波浪上涨动画
    
-    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEWaveProgressView.gif)
+![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEWaveProgressView.gif)
    
     GIF中组件测试代码如下：
    
@@ -100,7 +101,7 @@ IOS Development Frameworks 持续更新中
     
     6-MultiImagePicker：图片多选组件（注意需要配合系统导航栏使用）
     
-    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/MultiImagePicker.gif)
+![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/MultiImagePicker.gif)
     
     GIF中组件测试代码如下：
     
@@ -110,7 +111,7 @@ IOS Development Frameworks 持续更新中
     
     7-ExcelView:表格方式展示数据
     
-    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/ExcelView.gif)
+![image](https://raw.githubusercontent.com/LarryEmerson/LEFrameworks/master/Example/ExcelView.gif)
     
     GIF中组件测试代码如下：
     
@@ -153,7 +154,7 @@ IOS Development Frameworks 持续更新中
 
 二、实用的自动排版的库:（原理解析）
 
-    ![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEUIFramework.gif)
+![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEUIFramework.gif)
     
     
     LEUIFramework，主要的用法是在新建视图时确定好其父视图，相对位置，大小后，之后父视图的变动，或者自身的变动无需花费大量监听代码去处理视图之间的关系。基本原理是子视图在初始化时，提供父视图、与父视图或者与其他子视图的相对位置、偏移量，大小（Label和Image可以设置为CGSizeZero，从而选择让库来自动处理大小）后，视图位置即可确定。当父视图或者相对位置的参考子视图有所变动时，子视图都会收到重排的指令，从而可以自动排版。而子视图在使用leSetOffset改变偏移量，leSetSize变动大小或者leSetFrame设置整个frame时，其他与之有相对位置关系的视图都会收到消息，从而所有视图都可以自动重排。
