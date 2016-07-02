@@ -1353,6 +1353,7 @@
 				22374F821E74D7CDBE35E4957A9CFF4C /* Sources */,
 				50A5B88E250B41E2C5AABD024E90B9CB /* Frameworks */,
 				ADE2F3A20A389A8F37B88F1BA9FE22F3 /* Headers */,
+				1CB15CC72EA321A12D6E78EF /* Find unused imports */,
 			);
 			buildRules = (
 			);
@@ -1407,6 +1408,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1CB15CC72EA321A12D6E78EF /* Find unused imports */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Find unused imports";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"/Users/LarryEmerson/Library/Application Support/Developer/Shared/Xcode/Plug-ins/xcfui.xcplugin/Contents/Resources/fui_script.sh\" \"/Volumes/MacHD/LarryEmerson/RemoteGits/LEFrameworks/Example/Pods\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		22374F821E74D7CDBE35E4957A9CFF4C /* Sources */ = {

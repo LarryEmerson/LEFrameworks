@@ -11,7 +11,7 @@
 
 
 #define LEWaveDuration 2
-#define LEWaveMinHeight 0.15
+#define LEWaveMinHeight 0.05
 
 @implementation LEWaveProgressView{
     int curSize;
@@ -28,13 +28,13 @@
     //
     UIView *textContainer;
     UILabel *curProgressText;
-    
+    float lastPercentage;
     int targetProgressTextValue;
+    float targetProgressDuration;
     int curProgressTextValue;
     
     NSTimer *curTextTimer;
     
-    float count;
 }
 
 -(id) initWithFrame:(CGRect)frame{
@@ -66,35 +66,21 @@
     [self moveWaveWith:movingWave];
     
     textContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, 40) CGSize:CGSizeMake(curSize, curSize-40*2)]];
-    curProgressText=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:textContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:50 Font:nil Width:curSize Height:0 Color:ColorWhite Line:1 Alignment:NSTextAlignmentCenter]];
+    curProgressText=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:textContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:0 Font:[UIFont boldSystemFontOfSize:50] Width:curSize Height:0 Color:ColorWhite Line:1 Alignment:NSTextAlignmentCenter]];
     [curProgressText setFont:[UIFont fontWithName:LayoutFontNameArialRoundedMTBold size:50]];
     
     [self setBackgroundColor:[UIColor colorWithRed:0.1961 green:0.2196 blue:0.2706 alpha:1.0]];
     [movingViewContainer setAlpha:0.8];
     [movingWave setAlpha:0.8];
-    
-    curProgressTextValue=100;
-    
-    [self setPercentage:0.88];
-    
-    [textContainer setBackgroundColor:[UIColor colorWithRed:1.0 green:0.0895 blue:0.084 alpha:0.170129654255319]];
-    
-    
-    [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(testEffect) userInfo:nil repeats:YES];
+    lastPercentage=0;
+    curProgressTextValue=0;
 }
 
--(void) testEffect{
-    count=count-0.2;
-    if(count<0){
-        count=1;
-    }
-    [self setPercentageText:count];
-}
 
 -(void) setPercentage:(float) percentage{
     float height=bottomHeight*(1-percentage);
-    float dur1=0.5*percentage+fabs(-topHeight+movingViewContainer.frame.origin.y)/curSize;
-    float dur2=0.5*percentage+fabs(topHeight+movingViewContainer.frame.origin.y)/curSize;
+    float dur1=0.2+0.4*fabsf(percentage-lastPercentage)+fabs(-topHeight+movingViewContainer.frame.origin.y)/curSize;
+    float dur2=0.2+0.4*fabsf(percentage-lastPercentage)+fabs(-topHeight-height)/curSize;
     [UIView animateWithDuration: dur1 delay:0 options:UIViewAnimationOptionCurveLinear animations:^(void){
         [movingViewContainer setFrame:CGRectMake(0, -topHeight, curSize, curSize*2)];
     } completion:^(BOOL done){
@@ -103,10 +89,9 @@
         } completion:^(BOOL done){
         }];
     }];
-    [self setPercentageText:percentage];
-}
--(void) setPercentageText:(float)percentage{
     targetProgressTextValue=(int)(percentage*100);
+    targetProgressDuration=(dur1+dur2)/abs(curProgressTextValue-targetProgressTextValue);
+    lastPercentage=percentage;
     [curTextTimer invalidate];
     [self percentageTextLogic];
 }
@@ -118,7 +103,7 @@
         }else{
             curProgressTextValue--;
         }
-        curTextTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(percentageTextLogic) userInfo:nil repeats:YES];
+        curTextTimer=[NSTimer scheduledTimerWithTimeInterval:targetProgressDuration target:self selector:@selector(percentageTextLogic) userInfo:nil repeats:NO];
     }else{
         [curTextTimer invalidate];
     }

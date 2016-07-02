@@ -194,9 +194,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 @end
 
 @interface UIView (Extension)
-//@property (nonatomic) LocalNotification *localNotification;
 -(void) addLocalNotification:(NSString *) notification;
-
 -(void) endEdit;
 -(void) addTapEventWithSEL:(SEL) sel;
 -(void) addTapEventWithSEL:(SEL)sel Target:(id) target;

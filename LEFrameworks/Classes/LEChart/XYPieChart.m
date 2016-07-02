@@ -229,9 +229,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         if(!_showLabel) return;
         NSString *label;
         if(_showPercentage)
-            label = [NSString stringWithFormat:@"%0.0f", layer.percentage*100];
+            label = [NSString stringWithFormat:@"%0.0f%%", layer.percentage*100];
         else
-            label = (layer.text)?layer.text:[NSString stringWithFormat:@"%0.0f", layer.value];
+            label = (layer.text)?layer.text:[NSString stringWithFormat:@"%0.0f%%", layer.value];
         CGSize size = [label getSizeWithFont:self.labelFont MaxSize:[UIScreen mainScreen].bounds.size];
         //        CGSize size = [label sizeWithFont:self.labelFont];
         
@@ -344,6 +344,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
                 color = [UIColor colorWithHue:((index/8)%20)/20.0+0.02 saturation:(index%8+3)/10.0 brightness:91/100.0 alpha:1];
             }
             [layer setFillColor:color.CGColor];
+            if([self.labelColor isEqual:[UIColor clearColor]]){
+                for (CALayer *subLayer  in layer.sublayers) {
+                    if([subLayer isKindOfClass:[CATextLayer class]]){
+                        CATextLayer *textLayer=(CATextLayer *) subLayer;
+                        [textLayer setForegroundColor:color.CGColor];
+                    }
+                }
+            }
             if([_dataSource respondsToSelector:@selector(pieChart:textForSliceAtIndex:)]){
                 layer.text = [_dataSource pieChart:self textForSliceAtIndex:index];
             }
@@ -430,13 +438,14 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     CGAffineTransform transform = CGAffineTransformIdentity;
     CALayer *parentLayer = [_pieView layer];
     NSArray *pieLayers = [parentLayer sublayers];
+    if(pieLayers.count>1){
     [pieLayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         SliceLayer *pieLayer = (SliceLayer *)obj;
         CGPathRef path = [pieLayer path];
         if (CGPathContainsPoint(path, &transform, point, 0)) {
             [pieLayer setLineWidth:_selectedSliceStroke];
             [pieLayer setStrokeColor:[UIColor whiteColor].CGColor];
-            [pieLayer setLineJoin:kCALineJoinBevel];
+                [pieLayer setLineJoin:kCALineJoinMiter];
             [pieLayer setZPosition:MAXFLOAT];
             selectedIndex = idx;
         } else {
@@ -444,6 +453,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             [pieLayer setLineWidth:0.0];
         }
     }];
+    }
     return selectedIndex;
 }
 
@@ -553,6 +563,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
         [textLayer setFont:font];
         CFRelease(font);
     }
+    [textLayer setWrapped:YES];
     [textLayer setFontSize:self.labelFont.pointSize];
     [textLayer setAnchorPoint:CGPointMake(0.5, 0.5)];
     [textLayer setAlignmentMode:kCAAlignmentCenter];
@@ -579,7 +590,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     if(!_showLabel) return;
     NSString *label;
     if(_showPercentage)
-        label = [NSString stringWithFormat:@"%0.0f", pieLayer.percentage*100];
+        label = [NSString stringWithFormat:@"%0.0f%%", pieLayer.percentage*100];
     else
         label = (pieLayer.text)?pieLayer.text:[NSString stringWithFormat:@"%0.0f", value];
     //    CGSize size = [label sizeWithFont:self.labelFont];

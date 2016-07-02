@@ -33,14 +33,7 @@
 }
 @end
 
-@implementation UIView (Extension)
-//static void * UIViewLocalNotificationKey = (void *) @"UIViewLocalNotificationKey";
-//- (LocalNotification *) localNotification {
-//    return objc_getAssociatedObject(self, UIViewLocalNotificationKey);
-//}
-//- (void) setLocalNotification:(LocalNotification *)localNotification {
-//    objc_setAssociatedObject(self, UIViewLocalNotificationKey, localNotification, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//}
+@implementation UIView (Extension) 
 -(UIView *) getSuperView:(UIView *) view{
     return view.superview?[self getSuperView:view.superview]:view;
 }
@@ -50,15 +43,6 @@
         [noti setText:notification WithEnterTime:0.3 AndPauseTime:0.8 ReleaseWhenFinished:YES];
         [[UIApplication sharedApplication].keyWindow addSubview:noti];
     }
-    
-    //    UIView *view=[self getSuperView:self];
-    //    LocalNotification *noti=view.localNotification;
-    //    if(!noti){
-    //        noti=[[LocalNotification alloc] init];
-    //        view.localNotification=noti;
-    //        [view addSubview:noti];
-    //    }
-    //    [noti setText:notification WithEnterTime:0.3 AndPauseTime:0.8];
 }
 //
 -(void) endEdit{
