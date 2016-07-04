@@ -7,7 +7,10 @@
 //
 
 #import "LEWebView.h" 
-@implementation LEWebView{
+@interface LEWebViewPage : LEEmptyViewUnderSystemNavigation<UIWebViewDelegate>
+- (void)loadWebPageWithString:(NSString*)urlString;
+@end
+@implementation LEWebViewPage{
     UIWebView *webView;
     UIImageView *bottomView;
     //
@@ -32,23 +35,23 @@
     //    UIImage *imgIconBackDisabled   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_icon_back_disabled"];
     UIImage *imgIconForward=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_forward_on"];
     //    UIImage *imgIconForwardDisabled=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_icon_forward_disabled"];
-    UIImage *imgIconShare=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_share"];
+    //    UIImage *imgIconShare=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_share"];
     UIImage *imgBottom=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_bottombg"];
     
     int bottomHeight=50;
     //
-    bottomView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.viewContainer.bounds.size.height-bottomHeight, self.globalVar.ScreenWidth, bottomHeight)];
+    bottomView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.curFrameHight-bottomHeight, self.curFrameWidth, bottomHeight)];
     [bottomView setUserInteractionEnabled:YES];
     [bottomView setImage:[imgBottom stretchableImageWithLeftCapWidth:imgBottom.size.width/2 topCapHeight:imgBottom.size.height/2]];
     [self.viewContainer addSubview:bottomView];
     //
-    webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.globalVar.ScreenWidth, self.viewContainer.bounds.size.height-bottomHeight)];
-    //    [webView setDelegate:self];
+    webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.curFrameWidth, self.curFrameHight-bottomHeight)];
+    [webView setDelegate:self];
     [self.viewContainer addSubview:webView];
     //
-    int buttonWidth=self.curFrameWidth/4;
+    NSArray *array=[[NSArray alloc] initWithObjects:imgIconBack,imgIconForward,imgIconRefresh /*,imgIconShare*/ , nil];
+    float buttonWidth=self.curFrameWidth*1.0/array.count;
     curButtons=[[NSMutableArray alloc] init];
-    NSArray *array=[[NSArray alloc] initWithObjects:imgIconBack,imgIconForward,imgIconRefresh,imgIconShare, nil];
     //    NSArray *arrayDisabled=[[NSArray alloc] initWithObjects:imgIconBackDisabled,imgIconForwardDisabled, nil];
     //
     for (int i=0; i<array.count; i++) {
@@ -66,7 +69,7 @@
     [bottomView addSubview:viewRefresh];
     [viewRefresh setImage:imgIconRefresh];
     //
-    [self.viewContainer setBackgroundColor:ColorTest];
+    //    [self.viewContainer setBackgroundColor:ColorTest];
 }
 -(void) onClick:(UIButton *) button{
     int index=(int)[curButtons indexOfObject:button];
@@ -132,21 +135,13 @@
     return YES;
 }
 
--(void) onWebClose{
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^(void){
-        [self setFrame:CGRectMake(self.globalVar.ScreenWidth, 0, self.frame.size.width, self.frame.size.height)];
-    } completion:^(BOOL isFinished){
-        [self easeOutViewLogic];
-    }];
-}
 
 -(void) onWebRefresh{
     //    count-=1;
     [webView reload];
 }
 
-- (void)loadWebPageWithString:(NSString*)urlString
-{
+- (void)loadWebPageWithString:(NSString*)urlString{
     if(urlString&&(NSNull *)urlString!=[NSNull null]){
         curURL=[NSURL URLWithString:urlString];
         NSURLRequest *request =[NSURLRequest requestWithURL:curURL];
@@ -156,25 +151,6 @@
     }
 }
 
--(void) easeOutViewLogic{
-    if(self.delegate){
-        [self.delegate onCloseWebView];
-    }
-    [self removeFromSuperview];
-}
-
-//-(void) easeOutView{
-//    if([webView canGoBack]){
-//        count-=2;
-//        [webView goBack];
-//    }else{
-//        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^(void){
-//            [self setFrame:CGRectMake(self.globalVar.ScreenWidth, 0, self.frame.size.width, self.frame.size.height)];
-//        } completion:^(BOOL isFinished){
-//            [self easeOutViewLogic];
-//        }];
-//    }
-//}
 
 -(void) webViewDidStartLoad:(UIWebView *)webView{
     [self startAnimation];
@@ -193,4 +169,34 @@
     }
 }
 
+@end
+
+
+@implementation LEWebView{
+    LEWebViewPage *curWebView;
+    NSString *curUrl;
+}
+- (void)loadWebPageWithString:(NSString*)urlString{
+    curUrl=urlString;
+    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loadWebLogic) userInfo:nil repeats:NO];
+}
+- (void) loadWebLogic{
+    [curWebView loadWebPageWithString:curUrl];
+}
+- (void)setTitle:(NSString *) title{
+    [self.navigationItem setTitle:title];
+}
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    curWebView=[[LEWebViewPage alloc] initWithViewController:self];
+    [self.view addSubview:curWebView];
+    [self setLeftBarButtonAsBackWith:IMG_ArrowLeft];
+}
+-(void) onRight{
+    
+}
 @end
