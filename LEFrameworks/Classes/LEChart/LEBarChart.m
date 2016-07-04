@@ -161,7 +161,7 @@
         [item onSetWith:i Tag:tag Value:cur MinValue:min MaxValue:max Target:self];
         [item setHidden:i>=array.count];
     }
-    int W=(int)array.count*(curBarChartSettings.barWidth+curBarChartSettings.barSpace);
+    NSInteger W=array.count*(curBarChartSettings.barWidth+curBarChartSettings.barSpace);
     //    W=MIN(W, self.bounds.size.width);
     [curScrollView setContentSize:CGSizeMake(W, curScrollView.bounds.size.height)];
     [curScrollView leSetSize:CGSizeMake(MIN(W, self.bounds.size.width), curScrollView.bounds.size.height)];

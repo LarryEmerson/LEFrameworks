@@ -23,7 +23,7 @@
     UIImageView *lineVertical;
     UIImageView *lineHorizontal;
     float curPadding;
-    int lastIndex;
+    NSInteger lastIndex;
     float curMinY;
     float curRulerWidth;
     float curVerticalPadding;
@@ -78,7 +78,7 @@
     }
     lineH=max-min;
     curMinY=min;
-    lastIndex=(int)curData.count-1;
+    lastIndex=curData.count-1;
     //    [lineVertical setFrame:CGRectMake(curPadding+lineGap*curData.count-curLineWidth/2, 0, curLineWidth, self.bounds.size.height)];
     [lineVertical setHidden:min==max];
     [lineHorizontal setHidden:min==max];
@@ -103,7 +103,7 @@
     //    [lineVertical setFrame:CGRectMake(pos.x-curLineWidth/2, 0, curLineWidth, self.bounds.size.height)];
     [lineVertical leSetOffset:CGPointMake(pos.x-curRulerWidth/2, 0)];
     BOOL reset=NO;
-    for (int i=0; i<curData.count; i++) {
+    for (NSInteger i=0; i<curData.count; i++) {
         if(round(pos.x)==round(curPadding+lineGap*i)){
             if(lastIndex!=i)reset=YES;
             lastIndex=i;
@@ -115,8 +115,8 @@
                 lastIndex=i;
                 break;
             }else if(pos.x>(p+lineGap/2)&&pos.x<(p+lineGap)){
-                int  last=i+1;
-                last=MIN((int)curData.count-1, last);
+                NSInteger  last=i+1;
+                last=MIN(curData.count-1, last);
                 if(last!=i)reset=YES;
                 lastIndex=last;
                 break;

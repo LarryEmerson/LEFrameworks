@@ -189,6 +189,10 @@
 		80B6ACCA1D152E420056EFE4 /* NSMutableString+TagReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B6ACC01D152E420056EFE4 /* NSMutableString+TagReplace.m */; };
 		80B6ACCB1D152E420056EFE4 /* NSString+WPAttributedMarkup.h in Headers */ = {isa = PBXBuildFile; fileRef = 80B6ACC11D152E420056EFE4 /* NSString+WPAttributedMarkup.h */; };
 		80B6ACCC1D152E420056EFE4 /* NSString+WPAttributedMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B6ACC21D152E420056EFE4 /* NSString+WPAttributedMarkup.m */; };
+		80CEA7381D2A4668007BA3C1 /* LEBarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 80CEA7341D2A4668007BA3C1 /* LEBarChart.h */; };
+		80CEA7391D2A4668007BA3C1 /* LEBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CEA7351D2A4668007BA3C1 /* LEBarChart.m */; };
+		80CEA73A1D2A4668007BA3C1 /* LELineChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 80CEA7361D2A4668007BA3C1 /* LELineChart.h */; };
+		80CEA73B1D2A4668007BA3C1 /* LELineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CEA7371D2A4668007BA3C1 /* LELineChart.m */; };
 		CD9F5AC0B271F676FD64CDB9704BD958 /* Pods-LEFrameworks_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C552E31EE9E16DF118D3017BF4696DD5 /* Pods-LEFrameworks_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE9040E568DDF3E27ED3B74F7F635A98 /* Pods-LEFrameworks_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1A5F78578EBD137C3FCA388D662DB0 /* Pods-LEFrameworks_Tests-dummy.m */; };
 /* End PBXBuildFile section */
@@ -306,6 +310,10 @@
 		80B6ACC01D152E420056EFE4 /* NSMutableString+TagReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+TagReplace.m"; sourceTree = "<group>"; };
 		80B6ACC11D152E420056EFE4 /* NSString+WPAttributedMarkup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WPAttributedMarkup.h"; sourceTree = "<group>"; };
 		80B6ACC21D152E420056EFE4 /* NSString+WPAttributedMarkup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WPAttributedMarkup.m"; sourceTree = "<group>"; };
+		80CEA7341D2A4668007BA3C1 /* LEBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEBarChart.h; sourceTree = "<group>"; };
+		80CEA7351D2A4668007BA3C1 /* LEBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEBarChart.m; sourceTree = "<group>"; };
+		80CEA7361D2A4668007BA3C1 /* LELineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LELineChart.h; sourceTree = "<group>"; };
+		80CEA7371D2A4668007BA3C1 /* LELineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LELineChart.m; sourceTree = "<group>"; };
 		80E0021C1D0FAADB0005E0DB /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		80E003081D0FDF6F0005E0DB /* banner_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_close@2x.png"; sourceTree = "<group>"; };
 		80E003091D0FDF6F0005E0DB /* banner_shadowline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_shadowline@2x.png"; sourceTree = "<group>"; };
@@ -638,6 +646,10 @@
 		800103CE1D0EDAC5000A0F1B /* LEChart */ = {
 			isa = PBXGroup;
 			children = (
+				80CEA7341D2A4668007BA3C1 /* LEBarChart.h */,
+				80CEA7351D2A4668007BA3C1 /* LEBarChart.m */,
+				80CEA7361D2A4668007BA3C1 /* LELineChart.h */,
+				80CEA7371D2A4668007BA3C1 /* LELineChart.m */,
 				800103CF1D0EDAC5000A0F1B /* LECircleChart.h */,
 				800103D01D0EDAC5000A0F1B /* LECircleChart.m */,
 				800103D11D0EDAC5000A0F1B /* XYPieChart.h */,
@@ -1244,6 +1256,7 @@
 				800104D21D0EDAC6000A0F1B /* JinnLockPassword.h in Headers */,
 				800104561D0EDAC6000A0F1B /* AppMessageDelegate.h in Headers */,
 				800104BA1D0EDAC6000A0F1B /* DJRefreshBottomView.h in Headers */,
+				80CEA73A1D2A4668007BA3C1 /* LELineChart.h in Headers */,
 				800104981D0EDAC6000A0F1B /* LEBaseTableViewSection.h in Headers */,
 				80B6ACC71D152E420056EFE4 /* WPTappableLabel.h in Headers */,
 				800104641D0EDAC6000A0F1B /* LESegmentView.h in Headers */,
@@ -1285,6 +1298,7 @@
 				800104C01D0EDAC6000A0F1B /* DJRefreshTopView.h in Headers */,
 				800104461D0EDAC6000A0F1B /* XYPieChart.h in Headers */,
 				800104BE1D0EDAC6000A0F1B /* DJRefreshMacro.h in Headers */,
+				80CEA7381D2A4668007BA3C1 /* LEBarChart.h in Headers */,
 				800104B61D0EDAC6000A0F1B /* DJRefresh.h in Headers */,
 				8001045C1D0EDAC6000A0F1B /* LELoadingAnimationView.h in Headers */,
 				80B6ACC91D152E420056EFE4 /* NSMutableString+TagReplace.h in Headers */,
@@ -1434,6 +1448,7 @@
 				800104E81D0EDAC6000A0F1B /* LEUIFramework.m in Sources */,
 				800104DC1D0EDAC6000A0F1B /* JinnLockViewController.m in Sources */,
 				80B6ACC41D152E420056EFE4 /* WPAttributedStyleAction.m in Sources */,
+				80CEA73B1D2A4668007BA3C1 /* LELineChart.m in Sources */,
 				8001049E1D0EDAC6000A0F1B /* LEBaseTableViewSectionWithIcon.m in Sources */,
 				800104761D0EDAC6000A0F1B /* EmojiInputView.m in Sources */,
 				800104541D0EDAC6000A0F1B /* LEWebView.m in Sources */,
@@ -1454,6 +1469,7 @@
 				80B6ACCA1D152E420056EFE4 /* NSMutableString+TagReplace.m in Sources */,
 				800104721D0EDAC6000A0F1B /* EmojiImagePageView.m in Sources */,
 				8001046E1D0EDAC6000A0F1B /* LETabbarRelatedPageView.m in Sources */,
+				80CEA7391D2A4668007BA3C1 /* LEBarChart.m in Sources */,
 				800104E01D0EDAC6000A0F1B /* LETableViewPage.m in Sources */,
 				800104A81D0EDAC6000A0F1B /* LEBasePopupEmptyPage.m in Sources */,
 				800104621D0EDAC6000A0F1B /* LEScanQRCode.m in Sources */,
