@@ -8,32 +8,31 @@
 
 //自动排版，UI组件Category
 #import "LEUIFramework.h"
-//基类
-#import "LEBaseEmptyView.h"
+//基类 
+#import "LEBaseViewController.h"
 #import "LEBaseTableView.h"
 #import "LEBaseTableViewCell.h"
 #import "LEBaseTableViewSection.h"
 #import "LEBaseTableViewSectionWithIcon.h"
-#import "LEBaseEmptyTableViewCell.h"
-#import "LEBaseCellWithIconTextAndText.h"
+#import "LEBaseEmptyTableViewCell.h" 
 //
 #import "LEBadge.h"
 //导航栏界面跳转通知
-#import "AppMessageDelegate.h"
+#import "LEAppMessageDelegate.h"
 //表格显示组件
-#import "ExcelView.h"
+#import "LEExcelView.h"
 //底部Tabbar组件
 #import "LEBottomTabbar.h"
 #import "LETabbarRelatedPageView.h"
 //不健全的Emoji组件
 #import "LE_EmojiToolBar.h"
 //图片多选组件
-#import "MultiImagePicker.h"
+#import "LEMultiImagePicker.h"
 //各种Chart
 #import "LEBarChart.h"
 #import "LELineChart.h"
-#import "LECircleChart.h"
-#import "XYPieChart.h"
+#import "LECurveProgressView.h"
+#import "LEPieChart.h"
 //
 #import "LESegmentView.h"
 //波浪进度条
@@ -41,7 +40,7 @@
 //加载动画
 #import "LELoadingAnimationView.h"
 //全局消息提示
-#import "LocalNotification.h"
+#import "LELocalNotification.h"
 //
 #import "NSData+GIF.h"
 #import "NSData+ImageContentType.h"
@@ -49,9 +48,7 @@
 #import "LEBasePopupEmptyPage.h"
 #import "LEPopup.h"
 //二维码扫码
-#import "LEScanQRCode.h"
-//
-#import "LETableViewPage.h"
+#import "LEScanQRCode.h" 
 //Webview
 #import "LEWebView.h"
 
