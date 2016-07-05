@@ -32,9 +32,9 @@
 -(void) setExtraViewInits{ 
     UIImage *imgIconRefresh=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_refresh"];
     UIImage *imgIconBack   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"];
-    //    UIImage *imgIconBackDisabled   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_icon_back_disabled"];
+    UIImage *imgIconBackDisabled   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_backward_off"];
     UIImage *imgIconForward=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_forward_on"];
-    //    UIImage *imgIconForwardDisabled=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_icon_forward_disabled"];
+    UIImage *imgIconForwardDisabled=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_forward_off"];
     //    UIImage *imgIconShare=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_share"];
     UIImage *imgBottom=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_bottombg"];
     
@@ -52,16 +52,16 @@
     NSArray *array=[[NSArray alloc] initWithObjects:imgIconBack,imgIconForward,imgIconRefresh /*,imgIconShare*/ , nil];
     float buttonWidth=self.curFrameWidth*1.0/array.count;
     curButtons=[[NSMutableArray alloc] init];
-    //    NSArray *arrayDisabled=[[NSArray alloc] initWithObjects:imgIconBackDisabled,imgIconForwardDisabled, nil];
+    NSArray *arrayDisabled=[[NSArray alloc] initWithObjects:imgIconBackDisabled,imgIconForwardDisabled, nil];
     //
     for (int i=0; i<array.count; i++) {
         UIButton *button=[[UIButton alloc] initWithFrame:CGRectMake(buttonWidth*i, 0, buttonWidth, bottomHeight)];
         [bottomView addSubview:button];
         [button addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
         [button setImage:[array objectAtIndex:i] forState:UIControlStateNormal];
-        //        if(i<arrayDisabled.count){
-        //            [button setImage:[arrayDisabled objectAtIndex:i] forState:UIControlStateDisabled];
-        //        }
+        if(i<arrayDisabled.count){
+            [button setImage:[arrayDisabled objectAtIndex:i] forState:UIControlStateHighlighted];
+        }
         [curButtons addObject:button];
     }
     //
