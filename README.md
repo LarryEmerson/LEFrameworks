@@ -182,11 +182,8 @@ IOS Development Frameworks 持续更新中
     [self.navigationController pushViewController:picker animated:YES];
 
 
-二、实用的自动排版的库:（原理解析）
-
-![image](https://github.com/LarryEmerson/LEFrameworks/blob/master/Example/LEUIFramework.gif)
-    
-    
+二、实用的自动排版的库的原理解析：（Demo中的onTestAutoLayout有所体现）
+ 
     LEUIFramework，主要的用法是在新建视图时确定好其父视图，相对位置，大小后，之后父视图的变动，或者自身的变动无需花费大量监听代码去处理视图之间的关系。基本原理是子视图在初始化时，提供父视图、与父视图或者与其他子视图的相对位置、偏移量，大小（Label和Image可以设置为CGSizeZero，从而选择让库来自动处理大小）后，视图位置即可确定。当父视图或者相对位置的参考子视图有所变动时，子视图都会收到重排的指令，从而可以自动排版。而子视图在使用leSetOffset改变偏移量，leSetSize变动大小或者leSetFrame设置整个frame时，其他与之有相对位置关系的视图都会收到消息，从而所有视图都可以自动重排。
 
     1）、所有的view在新建时都可以使用如下的3个初始化方法
@@ -215,12 +212,8 @@ IOS Development Frameworks 持续更新中
         +(UIImageView *) getUIImageViewWithSettings:(LEAutoLayoutSettings *) settings Image:(UIImage *) image ;
         +(UILabel *) getUILabelWithSettings:(LEAutoLayoutSettings *) settings LabelSettings:(LEAutoLayoutLabelSettings *) labelSettings ;  
         +(UIButton *) getUIButtonWithSettings:(LEAutoLayoutSettings *) settings ButtonSettings:(LEAutoLayoutUIButtonSettings *) buttonSettings ;
-        
-三、界面的初步封装(Base目录中)
-
-    LEBaseEmptyView，全屏视图可以通过初始化接口设置导航栏内容，进入，退出效果
     
-四、列表的封装：单组列表（LEBaseTableView） 
+三、列表的封装：单组列表（LEBaseTableView）  见Demo工程中的 onTestLEBaseTableView
 
     1）、已接入下拉刷新（onRefreshData），上拉加载更多（onLoadMore）的效果
     2）、初始化简单- (id) initWithSettings:(LETableViewSettings *) settings; 
@@ -230,18 +223,15 @@ IOS Development Frameworks 持续更新中
     4）、初始化方法：参数有全屏视图，父视图，自定义Cell的类名，可自定义空列表Cell类名，列表数据源回调，列表Cell点击事件回调
         -(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent TableViewCell:(NSString *) cell EmptyTableViewCell:(NSString *) empty GetDataDelegate:(id<LEGetDataDelegate>) get TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection;
     5）、可以重新自定义section及rows
-五、Tabbar封装：LEBottomTabbar，LETabbarRelatedPageView
+四、Tabbar封装：LEBottomTabbar，LETabbarRelatedPageView
 
     -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id) delegate NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *) pages NormalColor:(UIColor *) normalColor HighlightedColor:(UIColor *) highlightedColor;
     
-六、其他工具：
+五、其他工具：
 
-    图片多选框架（MultiImagePicker），
-    弹出消息（LocalNotification），
+    弹出消息（LELocalNotification），
     二维码扫码（LEScanQRCode），
-    弹窗（LEPopup）、
-    Badge（LEBadge），
-    电池上涨动画（LEWaveProgressView），
+    弹窗（LEPopup）、 
     
 七、其他
 [![Version](https://img.shields.io/cocoapods/v/LEFrameworks.svg?style=flat)](http://cocoapods.org/pods/LEFrameworks)
