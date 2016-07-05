@@ -711,6 +711,9 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 @end
 
 @implementation LEAutoLayoutUIButtonSettings
+-(id) initWithImage:(UIImage *) image SEL:(SEL) sel Target:(UIView *) view{
+    return [self initWithTitle:nil FontSize:0 Font:nil Image:image BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:sel Target:view];
+}
 -(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(UIView *) view{
     return [self initWithTitle:title FontSize:fontSize Font:font Image:image BackgroundImage:background Color:color SelectedColor:colorSelected MaxWidth:width SEL:sel Target:view HorizontalSpace:DefaultButtonHorizontalSpace];
 }

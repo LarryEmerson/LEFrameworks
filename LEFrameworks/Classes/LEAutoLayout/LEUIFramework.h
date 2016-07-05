@@ -307,6 +307,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 @property (nonatomic) int leMaxWidth;
 @property (nonatomic) UIView *leTargetView;
 @property (nonatomic) int leSpace;
+-(id) initWithImage:(UIImage *) image SEL:(SEL) sel Target:(UIView *) view;
 -(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(UIView *) view;
 -(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(UIView *) view HorizontalSpace:(int) space;
 @end
