@@ -1,6 +1,0 @@
-framework module Pods_LEFrameworks_Tests {
-  umbrella header "Pods-LEFrameworks_Tests-umbrella.h"
-
-  export *
-  module * { export * }
-}

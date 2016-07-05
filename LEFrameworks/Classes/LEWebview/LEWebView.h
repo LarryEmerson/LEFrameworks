@@ -8,6 +8,7 @@
 #import "LEBaseViewController.h"
 
 @interface LEWebView : LEBaseViewController
+-(id) initWithURLString:(NSString *) urlString;
 - (void)loadWebPageWithString:(NSString*)urlString;
 - (void)setTitle:(NSString *) title;
 @end

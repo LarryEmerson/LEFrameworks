@@ -1056,10 +1056,12 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
     return nil;
 }
 - (NSString *) getImagePathFromLEFrameworksWithName:(NSString *) name{
-    return [NSString stringWithFormat:@"%@/%@.png",self.leFrameworksBundle.bundlePath,name];
+    NSString *path= [NSString stringWithFormat:@"%@/%@.png",self.leFrameworksBundle.bundlePath,name];
+    return path;
 }
-- (UIImage *) getImageFromLEFrameworksWithName:(NSString *) name{ 
-    return [[UIImage alloc] initWithContentsOfFile:[self getImagePathFromLEFrameworksWithName:name]];
+- (UIImage *) getImageFromLEFrameworksWithName:(NSString *) name{
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:[self getImagePathFromLEFrameworksWithName:name]];
+    return image;
 }
 
 

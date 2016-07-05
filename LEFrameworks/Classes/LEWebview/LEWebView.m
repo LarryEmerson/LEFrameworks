@@ -13,31 +13,21 @@
 @implementation LEWebViewPage{
     UIWebView *webView;
     UIImageView *bottomView;
-    //
     NSURL *curURL;
-    //    int count;
-    //
     UIImageView *viewRefresh;
     NSTimer *curTimer;
-    //
     NSMutableArray *curButtons;
 }
-
-#define Space 6
-
 -(void) onShare{
-    
 }
-
--(void) setExtraViewInits{ 
+-(void) setExtraViewInits{
+    curButtons=[[NSMutableArray alloc] init];
     UIImage *imgIconRefresh=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_refresh"];
     UIImage *imgIconBack   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"];
     UIImage *imgIconBackDisabled   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_backward_off"];
     UIImage *imgIconForward=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_forward_on"];
     UIImage *imgIconForwardDisabled=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_forward_off"];
-    //    UIImage *imgIconShare=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_share"];
     UIImage *imgBottom=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_bottombg"];
-    
     int bottomHeight=50;
     //
     bottomView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.curFrameHight-bottomHeight, self.curFrameWidth, bottomHeight)];
@@ -51,7 +41,6 @@
     //
     NSArray *array=[[NSArray alloc] initWithObjects:imgIconBack,imgIconForward,imgIconRefresh /*,imgIconShare*/ , nil];
     float buttonWidth=self.curFrameWidth*1.0/array.count;
-    curButtons=[[NSMutableArray alloc] init];
     NSArray *arrayDisabled=[[NSArray alloc] initWithObjects:imgIconBackDisabled,imgIconForwardDisabled, nil];
     //
     for (int i=0; i<array.count; i++) {
@@ -68,8 +57,6 @@
     viewRefresh=[[UIImageView alloc] initWithFrame:CGRectMake(buttonWidth*2.5-imgIconRefresh.size.width/2, bottomHeight/2-imgIconRefresh.size.height/2, imgIconRefresh.size.width, imgIconRefresh.size.height)];
     [bottomView addSubview:viewRefresh];
     [viewRefresh setImage:imgIconRefresh];
-    //
-    //    [self.viewContainer setBackgroundColor:ColorTest];
 }
 -(void) onClick:(UIButton *) button{
     int index=(int)[curButtons indexOfObject:button];
@@ -115,7 +102,7 @@
     [viewRefresh setHidden:NO];
     viewRefresh=[self rotate360DegreeWithImageView:viewRefresh];
     [curTimer invalidate];
-    curTimer=[NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(stopAnimation) userInfo:nil repeats:NO];
+    curTimer=[NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(stopAnimation) userInfo:nil repeats:NO];   
 }
 
 -(void) stopAnimation{
@@ -137,10 +124,8 @@
 
 
 -(void) onWebRefresh{
-    //    count-=1;
     [webView reload];
 }
-
 - (void)loadWebPageWithString:(NSString*)urlString{
     if(urlString&&(NSNull *)urlString!=[NSNull null]){
         curURL=[NSURL URLWithString:urlString];
@@ -150,8 +135,6 @@
         
     }
 }
-
-
 -(void) webViewDidStartLoad:(UIWebView *)webView{
     [self startAnimation];
 }
@@ -159,7 +142,6 @@
 -(void) webViewDidFinishLoad:(UIWebView *)webView{
     [self stopAnimation];
 }
-
 -(void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [self stopAnimation];
     //    NSLog(@"web didFailLoadWithError %@",error);
@@ -168,35 +150,43 @@
         [self addLocalNotification:error.localizedDescription];
     }
 }
-
+-(id) initWithViewController:(LEBaseViewController *)vc URLString:(NSString *) url{
+    self=[super initWithViewController:vc];
+    [self loadWebPageWithString:url];
+    return self;
+}
 @end
 
 
 @implementation LEWebView{
-    LEWebViewPage *curWebView;
+    LEWebViewPage *page;
     NSString *curUrl;
+    BOOL isBarHidden;
 }
 - (void)loadWebPageWithString:(NSString*)urlString{
-    curUrl=urlString;
-    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loadWebLogic) userInfo:nil repeats:NO];
-}
-- (void) loadWebLogic{
-    [curWebView loadWebPageWithString:curUrl];
+    [page loadWebPageWithString:curUrl];
 }
 - (void)setTitle:(NSString *) title{
     [self.navigationItem setTitle:title];
 }
--(void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+-(id) init{
+    self=[super init];
+    page=[[LEWebViewPage alloc] initWithViewController:self URLString:nil];
+    return self;
+}
+-(id) initWithURLString:(NSString *) urlString{
+    self=[super init];
+    page=[[LEWebViewPage alloc] initWithViewController:self URLString:urlString];
+    return self;
+}
+-(void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:isBarHidden animated:YES];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    curWebView=[[LEWebViewPage alloc] initWithViewController:self];
-    [self.view addSubview:curWebView];
+    isBarHidden=self.navigationController.navigationBarHidden;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self setLeftBarButtonAsBackWith:IMG_ArrowLeft];
-}
--(void) onRight{
-    
 }
 @end

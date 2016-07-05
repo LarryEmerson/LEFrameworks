@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'LEFrameworks'
-s.version          = '0.2.6'
+s.version          = '0.2.7'
 s.summary          = 'IOS Development Frameworks 公司IOS开发库：自动排版、列表封装、数据模型、第三方富文本（url点击事件）再次封装'
 
 # This description is used to generate tags and improve search results.
@@ -38,7 +38,7 @@ s.source           = { :git => 'https://github.com/LarryEmerson/LEFrameworks.git
 
 s.ios.deployment_target = '7.0'
 s.resource_bundles = {
-'LEFrameworks' => ['LEFrameworks/Assets/*.png']
+'LEFrameworks' => ['LEFrameworks/Assets/LEFrameworks.bundle/*.png']
 }
 s.source_files = 'LEFrameworks/Classes/**/*'
 # s.public_header_files = 'Pod/Classes/**/*.h'
