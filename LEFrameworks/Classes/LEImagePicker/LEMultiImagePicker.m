@@ -139,7 +139,7 @@
     curSubtitle=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideRightCenter RelativeView:curTitle Offset:CGPointMake(LayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorTextGray Line:1 Alignment:NSTextAlignmentLeft]];
 }
 -(void) setData:(NSDictionary *)data IndexPath:(NSIndexPath *)path{
-    self.curIndexPath=path;
+    [super setData:data IndexPath:path];
     if(data){
         ALAssetsGroup *assetsGroup=[data objectForKey:@"group"];
         [curIcon setImage:[UIImage imageWithCGImage:assetsGroup.posterImage]];

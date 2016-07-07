@@ -19,6 +19,46 @@ Stuff; \
 _Pragma("clang diagnostic pop") \
 } while (0)
 
+#define singleton_interface(className) \
++ (className *)sharedInstance;
+
+#define singleton_implementation(className) \
+static id _instace = nil; \
++ (id)allocWithZone:(struct _NSZone *)zone \
+{ \
+if (_instace == nil) { \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+_instace = [super allocWithZone:zone]; \
+}); \
+} \
+return _instace; \
+} \
+\
+- (id)init \
+{ \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+_instace = [super init]; \
+}); \
+return _instace; \
+} \
+\
++ (instancetype)sharedInstance \
+{ \
+return [[self alloc] init]; \
+} \
++ (id)copyWithZone:(struct _NSZone *)zone \
+{ \
+return _instace; \
+} \
+\
++ (id)mutableCopyWithZone:(struct _NSZone *)zone \
+{ \
+return _instace; \
+}
+
+#define LEWeakSelf __weak typeof(self) weakSelf = self;
 
 #pragma mark 资源名称需要对应
 #define IMG_Cell_RightArrow     [[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_tableview_icon_arrow"]
@@ -133,7 +173,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 //#define iPhone6     ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750,1334), [[UIScreen mainScreen] currentMode].size) : NO)
 //#define iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242,2208), [[UIScreen mainScreen] currentMode].size) : NO)
 #pragma mark View
-#define LELabelMaxSize CGSizeMake(5000, 5000)
+#define LELabelMaxSize CGSizeMake(MAXFLOAT, MAXFLOAT)
 #define LeTextShadowColor [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.3]
 #define LeTextShadowSize CGSizeMake(0.5, 0.5)
 #define DefaultButtonVerticalSpace 6
@@ -316,7 +356,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
     BOOL canItBeTappedVariable;
 }
 #pragma Singleton
-+(instancetype) sharedInstance;
+singleton_interface(LEUIFramework)
 #pragma public Variables
 @property (nonatomic) UIColor *colorNavigationBar;
 @property (nonatomic) UIColor *colorNavigationContent;

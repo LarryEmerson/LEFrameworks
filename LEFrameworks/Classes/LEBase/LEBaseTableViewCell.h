@@ -36,6 +36,6 @@
 -(void) setCellHeight:(int) height TapWidth:(int) width ;
 @property (nonatomic) UIButton *tapEffect;
 @property (nonatomic) NSIndexPath *curIndexPath;
--(void) setData:(id) data IndexPath:(NSIndexPath *) path;
+-(void) setData:(id) data IndexPath:(NSIndexPath *) path NS_REQUIRES_SUPER;
 -(void) onCellSelectedWithIndex:(int) index;
 @end

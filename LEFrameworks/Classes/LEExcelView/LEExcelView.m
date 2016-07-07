@@ -41,7 +41,7 @@
     }
 }
 -(void) setData:(id)data IndexPath:(NSIndexPath *)path{
-    self.curIndexPath=path;
+    [super setData:data IndexPath:path];
     [self.immovableView leSetOffset:CGPointMake(self.curTableView.swipOffset, 0)];
 }
 @end
