@@ -10,12 +10,32 @@
  * from EaseMob Technologies.
  */
 
-#import "NSDate+Category.h"
+#import "LE_NSDate+Category.h"
 #import "NSDateFormatter+Category.h"
 
 #define DATE_COMPONENTS (NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekOfMonth |  NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday | NSCalendarUnitWeekdayOrdinal)
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
 
+@implementation NSDateFormatter (Category)
+
++ (id)dateFormatter
+{
+    return [[self alloc] init];
+}
+
++ (id)dateFormatterWithFormat:(NSString *)dateFormat
+{
+    NSDateFormatter *dateFormatter = [[self alloc] init];
+    dateFormatter.dateFormat = dateFormat;
+    return dateFormatter;
+}
+
++ (id)defaultDateFormatter
+{
+    return [self dateFormatterWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+}
+
+@end
 @implementation NSDate (Category)
 
 /*距离当前的时间间隔描述*/

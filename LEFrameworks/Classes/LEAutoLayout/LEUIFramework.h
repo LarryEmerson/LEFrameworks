@@ -224,6 +224,10 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 #pragma mark other
 #define LayoutFontNameArialRoundedMTBold      @"Arial Rounded MT Bold"
 
+#define LEFont(size) [UIFont systemFontOfSize:size]
+#define LEBoldFont(size) [UIFont boldSystemFontOfSize:size]
+
+
 @interface UIViewController (Extension)
 -(void) setLeftBarButtonWithImage:(UIImage *) img SEL:(SEL) sel;
 -(void) setRightBarButtonWithImage:(UIImage *)img SEL:(SEL) sel;
@@ -332,6 +336,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 @property (nonatomic) UIColor *leColor;
 @property (nonatomic) int leLine;
 @property (nonatomic) NSTextAlignment leAlignment;
+
 -(id) initWithText:(NSString *) text FontSize:(int) fontSize Font:(UIFont *) font Width:(int) width Height:(int) height Color:(UIColor *) color Line:(int) line Alignment:(NSTextAlignment) alignment;
 @end
 

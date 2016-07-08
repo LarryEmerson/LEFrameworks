@@ -16,10 +16,10 @@
     UILabel *curLabel;
 }
 -(void) initUI{
-    curLabel=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:[UIFont boldSystemFontOfSize:LayoutFontSize14] Width:self.globalVar.ScreenWidth-LayoutSideSpace*2 Height:0 Color:ColorTextBlack Line:0 Alignment:NSTextAlignmentLeft]];//Line=0表示可以换行
+    curLabel=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:LEBoldFont(LayoutFontSize14) Width:self.globalVar.ScreenWidth-LayoutSideSpace*2 Height:0 Color:ColorTextBlack Line:0 Alignment:NSTextAlignmentLeft]];//Line=0表示可以换行
 }
 -(void) setData:(id)data IndexPath:(NSIndexPath *)path{
-    self.curIndexPath=path;
+    [super setData:data IndexPath:path];
     [curLabel leSetText:[NSString stringWithFormat:@"%zd- %@",path.row+1,data]];//设置文字需使用le开头的方法，类似的有leSetSize、leSetFrame、leSetOffset
     [curLabel leSetLineSpace:LayoutTextLineSpace];//设置行间距
     [self setCellHeight:curLabel.bounds.size.height+LayoutSideSpace*2];//文字刷新后即可重新设置Cell的高度了
