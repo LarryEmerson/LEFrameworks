@@ -42,8 +42,7 @@
 //全局消息提示
 #import "LELocalNotification.h"
 //
-#import "NSData+GIF.h"
-#import "NSData+ImageContentType.h"
+#import "LE_NSDate+Category.h"
 //全局可自定义的Popup
 #import "LEBasePopupEmptyPage.h"
 #import "LEPopup.h"

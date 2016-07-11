@@ -30,7 +30,12 @@
 -(void) setNavigationTitle:(NSString *) title{
     [self.navigationItem setTitle:title];
 }
-
+-(void) leThroughNavigationAnimatedPush:(UIViewController *) vc{
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void) lePopSelfAnimated{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(void) onVCBack{
     [self.navigationController popViewControllerAnimated:YES];
 }

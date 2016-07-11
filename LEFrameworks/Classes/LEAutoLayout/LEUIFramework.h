@@ -233,6 +233,8 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 -(void) setRightBarButtonWithImage:(UIImage *)img SEL:(SEL) sel;
 -(void) setLeftBarButtonAsBackWith:(UIImage *) back;
 -(void) setNavigationTitle:(NSString *) title;
+-(void) leThroughNavigationAnimatedPush:(UIViewController *) vc;
+-(void) lePopSelfAnimated;
 @end
 @interface NSObject (Extension)
 -(NSString *) StringValue;
