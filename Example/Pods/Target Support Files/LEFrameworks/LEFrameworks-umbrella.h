@@ -10,6 +10,7 @@
 #import "LEBaseTableViewSectionWithIcon.h"
 #import "LEBaseTableViewWithRefresh.h"
 #import "LEBaseViewController.h"
+#import "LERefresh.h"
 #import "LEBottomTabbar.h"
 #import "LETabbarRelatedPageView.h"
 #import "LEBarChart.h"
@@ -32,11 +33,6 @@
 #import "LEScanQRCode.h"
 #import "LESegmentView.h"
 #import "LEWebView.h"
-#import "DJRefresh.h"
-#import "DJRefreshBottomView.h"
-#import "DJRefreshMacro.h"
-#import "DJRefreshTopView.h"
-#import "DJRefreshView.h"
 
 FOUNDATION_EXPORT double LEFrameworksVersionNumber;
 FOUNDATION_EXPORT const unsigned char LEFrameworksVersionString[];

@@ -81,8 +81,8 @@
 }
 //===================测试 LEBaseTableView TableView的封装
 -(void) onTestLEBaseTableView{
-    curTableView=[[LEBaseTableViewWithRefresh alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.viewContainer TableViewCell:@"TestLEbaseTableViewCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self AutoRefresh:NO]];
-//    [curTableView setBottomRefresh:NO];
+    curTableView=[[LEBaseTableViewWithRefresh alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.viewContainer TableViewCell:@"TestLEbaseTableViewCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self AutoRefresh:YES]];
+    [curTableView setBottomRefresh:NO];
 }
 -(void) onRefreshData{
     NSMutableArray *muta=[[NSMutableArray alloc] init];
