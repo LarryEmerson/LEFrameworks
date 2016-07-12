@@ -1,6 +1,6 @@
 //
 //  LEBaseTableView.m
-//  spark-client-ios
+//  https://github.com/LarryEmerson/LEFrameworks
 //
 //  Created by Larry Emerson on 15/2/4.
 //  Copyright (c) 2015年 Syan. All rights reserved.
@@ -32,15 +32,7 @@
     self.gesture=gesture;
     return self;
 }
-@end
-@implementation LETableViewCellSelectionSettings
--(id) initWithIndexPath:(NSIndexPath *) index ClickStatus:(TableViewCellClickStatus) status{
-    self=[super init];
-    self.indexPath=index;
-    self.clickStatus=status;
-    return self;
-}
-@end
+@end 
 @implementation LETableViewSettings
 -(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent GetDataDelegate:(id<LEGetDataDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection{
     return [self initWithSuperViewContainer:superView ParentView:parent TableViewCell:nil EmptyTableViewCell:nil GetDataDelegate:get TableViewCellSelectionDelegate:selection];
@@ -54,17 +46,14 @@
     self.parentView=parent;
     self.tableViewCellClassName=cell;
     self.emptyTableViewCellClassName=empty;
-    self.getDataDelegate=get; 
+    self.getDataDelegate=get;
     self.tableViewCellSelectionDelegate=selection;
     self.isAutoRefresh=autorefresh;
     return self;
 }
 @end
 
-@interface LEBaseTableView()<UITableViewDelegate,UITableViewDataSource,DJRefreshDelegate>
-@property (nonatomic) DJRefresh *refresh;
-@property (nonatomic) NSTimer *curTimer;
-@property (nonatomic) DJRefreshDirection curDirection;
+@interface LEBaseTableView()<UITableViewDelegate,UITableViewDataSource>
 @end
 @implementation LEBaseTableView{
     BOOL ignoredFirstEmptyCell;
@@ -89,11 +78,6 @@
         [self setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         [self setAllowsSelection:NO];
         //
-        self.refresh=[DJRefresh refreshWithScrollView:self];
-        [self.refresh setDelegate:self];
-        [self.refresh setTopEnabled:YES];
-        [self.refresh setBottomEnabled:YES];
-        [self.refresh setAutoRefreshTop:YES];
         [self initTableView];
         if(settings.isAutoRefresh){
             [self onAutoRefresh];
@@ -101,43 +85,19 @@
     }
     return self;
 }
--(DJRefresh *) getRefreshView{
-    return self.refresh;
-}
 -(void) initTableView{
 }
 //
 -(void) setTopRefresh:(BOOL) enable{
-    [self.refresh setTopEnabled:enable];
-    if(!enable){
-        [self.refresh finishRefreshingDirection:DJRefreshDirectionTop animation:YES];
-    }
+    
 }
 -(void) setBottomRefresh:(BOOL) enable{
-    [self.refresh setBottomEnabled:enable];
-    if(!enable){
-        [self.refresh finishRefreshingDirection:DJRefreshDirectionBottom animation:YES];
-    }
-}
-- (void)refresh:(DJRefresh *)refresh didEngageRefreshDirection:(DJRefreshDirection)direction {
-    self.curDirection=direction;
-    [self.curTimer invalidate];
-    self.curTimer=[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(onStopRefreshLogic) userInfo:nil repeats:NO];
-    if(direction==DJRefreshDirectionTop){
-        [self onDelegateRefreshData];
-    }else {
-        [self onDelegateLoadMore];
-    }
+    
 }
 //
--(void) onStopRefresh {
-    [self.curTimer invalidate];
-    self.curTimer=[NSTimer scheduledTimerWithTimeInterval:0.6 target:self selector:@selector(onStopRefreshLogic) userInfo:nil repeats:NO];
+-(void) onStopTopRefresh {
 }
--(void) onStopRefreshLogic{
-    [self.curTimer invalidate];
-    [self reloadData];
-    [self.refresh finishRefreshingDirection:self.curDirection animation:YES];
+-(void) onStopBottomRefresh {
 }
 //
 -(void) onDelegateRefreshData{
@@ -146,6 +106,7 @@
             [self.getDataDelegate onRefreshData];
         }
     }
+    [self onStopTopRefresh];
 }
 -(void) onDelegateLoadMore{
     if(self.getDataDelegate){
@@ -153,12 +114,10 @@
             [self.getDataDelegate onLoadMore];
         }
     }
+    [self onStopBottomRefresh];
 }
 //
 -(void) onAutoRefresh{
-    if(self.refresh.topEnabled){
-        [self.refresh startRefreshingDirection:DJRefreshDirectionTop animation:YES];
-    }
 }
 -(void) onAutoRefreshWithDuration:(float) duration{
     [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(onAutoRefresh) userInfo:nil repeats:NO];
@@ -167,8 +126,6 @@
 -(void) onRefreshedWithData:(NSMutableArray *)data{
     if(data){
         self.itemsArray=[data mutableCopy];
-        self.curDirection=DJRefreshDirectionTop;
-        [self onStopRefresh];
     }
 }
 -(void) onLoadedMoreWithData:(NSMutableArray *)data{
@@ -177,8 +134,6 @@
             self.itemsArray=[[NSMutableArray alloc] init];
         }
         [self.itemsArray addObjectsFromArray:data];
-        self.curDirection=DJRefreshDirectionBottom;
-        [self onStopRefresh];
     }
 }
 //

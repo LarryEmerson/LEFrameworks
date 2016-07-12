@@ -1,16 +1,12 @@
 //
 //  LEBaseTableView.h
-//  spark-client-ios
+//  https://github.com/LarryEmerson/LEFrameworks
 //
 //  Created by Larry Emerson on 15/2/4.
 //  Copyright (c) 2015年 Syan. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "LEUIFramework.h" 
-#import "DJRefresh.h" 
-#import "LEDataDelegate.h"
-
+#import <UIKit/UIKit.h> 
 #import "LEBaseEmptyTableViewCell.h"
 
 #define KeyOfClassNameForTableView @"tableview"
@@ -34,15 +30,17 @@
 
 #define CommonTableViewReuseableCellIdentifier @"LECELL"
 
-@class LEBaseTableView;
-@class LEBaseEmptyTableViewCell;
+@protocol LETableViewCellSelectionDelegate <NSObject>
+-(void) onTableViewCellSelectedWithInfo:(NSDictionary *) info;
+@end
 
-typedef enum {
-    Default=0,
-    Details=1
-}TableViewCellClickStatus;
+@protocol LEGetDataDelegate <NSObject>
+-(void) onRefreshData;
+@optional
+-(void) onLoadMore;
+@end
 
-@interface LETableViewCellSettings : NSObject 
+@interface LETableViewCellSettings : NSObject
 @property (nonatomic) id<LETableViewCellSelectionDelegate> selectionDelegate;
 @property (nonatomic) UITableViewCellStyle style;
 @property (nonatomic) NSString *reuseIdentifier;
@@ -54,24 +52,18 @@ typedef enum {
 -(id) initWithSelectionDelegate:(id<LETableViewCellSelectionDelegate>) delegate TableViewCellStyle:(UITableViewCellStyle) style reuseIdentifier:(NSString *) reuseIdentifier;
 -(id) initWithSelectionDelegate:(id<LETableViewCellSelectionDelegate>) delegate TableViewCellStyle:(UITableViewCellStyle) style reuseIdentifier:(NSString *) reuseIdentifier  EnableGesture:(BOOL) gesture;
 @end
-@interface LETableViewCellSelectionSettings : NSObject
-@property (nonatomic) NSIndexPath *indexPath;
-@property (nonatomic) TableViewCellClickStatus clickStatus;
--(id) initWithIndexPath:(NSIndexPath *) index ClickStatus:(TableViewCellClickStatus) status;
-@end
 @interface LETableViewSettings : NSObject
 @property (nonatomic) NSString *emptyTableViewCellClassName;
 @property (nonatomic) NSString *tableViewCellClassName;
 @property (nonatomic) UIView *superViewContainer;
 @property (nonatomic) UIView *parentView;
-@property (nonatomic) id<LEGetDataDelegate> getDataDelegate; 
+@property (nonatomic) id<LEGetDataDelegate> getDataDelegate;
 @property (nonatomic) id<LETableViewCellSelectionDelegate> tableViewCellSelectionDelegate;
 @property (nonatomic) BOOL isAutoRefresh;
 -(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent GetDataDelegate:(id<LEGetDataDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection;
 -(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent TableViewCell:(NSString *) cell EmptyTableViewCell:(NSString *) empty GetDataDelegate:(id<LEGetDataDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection;
 -(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent TableViewCell:(NSString *) cell EmptyTableViewCell:(NSString *) empty GetDataDelegate:(id<LEGetDataDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection AutoRefresh:(BOOL) autorefresh;
 @end
-
 
 @interface LEBaseTableView : UITableView
 @property (nonatomic) LEBaseEmptyTableViewCell *emptyTableViewCell;
@@ -81,12 +73,13 @@ typedef enum {
 @property (nonatomic) NSMutableArray *itemsArray;
 @property (nonatomic) NSString *emptyTableViewCellClassName;
 @property (nonatomic) NSString *tableViewCellClassName;
--(DJRefresh *) getRefreshView;
 - (id) initWithSettings:(LETableViewSettings *) settings; 
--(void) initTableView;
+-(void) initTableView NS_REQUIRES_SUPER;
 -(void) setTopRefresh:(BOOL) enable;
 -(void) setBottomRefresh:(BOOL) enable;
 //
+-(void) onStopTopRefresh;
+-(void) onStopBottomRefresh;
 -(void) onAutoRefresh;
 -(void) onAutoRefreshWithDuration:(float) duration;
 -(void) onRefreshedWithData:(NSMutableArray *)data;

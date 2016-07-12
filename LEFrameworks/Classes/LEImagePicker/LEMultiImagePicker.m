@@ -25,7 +25,7 @@
 }
 -(void) initUI{
     [self setUserInteractionEnabled:YES];
-    curIcon=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomRight Offset:CGPointMake(-2, -2) CGSize:CGSizeZero] Image:[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_LEMultiImagePickerCheck"]];
+    curIcon=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomRight Offset:CGPointMake(-2, -2) CGSize:CGSizeZero] Image:[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_MultiImagePickerCheck"]];
     [curIcon setHidden:YES];
     [self addTapEventWithSEL:@selector(onTap) Target:self];
 }

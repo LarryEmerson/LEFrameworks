@@ -69,7 +69,7 @@
     UILabel *autoLayoutMultiLineLabel;
     
     //测试所需临时变量
-    LEBaseTableView *curTableView;
+    LEBaseTableViewWithRefresh *curTableView;
     UILabel *labelBarChart;
     UILabel *labelLineChart;
     LEWaveProgressView *curWaveProgressView;
@@ -81,8 +81,8 @@
 }
 //===================测试 LEBaseTableView TableView的封装
 -(void) onTestLEBaseTableView{
-    curTableView=[[LEBaseTableView alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.viewContainer TableViewCell:@"TestLEbaseTableViewCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self AutoRefresh:YES]];
-    [curTableView setBottomRefresh:NO];
+    curTableView=[[LEBaseTableViewWithRefresh alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.viewContainer TableViewCell:@"TestLEbaseTableViewCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self AutoRefresh:NO]];
+//    [curTableView setBottomRefresh:NO];
 }
 -(void) onRefreshData{
     NSMutableArray *muta=[[NSMutableArray alloc] init];
@@ -94,6 +94,7 @@
     [muta addObject:@"LEFrameworks测试 之 波浪滚动上涨下落进度球 LEWaveProgressView"];
     [muta addObject:@"LEFrameworks测试 之 Excel表格化查阅框架 LEExcelView"];
     [muta addObject:@"LEFrameworks测试 之 自动排版 LEUIFramework"];
+    [muta addObject:@"LEFrameworks测试 之 图片多选 LEMultiImagePicker"];
     [curTableView onRefreshedWithData:muta];
 }
 -(void) onTableViewCellSelectedWithInfo:(NSDictionary *)info{
@@ -122,6 +123,12 @@
             break;
         case 7:
             [self onTestAutoLayout];
+            break;
+        case 8:
+        {
+            LEMultiImagePicker *vc=[[LEMultiImagePicker alloc] initWithImagePickerDelegate:nil];
+            [self.curViewController.navigationController pushViewController:vc animated:YES];
+        }
             break;
         default:
             break;

@@ -1,6 +1,6 @@
 //
 //  LEBaseTableViewSectionWithIcon.m
-//  spark-client-ios
+//  https://github.com/LarryEmerson/LEFrameworks
 //
 //  Created by Larry Emerson on 15/2/6.
 //  Copyright (c) 2015年 Syan. All rights reserved.
