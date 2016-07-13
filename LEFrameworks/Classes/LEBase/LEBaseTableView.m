@@ -96,8 +96,10 @@
 }
 //
 -(void) onStopTopRefresh {
+    [self reloadData];
 }
 -(void) onStopBottomRefresh {
+    [self reloadData];
 }
 //
 -(void) onDelegateRefreshData{
@@ -106,7 +108,6 @@
             [self.getDataDelegate onRefreshData];
         }
     }
-    [self onStopTopRefresh];
 }
 -(void) onDelegateLoadMore{
     if(self.getDataDelegate){
@@ -114,7 +115,6 @@
             [self.getDataDelegate onLoadMore];
         }
     }
-    [self onStopBottomRefresh];
 }
 //
 -(void) onAutoRefresh{
@@ -127,6 +127,7 @@
     if(data){
         self.itemsArray=[data mutableCopy];
     }
+    [self onStopTopRefresh];
 }
 -(void) onLoadedMoreWithData:(NSMutableArray *)data{
     if(data){
@@ -135,6 +136,7 @@
         }
         [self.itemsArray addObjectsFromArray:data];
     }
+    [self onStopBottomRefresh];
 }
 //
 -(NSInteger) _numberOfSections{
