@@ -695,7 +695,6 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
         }
     }
 }
-
 @end
 
 @implementation LEAutoLayoutLabelSettings
@@ -748,46 +747,52 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 }
 @end
 
+@interface LEUIFramework ()
+@property (nonatomic,readwrite) UIColor *leColorNavigationBar;
+@property (nonatomic,readwrite) UIColor *leColorNavigationContent;
+@property (nonatomic,readwrite) UIColor *leColorViewContainer;
+@property (nonatomic,readwrite) NSBundle *leFrameworksBundle;
+@property (nonatomic,readwrite) NSDateFormatter *leDateFormatter;
+@end
 @implementation LEUIFramework{
-    NSMutableDictionary *relativeViews;
-    int viewTagIncrement;
+    BOOL canItBeTappedVariable;
 }
 
 #pragma Singleton 
 LESingleton_implementation(LEUIFramework)
 //
--(BOOL) canItBeTapped{
-    if(self->canItBeTappedVariable){
+-(BOOL) leCanItBeTapped{
+    if(canItBeTappedVariable){
         return NO;
     }else{
-        self->canItBeTappedVariable=YES;
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(tapVariableLogic) userInfo:nil repeats:NO];
+        canItBeTappedVariable=YES;
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(leTapVariableLogic) userInfo:nil repeats:NO];
         return YES;
     }
 }
--(void) tapVariableLogic{
-    self->canItBeTappedVariable=NO;
+-(void) leTapVariableLogic{
+    canItBeTappedVariable=NO;
 }
--(void) extraInits{
-    //}
-    //-(id) init{
-    //    self=[super init];
-    //    if(self){
+-(void) leExtraInits{
     self.leColorNavigationBar=[UIColor colorWithRed:0.1686 green:0.1922 blue:0.2392 alpha:1.0];
     self.leColorNavigationContent=[UIColor whiteColor];
     self.leColorViewContainer=[UIColor colorWithRed:0.9647 green:0.9647 blue:0.9686 alpha:1.0];
-    
-    self.leFrameworksBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
-    //    [self extraInits];
-    //    }
-    //    return self;
-    //}
-    //--------------------Init
-    //-(void) extraInits{
     self.leDateFormatter=[[NSDateFormatter alloc]init];
     [self.leDateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
+    self.leFrameworksBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
 }
- 
+-(void) leSetColorNavigationBar:(UIColor *) color{
+    self.leColorNavigationBar=color;
+}
+-(void) leSetColorNavigationContent:(UIColor *) color{
+    self.leColorNavigationContent=color;
+}
+-(void) leSetColorViewContainer:(UIColor *) color{
+    self.leColorViewContainer=color;
+}
+-(void) leSetDateFormatter:(NSDateFormatter *) formatter{
+    self.leDateFormatter=formatter;
+}
 #pragma  Common
 +(NSString *) leIntToString:(int) i{
     return [NSString stringWithFormat:@"%d",i];
@@ -1054,13 +1059,6 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
 - (UIImage *) leGetImageFromLEFrameworksWithName:(NSString *) name{
     UIImage *image = [[UIImage alloc] initWithContentsOfFile:[self leGetImagePathFromLEFrameworksWithName:name]];
     return image;
-}
-
-
-
-
-
-
-
+} 
 
 @end

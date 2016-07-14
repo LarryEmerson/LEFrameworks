@@ -89,7 +89,7 @@
     
 }
 -(void) onButtonTaped{
-    if([self.globalVar canItBeTapped]){
+    if([self.globalVar leCanItBeTapped]){
         [self onCellSelectedWithIndex:KeyOfCellClickDefaultStatus];
     }
 } 

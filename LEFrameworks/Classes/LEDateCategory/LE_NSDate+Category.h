@@ -18,7 +18,7 @@
 #define D_WEEK		604800
 #define D_YEAR		31556926
 
-@interface NSDateFormatter (Category)
+@interface NSDateFormatter (LEExtension)
 
 + (id)dateFormatter;
 + (id)dateFormatterWithFormat:(NSString *)dateFormat;
@@ -27,7 +27,7 @@
 
 @end
 
-@interface NSDate (Category)
+@interface NSDate (LEExtension)
 - (NSString *)dateDescription;
 - (NSString *)dateDescriptionAsTime;
 - (NSString *)timeIntervalDescription;//距离当前的时间间隔描述

@@ -15,7 +15,7 @@
 #define DATE_COMPONENTS (NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekOfMonth |  NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday | NSCalendarUnitWeekdayOrdinal)
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
 
-@implementation NSDateFormatter (Category)
+@implementation NSDateFormatter (LEExtension)
 
 + (id)dateFormatter
 {
@@ -35,7 +35,7 @@
 }
 
 @end
-@implementation NSDate (Category)
+@implementation NSDate (LEExtension)
 
 /*距离当前的时间间隔描述*/
 - (NSString *)timeIntervalDescription

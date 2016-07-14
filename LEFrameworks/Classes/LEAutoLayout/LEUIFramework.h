@@ -393,22 +393,32 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 -(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(UIView *) view HorizontalSpace:(int) space;
 @end
 
-@interface LEUIFramework : NSObject{
-    BOOL canItBeTappedVariable;
-}
+@interface LEUIFramework : NSObject
+@property (nonatomic,readonly) UIColor *leColorNavigationBar;
+@property (nonatomic,readonly) UIColor *leColorNavigationContent;
+@property (nonatomic,readonly) UIColor *leColorViewContainer;
+@property (nonatomic,readonly) NSBundle *leFrameworksBundle;
+@property (nonatomic,readonly) NSDateFormatter *leDateFormatter;
 #pragma Singleton
 LESingleton_interface(LEUIFramework)
 #pragma public Variables
-@property (nonatomic) UIColor *leColorNavigationBar;
-@property (nonatomic) UIColor *leColorNavigationContent;
-@property (nonatomic) UIColor *leColorViewContainer;
-//
-@property (nonatomic) NSBundle *leFrameworksBundle;
 /*
- * @brief yyyy.MM.dd HH:mm
+ * @brief 设置导航栏颜色
  */
-@property (nonatomic) NSDateFormatter *leDateFormatter;
--(BOOL) canItBeTapped;
+-(void) leSetColorNavigationBar:(UIColor *) color;
+/*
+ * @brief 设置导航栏标题颜色
+ */
+-(void) leSetColorNavigationContent:(UIColor *) color;
+/*
+ * @brief 设置导航栏下方View的底色
+ */
+-(void) leSetColorViewContainer:(UIColor *) color;
+/*
+ * @brief 设置时间打印格式
+ */
+-(void) leSetDateFormatter:(NSDateFormatter *) formatter;
+-(BOOL) leCanItBeTapped;
 #pragma Common
 +(NSString *) leIntToString:(int) i;
 +(NSString *) leNumberToString:(NSNumber *) num;
@@ -430,12 +440,12 @@ LESingleton_interface(LEUIFramework)
 +(UIButton *) leGetCoveredButtonWithSettings:(LEAutoLayoutSettings *) settings SEL:(SEL) sel Target:(id) target;
 +(UIButton *) leGetButtonWithSettings:(LEAutoLayoutSettings *) settings ButtonSettings:(LEAutoLayoutUIButtonSettings *) buttonSettings ;
 
-+(UIImage *)leCreateQRForString:(NSString *)qrString Size:(CGFloat) size;
-+(UIImage*)leImageBlackToTransparent:(UIImage*)image withRed:(CGFloat)red andGreen:(CGFloat)green andBlue:(CGFloat)blue;
++(UIImage *) leCreateQRForString:(NSString *)qrString Size:(CGFloat) size;
++(UIImage*) leImageBlackToTransparent:(UIImage*)image withRed:(CGFloat)red andGreen:(CGFloat)green andBlue:(CGFloat)blue;
 
-+ (BOOL)leValidateMobile:(NSString *)mobileNum ;
++ (BOOL) leValidateMobile:(NSString *)mobileNum ;
 + (NSString *) leGetComboString:(id) string,...;
-+ (NSString *)leTypeForImageData:(NSData *)data;
++ (NSString *) leTypeForImageData:(NSData *)data;
 - (NSString *) leGetImagePathFromLEFrameworksWithName:(NSString *) name;
 - (UIImage *) leGetImageFromLEFrameworksWithName:(NSString *) name;
 @end
