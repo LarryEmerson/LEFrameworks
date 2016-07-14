@@ -1,4 +1,4 @@
 use_frameworks!
 target 'LEFrameworks_Test' do
-  pod 'LEFrameworks', :path => '../'
+  pod 'LEFrameworks', :path => '../' 
 end
