@@ -10,24 +10,23 @@
 
 
 
-#define IntToString(__int) [NSString stringWithFormat:@"%d",(int)__int]
-#define NSIntegerToInt(__int) (int)__int
 
 
 
 
 
-@implementation UIViewController (Extension)
--(void) setLeftBarButtonWithImage:(UIImage *)img SEL:(SEL)sel{
+
+@implementation UIViewController (LEExtension)
+-(void) leSetLeftBarButtonWithImage:(UIImage *)img SEL:(SEL)sel{
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:sel] animated:YES];
 }
--(void) setRightBarButtonWithImage:(UIImage *)img SEL:(SEL)sel{
+-(void) leSetRightBarButtonWithImage:(UIImage *)img SEL:(SEL)sel{
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:sel] animated:YES];
 }
--(void) setLeftBarButtonAsBackWith:(UIImage *) back{
+-(void) leSetLeftBarButtonAsBackWith:(UIImage *) back{
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithImage:back style:UIBarButtonItemStylePlain target:self action:@selector(onVCBack)] animated:YES];
 }
--(void) setNavigationTitle:(NSString *) title{
+-(void) leSetNavigationTitle:(NSString *) title{
     [self.navigationItem setTitle:title];
 }
 -(void) leThroughNavigationAnimatedPush:(UIViewController *) vc{
@@ -40,17 +39,18 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end
-@implementation NSObject (Extension)
--(NSString *) StringValue{
+@implementation NSObject (LEExtension)
+-(NSString *) leStringValue{
     return [NSString stringWithFormat:@"%@",self];
 }
+-(void) leExtraInits{}
 @end
 
-@implementation UIView (Extension) 
+@implementation UIView (LEExtension) 
 -(UIView *) getSuperView:(UIView *) view{
     return view.superview?[self getSuperView:view.superview]:view;
 }
--(void) addLocalNotification:(NSString *) notification{
+-(void) leAddLocalNotification:(NSString *) notification{
     if(notification&&notification.length>0){
         LELocalNotification *noti=[[LELocalNotification alloc] init];
         [noti setText:notification WithEnterTime:0.3 AndPauseTime:0.8 ReleaseWhenFinished:YES];
@@ -58,44 +58,44 @@
     }
 }
 //
--(void) endEdit{
+-(void) leEndEdit{
     [self endEditing:YES];
 }
--(void) addTapEventWithSEL:(SEL) sel{ 
-    [self addTapEventWithSEL:sel Target:self ];
+-(void) leAddTapEventWithSEL:(SEL) sel{ 
+    [self leAddTapEventWithSEL:sel Target:self ];
 }
--(void) addTapEventWithSEL:(SEL)sel Target:(id) target{
+-(void) leAddTapEventWithSEL:(SEL)sel Target:(id) target{
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:target action:sel]];
 }
--(UIImageView *) addTopSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width{
-    UIImageView *img=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:offset CGSize:CGSizeMake(width, 0.5)] Image:[color imageStrechedFromSizeOne]];
+-(UIImageView *) leAddTopSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width{
+    UIImageView *img=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:offset CGSize:CGSizeMake(width, 0.5)] Image:[color leImageStrechedFromSizeOne]];
     return img;
 }
--(UIImageView *) addBottomSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width{
-    UIImageView *img= [LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:offset CGSize:CGSizeMake(width, 0.5)] Image:[color imageStrechedFromSizeOne]];
+-(UIImageView *) leAddBottomSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width{
+    UIImageView *img= [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:offset CGSize:CGSizeMake(width, 0.5)] Image:[color leImageStrechedFromSizeOne]];
     return img;
 }
 
 @end
 
-@implementation UITableView (Extension)
+@implementation UITableView (LEExtension)
 -(BOOL) touchesShouldCancelInContentView:(UIView *)view{
     return YES;
 }
 @end
 
-@implementation UIImage (Extension)
--(UIImage *)middleStrechedImage{
+@implementation UIImage (LEExtension)
+-(UIImage *)leMiddleStrechedImage{
     return [self stretchableImageWithLeftCapWidth:self.size.width/2 topCapHeight:self.size.height/2];
 }
 @end
 
-@implementation UIColor (Extension)
--(UIImage *)imageStrechedFromSizeOne{
-    UIImage *img=[self imageWithSize:CGSizeMake(1, 1)];
-    return [img middleStrechedImage];
+@implementation UIColor (LEExtension)
+-(UIImage *)leImageStrechedFromSizeOne{
+    UIImage *img=[self leImageWithSize:CGSizeMake(1, 1)];
+    return [img leMiddleStrechedImage];
 }
--(UIImage *)imageWithSize:(CGSize)size {
+-(UIImage *)leImageWithSize:(CGSize)size {
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -107,8 +107,8 @@
 }
 @end
 
-@implementation NSString (Extension)
--(int) asciiLength{
+@implementation NSString (LEExtension)
+-(int) leAsciiLength{
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData* da = [self dataUsingEncoding:enc];
     return (int)[da length];
@@ -125,16 +125,16 @@
     //    }
     //    return strlength;
 }
--(NSString *) getTrimmedString{
+-(NSString *) leGetTrimmedString{
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 } 
--(NSObject *) getInstanceFromClassName{
+-(NSObject *) leGetInstanceFromClassName{
     NSObject *obj=[NSClassFromString(self) alloc];
     NSAssert(obj!=nil,([NSString stringWithFormat:@"请检查类名是否正确：%@",self]));
     return obj;
 }
 //返回字符串所占用的尺寸.
--(CGSize) getSizeWithFont:(UIFont *)font MaxSize:(CGSize) size{
+-(CGSize) leGetSizeWithFont:(UIFont *)font MaxSize:(CGSize) size{
     if(!self){
         return CGSizeZero;
     }
@@ -151,7 +151,7 @@
 }
 @end
 
-@implementation UILabel (Extension)
+@implementation UILabel (LEExtension)
 //- (void)alignTop {
 //    CGSize fontSize = [self.text sizeWithFont:self.font];
 //    double finalHeight = fontSize.height * self.numberOfLines;
@@ -175,15 +175,15 @@
     if(self.leAutoLayoutSettings){
         int width=self.leAutoLayoutSettings.leLabelMaxWidth;
         int height=self.leAutoLayoutSettings.leLabelMaxHeight;
-        if(width==0||width>[LEUIFramework sharedInstance].ScreenWidth){
-            width=[LEUIFramework sharedInstance].ScreenWidth;
+        if(width==0||width>LESCREEN_WIDTH){
+            width=LESCREEN_WIDTH;
         }
         CGSize size=CGSizeZero;
         if(text){
             if(self.leAutoLayoutSettings.leLabelNumberOfLines==0){
-                size=[text getSizeWithFont:self.font MaxSize:CGSizeMake(width, height)];
+                size=[text leGetSizeWithFont:self.font MaxSize:CGSizeMake(width, height)];
             }else if(self.leAutoLayoutSettings.leLabelNumberOfLines>=1){
-                size=[text getSizeWithFont:self.font MaxSize:CGSizeMake(width, height)];
+                size=[text leGetSizeWithFont:self.font MaxSize:CGSizeMake(width, height)];
                 if(self.leAutoLayoutSettings.leLabelNumberOfLines==1&&self.leAutoLayoutSettings.leLabelMaxHeight==0){
                     size.height=self.font.lineHeight;
                 }
@@ -200,11 +200,11 @@
     [self setText:text];
     //    [self alignTop];
 }
--(CGSize) getLabelTextSize{
-    return [self.text getSizeWithFont:self.font MaxSize:LELabelMaxSize];
+-(CGSize) leGetLabelTextSize{
+    return [self.text leGetSizeWithFont:self.font MaxSize:LELabelMaxSize];
 }
--(CGSize) getLabelTextSizeWithMaxWidth:(int) width{
-    return [self.text getSizeWithFont:self.font MaxSize:CGSizeMake(width, LELabelMaxSize.height)];
+-(CGSize) leGetLabelTextSizeWithMaxWidth:(int) width{
+    return [self.text leGetSizeWithFont:self.font MaxSize:CGSizeMake(width, LELabelMaxSize.height)];
 }
 -(void) leSetLineSpace:(float) space{
     [self leSetLinespace:space Color:nil Range:NSMakeRange(0, 0)];
@@ -229,12 +229,12 @@
         [self setAttributedText:attributedString];
         //
         int width=self.leAutoLayoutSettings.leLabelMaxWidth;
-        if(width==0||width>[LEUIFramework sharedInstance].ScreenWidth){
-            width=[LEUIFramework sharedInstance].ScreenWidth;
+        if(width==0||width>LESCREEN_WIDTH){
+            width=LESCREEN_WIDTH;
         }
         CGRect rect = [self.text boundingRectWithSize:CGSizeMake(width, LELabelMaxSize.height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
         [self leSetSize:CGSizeMake(rect.size.width, rect.size.height)]; 
-        [self redrawAttributedStringWithRect:rect LineSpace:space];
+        [self leRedrawAttributedStringWithRect:rect LineSpace:space];
         //        if(color &&rect.size.height<=self.font.lineHeight+space){
         //            [attributedString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithInt: -space/2+1] range:NSMakeRange(0, self.text.length)];
         //            [self setAttributedText:attributedString];
@@ -246,7 +246,7 @@
         //        }
     }
 }
--(void) redrawAttributedStringWithRect:(CGRect) rect LineSpace:(int) lineSpace{
+-(void) leRedrawAttributedStringWithRect:(CGRect) rect LineSpace:(int) lineSpace{
     //    if(YES)return;
     if(self.attributedText){
         __block BOOL hasColor=NO;
@@ -282,7 +282,7 @@
                     [self setFrame:CGRectMake(0, 0, rect.size.width, (self.numberOfLines>1?self.numberOfLines-1:0)*lineSpace+self.numberOfLines*self.font.lineHeight)];
                 }
                 [self setLineBreakMode:NSLineBreakByTruncatingTail];
-                //                [self setBackgroundColor:ColorMask];
+                //                [self setBackgroundColor:LEColorMask];
             }
         }
     }
@@ -290,58 +290,58 @@
 //=======================Copy
 
 static void * UILabelSupportCopyKey = (void *) @"UILabelSupportCopyKey";
-- (NSNumber *) isSupportCopy {
+- (NSNumber *) leIsSupportCopy {
     return objc_getAssociatedObject(self, UILabelSupportCopyKey);
 }
-- (void) setIsSupportCopy:(NSNumber *)isSupportCopy  {
-    objc_setAssociatedObject(self, UILabelSupportCopyKey, isSupportCopy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void) setLeIsSupportCopy:(NSNumber *)leIsSupportCopy{
+    objc_setAssociatedObject(self, UILabelSupportCopyKey, leIsSupportCopy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 -(BOOL)canBecomeFirstResponder{
-    if([self.isSupportCopy boolValue]){
+    if([self.leIsSupportCopy boolValue]){
         return YES;
     }
     return [super canBecomeFirstResponder];
 }
 -(BOOL)resignFirstResponder{
-    if([self.isSupportCopy boolValue]){
-        [self setBackgroundColor:ColorClear];
+    if([self.leIsSupportCopy boolValue]){
+        [self setBackgroundColor:LEColorClear];
         return YES;
     }else{
         return [super resignFirstResponder];
     }
 }
 -(BOOL)canPerformAction:(SEL)action withSender:(id)sender{
-    return (action == @selector(copy:));
+    return (action == @selector(leCopy:));
 }
--(void) handleLongPress:(UILongPressGestureRecognizer *) recognizer{
-    [self setBackgroundColor:ColorMask2];
+-(void) leHandleLongPress:(UILongPressGestureRecognizer *) recognizer{
+    [self setBackgroundColor:LEColorMask2];
     [self becomeFirstResponder];
     [[UIMenuController sharedMenuController] setTargetRect:self.frame inView:self.superview];
     [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
 }
--(void)copy:(id)sender{
+-(void)leCopy:(id)sender{
     UIPasteboard *pboard = [UIPasteboard generalPasteboard];
     pboard.string =self.text;
     [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
-    [self setBackgroundColor:ColorClear];
+    [self setBackgroundColor:LEColorClear];
     [self resignFirstResponder];
 }
--(void) addLongPressGestureWithSel:(SEL) sel Target:(id) target{
+-(void) leAddLongPressGestureWithSel:(SEL) sel Target:(id) target{
     UILongPressGestureRecognizer *longPress=[[UILongPressGestureRecognizer alloc] initWithTarget:target action:sel];
     [self addGestureRecognizer:longPress];
     [self setUserInteractionEnabled:YES];
 }
 
--(void) addCopyGesture{
-    self.isSupportCopy=[NSNumber numberWithBool:YES];
-    UILongPressGestureRecognizer *longPress=[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+-(void) leAddCopyGesture{
+    self.leIsSupportCopy=[NSNumber numberWithBool:YES];
+    UILongPressGestureRecognizer *longPress=[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(leHandleLongPress:)];
     [self addGestureRecognizer:longPress];
     [self setUserInteractionEnabled:YES];
 }
 @end
 
-@implementation UIImageView (Extension)
+@implementation UIImageView (LEExtension)
 -(void) leSetImage:(UIImage *) image{
     if(self.leAutoLayoutSettings){
         self.leAutoLayoutSettings.leSize=image.size;
@@ -358,18 +358,18 @@ static void * UILabelSupportCopyKey = (void *) @"UILabelSupportCopyKey";
 }
 @end
 
-@implementation UIButton (Extension)
+@implementation UIButton (LEExtension)
 -(void) leSetText:(NSString *) text{
     [self setTitle:text forState:UIControlStateNormal];
     //
     CGSize finalSize=self.leAutoLayoutSettings.leSize;
     while (YES) {
-        CGSize textSize=[self.titleLabel getLabelTextSize];
-        if(textSize.width+DefaultButtonHorizontalSpace*2>finalSize.width){
-            finalSize.width = textSize.width+DefaultButtonHorizontalSpace*2;
+        CGSize textSize=[self.titleLabel leGetLabelTextSize];
+        if(textSize.width+LEDefaultButtonHorizontalSpace*2>finalSize.width){
+            finalSize.width = textSize.width+LEDefaultButtonHorizontalSpace*2;
         }
-        if(textSize.height+DefaultButtonVerticalSpace*2>finalSize.height){
-            finalSize.height = textSize.height+DefaultButtonVerticalSpace*2;
+        if(textSize.height+LEDefaultButtonVerticalSpace*2>finalSize.height){
+            finalSize.height = textSize.height+LEDefaultButtonVerticalSpace*2;
         }
         if(self.leAutoLayoutSettings.leButtonMaxWidth>0 && finalSize.width>self.leAutoLayoutSettings.leButtonMaxWidth){
             finalSize.width=self.leAutoLayoutSettings.leButtonMaxWidth;
@@ -381,7 +381,7 @@ static void * UILabelSupportCopyKey = (void *) @"UILabelSupportCopyKey";
     self.leAutoLayoutSettings.leSize=finalSize;
     [self leExecAutoLayout];
 }
--(void) verticallyLayoutButton{
+-(void) leVerticallyLayoutButton{
     UIButton *button=self;
     button.imageView.backgroundColor=[UIColor clearColor];
     [button.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -417,11 +417,11 @@ static void * UILabelSupportCopyKey = (void *) @"UILabelSupportCopyKey";
     edge.top=-fabs(edge.top);
     edge.bottom=-fabs(edge.bottom);
     self=[self initWithSuperView:superView Anchor:LEAnchorInsideTopLeft Offset:CGPointMake(-edge.left, -edge.top) CGSize:CGSizeMake(relativeSize.width+edge.left+edge.right, relativeSize.height+edge.top+edge.bottom)];
-    [self setRelativeChangeView:superView EdgeInsects:edge];
+    [self leSetRelativeChangeView:superView EdgeInsects:edge];
     return self;
 }
 
--(void) setRelativeChangeView:(UIView *) changeView EdgeInsects:(UIEdgeInsets) edge{
+-(void) leSetRelativeChangeView:(UIView *) changeView EdgeInsects:(UIEdgeInsets) edge{
     self.leRelativeChangeView=changeView;
     self.leEdgeInsets=edge;
     //
@@ -437,7 +437,7 @@ static void * LEAutoLayoutObserversKey = (void *) @"LEAutoLayoutObservers";
 static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 @implementation UIView (LEUIViewFrameWorks)
 
-+ (CGRect) getFrameWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings{
++ (CGRect) leGetFrameWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings{
     LEAnchors anchor=settings.leAnchor;
     UIView *relativeView=settings.leRelativeView;
     CGPoint offset=settings.leOffset;
@@ -579,7 +579,7 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 //
 
 -(instancetype) initWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings{
-    self=[self initWithFrame:[UIView getFrameWithAutoLayoutSettings:settings]];
+    self=[self initWithFrame:[UIView leGetFrameWithAutoLayoutSettings:settings]];
     //
     self.leAutoLayoutSettings=settings;
     self.leAutoLayoutObservers=[[NSMutableArray alloc] init];
@@ -596,7 +596,7 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
     }
     return self;
 }
--(void) addAutoResizeRelativeView:(UIView *) changeView EdgeInsects:(UIEdgeInsets) edge{
+-(void) leAddAutoResizeRelativeView:(UIView *) changeView EdgeInsects:(UIEdgeInsets) edge{
     if(!self.leAutoLayoutSettings){
         self.leAutoLayoutSettings=[[LEAutoLayoutSettings alloc] init];
     }
@@ -658,7 +658,7 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 }
 -(void) leExecAutoLayout{
     if(self.leAutoLayoutSettings){
-        CGRect frame=[UIView getFrameWithAutoLayoutSettings:self.leAutoLayoutSettings];
+        CGRect frame=[UIView leGetFrameWithAutoLayoutSettings:self.leAutoLayoutSettings];
         if(!CGRectEqualToRect(frame, self.frame)){
             [self setFrame:frame];
             [self leExecAutoLayoutSubviews];
@@ -724,7 +724,7 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
     return [self initWithTitle:nil FontSize:0 Font:nil Image:image BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:sel Target:view];
 }
 -(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(UIView *) view{
-    return [self initWithTitle:title FontSize:fontSize Font:font Image:image BackgroundImage:background Color:color SelectedColor:colorSelected MaxWidth:width SEL:sel Target:view HorizontalSpace:DefaultButtonHorizontalSpace];
+    return [self initWithTitle:title FontSize:fontSize Font:font Image:image BackgroundImage:background Color:color SelectedColor:colorSelected MaxWidth:width SEL:sel Target:view HorizontalSpace:LEDefaultButtonHorizontalSpace];
 }
 -(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected  MaxWidth:(int) width SEL:(SEL) sel Target:(UIView *) view HorizontalSpace:(int)space{
     self=[super init];
@@ -754,17 +754,8 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 }
 
 #pragma Singleton 
-static LEUIFramework *theSharedInstance = nil;
-+ (instancetype) sharedInstance { @synchronized(self) { if (theSharedInstance == nil) { theSharedInstance = [[self alloc] init];
-    theSharedInstance.colorNavigationBar=[UIColor colorWithRed:0.1686 green:0.1922 blue:0.2392 alpha:1.0];
-    theSharedInstance.colorNavigationContent=[UIColor whiteColor];
-    theSharedInstance.colorViewContainer=[UIColor colorWithRed:0.9647 green:0.9647 blue:0.9686 alpha:1.0];
-} } return theSharedInstance; }
-+ (id) allocWithZone:(NSZone *)zone { @synchronized(self) { if (theSharedInstance == nil) { theSharedInstance = [super allocWithZone:zone]; return theSharedInstance; } } return nil; }
-+ (id) copyWithZone:(NSZone *)zone { return self; }
-+ (id) mutableCopyWithZone:(NSZone *)zone { return self; }
+LESingleton_implementation(LEUIFramework)
 //
-
 -(BOOL) canItBeTapped{
     if(self->canItBeTappedVariable){
         return NO;
@@ -777,74 +768,63 @@ static LEUIFramework *theSharedInstance = nil;
 -(void) tapVariableLogic{
     self->canItBeTappedVariable=NO;
 }
--(id) init{
-    self=[super init];
-    if(self){ 
-        self.ScreenBounds=[LEUIFramework ScreenBounds];
-        self.ScreenWidth=self.ScreenBounds.size.width;
-        self.ScreenHeight=self.ScreenBounds.size.height;
-        self.SystemVersion=[LEUIFramework SystemVersion];
-        self.IsIOS7=[self.SystemVersion floatValue]==7;
-        self.IsIOS8=[self.SystemVersion floatValue]==8;
-        self.IsIOS8OrLater=[self.SystemVersion floatValue]>=8;
-        //        self.IsStatusBarNotCovered=[self.SystemVersion floatValue]>=7;
-        //
-        self.curScreen=[UIScreen mainScreen];
-        self.curScreenScale=(int)self.curScreen.scale;
-        self.leFrameworksBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
-        [self extraInits];
-    }
-    return self;
-}
-//--------------------Init
 -(void) extraInits{
-    self.dateFormatter=[[NSDateFormatter alloc]init];
-    [self.dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
+    //}
+    //-(id) init{
+    //    self=[super init];
+    //    if(self){
+    self.leColorNavigationBar=[UIColor colorWithRed:0.1686 green:0.1922 blue:0.2392 alpha:1.0];
+    self.leColorNavigationContent=[UIColor whiteColor];
+    self.leColorViewContainer=[UIColor colorWithRed:0.9647 green:0.9647 blue:0.9686 alpha:1.0];
+    
+    self.leFrameworksBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
+    //    [self extraInits];
+    //    }
+    //    return self;
+    //}
+    //--------------------Init
+    //-(void) extraInits{
+    self.leDateFormatter=[[NSDateFormatter alloc]init];
+    [self.leDateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
 }
-#pragma System
-+ (NSString *)SystemVersion {
-    return [UIDevice currentDevice].systemVersion;
-}
-+ (CGRect)ScreenBounds{
-    return [UIScreen mainScreen].bounds;
-}
+ 
 #pragma  Common
-+(NSString *) intToString:(int) i{
++(NSString *) leIntToString:(int) i{
     return [NSString stringWithFormat:@"%d",i];
 }
-+(NSString *) numberToString:(NSNumber *) num{
++(NSString *) leNumberToString:(NSNumber *) num{
     return [NSString stringWithFormat:@"%@",num];
 }
-+(UIFont *) getSystemFontWithSize:(int)size{
++(UIFont *) leGetSystemFontWithSize:(int)size{
     return [UIFont systemFontOfSize:size];
 }
 #pragma UIImage
-+ (UIImage *) getMiddleStrechedImage:(UIImage *) image{
-    CGSize size=[LEUIFramework getMiddleStrechedSize:image.size];
++ (UIImage *) leGetMiddleStrechedImage:(UIImage *) image{
+    CGSize size=[LEUIFramework leGetMiddleStrechedSize:image.size];
     return [image stretchableImageWithLeftCapWidth:size.width topCapHeight:size.height];
 }
-+ (CGSize) getMiddleStrechedSize:(CGSize) size{
++ (CGSize) leGetMiddleStrechedSize:(CGSize) size{
     return CGSizeMake(size.width/2, size.height/2);
 }
-+ (UIImage *) getUIImage:(NSString *) name{
++ (UIImage *) leGetUIImage:(NSString *) name{
     return [UIImage imageNamed:name];
 }
-+ (UIImage *) getUIImage:(NSString *) name Streched:(BOOL) isStreched {
-    UIImage *img=[LEUIFramework getUIImage:name];
++ (UIImage *) leGetUIImage:(NSString *) name Streched:(BOOL) isStreched {
+    UIImage *img=[LEUIFramework leGetUIImage:name];
     if(isStreched){
-        img=[LEUIFramework getMiddleStrechedImage:img];
+        img=[LEUIFramework leGetMiddleStrechedImage:img];
     }
     return img;
 }
-+ (CGSize) getSizeWithValue:(int) value{
++ (CGSize) leGetSizeWithValue:(int) value{
     return CGSizeMake(value, value);
 }
 
 #pragma UIImageView
-+(UIImageView *) getUIImageViewWithSettings:(LEAutoLayoutSettings *) settings Image:(NSString *) image Streched:(BOOL) isStreched{
-    return  [self getUIImageViewWithSettings:settings Image:[LEUIFramework getUIImage:image Streched:isStreched]];
++(UIImageView *) leGetImageViewWithSettings:(LEAutoLayoutSettings *) settings Image:(NSString *) image Streched:(BOOL) isStreched{
+    return  [self leGetImageViewWithSettings:settings Image:[LEUIFramework leGetUIImage:image Streched:isStreched]];
 }
-+(UIImageView *) getUIImageViewWithSettings:(LEAutoLayoutSettings *) settings Image:(UIImage *) image{
++(UIImageView *) leGetImageViewWithSettings:(LEAutoLayoutSettings *) settings Image:(UIImage *) image{
     if(CGSizeEqualToSize(settings.leSize, CGSizeZero)){
         settings.leSize=image.size;
     }
@@ -853,32 +833,32 @@ static LEUIFramework *theSharedInstance = nil;
     return view;
 }
 #pragma UILabel
-+(UITextField *) getUITextFieldWithSettings:(LEAutoLayoutSettings *) settings LabelSettings:(LEAutoLayoutLabelSettings *) labelSettings ReturnKeyType:(UIReturnKeyType) type Delegate:(id<UITextFieldDelegate>) delegate{
++(UITextField *) leGetTextFieldWithSettings:(LEAutoLayoutSettings *) settings LabelSettings:(LEAutoLayoutLabelSettings *) labelSettings ReturnKeyType:(UIReturnKeyType) type Delegate:(id<UITextFieldDelegate>) delegate{
     UITextField *label=[[UITextField alloc] initWithAutoLayoutSettings:settings];
     [label setReturnKeyType:type];
     [label setTextAlignment:labelSettings.leAlignment];
     [label setTextColor:labelSettings.leColor];
     [label setFont:labelSettings.leFont];
     [label setPlaceholder:labelSettings.leText];
-    [label setBackgroundColor:ColorClear]; 
+    [label setBackgroundColor:LEColorClear]; 
     [label setDelegate:delegate];
     return label;
 }
-+(UILabel *) getUILabelWithSettings:(LEAutoLayoutSettings *) settings LabelSettings:(LEAutoLayoutLabelSettings *) labelSettings {
++(UILabel *) leGetLabelWithSettings:(LEAutoLayoutSettings *) settings LabelSettings:(LEAutoLayoutLabelSettings *) labelSettings {
     CGSize size=CGSizeZero;
     int width=labelSettings.leWidth;
     int height=labelSettings.leHeight;
-    if(width==0||width>[LEUIFramework sharedInstance].ScreenWidth){
-        width=[LEUIFramework sharedInstance].ScreenWidth;
+    if(width==0||width>LESCREEN_WIDTH){
+        width=LESCREEN_WIDTH;
     }
     if(height==0){
         height=LELabelMaxSize.height;
     }
     if(labelSettings.leText){
         if(labelSettings.leLine==0){
-            size=[labelSettings.leText getSizeWithFont:labelSettings.leFont MaxSize:CGSizeMake(width, height)];
+            size=[labelSettings.leText leGetSizeWithFont:labelSettings.leFont MaxSize:CGSizeMake(width, height)];
         }else if(labelSettings.leLine>=1){
-            size=[labelSettings.leText getSizeWithFont:labelSettings.leFont MaxSize:CGSizeMake(width, height)];
+            size=[labelSettings.leText leGetSizeWithFont:labelSettings.leFont MaxSize:CGSizeMake(width, height)];
             if(labelSettings.leHeight!=0){
                 size.height=labelSettings.leHeight;
             }
@@ -892,9 +872,9 @@ static LEUIFramework *theSharedInstance = nil;
     [label setTextColor:labelSettings.leColor];
     [label setFont:labelSettings.leFont];
     [label setNumberOfLines:labelSettings.leLine];
-    [label setBackgroundColor:ColorClear];
+    [label setBackgroundColor:LEColorClear];
     //    [label setLineBreakMode:NSLineBreakByWordWrapping];
-    label.leAutoLayoutSettings.leLabelMaxWidth=labelSettings.leWidth==0?[LEUIFramework sharedInstance].ScreenWidth:labelSettings.leWidth;
+    label.leAutoLayoutSettings.leLabelMaxWidth=labelSettings.leWidth==0?LESCREEN_WIDTH:labelSettings.leWidth;
     //    label.leAutoLayoutSettings.leLabelMaxHeight=height;
     label.leAutoLayoutSettings.leLabelNumberOfLines=labelSettings.leLine;
     [label setText:labelSettings.leText];
@@ -904,17 +884,17 @@ static LEUIFramework *theSharedInstance = nil;
 }
 
 #pragma UIButton
-+(UIButton *) getCoveredButtonWithSettings:(LEAutoLayoutSettings *) settings SEL:(SEL) sel Target:(id) target{
++(UIButton *) leGetCoveredButtonWithSettings:(LEAutoLayoutSettings *) settings SEL:(SEL) sel Target:(id) target{
     if(!settings){
         return nil;
     }
     UIButton *button=[[UIButton alloc] initWithAutoLayoutSettings:settings];
-    [button setBackgroundImage:[ColorMask2 imageStrechedFromSizeOne] forState:UIControlStateHighlighted];
+    [button setBackgroundImage:[LEColorMask2 leImageStrechedFromSizeOne] forState:UIControlStateHighlighted];
     [button addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
     [settings.leSuperView addSubview:button];
     return button;
 }
-+(UIButton *) getUIButtonWithSettings:(LEAutoLayoutSettings *) settings ButtonSettings:(LEAutoLayoutUIButtonSettings *) buttonSettings {
++(UIButton *) leGetButtonWithSettings:(LEAutoLayoutSettings *) settings ButtonSettings:(LEAutoLayoutUIButtonSettings *) buttonSettings {
     if(!settings||!buttonSettings){
         return nil;
     }
@@ -931,16 +911,16 @@ static LEUIFramework *theSharedInstance = nil;
     //
     int space=buttonSettings.leSpace;
     if(space==0){
-        space=DefaultButtonHorizontalSpace;
+        space=LEDefaultButtonHorizontalSpace;
     }
     CGSize finalSize=settings.leSize;
     while (YES) {
-        CGSize textSize=[button.titleLabel getLabelTextSize];
+        CGSize textSize=[button.titleLabel leGetLabelTextSize];
         if(textSize.width+space*2>finalSize.width){
             finalSize.width = textSize.width+space*2;
         }
-        if(textSize.height+DefaultButtonVerticalSpace*2>finalSize.height){
-            finalSize.height = textSize.height+DefaultButtonVerticalSpace*2;
+        if(textSize.height+LEDefaultButtonVerticalSpace*2>finalSize.height){
+            finalSize.height = textSize.height+LEDefaultButtonVerticalSpace*2;
         }
         if(buttonSettings.leMaxWidth>0 && finalSize.width>buttonSettings.leMaxWidth){
             buttonSettings.leTitleFont=[buttonSettings.leTitleFont fontWithSize:buttonSettings.leTitleFont.pointSize-0.2];
@@ -954,7 +934,7 @@ static LEUIFramework *theSharedInstance = nil;
 }
 
 
-+ (UIImage *)createQRForString:(NSString *)qrString Size:(CGFloat) size {
++ (UIImage *)leCreateQRForString:(NSString *)qrString Size:(CGFloat) size {
     NSData *stringData = [qrString dataUsingEncoding:NSUTF8StringEncoding];
     // 创建filter
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
@@ -986,7 +966,7 @@ static LEUIFramework *theSharedInstance = nil;
 void ProviderReleaseData (void *info, const void *data, size_t size){
     free((void*)data);
 }
-+ (UIImage*)imageBlackToTransparent:(UIImage*)image withRed:(CGFloat)red andGreen:(CGFloat)green andBlue:(CGFloat)blue{
++ (UIImage*)leImageBlackToTransparent:(UIImage*)image withRed:(CGFloat)red andGreen:(CGFloat)green andBlue:(CGFloat)blue{
     const int imageWidth = image.size.width;
     const int imageHeight = image.size.height;
     size_t      bytesPerRow = imageWidth * 4;
@@ -1027,14 +1007,14 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
     return resultUIImage;
 }
 
-+ (BOOL)validateMobile:(NSString *)mobileNum {
++ (BOOL)leValidateMobile:(NSString *)mobileNum {
     if ([[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1\\d{10}$"] evaluateWithObject:mobileNum]) {
         return YES;
     }  else {
         return NO;
     }
 }
-+(NSString *) getComboString:(id) string,...{
++(NSString *) leGetComboString:(id) string,...{
     NSString *comboString=string;
     va_list params;
     va_start(params,string);
@@ -1051,28 +1031,28 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
 }
 
 
-+ (NSString *)typeForImageData:(NSData *)data {
++ (NSString *)leTypeForImageData:(NSData *)data {
     uint8_t c;
     [data getBytes:&c length:1];
     switch (c) {
         case 0xFF:
-            return ImageTypeAsJpeg;
+            return LEImageTypeAsJpeg;
         case 0x89:
-            return ImageTypeAsPng;
+            return LEImageTypeAsPng;
         case 0x47:
-            return ImageTypeAsGif;
+            return LEImageTypeAsGif;
         case 0x49:
         case 0x4D:
-            return ImageTypeAsTiff;
+            return LEImageTypeAsTiff;
     }
     return nil;
 }
-- (NSString *) getImagePathFromLEFrameworksWithName:(NSString *) name{
+- (NSString *) leGetImagePathFromLEFrameworksWithName:(NSString *) name{
     NSString *path= [NSString stringWithFormat:@"%@/%@.png",self.leFrameworksBundle.bundlePath,name];
     return path;
 }
-- (UIImage *) getImageFromLEFrameworksWithName:(NSString *) name{
-    UIImage *image = [[UIImage alloc] initWithContentsOfFile:[self getImagePathFromLEFrameworksWithName:name]];
+- (UIImage *) leGetImageFromLEFrameworksWithName:(NSString *) name{
+    UIImage *image = [[UIImage alloc] initWithContentsOfFile:[self leGetImagePathFromLEFrameworksWithName:name]];
     return image;
 }
 

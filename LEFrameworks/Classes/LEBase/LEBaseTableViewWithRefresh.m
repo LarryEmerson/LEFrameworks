@@ -14,13 +14,13 @@
 //-(void) initTableView{
 //    [super initTableView];
 //    self.mj_header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//        SuppressPerformSelectorLeakWarning(
+//        LESuppressPerformSelectorLeakWarning(
 //                                           [self performSelector:NSSelectorFromString(@"onDelegateRefreshData")];
 //                                           );
 //    }];
 //    self.mj_header.automaticallyChangeAlpha=YES;
 //    self.mj_footer=[MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-//        SuppressPerformSelectorLeakWarning(
+//        LESuppressPerformSelectorLeakWarning(
 //                                           [self performSelector:NSSelectorFromString(@"onDelegateLoadMore")];
 //                                           );
 //    }];
@@ -63,13 +63,13 @@
     refreshHeader=[[LERefreshHeader alloc] initWithTarget:self];
     typeof(self) __weak weakSelf = self;
     refreshHeader.refreshBlock=^(){
-        SuppressPerformSelectorLeakWarning(
+        LESuppressPerformSelectorLeakWarning(
                                            [weakSelf performSelector:NSSelectorFromString(@"onDelegateRefreshData")];
                                            );
     };
     refreshFooter=[[LERefreshFooter alloc] initWithTarget:self];
     refreshFooter.refreshBlock=^(){
-        SuppressPerformSelectorLeakWarning(
+        LESuppressPerformSelectorLeakWarning(
                                            [weakSelf performSelector:NSSelectorFromString(@"onDelegateLoadMore")];
                                            );
     };
@@ -86,11 +86,11 @@
     refreshFooter.isEnabled=enable;
 }
 -(void) onStopTopRefresh {
-    NSLogFunc;
+    LELogFunc;
     [self onStopRefreshLogic];
 }
 -(void) onStopBottomRefresh {
-    NSLogFunc;
+    LELogFunc;
     [self onStopRefreshLogic];
 }
 -(void) onStopRefreshLogic{

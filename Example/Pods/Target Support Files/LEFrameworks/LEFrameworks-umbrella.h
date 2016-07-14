@@ -31,6 +31,7 @@
 #import "LECurveProgressView.h"
 #import "LEWaveProgressView.h"
 #import "LEScanQRCode.h"
+#import "LEShowQrcode.h"
 #import "LESegmentView.h"
 #import "LEWebView.h"
 

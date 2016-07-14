@@ -108,17 +108,17 @@
     placeholderText=placeholderString;
     sendButtonText=buttonText;
     //
-    [self setFrame:CGRectMake(0, globalVar.ScreenHeight-heightOfToolBar, globalVar.ScreenWidth, heightOfToolBar)];
+    [self setFrame:CGRectMake(0, LESCREEN_HEIGHT-heightOfToolBar, LESCREEN_WIDTH, heightOfToolBar)];
     if(toolbarBackgroundImage){
         [self setImage:toolbarBackgroundImage];
-        [self setBackgroundColor:ColorClear];
+        [self setBackgroundColor:LEColorClear];
     }else{
         if(toolbarBackgroundColor){
             [self setBackgroundColor:toolbarBackgroundColor];
         }
     }
-    [self addTopSplitWithColor:ColorSplit Offset:CGPointZero Width:globalVar.ScreenWidth];
-    //    [self addBottomSplitWithColor:ColorSplit Offset:CGPointZero Width:globalVar.ScreenWidth];
+    [self leAddTopSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
+    //    [self leAddBottomSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
     if(!isEmojiEnabled){
         iconWidth=0;
     }
@@ -134,7 +134,7 @@
     }
     if(inputViewBackground){
         [inputTextViewBackgroundView setImage:inputViewBackground];
-        [inputTextView setBackgroundColor:ColorClear];
+        [inputTextView setBackgroundColor:LEColorClear];
     }else{
         if(inputViewBackgroundColor){
             [inputTextView setBackgroundColor:inputViewBackgroundColor];
@@ -144,7 +144,7 @@
         [inputTextView setTextColor:inputViewTextColor];
     }
     
-    [sendButton setFrame:CGRectMake( globalVar.ScreenWidth-sendButtonWidth-spaceBetweenInputViewAndButton, topSpace, sendButtonWidth, heightOfToolBar-topSpace-bottomSpace)];
+    [sendButton setFrame:CGRectMake( LESCREEN_WIDTH-sendButtonWidth-spaceBetweenInputViewAndButton, topSpace, sendButtonWidth, heightOfToolBar-topSpace-bottomSpace)];
     if(buttonNormalImage||buttonPressedColor){
         if(buttonNormalImage){
             [sendButton setBackgroundImage:buttonNormalImage forState:UIControlStateNormal];
@@ -152,7 +152,7 @@
         if(buttonPressedImage){
             [sendButton setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
         }
-        [sendButton setBackgroundColor:ColorClear];
+        [sendButton setBackgroundColor:LEColorClear];
         [self AlignTextAndImageOfButton:sendButton];
     }else{
         if(buttonBackgroundColor){
@@ -175,7 +175,7 @@
     [inputTextView setFont:[UIFont systemFontOfSize:InputTextFontSize]];
     oriFrameOfInputView=inputTextView.frame;
     //
-    [self setFrame:CGRectMake(0,  globalVar.ScreenHeight,  globalVar.ScreenWidth, heightOfToolBar)];
+    [self setFrame:CGRectMake(0,  LESCREEN_HEIGHT,  LESCREEN_WIDTH, heightOfToolBar)];
     //    [self setHidden:YES];
 }
 
@@ -199,7 +199,7 @@
     }
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^(void){
         if(isKeyboardShowing==NO){
-            [self setFrame:CGRectMake(0,  globalVar.ScreenHeight-(isShow?heightOfToolBar:0),  globalVar.ScreenWidth, heightOfToolBar)];
+            [self setFrame:CGRectMake(0,  LESCREEN_HEIGHT-(isShow?heightOfToolBar:0),  LESCREEN_WIDTH, heightOfToolBar)];
         }
     } completion:^(BOOL isDone){
         if(!isShow){
@@ -221,11 +221,11 @@
 -(void) initDefaultUI{
     globalVar=[LEUIFramework sharedInstance];
     lastText=@"";
-    heightOfToolBar=BottomTabbarHeight;
+    heightOfToolBar=LEBottomTabbarHeight;
     toolbarBackgroundColor=[[UIColor alloc]initWithRed:226.0/255 green:226.0/255 blue:226.0/255 alpha:1];
     toolbarBackgroundImage=nil;
-    emojiFaceIcon=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_emoji_smileface"];
-    keyboardIcon=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_emoji_keyboardface"]; 
+    emojiFaceIcon=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_emoji_smileface"];
+    keyboardIcon=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_emoji_keyboardface"]; 
     inputViewBackground=nil;
     inputViewBackgroundColor=[UIColor whiteColor];
     inputViewTextColor=[UIColor blackColor];
@@ -241,7 +241,7 @@
     spaceBetweenIconAndInput=10;
     sendButtonWidth=60;
     spaceBetweenInputViewAndButton=10;
-    inputViewWidth= globalVar.ScreenWidth-iconWidth-spaceBetweenIconAndInput-sendButtonWidth-spaceBetweenInputViewAndButton*2;
+    inputViewWidth= LESCREEN_WIDTH-iconWidth-spaceBetweenIconAndInput-sendButtonWidth-spaceBetweenInputViewAndButton*2;
     topSpace=8;
     bottomSpace=8;
     placeholderOffsetX=5;
@@ -253,7 +253,7 @@
 -(void) initUI{
     [self initDefaultUI];
     
-    [self setFrame:CGRectMake(0,  globalVar.ScreenHeight-heightOfToolBar,  globalVar.ScreenWidth, heightOfToolBar)];
+    [self setFrame:CGRectMake(0,  LESCREEN_HEIGHT-heightOfToolBar,  LESCREEN_WIDTH, heightOfToolBar)];
     [self setBackgroundColor:toolbarBackgroundColor];
     inputTextView=[[UITextView alloc]initWithFrame:CGRectMake(iconWidth+spaceBetweenIconAndInput, topSpace, inputViewWidth, heightOfToolBar-topSpace-bottomSpace)];
     inputTextViewBackgroundView=[[UIImageView alloc]initWithFrame:inputTextView.frame];
@@ -273,7 +273,7 @@
     emojiInputView.delegate = self;
     inputTextView.inputView = nil;
     isInEmojiState=NO;
-    sendButton=[[UIButton alloc]initWithFrame:CGRectMake( globalVar.ScreenWidth-sendButtonWidth-spaceBetweenInputViewAndButton, topSpace, sendButtonWidth, heightOfToolBar-topSpace-bottomSpace)];
+    sendButton=[[UIButton alloc]initWithFrame:CGRectMake( LESCREEN_WIDTH-sendButtonWidth-spaceBetweenInputViewAndButton, topSpace, sendButtonWidth, heightOfToolBar-topSpace-bottomSpace)];
     [sendButton setBackgroundColor:buttonBackgroundColor];
     [sendButton setTitle:sendButtonText forState:UIControlStateNormal];
     [sendButton setTitleColor:buttonNormalColor forState:UIControlStateNormal];

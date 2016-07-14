@@ -16,7 +16,7 @@
 }
 -(void) setExtraViewInits{
     int size=self.curFrameWidth*3/4;
-    curQrcodeView=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(size,size)] Image:[LEUIFramework createQRForString:curQrcode Size:size]];
+    curQrcodeView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(size,size)] Image:[LEUIFramework leCreateQRForString:curQrcode Size:size]];
 }
 -(id) initWithViewController:(LEBaseViewController *)vc Qrcode:(NSString *) qrcode{
     curQrcode=qrcode;
@@ -39,7 +39,7 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     [self.view addSubview:page];
-    [self setLeftBarButtonAsBackWith:IMG_ArrowLeft];
+    [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
 }
 
 @end

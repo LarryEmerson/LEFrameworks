@@ -20,8 +20,8 @@
     minWidth=badge.size.width;
     self=[super initWithAutoLayoutSettings:settings];
     [self leSetSize:badge.size];
-    [self setImage:[badge middleStrechedImage]];
-    curCount=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:num FontSize:fontsize Font:nil Width:0 Height:0 Color:color Line:1 Alignment:NSTextAlignmentCenter]];
+    [self setImage:[badge leMiddleStrechedImage]];
+    curCount=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:num FontSize:fontsize Font:nil Width:0 Height:0 Color:color Line:1 Alignment:NSTextAlignmentCenter]];
     [self setBadgeNumber:num];
     return self;
 }

@@ -46,7 +46,7 @@
     curSize=self.bounds.size.width;
     [self.layer setMasksToBounds:YES];
     [self.layer setCornerRadius:curSize/2];
-    UIImage *imgWave=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_lewave"];
+    UIImage *imgWave=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_lewave"];
     
     waveWidth=imgWave.size.width;
     
@@ -66,7 +66,7 @@
     [self moveWaveWith:movingWave];
     
     textContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, 40) CGSize:CGSizeMake(curSize, curSize-40*2)]];
-    curProgressText=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:textContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:0 Font:[UIFont boldSystemFontOfSize:50] Width:curSize Height:0 Color:ColorWhite Line:1 Alignment:NSTextAlignmentCenter]];
+    curProgressText=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:textContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:0 Font:[UIFont boldSystemFontOfSize:50] Width:curSize Height:0 Color:LEColorWhite Line:1 Alignment:NSTextAlignmentCenter]];
     [curProgressText setFont:[UIFont fontWithName:LayoutFontNameArialRoundedMTBold size:50]];
     
     [self setBackgroundColor:[UIColor colorWithRed:0.1961 green:0.2196 blue:0.2706 alpha:1.0]];

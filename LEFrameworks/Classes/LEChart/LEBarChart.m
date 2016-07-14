@@ -54,13 +54,13 @@
 -(void) initUI{
     W=self.bounds.size.width;
     H=self.bounds.size.height;
-    UIView *viewTag=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(W, LayoutSideSpace*2+curBarChartSetting.tagFontsize)]];
-    labelTag=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewTag Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:curBarChartSetting.tagFontsize Font:nil Width:W Height:LayoutSideSpace*2+curBarChartSetting.tagFontsize Color:curBarChartSetting.tagColor Line:0 Alignment:NSTextAlignmentCenter]];
+    UIView *viewTag=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(W, LELayoutSideSpace*2+curBarChartSetting.tagFontsize)]];
+    labelTag=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewTag Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:curBarChartSetting.tagFontsize Font:nil Width:W Height:LELayoutSideSpace*2+curBarChartSetting.tagFontsize Color:curBarChartSetting.tagColor Line:0 Alignment:NSTextAlignmentCenter]];
     [labelTag setHidden:!curBarChartSetting.showTag];
     //
-    barH=H-LayoutSideSpace*4-curBarChartSetting.valueFontsize-curBarChartSetting.tagFontsize;
+    barH=H-LELayoutSideSpace*4-curBarChartSetting.valueFontsize-curBarChartSetting.tagFontsize;
     UIView *viewBar=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideTopCenter RelativeView:viewTag Offset:CGPointZero CGSize:CGSizeMake(W, H-viewTag.bounds.size.height)]];
-    curBar=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewBar Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(curBarChartSetting.barWidth, curBarChartSetting.minBarHeight)] Image:[curBarChartSetting.barColor imageStrechedFromSizeOne]];
+    curBar=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewBar Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(curBarChartSetting.barWidth, curBarChartSetting.minBarHeight)] Image:[curBarChartSetting.barColor leImageStrechedFromSizeOne]];
     [curBar setUserInteractionEnabled:YES];
     //
     if(curBarChartSetting.barRoundRect){
@@ -68,9 +68,9 @@
         [curBar.layer setCornerRadius:curBarChartSetting.barWidth/2];
     }
     //
-    labelValue=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewBar Anchor:LEAnchorOutsideTopCenter RelativeView:curBar Offset:CGPointMake(0, -LayoutSideSpace) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:curBarChartSetting.valueFontsize Font:nil Width:W Height:LayoutSideSpace*2+curBarChartSetting.valueFontsize Color:curBarChartSetting.valueColor Line:0 Alignment:NSTextAlignmentCenter]];
+    labelValue=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewBar Anchor:LEAnchorOutsideTopCenter RelativeView:curBar Offset:CGPointMake(0, -LELayoutSideSpace) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:curBarChartSetting.valueFontsize Font:nil Width:W Height:LELayoutSideSpace*2+curBarChartSetting.valueFontsize Color:curBarChartSetting.valueColor Line:0 Alignment:NSTextAlignmentCenter]];
     [labelValue setHidden:!curBarChartSetting.showValue];
-    [curBar addTapEventWithSEL:@selector(onClick) Target:self];
+    [curBar leAddTapEventWithSEL:@selector(onClick) Target:self];
     
 }
 -(void) onSetWith:(int) index Tag:(NSString *) tag Value:(float) value MinValue:(float) min MaxValue:(float) max Target:(id) target{
@@ -84,7 +84,7 @@
 }
 -(void) onClick{
     if(curTarget&&[curTarget respondsToSelector:NSSelectorFromString(@"onCheckedWithIndex:")]){
-        SuppressPerformSelectorLeakWarning(
+        LESuppressPerformSelectorLeakWarning(
                                            [curTarget performSelector:NSSelectorFromString(@"onCheckedWithIndex:") withObject:[NSNumber numberWithInt:curIndex]];
                                            );
     }
@@ -92,7 +92,7 @@
 -(void) onCheck:(BOOL) check{
     isChecked=check;
     [labelTag setTextColor:check?curBarChartSetting.tagColorSelected:curBarChartSetting.tagColor];
-    [curBar setImage:isChecked?[curBarChartSetting.barColorSelected imageStrechedFromSizeOne]:[curBarChartSetting.barColor imageStrechedFromSizeOne]];
+    [curBar setImage:isChecked?[curBarChartSetting.barColorSelected leImageStrechedFromSizeOne]:[curBarChartSetting.barColor leImageStrechedFromSizeOne]];
 }
 @end
 
@@ -114,7 +114,7 @@
 -(void) initUI{
     curItems=[[NSMutableArray alloc] init];
     curScrollView=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:self.bounds.size]];
-    noDataLabel=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curScrollView Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"暂无数据" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorTextGray Line:1 Alignment:NSTextAlignmentCenter]];
+    noDataLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curScrollView Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"暂无数据" FontSize:LELayoutFontSize14 Font:nil Width:0 Height:0 Color:LEColorTextGray Line:1 Alignment:NSTextAlignmentCenter]];
     [noDataLabel setHidden:YES];
 }
 -(void) onCheckedWithIndex:(NSNumber *) index{

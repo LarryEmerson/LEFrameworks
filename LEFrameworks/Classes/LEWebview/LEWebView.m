@@ -22,12 +22,12 @@
 }
 -(void) setExtraViewInits{
     curButtons=[[NSMutableArray alloc] init];
-    UIImage *imgIconRefresh=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_refresh"];
-    UIImage *imgIconBack   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"];
-    UIImage *imgIconBackDisabled   =[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_backward_off"];
-    UIImage *imgIconForward=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_forward_on"];
-    UIImage *imgIconForwardDisabled=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_web_icon_forward_off"];
-    UIImage *imgBottom=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_browser_bottombg"];
+    UIImage *imgIconRefresh=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_refresh"];
+    UIImage *imgIconBack   =[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"];
+    UIImage *imgIconBackDisabled   =[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_off"];
+    UIImage *imgIconForward=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_forward_on"];
+    UIImage *imgIconForwardDisabled=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_forward_off"];
+    UIImage *imgBottom=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_browser_bottombg"];
     int bottomHeight=50;
     //
     bottomView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.curFrameHight-bottomHeight, self.curFrameWidth, bottomHeight)];
@@ -115,9 +115,9 @@
     //    count++;
     //    [[curButtons objectAtIndex:0] setEnabled:count>1];
     //    if(count<=1) {
-    //        [self.title setFrame:CGRectMake(NavigationBarHeight, self.globalVar.IsStatusBarNotCovered?StatusBarHeight:0,self.globalVar.ScreenWidth-NavigationBarHeight*2, NavigationBarHeight)];
+    //        [self.title setFrame:CGRectMake(LENavigationBarHeight, self.globalVar.IsStatusBarNotCovered?LEStatusBarHeight:0,LESCREEN_WIDTH-LENavigationBarHeight*2, LENavigationBarHeight)];
     //    }else{
-    //        [self.title setFrame:CGRectMake(NavigationBarHeight*2+6, (self.globalVar.IsStatusBarNotCovered?StatusBarHeight:0), self.globalVar.ScreenWidth-NavigationBarHeight*3-6, NavigationBarHeight)];
+    //        [self.title setFrame:CGRectMake(LENavigationBarHeight*2+6, (self.globalVar.IsStatusBarNotCovered?LEStatusBarHeight:0), LESCREEN_WIDTH-LENavigationBarHeight*3-6, LENavigationBarHeight)];
     //    }
     return YES;
 }
@@ -147,7 +147,7 @@
     //    NSLog(@"web didFailLoadWithError %@",error);
     if ([error code] != NSURLErrorCancelled) {
         //show error alert, etc.
-        [self addLocalNotification:error.localizedDescription];
+        [self leAddLocalNotification:error.localizedDescription];
     }
 }
 -(id) initWithViewController:(LEBaseViewController *)vc URLString:(NSString *) url{
@@ -187,6 +187,6 @@
     [super viewDidLoad];
     isBarHidden=self.navigationController.navigationBarHidden;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self setLeftBarButtonAsBackWith:IMG_ArrowLeft];
+    [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
 }
 @end

@@ -23,7 +23,7 @@
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [nav setNavigationBarHidden:NO animated:YES];
     [self.window setRootViewController:nav];
-    [self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible]; 
     return YES;
 }
 

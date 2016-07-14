@@ -25,9 +25,9 @@
 }
 -(void) initUI{
     [self setUserInteractionEnabled:YES];
-    curIcon=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomRight Offset:CGPointMake(-2, -2) CGSize:CGSizeZero] Image:[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_MultiImagePickerCheck"]];
+    curIcon=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomRight Offset:CGPointMake(-2, -2) CGSize:CGSizeZero] Image:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_MultiImagePickerCheck"]];
     [curIcon setHidden:YES];
-    [self addTapEventWithSEL:@selector(onTap) Target:self];
+    [self leAddTapEventWithSEL:@selector(onTap) Target:self];
 }
 -(void) onTap{
     self.isChecked=!self.isChecked;
@@ -68,7 +68,7 @@
 }
 -(void) reloadCell{
     for (int i=0; i<curArray.count; i++) {
-        LEMultiImagePickerFlowCell *cell=[[LEMultiImagePickerFlowCell alloc] initWithFrame:CGRectMake((cellSize+space)*(i%4), LayoutSideSpace+(cellSize+space)*(i/4), cellSize, cellSize)];
+        LEMultiImagePickerFlowCell *cell=[[LEMultiImagePickerFlowCell alloc] initWithFrame:CGRectMake((cellSize+space)*(i%4), LELayoutSideSpace+(cellSize+space)*(i/4), cellSize, cellSize)];
         [self addSubview:cell];
         [cell setAlAsset:[curArray objectAtIndex:i]];
         [curCellCache addObject:cell];
@@ -104,7 +104,7 @@
     
     [self.navigationController setNavigationBarHidden:NO];
     [self.view addSubview:page];
-    //    [self setLeftBarButtonAsBackWith:IMG_ArrowLeft];
+    //    [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
     [self.navigationItem setTitle:@"照片图库"];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(onRight)]];
 }
@@ -132,11 +132,11 @@
     int cellH;
 }
 -(void) initUI{
-    cellH=self.globalVar.ScreenWidth/4;
+    cellH=LESCREEN_WIDTH/4;
     [self setCellHeight:cellH];
-    curIcon=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LayoutSideSpace20, 0) CGSize:CGSizeMake(cellH-LayoutSideSpace20, cellH-LayoutSideSpace20)] Image:nil];
-    curTitle=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideRightCenter RelativeView:curIcon Offset:CGPointMake(LayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:0 Font:[UIFont boldSystemFontOfSize:LayoutFontSize17] Width:0 Height:0 Color:ColorTextBlack Line:1 Alignment:NSTextAlignmentLeft]];
-    curSubtitle=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideRightCenter RelativeView:curTitle Offset:CGPointMake(LayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:ColorTextGray Line:1 Alignment:NSTextAlignmentLeft]];
+    curIcon=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace20, 0) CGSize:CGSizeMake(cellH-LELayoutSideSpace20, cellH-LELayoutSideSpace20)] Image:nil];
+    curTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideRightCenter RelativeView:curIcon Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:0 Font:[UIFont boldSystemFontOfSize:LELayoutFontSize17] Width:0 Height:0 Color:LEColorTextBlack Line:1 Alignment:NSTextAlignmentLeft]];
+    curSubtitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideRightCenter RelativeView:curTitle Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LELayoutFontSize14 Font:nil Width:0 Height:0 Color:LEColorTextGray Line:1 Alignment:NSTextAlignmentLeft]];
 }
 -(void) setData:(NSDictionary *)data IndexPath:(NSIndexPath *)path{
     [super setData:data IndexPath:path];
@@ -225,7 +225,7 @@
     
     [self.navigationController setNavigationBarHidden:NO];
     [self.view addSubview:page];
-    [self setLeftBarButtonAsBackWith:IMG_ArrowLeft];
+    [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
     [self.navigationItem setTitle:@"照片"];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil]];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(onRight)]];

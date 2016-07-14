@@ -72,7 +72,7 @@
     self.superViewContainer=superView;
     [parentView addSubview:self];
     if (self) {
-        [self setBackgroundColor:ColorClear];
+        [self setBackgroundColor:LEColorClear];
         [self setDelegate:self];
         [self setDataSource:self];
         [self setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -155,12 +155,12 @@
     if(indexPath.section==0){
         UITableViewCell *cell=[self dequeueReusableCellWithIdentifier:CommonTableViewReuseableCellIdentifier];
         if(!cell){
-            SuppressPerformSelectorLeakWarning(
-                                               cell=[[self.tableViewCellClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.cellSelectionDelegate]];
+            LESuppressPerformSelectorLeakWarning(
+                                               cell=[[self.tableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.cellSelectionDelegate]];
                                                );
         }
         if(self.itemsArray&&indexPath.row<self.itemsArray.count){
-            SuppressPerformSelectorLeakWarning(
+            LESuppressPerformSelectorLeakWarning(
                                                [cell performSelector:NSSelectorFromString(@"setData:IndexPath:") withObject:[self.itemsArray objectAtIndex:indexPath.row] withObject:indexPath];
                                                );
         }
@@ -194,8 +194,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section==0 && [self _numberOfRowsInSection:0]==0 && [self _numberOfSections] <=1){
         if(!self.emptyTableViewCell){
-            SuppressPerformSelectorLeakWarning(
-                                               self.emptyTableViewCell=[[self.emptyTableViewCellClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:@{KeyOfCellTitle:@"暂时还没有相关内容"}];
+            LESuppressPerformSelectorLeakWarning(
+                                               self.emptyTableViewCell=[[self.emptyTableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:@{KeyOfCellTitle:@"暂时还没有相关内容"}];
                                                );
         }
         return self.emptyTableViewCell;

@@ -16,12 +16,12 @@
     curSuperView=vc.view;
     self.curViewController=vc;
     self=[super initWithFrame:curSuperView.bounds];
-    [self setBackgroundColor:ColorWhite];
+    [self setBackgroundColor:LEColorWhite];
     [curSuperView addSubview:self];
     self.curFrameWidth=self.bounds.size.width;
-    self.curFrameHight=self.bounds.size.height-(self.curViewController.extendedLayoutIncludesOpaqueBars?0:(StatusBarHeight+NavigationBarHeight));
+    self.curFrameHight=self.bounds.size.height-(self.curViewController.extendedLayoutIncludesOpaqueBars?0:(LEStatusBarHeight+LENavigationBarHeight));
     self.viewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth,self.curFrameHight)]];
-    [self.viewContainer setBackgroundColor:[LEUIFramework sharedInstance].colorViewContainer];
+    [self.viewContainer setBackgroundColor:[LEUIFramework sharedInstance].leColorViewContainer];
     //
     self.recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGesture:)];
     [self.recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
@@ -65,10 +65,10 @@
 //-(id) initWithAutoLayoutSettings:(LEAutoLayoutSettings *) autoLayoutSettings ViewDataModel:(NSDictionary *) dataModel{
 //    self.navigationDataModel=dataModel;
 //    self=[super initWithAutoLayoutSettings:autoLayoutSettings];
-//    self.curViewLeft=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leAutoLayoutSettings.leSuperView Anchor:LEAnchorInsideTopLeft Offset:CGPointMake(0, StatusBarHeight) CGSize:CGSizeMake(NavigationBarHeight, NavigationBarHeight)]];
-//    self.curViewMiddle=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leAutoLayoutSettings.leSuperView Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, StatusBarHeight) CGSize:CGSizeMake(self.leAutoLayoutSettings.leSuperView.bounds.size.width-NavigationBarHeight*2-LayoutSideSpace*2, NavigationBarHeight)]];
+//    self.curViewLeft=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leAutoLayoutSettings.leSuperView Anchor:LEAnchorInsideTopLeft Offset:CGPointMake(0, LEStatusBarHeight) CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)]];
+//    self.curViewMiddle=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leAutoLayoutSettings.leSuperView Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, LEStatusBarHeight) CGSize:CGSizeMake(self.leAutoLayoutSettings.leSuperView.bounds.size.width-LENavigationBarHeight*2-LELayoutSideSpace*2, LENavigationBarHeight)]];
 //    [self.curViewMiddle setUserInteractionEnabled:NO];
-//    self.curViewRight=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leAutoLayoutSettings.leSuperView Anchor:LEAnchorInsideTopRight Offset:CGPointMake(0, StatusBarHeight) CGSize:CGSizeMake(NavigationBarHeight, NavigationBarHeight)]];
+//    self.curViewRight=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leAutoLayoutSettings.leSuperView Anchor:LEAnchorInsideTopRight Offset:CGPointMake(0, LEStatusBarHeight) CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)]];
 //    [self onSetupView];
 //    [self onUpdateViewWithDataModel:dataModel];
 //    return self;
@@ -83,20 +83,20 @@
 //            fullScreen=IsFullScreenMode;
 //        } 
 //        [self setUserInteractionEnabled:!fullScreen];
-//        [self setBackgroundColor:fullScreen?ColorClear:[LEUIFramework sharedInstance].colorNavigationBar];
+//        [self setBackgroundColor:fullScreen?LEColorClear:[LEUIFramework sharedInstance].leColorNavigationBar];
 //        UIImage *background=[dataModel objectForKey:KeyOfNavigationBackground];
 //        if(background){
-//            [self setImage:[background middleStrechedImage]];
+//            [self setImage:[background leMiddleStrechedImage]];
 //        }
 //    }
 //}
 //@end
 //@implementation LENavigationView
 //-(void) onSetupView{
-//    [self setBackgroundColor:[LEUIFramework sharedInstance].colorNavigationBar];
-//    self.curButtonBack=[LEUIFramework getUIButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewLeft  Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:self.curViewLeft.bounds.size] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:nil FontSize:0 Font:nil Image:nil BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:@selector(onButtonClicked:) Target:self]];
-//    self.curButtonRight=[LEUIFramework getUIButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewRight Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:self.curViewRight.bounds.size] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:nil FontSize:0 Font:nil Image:nil BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:@selector(onButtonClicked:) Target:self]];
-//    self.curLabelTitle=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewMiddle Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:[UIFont boldSystemFontOfSize:NavigationBarFontSize] Width:[LEUIFramework sharedInstance].ScreenWidth-LayoutSideSpace*4-NavigationBarHeight*2 Height:0 Color:[LEUIFramework sharedInstance].colorNavigationContent Line:1 Alignment:NSTextAlignmentCenter]];
+//    [self setBackgroundColor:[LEUIFramework sharedInstance].leColorNavigationBar];
+//    self.curButtonBack=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewLeft  Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:self.curViewLeft.bounds.size] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:nil FontSize:0 Font:nil Image:nil BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:@selector(onButtonClicked:) Target:self]];
+//    self.curButtonRight=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewRight Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:self.curViewRight.bounds.size] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:nil FontSize:0 Font:nil Image:nil BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:@selector(onButtonClicked:) Target:self]];
+//    self.curLabelTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curViewMiddle Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:[UIFont boldSystemFontOfSize:NavigationBarFontSize] Width:LESCREEN_WIDTH-LELayoutSideSpace*4-LENavigationBarHeight*2 Height:0 Color:[LEUIFramework sharedInstance].leColorNavigationContent Line:1 Alignment:NSTextAlignmentCenter]];
 //}
 //-(void) onUpdateViewWithDataModel:(NSDictionary *) dataModel{
 //    [super onUpdateViewWithDataModel:dataModel];
@@ -130,7 +130,7 @@
 //        code=KeyOfNavigationRightButton;
 //    }
 //    if([self.superview respondsToSelector:NSSelectorFromString(@"onNavigationBarClickedWithCode:")]){
-//        SuppressPerformSelectorLeakWarning(
+//        LESuppressPerformSelectorLeakWarning(
 //                                           [self.superview performSelector:NSSelectorFromString(@"onNavigationBarClickedWithCode:") withObject:code];
 //                                           );
 //    }
@@ -147,7 +147,7 @@
 //@synthesize curFrameHight=_curFrameHight;
 //@synthesize curFrameWidth=_curFrameWidth;
 //-(void) onNavigationBarClickedWithCode:(NSString *) code{
-//    //    NSLogObject(code);
+//    //    LELogObject(code);
 //    if([code isEqualToString:KeyOfNavigationBackButton]){
 //        [self onClickedForLeftButton];
 //    }else if([code isEqualToString:KeyOfNavigationRightButton]){
@@ -180,8 +180,8 @@
 //    self.curNavigationClassName=navigationClass;
 //    lastStatusStyle=[[UIApplication sharedApplication] statusBarStyle];
 //    self.globalVar = [LEUIFramework sharedInstance];
-//    self.curFrameWidth=self.globalVar.ScreenWidth;
-//    self.curFrameHight=self.globalVar.ScreenHeight;
+//    self.curFrameWidth=LESCREEN_WIDTH;
+//    self.curFrameHight=LESCREEN_HEIGHT;
 //    self.curFrameHight=view.frame.size.height;
 //    self = [super initWithFrame:CGRectMake(0, 0, self.curFrameWidth,self.curFrameHight)];
 //    BOOL fullScreen=NO;
@@ -200,14 +200,14 @@
 //    [self addGestureRecognizer:recognizerRight];
 //    //
 //    [view addSubview:self];
-//    [self setBackgroundColor:ColorWhite];
+//    [self setBackgroundColor:LEColorWhite];
 //    //Container
-//    self.viewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, fullScreen?0:(NavigationBarHeight+StatusBarHeight)) CGSize:CGSizeMake(self.curFrameWidth, self.curFrameHight-(fullScreen?0:(NavigationBarHeight+StatusBarHeight)))]];
-//    [self.viewContainer setBackgroundColor:[LEUIFramework sharedInstance].colorViewContainer];
+//    self.viewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, fullScreen?0:(LENavigationBarHeight+LEStatusBarHeight)) CGSize:CGSizeMake(self.curFrameWidth, self.curFrameHight-(fullScreen?0:(LENavigationBarHeight+LEStatusBarHeight)))]];
+//    [self.viewContainer setBackgroundColor:[LEUIFramework sharedInstance].leColorViewContainer];
 //    //
 //    if(navigationClass&&navigationClass.length>0){
-//        SuppressPerformSelectorLeakWarning(
-//                                           self.curNavigationView=[[NSClassFromString(navigationClass) alloc] performSelector:NSSelectorFromString(@"initWithAutoLayoutSettings:ViewDataModel:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, NavigationBarHeight+StatusBarHeight)] withObject:dataModel];
+//        LESuppressPerformSelectorLeakWarning(
+//                                           self.curNavigationView=[[NSClassFromString(navigationClass) alloc] performSelector:NSSelectorFromString(@"initWithAutoLayoutSettings:ViewDataModel:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, LENavigationBarHeight+LEStatusBarHeight)] withObject:dataModel];
 //                                           );
 //    }
 //    [self setExtraViewInits];

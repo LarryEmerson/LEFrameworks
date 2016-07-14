@@ -71,7 +71,7 @@
             break;
         case LERefreshLoading:
             [self.curIndicator setHidden:NO];
-            [self.curRefreshLabel leSetOffset:CGPointMake(LayoutSideSpace/2+self.curIndicator.bounds.size.width/2, 0)];
+            [self.curRefreshLabel leSetOffset:CGPointMake(LELayoutSideSpace/2+self.curIndicator.bounds.size.width/2, 0)];
             [self.curRefreshLabel leSetText:self.loadingString];
             [self.curIndicator startAnimating];
             break;
@@ -90,11 +90,11 @@
     self.beginRefreshString=LERefreshStringPullDown;
     self.loadingString=LERefreshStringLoading;
     self.refreshReleaseString=LERefreshStringRelease;
-    topRefreshHeight=NavigationBarHeight;
-    self.refreshContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curScrollView Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, -topRefreshHeight) CGSize:CGSizeMake([LEUIFramework sharedInstance].ScreenWidth, topRefreshHeight)]];
+    topRefreshHeight=LENavigationBarHeight;
+    self.refreshContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curScrollView Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, -topRefreshHeight) CGSize:CGSizeMake(LESCREEN_WIDTH, topRefreshHeight)]];
     [self.refreshContainer addSubview:self.curIndicator];
-    self.curRefreshLabel=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.refreshContainer Anchor:LEAnchorInsideCenter Offset:CGPointMake(self.curIndicator.bounds.size.width/2+LayoutSideSpace/2, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:self.beginRefreshString FontSize:LayoutFontSize12 Font:nil Width:0 Height:0 Color:ColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
-    [self.curIndicator setLeAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.refreshContainer Anchor:LEAnchorOutsideLeftCenter RelativeView:self.curRefreshLabel Offset:CGPointMake(-LayoutSideSpace, 0) CGSize:self.curIndicator.bounds.size]];
+    self.curRefreshLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.refreshContainer Anchor:LEAnchorInsideCenter Offset:CGPointMake(self.curIndicator.bounds.size.width/2+LELayoutSideSpace/2, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:self.beginRefreshString FontSize:LELayoutFontSize12 Font:nil Width:0 Height:0 Color:LEColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
+    [self.curIndicator setLeAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.refreshContainer Anchor:LEAnchorOutsideLeftCenter RelativeView:self.curRefreshLabel Offset:CGPointMake(-LELayoutSideSpace, 0) CGSize:self.curIndicator.bounds.size]];
     [self setIsEnabled:YES];
 }
 -(void) onScrolling{
@@ -145,11 +145,11 @@
     self.beginRefreshString=LERefreshStringPullUp;
     self.loadingString=LERefreshStringLoading;
     self.refreshReleaseString=LERefreshStringRelease;
-    topRefreshHeight=NavigationBarHeight;
-    self.refreshContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curScrollView Anchor:LEAnchorInsideBottomCenter Offset:CGPointMake(0, topRefreshHeight) CGSize:CGSizeMake([LEUIFramework sharedInstance].ScreenWidth, topRefreshHeight)]];
+    topRefreshHeight=LENavigationBarHeight;
+    self.refreshContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.curScrollView Anchor:LEAnchorInsideBottomCenter Offset:CGPointMake(0, topRefreshHeight) CGSize:CGSizeMake(LESCREEN_WIDTH, topRefreshHeight)]];
     [self.refreshContainer addSubview:self.curIndicator];
-    self.curRefreshLabel=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.refreshContainer Anchor:LEAnchorInsideCenter Offset:CGPointMake(self.curIndicator.bounds.size.width/2+LayoutSideSpace/2, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:self.beginRefreshString FontSize:LayoutFontSize12 Font:nil Width:0 Height:0 Color:ColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
-    [self.curIndicator setLeAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.refreshContainer Anchor:LEAnchorOutsideLeftCenter RelativeView:self.curRefreshLabel Offset:CGPointMake(-LayoutSideSpace, 0) CGSize:self.curIndicator.bounds.size]];
+    self.curRefreshLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.refreshContainer Anchor:LEAnchorInsideCenter Offset:CGPointMake(self.curIndicator.bounds.size.width/2+LELayoutSideSpace/2, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:self.beginRefreshString FontSize:LELayoutFontSize12 Font:nil Width:0 Height:0 Color:LEColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
+    [self.curIndicator setLeAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.refreshContainer Anchor:LEAnchorOutsideLeftCenter RelativeView:self.curRefreshLabel Offset:CGPointMake(-LELayoutSideSpace, 0) CGSize:self.curIndicator.bounds.size]];
     [self setIsEnabled:YES];
 }
 -(void) onScrolling{

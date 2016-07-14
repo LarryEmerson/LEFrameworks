@@ -38,12 +38,12 @@
     self = [super initWithFrame:frame];
     [self setUserInteractionEnabled:NO];
     if (self) {
-        UIImage *BG=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_MessageBackground"]; 
+        UIImage *BG=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_MessageBackground"]; 
         height=BG.size.height;
         space=10;
         MessageFontSize =20;
         MessageSpace = 2;
-        MessageBoardWidth=globalVar.ScreenWidth-space*2;
+        MessageBoardWidth=LESCREEN_WIDTH-space*2;
         [self setFrame:CGRectMake(space, -MessageFontSize*10, MessageBoardWidth, BG.size.height)];
         BGView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MessageBoardWidth, height)];
         [BGView setImage:[BG stretchableImageWithLeftCapWidth:BG.size.width/2 topCapHeight:BG.size.height/2]];
@@ -52,7 +52,7 @@
         [curText setContentMode:UIViewContentModeCenter];
         [curText setTextAlignment:NSTextAlignmentCenter];
         [curText setFont:[UIFont systemFontOfSize:MessageFontSize]];
-        [curText setTextColor:ColorWhite];
+        [curText setTextColor:LEColorWhite];
         [curText setText:@"                         "];
         [curText setNumberOfLines:0];
         [BGView addSubview:curText];
@@ -82,7 +82,7 @@
     extraCheck=[NSTimer scheduledTimerWithTimeInterval:time+pauseTime+0.1 target:self selector:@selector(onCheck) userInfo:nil repeats:NO];
     [self setAlpha:0];
     [self setFrame:startRect];
-    CGSize sizeContent = [text getSizeWithFont:curText.font MaxSize:CGSizeMake(MessageBoardWidth-MessageSpace*2, LELabelMaxSize.height)] ;
+    CGSize sizeContent = [text leGetSizeWithFont:curText.font MaxSize:CGSizeMake(MessageBoardWidth-MessageSpace*2, LELabelMaxSize.height)] ;
     endRect.size.height=MessageSpace*2+sizeContent.height;
     if(endRect.size.height<height){
         endRect.size.height=height;

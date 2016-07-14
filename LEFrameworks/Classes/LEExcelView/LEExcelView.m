@@ -97,8 +97,8 @@
 -(UIView *) _viewForHeaderInSection:(NSInteger)section{
     if(!curTabbar){
         NSDictionary *dic=@{@"immovable":[NSNumber numberWithInt:immovableWidth],@"movable":[NSNumber numberWithInt:movableWidth],@"height":[NSNumber numberWithInt:tabbarHeight]};
-        SuppressPerformSelectorLeakWarning(
-                                           curTabbar=[[curTabbarClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:UIParam:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointZero CGSize:CGSizeMake(immovableWidth+movableWidth, tabbarHeight)] withObject:dic];
+        LESuppressPerformSelectorLeakWarning(
+                                           curTabbar=[[curTabbarClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:UIParam:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointZero CGSize:CGSizeMake(immovableWidth+movableWidth, tabbarHeight)] withObject:dic];
                                            );
         [curTabbar addSwipObserver:self];
     }
@@ -114,14 +114,14 @@
     LEExcelViewTableViewCell *cell=[self dequeueReusableCellWithIdentifier:CommonTableViewReuseableCellIdentifier];
     if(!cell){
         NSDictionary *dic=@{@"immovable":[NSNumber numberWithInt:immovableWidth],@"movable":[NSNumber numberWithInt:movableWidth],@"height":[NSNumber numberWithInt:curHeight]};
-        SuppressPerformSelectorLeakWarning(
-                                           cell=[[self.tableViewCellClassName getInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:UIParam:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.cellSelectionDelegate EnableGesture:NO] withObject:dic];
+        LESuppressPerformSelectorLeakWarning(
+                                           cell=[[self.tableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:UIParam:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.cellSelectionDelegate EnableGesture:NO] withObject:dic];
                                            );
         [cell setCurTableView:self];
     }
     
     if(self.itemsArray&&indexPath.row<self.itemsArray.count){
-        SuppressPerformSelectorLeakWarning(
+        LESuppressPerformSelectorLeakWarning(
                                            [cell performSelector:NSSelectorFromString(@"setData:IndexPath:") withObject:[self.itemsArray objectAtIndex:indexPath.row] withObject:indexPath];
                                            );
     }
@@ -144,7 +144,7 @@
     [self setContentOffset:CGPointZero]; 
     UIView *tv=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointZero CGSize:CGSizeMake(immovableWidth+movableWidth, self.bounds.size.height)]];
     [settings setParentView:tv];
-    curTableView=[[LEExcelViewTableView alloc] initWithSettings:settings ImmovableViewWidth:immovable MovableViewWidth:movable TabbarHeight:tabbarH CellHeight:DefaultCellHeightBig TabbarClassname:tabbar];
+    curTableView=[[LEExcelViewTableView alloc] initWithSettings:settings ImmovableViewWidth:immovable MovableViewWidth:movable TabbarHeight:tabbarH CellHeight:LEDefaultCellHeightBig TabbarClassname:tabbar];
     [curTableView setTopRefresh:NO];
     [curTableView setBottomRefresh:NO];
     return self;

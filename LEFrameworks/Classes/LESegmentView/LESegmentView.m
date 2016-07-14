@@ -27,7 +27,7 @@
     UIColor *highlightedColor;
 }
 -(id) initWithTitles:(NSArray *) titles Pages:(NSArray *) pages ViewContainer:(UIView *) container SegmentHeight:(int)segmentH Indicator:(UIImage *) indicator SegmentSpace:(int) space{
-    return [self initWithTitles:titles Pages:pages ViewContainer:container SegmentHeight:segmentH Indicator:indicator SegmentSpace:space Color:ColorGray HighlightedColor:ColorBlack];
+    return [self initWithTitles:titles Pages:pages ViewContainer:container SegmentHeight:segmentH Indicator:indicator SegmentSpace:space Color:LEColorGray HighlightedColor:LEColorBlack];
 }
 -(id) initWithTitles:(NSArray *) titles Pages:(NSArray *) pages ViewContainer:(UIView *) container SegmentHeight:(int) segmentH Indicator:(UIImage *) indicator SegmentSpace:(int) space Color:(UIColor *) normal HighlightedColor:(UIColor *) high{
     normalColor=normal;
@@ -35,10 +35,10 @@
     segmentHeight=segmentH;
     segmentSpace=space;
     self=[super initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:container EdgeInsects:UIEdgeInsetsZero]];
-    [self setBackgroundColor:ColorWhite];
+    [self setBackgroundColor:LEColorWhite];
     pageWidth=self.bounds.size.width;
     curSegmentContainer=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(pageWidth, segmentHeight)]];
-    curIndicator=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curSegmentContainer Anchor:LEAnchorInsideBottomLeft Offset:CGPointZero CGSize:CGSizeZero] Image:indicator];
+    curIndicator=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curSegmentContainer Anchor:LEAnchorInsideBottomLeft Offset:CGPointZero CGSize:CGSizeZero] Image:indicator];
     [curIndicator leSetOffset:CGPointMake(0, segmentHeight-curIndicator.bounds.size.height+0.5)];
     curPageContainer=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:container Anchor:LEAnchorOutsideBottomCenter RelativeView:curSegmentContainer Offset:CGPointZero CGSize:CGSizeMake(pageWidth, self.bounds.size.height-segmentHeight)]];
     [curPageContainer setDelegate:self];
@@ -83,7 +83,7 @@
             last=btn;
         }else{
             if(last){
-                btn=[LEUIFramework getUIButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curSegmentContainer Anchor:LEAnchorOutsideRightCenter RelativeView:last Offset:CGPointZero CGSize:CGSizeZero] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:[titles objectAtIndex:i] FontSize:15 Font:nil Image:nil BackgroundImage:nil Color:highlightedColor SelectedColor:normalColor MaxWidth:0 SEL:@selector(onTitleTapped:) Target:self HorizontalSpace:segmentSpace]];
+                btn=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curSegmentContainer Anchor:LEAnchorOutsideRightCenter RelativeView:last Offset:CGPointZero CGSize:CGSizeZero] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:[titles objectAtIndex:i] FontSize:15 Font:nil Image:nil BackgroundImage:nil Color:highlightedColor SelectedColor:normalColor MaxWidth:0 SEL:@selector(onTitleTapped:) Target:self HorizontalSpace:segmentSpace]];
                 float sum=0;
                 if(curTitlesWidthSum.count>0){
                     sum=[[curTitlesWidthSum objectAtIndex:i-1] floatValue];
@@ -91,7 +91,7 @@
                 [curTitlesWidthSum addObject:[NSNumber numberWithFloat:sum+btn.bounds.size.width/2+last.bounds.size.width/2]];
                 [curTitlesWidth addObject:@(btn.bounds.size.width/2+last.bounds.size.width/2)];
             }else{
-                btn=[LEUIFramework getUIButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curSegmentContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeZero] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:[titles objectAtIndex:i] FontSize:15 Font:nil Image:nil BackgroundImage:nil Color:normalColor SelectedColor:highlightedColor MaxWidth:0 SEL:@selector(onTitleTapped:) Target:self HorizontalSpace:segmentSpace]];
+                btn=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curSegmentContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeZero] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:[titles objectAtIndex:i] FontSize:15 Font:nil Image:nil BackgroundImage:nil Color:normalColor SelectedColor:highlightedColor MaxWidth:0 SEL:@selector(onTitleTapped:) Target:self HorizontalSpace:segmentSpace]];
                 [curIndicator leSetOffset:CGPointMake(btn.bounds.size.width/2-curIndicator.bounds.size.width/2, 0)];
                 [curTitlesWidthSum addObject:[NSNumber numberWithFloat:btn.bounds.size.width/2]];
             }

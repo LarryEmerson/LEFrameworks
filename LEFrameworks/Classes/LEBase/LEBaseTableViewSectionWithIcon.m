@@ -11,12 +11,12 @@
 @implementation LEBaseTableViewSectionWithIcon
 
 -(id) initWithSectionText:(NSString *) title{
-    self=[super initWithFrame:CGRectMake(0, 0, [LEUIFramework sharedInstance].ScreenWidth, DefaultSectionHeight)];
-    [self setBackgroundColor:ColorTableViewGray];
+    self=[super initWithFrame:CGRectMake(0, 0, LESCREEN_WIDTH, LEDefaultSectionHeight)];
+    [self setBackgroundColor:LEColorTableViewGray];
     //
-    self.curIcon=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LayoutSideSpace, 0) CGSize:CGSizeZero] Image:nil];
-    [LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideRightCenter RelativeView:self.curIcon Offset:CGPointMake(10, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:title FontSize:10 Font:nil Width:0 Height:0 Color:ColorBlack Line:1 Alignment:NSTextAlignmentLeft]];
-    [LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake([LEUIFramework sharedInstance].ScreenWidth, 0.5)] Image:[ColorSplit imageStrechedFromSizeOne]];
+    self.curIcon=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] Image:nil];
+    [LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideRightCenter RelativeView:self.curIcon Offset:CGPointMake(10, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:title FontSize:10 Font:nil Width:0 Height:0 Color:LEColorBlack Line:1 Alignment:NSTextAlignmentLeft]];
+    [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(LESCREEN_WIDTH, 0.5)] Image:[LEColorSplit leImageStrechedFromSizeOne]];
     return self;
 }
 

@@ -37,10 +37,10 @@
     curVerticalPadding=verticalPadding;
     curTarget=target;
     totalHeight=settings.leSize.height-curVerticalPadding*2;
-    noDataLabel=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"暂无数据" FontSize:LayoutFontSize14 Font:nil Width:0 Height:0 Color:curLineColor Line:1 Alignment:NSTextAlignmentCenter]];
+    noDataLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"暂无数据" FontSize:LELayoutFontSize14 Font:nil Width:0 Height:0 Color:curLineColor Line:1 Alignment:NSTextAlignmentCenter]];
     curPadding=padding;
-    lineVertical=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(curRulerWidth, settings.leSize.height)] Image:[curRulerColor imageStrechedFromSizeOne]];
-    lineHorizontal=[LEUIFramework getUIImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(settings.leSize.width, curRulerWidth)] Image:[curRulerColor imageStrechedFromSizeOne]];
+    lineVertical=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(curRulerWidth, settings.leSize.height)] Image:[curRulerColor leImageStrechedFromSizeOne]];
+    lineHorizontal=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(settings.leSize.width, curRulerWidth)] Image:[curRulerColor leImageStrechedFromSizeOne]];
     [lineVertical setHidden:YES];
     [lineHorizontal setHidden:YES];
     [noDataLabel setHidden:YES];

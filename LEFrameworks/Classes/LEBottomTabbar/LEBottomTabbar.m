@@ -25,7 +25,7 @@
 
 
 -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages{
-    return [self initTabbarWithFrame:frame Delegate:delegate NormalIcons:icons HighlightedIcons:iconsSelected Titles:titles Pages:pages NormalColor:ColorGray HighlightedColor:ColorBlue];
+    return [self initTabbarWithFrame:frame Delegate:delegate NormalIcons:icons HighlightedIcons:iconsSelected Titles:titles Pages:pages NormalColor:LEColorGray HighlightedColor:LEColorBlue];
 }
 -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages NormalColor:(UIColor *) normalColor HighlightedColor:(UIColor *) highlightedColor{
     globalVar=[LEUIFramework sharedInstance];
@@ -46,20 +46,20 @@
 }
 
 -(void) initUI{
-    [self addTopSplitWithColor:ColorSplit Offset:CGPointZero Width:[LEUIFramework sharedInstance].ScreenWidth];
-    [self setBackgroundColor:ColorWhite]; 
-    int buttonWidth=(int)globalVar.ScreenWidth/arrayNormalIcons.count;
+    [self leAddTopSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
+    [self setBackgroundColor:LEColorWhite]; 
+    int buttonWidth=(int)LESCREEN_WIDTH/arrayNormalIcons.count;
     for (int i=0; i<arrayNormalIcons.count; i++) {
-        UIButton *btn=[LEUIFramework getUIButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointMake(i*buttonWidth, 0) CGSize:CGSizeMake(buttonWidth, BottomTabbarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:arrayTitles?[arrayTitles objectAtIndex:i]:nil FontSize:LayoutFontSize10 Font:nil Image:[LEUIFramework getUIImage:[arrayNormalIcons objectAtIndex:i]] BackgroundImage:nil Color:curHighlightedColor SelectedColor:curNormalColor MaxWidth:buttonWidth SEL:@selector(onClickForButton:) Target:self]];
+        UIButton *btn=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointMake(i*buttonWidth, 0) CGSize:CGSizeMake(buttonWidth, LEBottomTabbarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:arrayTitles?[arrayTitles objectAtIndex:i]:nil FontSize:LELayoutFontSize10 Font:nil Image:[LEUIFramework leGetUIImage:[arrayNormalIcons objectAtIndex:i]] BackgroundImage:nil Color:curHighlightedColor SelectedColor:curNormalColor MaxWidth:buttonWidth SEL:@selector(onClickForButton:) Target:self]];
         if(arrayTitles){
-            [self verticallyLayoutButton:btn];
+            [self leVerticallyLayoutButton:btn];
         }
         [arrayButtons addObject:btn];
     }
     lastIndex=-1;
     [self onClickForButton:[arrayButtons objectAtIndex:0]];
 }
--(void) verticallyLayoutButton:(UIButton *) btn{
+-(void) leVerticallyLayoutButton:(UIButton *) btn{
     UIButton *button=btn;
     button.imageView.backgroundColor=[UIColor clearColor];
     [button.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -92,13 +92,13 @@
     }
     lastIndex=index;
     for (int i=0; i<arrayButtons.count; i++) {
-        [[arrayButtons objectAtIndex:i] setImage:[LEUIFramework getUIImage:[(i==index?arrayHighlightedIcons:arrayNormalIcons) objectAtIndex:i]] forState:UIControlStateNormal];
+        [[arrayButtons objectAtIndex:i] setImage:[LEUIFramework leGetUIImage:[(i==index?arrayHighlightedIcons:arrayNormalIcons) objectAtIndex:i]] forState:UIControlStateNormal];
         if(arrayTitles){
             [[arrayButtons objectAtIndex:i] setTitleColor:i==index?curHighlightedColor:curNormalColor forState:UIControlStateNormal];
         }
         id obj=[arrayPages objectAtIndex:i];
         if([obj isKindOfClass:[LETabbarRelatedPageView class]]){
-            SuppressPerformSelectorLeakWarning(
+            LESuppressPerformSelectorLeakWarning(
                                                [obj performSelector:NSSelectorFromString(i==index?@"easeInView":@"easeOutView")];
                                                );
         }

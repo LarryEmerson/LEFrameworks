@@ -89,17 +89,17 @@
 -(void) setExtraViewInits {
     //
     DefaultScanRect=self.curFrameWidth*2.0/3;
-    scanSpaceH=NavigationBarHeight*1.5;
+    scanSpaceH=LENavigationBarHeight*1.5;
     //
     scanSpaceW=(self.curFrameWidth-DefaultScanRect)/2;
     // 
-    UIImage *imgScanPickBG=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_qrcode_scan_bg"];
+    UIImage *imgScanPickBG=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_qrcode_scan_bg"];
     UIImageView *viewScanRect=[[UIImageView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, scanSpaceH) CGSize:CGSizeMake(DefaultScanRect, DefaultScanRect)]];
     [self.viewContainer addSubview:viewScanRect];
     [viewScanRect setBackgroundColor:[UIColor clearColor]];
     [viewScanRect setImage:imgScanPickBG];
     
-    UIImage *imgScanLine=[[LEUIFramework sharedInstance] getImageFromLEFrameworksWithName:@"LE_qrcode_scan_line"];
+    UIImage *imgScanLine=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_qrcode_scan_line"];
     scanLine=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, DefaultScanRect, imgScanLine.size.height)];
     [scanLine setImage:imgScanLine];
     [viewScanRect addSubview:scanLine];
@@ -114,7 +114,7 @@
     [viewBottom setBackgroundColor:[UIColor colorWithWhite:0.000 alpha:0.500]];
     
     NSString *tip2=@"将扫码框对准二维码，即可自动完成扫描";
-    curHelper=[LEUIFramework getUILabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewBottom Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, NavigationBarHeight) CGSize:CGSizeMake(self.curFrameWidth, scanSpaceH*2/3)] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:tip2 FontSize:12 Font:nil Width:self.curFrameWidth-NavigationBarHeight Height:0 Color:ColorWhite Line:0 Alignment:NSTextAlignmentCenter]];
+    curHelper=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewBottom Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, LENavigationBarHeight) CGSize:CGSizeMake(self.curFrameWidth, scanSpaceH*2/3)] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:tip2 FontSize:12 Font:nil Width:self.curFrameWidth-LENavigationBarHeight Height:0 Color:LEColorWhite Line:0 Alignment:NSTextAlignmentCenter]];
     device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
     if(input){
@@ -216,7 +216,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.view addSubview:page];
     [self.navigationItem setTitle:@"扫一扫"];
-    [self setLeftBarButtonAsBackWith:IMG_ArrowLeft];
+    [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
     
 }
 -(void) viewWillAppear:(BOOL)animated{
