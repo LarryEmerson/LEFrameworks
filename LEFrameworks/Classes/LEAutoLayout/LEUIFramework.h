@@ -162,10 +162,11 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 #define LEIS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define LEIS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
 
-#define LESCREEN_BOUNDS ([[UIScreen mainScreen] bounds])
-#define LESCREEN_SCALE  ([[UIScreen mainScreen] scale])
-#define LESCREEN_WIDTH  ([[UIScreen mainScreen] bounds].size.width)
-#define LESCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define LESCREEN_BOUNDS     ([[UIScreen mainScreen] bounds])
+#define LESCREEN_SCALE      ([[UIScreen mainScreen] scale])
+#define LESCREEN_SCALE_INT  ((int)[[UIScreen mainScreen] scale])
+#define LESCREEN_WIDTH      ([[UIScreen mainScreen] bounds].size.width)
+#define LESCREEN_HEIGHT     ([[UIScreen mainScreen] bounds].size.height)
 #define LESCREEN_MAX_LENGTH (MAX(LESCREEN_WIDTH, LESCREEN_HEIGHT))
 #define LESCREEN_MIN_LENGTH (MIN(LESCREEN_WIDTH, LESCREEN_HEIGHT))
 
@@ -222,7 +223,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 #define LEColorTableViewGray      [UIColor colorWithWhite:0.941 alpha:1.000]
 #define LEColorGrayDark           [UIColor colorWithRed:0.1959 green:0.2207 blue:0.2707 alpha:1.0]
 #define LEColorGray               [UIColor colorWithRed:0.6384 green:0.6588 blue:0.7095 alpha:1.0]
-#define LELEColorGrayLight        [UIColor colorWithRed:0.9412 green:0.9412 blue:0.9412 alpha:1.0]
+#define LEColorGrayLight        [UIColor colorWithRed:0.9412 green:0.9412 blue:0.9412 alpha:1.0]
 #define LEColorTextBlack          [UIColor colorWithRed:0.2549 green:0.2863 blue:0.3412 alpha:1.0]
 #define LEColorTextGray           [UIColor colorWithRed:0.6966 green:0.7178 blue:0.76    alpha:1.0]
 #define LEColorBlue               [UIColor colorWithRed:0.1922 green:0.4204 blue:0.8959 alpha:1.0]
