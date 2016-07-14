@@ -36,14 +36,6 @@
 		808003331D2B8096000A926F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		808003351D2B8096000A926F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8080033B1D2B941B000A926F /* LEFrameworks.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = LEFrameworks.bundle; path = ../LEFrameworks/Assets/LEFrameworks.bundle; sourceTree = "<group>"; };
-		80CEA6DE1D27B33B007BA3C1 /* LEWaveProgressView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LEWaveProgressView.gif; sourceTree = "<group>"; };
-		80CEA6DF1D27B33B007BA3C1 /* ExcelView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ExcelView.gif; sourceTree = "<group>"; };
-		80CEA6E01D27B33B007BA3C1 /* LEUIFramework.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LEUIFramework.gif; sourceTree = "<group>"; };
-		80CEA6E11D27B33B007BA3C1 /* LECircleChart.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LECircleChart.gif; sourceTree = "<group>"; };
-		80CEA6E21D27B33B007BA3C1 /* LEBarChart.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LEBarChart.gif; sourceTree = "<group>"; };
-		80CEA6E31D27B33B007BA3C1 /* LELineChart.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LELineChart.gif; sourceTree = "<group>"; };
-		80CEA6E41D27B33B007BA3C1 /* LESegmentView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LESegmentView.gif; sourceTree = "<group>"; };
-		80CEA6E51D27B33B007BA3C1 /* MultiImagePicker.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MultiImagePicker.gif; sourceTree = "<group>"; };
 		98037C3B8C1F56F9159DBCA9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		AD9FAA0A913866DEA0463F02 /* Pods-LEFrameworks_Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LEFrameworks_Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LEFrameworks_Test/Pods-LEFrameworks_Test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,14 +89,6 @@
 				80004348262857873DFFBB1D /* LEFrameworks.podspec */,
 				732CABA964869407F4E54F98 /* README.md */,
 				98037C3B8C1F56F9159DBCA9 /* LICENSE */,
-				80CEA6DE1D27B33B007BA3C1 /* LEWaveProgressView.gif */,
-				80CEA6DF1D27B33B007BA3C1 /* ExcelView.gif */,
-				80CEA6E01D27B33B007BA3C1 /* LEUIFramework.gif */,
-				80CEA6E11D27B33B007BA3C1 /* LECircleChart.gif */,
-				80CEA6E21D27B33B007BA3C1 /* LEBarChart.gif */,
-				80CEA6E31D27B33B007BA3C1 /* LELineChart.gif */,
-				80CEA6E41D27B33B007BA3C1 /* LESegmentView.gif */,
-				80CEA6E51D27B33B007BA3C1 /* MultiImagePicker.gif */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
