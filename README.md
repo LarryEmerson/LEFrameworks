@@ -17,7 +17,7 @@ IOS Development Frameworks 持续更新中
 
 #### 1- LESegmentView顶部封装
     
-![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/Example/LESegmentView.gif)
+![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/LESegmentView.gif)
     
     -(id) initWithTitles:(NSArray *) titles Pages:(NSArray *) pages ViewContainer:(UIView *) container SegmentHeight:(int) segmentHeight Indicator:(UIImage *) indicator SegmentSpace:(int) space;
     
@@ -47,7 +47,7 @@ IOS Development Frameworks 持续更新中
 #### 2- LECurveProgressView:圆形镂空进度组件（可以只显示一段弧形）
       
     
-![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/Example/LECircleChart.gif)
+![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/LECircleChart.gif)
     
     -(void) onTestCurveProgressView{
         LEBaseViewController *vc=[[LEBaseViewController alloc] init];
@@ -64,7 +64,7 @@ IOS Development Frameworks 持续更新中
     
 #### 3-LELineChart：统计线形图
     
-![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/Example/LELineChart.gif)
+![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/LELineChart.gif)
     
     Gif中组件测试代码：
     UILabel *labelLineChart;
@@ -85,7 +85,7 @@ IOS Development Frameworks 持续更新中
     
 #### 4-LEBarChart:统计柱状图
     
-![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/Example/LEBarChart.gif)
+![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/LEBarChart.gif)
     
     GIF中组件测试代码：
     UILabel *labelBarChart;
@@ -105,7 +105,7 @@ IOS Development Frameworks 持续更新中
     
 #### 5-LEWaveProgressView:波浪上涨动画
    
-![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/Example/LEWaveProgressView.gif)
+![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/LEWaveProgressView.gif)
    
     GIF中组件测试代码如下：
    
@@ -126,7 +126,7 @@ IOS Development Frameworks 持续更新中
     
 #### 6-LEExcelView:表格方式展示数据
     
-![image](https://raw.githubusercontent.com/LarryEmerson/LEAllFrameworksGif/master/Example/ExcelView.gif)
+![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/ExcelView.gif)
     
     GIF中组件测试代码如下：
     
@@ -173,7 +173,7 @@ IOS Development Frameworks 持续更新中
     
 #### 7-LEMultiImagePicker：图片多选组件（注意需要配合系统导航栏使用）
     
-![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/Example/MultiImagePicker.gif)
+![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/MultiImagePicker.gif)
     
     GIF中组件测试代码如下：
     
