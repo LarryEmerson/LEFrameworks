@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'LEFrameworks'
-s.version          = '0.3.9'
+s.version          = '0.4.0'
 s.summary          = 'IOS Development Frameworks 公司IOS开发库：自动排版、列表封装、数据模型、第三方富文本（url点击事件）再次封装'
 
 # This description is used to generate tags and improve search results.
@@ -40,7 +40,7 @@ s.ios.deployment_target = '7.0'
 s.resource_bundles = {
 'LEFrameworks' => ['LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/*.png']
 }
-s.source_files = 'LEFrameworks/Classes/*.{h,m}'
+s.source_files = 'LEFrameworks/Classes/**/*.{h,m}'
 # s.public_header_files = 'Pod/Classes/**/*.h'
 # s.dependency "YiRefresh"
 end

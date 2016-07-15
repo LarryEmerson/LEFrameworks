@@ -13,7 +13,6 @@
 		8080032F1D2B8096000A926F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8080032D1D2B8096000A926F /* Main.storyboard */; };
 		808003311D2B8096000A926F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 808003301D2B8096000A926F /* Assets.xcassets */; };
 		808003341D2B8096000A926F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 808003321D2B8096000A926F /* LaunchScreen.storyboard */; };
-		8080033C1D2B941B000A926F /* LEFrameworks.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8080033B1D2B941B000A926F /* LEFrameworks.bundle */; };
 		A812B6910DD586F946CB2F22 /* Pods_LEFrameworks_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D779B046EEC3DD76E66675 /* Pods_LEFrameworks_Test.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +34,6 @@
 		808003301D2B8096000A926F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		808003331D2B8096000A926F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		808003351D2B8096000A926F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8080033B1D2B941B000A926F /* LEFrameworks.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = LEFrameworks.bundle; path = ../LEFrameworks/Assets/LEFrameworks.bundle; sourceTree = "<group>"; };
 		98037C3B8C1F56F9159DBCA9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		AD9FAA0A913866DEA0463F02 /* Pods-LEFrameworks_Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LEFrameworks_Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LEFrameworks_Test/Pods-LEFrameworks_Test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,7 +53,6 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
-				8080033B1D2B941B000A926F /* LEFrameworks.bundle */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				808003231D2B8096000A926F /* LEFrameworks_Test */,
 				6003F58C195388D20070C39A /* Frameworks */,
@@ -188,7 +185,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8080033C1D2B941B000A926F /* LEFrameworks.bundle in Resources */,
 				808003341D2B8096000A926F /* LaunchScreen.storyboard in Resources */,
 				808003311D2B8096000A926F /* Assets.xcassets in Resources */,
 				8080032F1D2B8096000A926F /* Main.storyboard in Resources */,
