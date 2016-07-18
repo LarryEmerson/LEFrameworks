@@ -7,50 +7,55 @@
 //
 
 #import "LEBaseViewController.h"
-
+@interface LEBaseView()
+@property (nonatomic, readwrite) UISwipeGestureRecognizer *recognizerRight;
+@property (nonatomic, readwrite) int leCurrentFrameWidth;
+@property (nonatomic, readwrite) int leCurrentFrameHight;
+@property (nonatomic, readwrite) UIView *leViewContainer;
+@property (nonatomic, readwrite) LEBaseViewController *leCurrentViewController;
+@end
 @implementation LEBaseView{
-    UIView *curSuperView;
-    
+    UIView *curSuperView; 
 }
 -(id) initWithViewController:(LEBaseViewController *) vc{
     curSuperView=vc.view;
-    self.curViewController=vc;
+    self.leCurrentViewController=vc;
     self=[super initWithFrame:curSuperView.bounds];
     [self setBackgroundColor:LEColorWhite];
     [curSuperView addSubview:self];
-    self.curFrameWidth=self.bounds.size.width;
-    self.curFrameHight=self.bounds.size.height-(self.curViewController.extendedLayoutIncludesOpaqueBars?0:(LEStatusBarHeight+LENavigationBarHeight));
-    self.viewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth,self.curFrameHight)]];
-    [self.viewContainer setBackgroundColor:[LEUIFramework sharedInstance].leColorViewContainer];
+    self.leCurrentFrameWidth=self.bounds.size.width;
+    self.leCurrentFrameHight=self.bounds.size.height-(self.leCurrentViewController.extendedLayoutIncludesOpaqueBars?0:(LEStatusBarHeight+LENavigationBarHeight));
+    self.leViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth,self.leCurrentFrameHight)]];
+    [self.leViewContainer setBackgroundColor:[LEUIFramework sharedInstance].leColorViewContainer];
     //
     self.recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGesture:)];
     [self.recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.viewContainer addGestureRecognizer:self.recognizerRight];
+    [self.leViewContainer addGestureRecognizer:self.recognizerRight];
     //
-    [self setExtraViewInits];
+    [self leExtraInits];
     return self;
 }
--(void) onSetRightSwipGesture:(BOOL) gesture{
+-(void) leOnSetRightSwipGesture:(BOOL) gesture{
     [self.recognizerRight setEnabled:gesture];
-}
--(void)setExtraViewInits{
-    
-}
--(UIView *)superViewContainer{
+} 
+-(UIView *)leSuperViewContainer{
     return curSuperView;
 }
 - (void)swipGesture:(UISwipeGestureRecognizer *)recognizer {
     if (recognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-        [self swipGestureLogic];
+        [self leSwipGestureLogic];
     }
 }
--(void) swipGestureLogic{
-    [self.curViewController.navigationController popViewControllerAnimated:YES];
+-(void) leSwipGestureLogic{
+    [self.leCurrentViewController.navigationController popViewControllerAnimated:YES];
 }
 @end
+@interface LEBaseViewController ()
+@property (nonatomic, readwrite) id<LEViewControllerPopDelegate> lePopDelegate;
+@end
 @implementation LEBaseViewController
--(id) initWithDelegate:(id<LEBaseViewControllerPageJumpDelagte>) delegate{
-    self.jumpDelegate=delegate;
+-(id) initWithDelegate:(id<LEViewControllerPopDelegate>) delegate{
+    self.lePopDelegate=delegate;
     return [super init];
 }
 -(void) viewDidLoad{
@@ -142,10 +147,10 @@
 //    UIStatusBarStyle targetStatusStyle;
 //    UIStatusBarStyle lastStatusStyle;
 //}
-//@synthesize viewContainer=_viewContainer;
+//@synthesize leViewContainer=_leViewContainer;
 //@synthesize globalVar=_globalVar;
-//@synthesize curFrameHight=_curFrameHight;
-//@synthesize curFrameWidth=_curFrameWidth;
+//@synthesize leCurrentFrameHight=_leCurrentFrameHight;
+//@synthesize leCurrentFrameWidth=_leCurrentFrameWidth;
 //-(void) onNavigationBarClickedWithCode:(NSString *) code{
 //    //    LELogObject(code);
 //    if([code isEqualToString:KeyOfNavigationBackButton]){
@@ -155,7 +160,7 @@
 //    }
 //}
 //-(void) onClickedForLeftButton{
-//    [self easeOutView];
+//    [self leEaseOutView];
 //}
 //-(void) onClickedForRightButton{
 //    
@@ -163,7 +168,7 @@
 //-(void) setStatusBarStyle:(UIStatusBarStyle) style{
 //    [[UIApplication sharedApplication] setStatusBarStyle:style animated:YES];
 //} 
-//-(UIView *) superViewContainer{
+//-(UIView *) leSuperViewContainer{
 //    return curSuperViewContainer;
 //}
 //-(void) setSuperViewContainer:(UIView *) view{
@@ -180,10 +185,10 @@
 //    self.curNavigationClassName=navigationClass;
 //    lastStatusStyle=[[UIApplication sharedApplication] statusBarStyle];
 //    self.globalVar = [LEUIFramework sharedInstance];
-//    self.curFrameWidth=LESCREEN_WIDTH;
-//    self.curFrameHight=LESCREEN_HEIGHT;
-//    self.curFrameHight=view.frame.size.height;
-//    self = [super initWithFrame:CGRectMake(0, 0, self.curFrameWidth,self.curFrameHight)];
+//    self.leCurrentFrameWidth=LESCREEN_WIDTH;
+//    self.leCurrentFrameHight=LESCREEN_HEIGHT;
+//    self.leCurrentFrameHight=view.frame.size.height;
+//    self = [super initWithFrame:CGRectMake(0, 0, self.leCurrentFrameWidth,self.leCurrentFrameHight)];
 //    BOOL fullScreen=NO;
 //    if([dataModel objectForKey:KeyOfNavigationInFullScreenMode]){
 //        fullScreen=[[dataModel objectForKey:KeyOfNavigationInFullScreenMode] boolValue];
@@ -193,7 +198,7 @@
 //    //
 //    self.curEffectType=effectType;
 //    if(effectType==EffectTypeFromRight){
-//        [self leSetFrame:CGRectMake(self.curFrameWidth, 0, self.curFrameWidth, self.curFrameHight)];
+//        [self leSetFrame:CGRectMake(self.leCurrentFrameWidth, 0, self.leCurrentFrameWidth, self.leCurrentFrameHight)];
 //    }
 //    recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGesture:)];
 //    [recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
@@ -202,12 +207,12 @@
 //    [view addSubview:self];
 //    [self setBackgroundColor:LEColorWhite];
 //    //Container
-//    self.viewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, fullScreen?0:(LENavigationBarHeight+LEStatusBarHeight)) CGSize:CGSizeMake(self.curFrameWidth, self.curFrameHight-(fullScreen?0:(LENavigationBarHeight+LEStatusBarHeight)))]];
-//    [self.viewContainer setBackgroundColor:[LEUIFramework sharedInstance].leColorViewContainer];
+//    self.leViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, fullScreen?0:(LENavigationBarHeight+LEStatusBarHeight)) CGSize:CGSizeMake(self.leCurrentFrameWidth, self.leCurrentFrameHight-(fullScreen?0:(LENavigationBarHeight+LEStatusBarHeight)))]];
+//    [self.leViewContainer setBackgroundColor:[LEUIFramework sharedInstance].leColorViewContainer];
 //    //
 //    if(navigationClass&&navigationClass.length>0){
 //        LESuppressPerformSelectorLeakWarning(
-//                                           self.curNavigationView=[[NSClassFromString(navigationClass) alloc] performSelector:NSSelectorFromString(@"initWithAutoLayoutSettings:ViewDataModel:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, LENavigationBarHeight+LEStatusBarHeight)] withObject:dataModel];
+//                                           self.curNavigationView=[[NSClassFromString(navigationClass) alloc] performSelector:NSSelectorFromString(@"initWithAutoLayoutSettings:ViewDataModel:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth, LENavigationBarHeight+LEStatusBarHeight)] withObject:dataModel];
 //                                           );
 //    }
 //    [self setExtraViewInits];
@@ -215,24 +220,24 @@
 //}
 //-(void) setExtraViewInits{
 //}
-//-(void) easeInView{
+//-(void) leEaseInView{
 //    if(self.curEffectType==EffectTypeWithAlpha){
 //        [self setAlpha:0];
 //        [UIView animateWithDuration:0.2f animations:^(void){
 //            [self setAlpha:1];
 //        }completion:^(BOOL isDone){
-//            [self easeInViewLogic];
+//            [self leEaseInViewLogic];
 //        }];
 //    }else if(self.curEffectType==EffectTypeFromRight){
-//        [self leSetFrame:CGRectMake(self.curFrameWidth, 0, self.curFrameWidth, self.curFrameHight)];
+//        [self leSetFrame:CGRectMake(self.leCurrentFrameWidth, 0, self.leCurrentFrameWidth, self.leCurrentFrameHight)];
 //        [UIView animateWithDuration:0.2 animations:^(void){
-//            [self leSetFrame:CGRectMake(0, 0, self.curFrameWidth, self.curFrameHight)];
+//            [self leSetFrame:CGRectMake(0, 0, self.leCurrentFrameWidth, self.leCurrentFrameHight)];
 //        } completion:^(BOOL isDone){
-//            [self easeInViewLogic];
+//            [self leEaseInViewLogic];
 //        }];
 //    }
 //}
-//-(void) easeOutView{
+//-(void) leEaseOutView{
 //    [self setStatusBarStyle:lastStatusStyle];
 //    if(self.curEffectType==EffectTypeWithAlpha){
 //        [UIView animateWithDuration:0.2f animations:^(void){
@@ -242,17 +247,17 @@
 //        }];
 //    }else if(self.curEffectType==EffectTypeFromRight){
 //        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^(void){
-//            [self leSetFrame:CGRectMake(self.curFrameWidth, 0, self.curFrameWidth, self.curFrameHight)];
+//            [self leSetFrame:CGRectMake(self.leCurrentFrameWidth, 0, self.leCurrentFrameWidth, self.leCurrentFrameHight)];
 //        } completion:^(BOOL isFinished){
-//            [self easeOutViewLogic];
+//            [self leEaseOutViewLogic];
 //        }];
 //    }else{
-//        [self easeOutViewLogic];
+//        [self leEaseOutViewLogic];
 //    }
 //}
-//-(void) easeInViewLogic{
+//-(void) leEaseInViewLogic{
 //}
-//-(void) easeOutViewLogic{
+//-(void) leEaseOutViewLogic{
 //    [self dismissView];
 //}
 //-(void) eventCallFromChild{
@@ -262,7 +267,7 @@
 //}
 //- (void)swipGesture:(UISwipeGestureRecognizer *)recognizer {
 //    if (recognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-//        [self easeOutView];
+//        [self leEaseOutView];
 //    }
 //}
 //@end

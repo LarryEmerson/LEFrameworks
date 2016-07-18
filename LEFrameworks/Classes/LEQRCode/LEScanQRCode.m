@@ -9,6 +9,7 @@
 #import "LEScanQRCode.h"
 #import <AVFoundation/AVFoundation.h>
 @interface LEScanQRCodeViewPage()<AVCaptureMetadataOutputObjectsDelegate>
+@property (nonatomic) NSString *curScanHelperString;
 @end
 @implementation LEScanQRCodeViewPage{
     id<LEScanQRCodeDelegate> scanQRCodeDelegate;
@@ -36,12 +37,12 @@
     scanQRCodeDelegate=delegate;
     return self;
 }
--(void) setCustomizeResultWithView:(UIView *) view{
+-(void) leSetCustomizeResultWithView:(UIView *) view{
     if(curResultView){
         [curResultView removeFromSuperview];
     }
     curResultView=view;
-    [self.viewContainer addSubview:curResultView];
+    [self.leViewContainer addSubview:curResultView];
     [curResultView setHidden:YES];
 }
 -(void) dealloc{
@@ -52,7 +53,7 @@
     [preview removeFromSuperlayer];
     session=nil;
 }
--(void) showOrHideResultView:(BOOL) show{
+-(void) leShowOrHideResultView:(BOOL) show{
     if(curResultView){
         [curResultView setHidden:NO];
     }
@@ -77,25 +78,25 @@
     session=nil;
     if(stringValue){
         if(scanQRCodeDelegate){
-            [scanQRCodeDelegate onScannedQRCodeWithResult:stringValue];
+            [scanQRCodeDelegate leOnScannedQRCodeWithResult:stringValue];
         }
         if(!curResultView){
-            [self.curViewController.navigationController popViewControllerAnimated:YES];
+            [self.leCurrentViewController.navigationController popViewControllerAnimated:YES];
         }
     }else{
         
     }
 }
--(void) setExtraViewInits {
+-(void) leExtraInits {
     //
-    DefaultScanRect=self.curFrameWidth*2.0/3;
+    DefaultScanRect=self.leCurrentFrameWidth*2.0/3;
     scanSpaceH=LENavigationBarHeight*1.5;
     //
-    scanSpaceW=(self.curFrameWidth-DefaultScanRect)/2;
+    scanSpaceW=(self.leCurrentFrameWidth-DefaultScanRect)/2;
     // 
     UIImage *imgScanPickBG=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_qrcode_scan_bg"];
-    UIImageView *viewScanRect=[[UIImageView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, scanSpaceH) CGSize:CGSizeMake(DefaultScanRect, DefaultScanRect)]];
-    [self.viewContainer addSubview:viewScanRect];
+    UIImageView *viewScanRect=[[UIImageView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, scanSpaceH) CGSize:CGSizeMake(DefaultScanRect, DefaultScanRect)]];
+    [self.leViewContainer addSubview:viewScanRect];
     [viewScanRect setBackgroundColor:[UIColor clearColor]];
     [viewScanRect setImage:imgScanPickBG];
     
@@ -104,17 +105,17 @@
     [scanLine setImage:imgScanLine];
     [viewScanRect addSubview:scanLine];
     
-    UIView *viewTop=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, scanSpaceH)]];
-    UIView *viewLeft=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorOutsideBottomLeft RelativeView:viewTop Offset:CGPointZero CGSize:CGSizeMake(scanSpaceW, DefaultScanRect)]];
-    UIView *viewRight=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorOutsideBottomRight RelativeView:viewTop Offset:CGPointZero CGSize:CGSizeMake( scanSpaceW, DefaultScanRect)]];
-    UIView *viewBottom=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, self.viewContainer.bounds.size.height-scanSpaceH-DefaultScanRect)]];
+    UIView *viewTop=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth, scanSpaceH)]];
+    UIView *viewLeft=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorOutsideBottomLeft RelativeView:viewTop Offset:CGPointZero CGSize:CGSizeMake(scanSpaceW, DefaultScanRect)]];
+    UIView *viewRight=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorOutsideBottomRight RelativeView:viewTop Offset:CGPointZero CGSize:CGSizeMake( scanSpaceW, DefaultScanRect)]];
+    UIView *viewBottom=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth, self.leViewContainer.bounds.size.height-scanSpaceH-DefaultScanRect)]];
     [viewTop setBackgroundColor:[UIColor colorWithWhite:0.000 alpha:0.500]];
     [viewLeft setBackgroundColor:[UIColor colorWithWhite:0.000 alpha:0.500]];
     [viewRight setBackgroundColor:[UIColor colorWithWhite:0.000 alpha:0.500]];
     [viewBottom setBackgroundColor:[UIColor colorWithWhite:0.000 alpha:0.500]];
     
     NSString *tip2=@"将扫码框对准二维码，即可自动完成扫描";
-    curHelper=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewBottom Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, LENavigationBarHeight) CGSize:CGSizeMake(self.curFrameWidth, scanSpaceH*2/3)] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:tip2 FontSize:12 Font:nil Width:self.curFrameWidth-LENavigationBarHeight Height:0 Color:LEColorWhite Line:0 Alignment:NSTextAlignmentCenter]];
+    curHelper=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewBottom Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, LENavigationBarHeight) CGSize:CGSizeMake(self.leCurrentFrameWidth, scanSpaceH*2/3)] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:tip2 FontSize:12 Font:nil Width:self.leCurrentFrameWidth-LENavigationBarHeight Height:0 Color:LEColorWhite Line:0 Alignment:NSTextAlignmentCenter]];
     device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
     if(input){
@@ -131,9 +132,9 @@
         output.metadataObjectTypes =@[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code];
         preview =[AVCaptureVideoPreviewLayer layerWithSession:session];
         preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        //            preview.frame =self.viewContainer.bounds;
+        //            preview.frame =self.leViewContainer.bounds;
         [preview setFrame:viewScanRect.frame];
-        [self.viewContainer.layer insertSublayer: preview atIndex:0];
+        [self.leViewContainer.layer insertSublayer: preview atIndex:0];
         [session startRunning];
     }
     [self switchScanLine:YES];
@@ -163,7 +164,7 @@
     }
     [scanLine setFrame:CGRectMake(0, curLineOffset, DefaultScanRect, scanLine.bounds.size.height)];
 }
--(void) showScanView{
+-(void) leShowScanView{
     [self switchScanLine:YES];
     [session stopRunning];
     device=nil;
@@ -188,8 +189,8 @@
         output.metadataObjectTypes =@[AVMetadataObjectTypeQRCode];
         preview =[AVCaptureVideoPreviewLayer layerWithSession:session];
         preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        preview.frame =self.viewContainer.bounds;
-        [self.viewContainer.layer insertSublayer: preview atIndex:0];
+        preview.frame =self.leViewContainer.bounds;
+        [self.leViewContainer.layer insertSublayer: preview atIndex:0];
         [session startRunning];
     }
 }
@@ -207,8 +208,8 @@
     page=[[LEScanQRCodeViewPage alloc] initWithViewController:self Delegate:delegate];
     return self;
 }
--(void) reScanAfterSeconds:(NSTimeInterval) seconds{
-    [page performSelector:@selector(showScanView) withObject:nil afterDelay:seconds];
+-(void) leReScanAfterSeconds:(NSTimeInterval) seconds{
+    [page performSelector:@selector(leShowScanView) withObject:nil afterDelay:seconds];
 }
 -(void) viewDidLoad{
     [super viewDidLoad];
@@ -221,7 +222,7 @@
 }
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [page showScanView];
+    [page leShowScanView];
 }
 -(void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

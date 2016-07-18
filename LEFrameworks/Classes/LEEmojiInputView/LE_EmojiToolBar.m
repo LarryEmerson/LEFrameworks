@@ -7,7 +7,9 @@
 //
 
 #import "LE_EmojiToolBar.h"
-
+@interface LE_EmojiToolBar()
+@property (nonatomic) id <EmojiTextDelegate> delegate;
+@end
 @implementation LE_EmojiToolBar{
     LEUIFramework *globalVar;
     UITextView *inputTextView;
@@ -70,12 +72,12 @@
     if (self) {
         
         [self setUserInteractionEnabled:YES];
-        [self initUI];
+        [self leExtraInits];
     }
     return self;
 }
 
--(void) setCustomToolbarSkinWithToolbarBackgroundColorAs:(UIColor *)bgColor BackgroundImage:(UIImage *)bgImage EmojiFaceIcon:(UIImage *)eIcon KeyboardIcon:(UIImage *)kIcon InputViewBackgroundColor:(UIColor *)ivBGColor InputViewBackground:(UIImage *) ivBGImage InputViewTextColor:(UIColor *) ivTextColor PlaceholderColor:(UIColor *)holderColor SendButtonBackgroundColor:(UIColor *) buttonBGColor SendButtonBackgroundNormalColor:(UIColor *) normalColor SendButtonBackgroundPressedColor:(UIColor *) pressedColor SendButtonNormalImage:(UIImage *) normalImage SendButtonPressedImage:(UIImage *) pressedImage IconWidth:(int) iconW SpaceBetweenIconAndInputView:(int) spaceIcon InputViewWidth:(int) inputViewW SpaceBetweenInputViewAndButton:(int) spaceButton SendButtonWidth:(int) buttonWidth TopSpaceForInputViewAndButton:(int) tSpace BottomSpaceForInputViewAndButton:(int) bSpace ToolbarHeight:(int) height PlaceholderOffsetX:(int) offsetx PlaceholderString:(NSString *) placeholderString SendButtonText:(NSString *) buttonText InputViewTextFontSize:(int) fontsize EnableEmoji:(BOOL) isEmoji{
+-(void) leCustomizeInputbarWithBackgroundColor:(UIColor *)bgColor BackgroundImage:(UIImage *)bgImage EmojiFaceIcon:(UIImage *)eIcon KeyboardIcon:(UIImage *)kIcon InputViewBackgroundColor:(UIColor *)ivBGColor InputViewBackground:(UIImage *) ivBGImage InputViewTextColor:(UIColor *) ivTextColor PlaceholderColor:(UIColor *)holderColor SendButtonBackgroundColor:(UIColor *) buttonBGColor SendButtonBackgroundNormalColor:(UIColor *) normalColor SendButtonBackgroundPressedColor:(UIColor *) pressedColor SendButtonNormalImage:(UIImage *) normalImage SendButtonPressedImage:(UIImage *) pressedImage IconWidth:(int) iconW SpaceBetweenIconAndInputView:(int) spaceIcon InputViewWidth:(int) inputViewW SpaceBetweenInputViewAndButton:(int) spaceButton SendButtonWidth:(int) buttonWidth TopSpaceForInputViewAndButton:(int) tSpace BottomSpaceForInputViewAndButton:(int) bSpace ToolbarHeight:(int) height PlaceholderOffsetX:(int) offsetx PlaceholderString:(NSString *) placeholderString SendButtonText:(NSString *) buttonText InputViewTextFontSize:(int) fontsize EnableEmoji:(BOOL) isEmoji{
     globalVar=[LEUIFramework sharedInstance];
     isEmojiEnabled=isEmoji;
     heightOfToolBar=height;
@@ -179,12 +181,12 @@
     //    [self setHidden:YES];
 }
 
--(void) setCustomToolbarSkinWithToolbarBackgroundColorAs:(UIColor *)bgColor BackgroundImage:(UIImage *)bgImage EmojiFaceIcon:(UIImage *)eIcon KeyboardIcon:(UIImage *)kIcon InputViewBackgroundColor:(UIColor *)ivBGColor InputViewBackground:(UIImage *) ivBGImage InputViewTextColor:(UIColor *) ivTextColor PlaceholderColor:(UIColor *)holderColor SendButtonBackgroundColor:(UIColor *) buttonBGColor SendButtonBackgroundNormalColor:(UIColor *) normalColor SendButtonBackgroundPressedColor:(UIColor *) pressedColor SendButtonNormalImage:(UIImage *) normalImage SendButtonPressedImage:(UIImage *) pressedImage IconWidth:(int) iconW SpaceBetweenIconAndInputView:(int) spaceIcon InputViewWidth:(int) inputViewW SpaceBetweenInputViewAndButton:(int) spaceButton SendButtonWidth:(int) buttonWidth TopSpaceForInputViewAndButton:(int) tSpace BottomSpaceForInputViewAndButton:(int) bSpace ToolbarHeight:(int) height PlaceholderOffsetX:(int) offsetx PlaceholderString:(NSString *) placeholderString SendButtonText:(NSString *) buttonText InputViewTextFontSize:(int) fontsize{
+-(void) leCustomizeInputbarWithBackgroundColor:(UIColor *)bgColor BackgroundImage:(UIImage *)bgImage EmojiFaceIcon:(UIImage *)eIcon KeyboardIcon:(UIImage *)kIcon InputViewBackgroundColor:(UIColor *)ivBGColor InputViewBackground:(UIImage *) ivBGImage InputViewTextColor:(UIColor *) ivTextColor PlaceholderColor:(UIColor *)holderColor SendButtonBackgroundColor:(UIColor *) buttonBGColor SendButtonBackgroundNormalColor:(UIColor *) normalColor SendButtonBackgroundPressedColor:(UIColor *) pressedColor SendButtonNormalImage:(UIImage *) normalImage SendButtonPressedImage:(UIImage *) pressedImage IconWidth:(int) iconW SpaceBetweenIconAndInputView:(int) spaceIcon InputViewWidth:(int) inputViewW SpaceBetweenInputViewAndButton:(int) spaceButton SendButtonWidth:(int) buttonWidth TopSpaceForInputViewAndButton:(int) tSpace BottomSpaceForInputViewAndButton:(int) bSpace ToolbarHeight:(int) height PlaceholderOffsetX:(int) offsetx PlaceholderString:(NSString *) placeholderString SendButtonText:(NSString *) buttonText InputViewTextFontSize:(int) fontsize{
     isEmojiEnabled=NO;
-    [self setCustomToolbarSkinWithToolbarBackgroundColorAs:bgColor BackgroundImage:bgImage EmojiFaceIcon:eIcon KeyboardIcon:kIcon InputViewBackgroundColor:ivBGColor InputViewBackground:ivBGImage InputViewTextColor:ivTextColor PlaceholderColor:holderColor SendButtonBackgroundColor:buttonBGColor SendButtonBackgroundNormalColor:normalColor SendButtonBackgroundPressedColor:pressedColor SendButtonNormalImage:normalImage SendButtonPressedImage:pressedImage IconWidth:iconW SpaceBetweenIconAndInputView:spaceIcon InputViewWidth:inputViewW SpaceBetweenInputViewAndButton:spaceButton SendButtonWidth:buttonWidth TopSpaceForInputViewAndButton:tSpace BottomSpaceForInputViewAndButton:bSpace ToolbarHeight:height PlaceholderOffsetX:offsetx PlaceholderString:placeholderString SendButtonText:buttonText InputViewTextFontSize:fontsize];
+    [self leCustomizeInputbarWithBackgroundColor:bgColor BackgroundImage:bgImage EmojiFaceIcon:eIcon KeyboardIcon:kIcon InputViewBackgroundColor:ivBGColor InputViewBackground:ivBGImage InputViewTextColor:ivTextColor PlaceholderColor:holderColor SendButtonBackgroundColor:buttonBGColor SendButtonBackgroundNormalColor:normalColor SendButtonBackgroundPressedColor:pressedColor SendButtonNormalImage:normalImage SendButtonPressedImage:pressedImage IconWidth:iconW SpaceBetweenIconAndInputView:spaceIcon InputViewWidth:inputViewW SpaceBetweenInputViewAndButton:spaceButton SendButtonWidth:buttonWidth TopSpaceForInputViewAndButton:tSpace BottomSpaceForInputViewAndButton:bSpace ToolbarHeight:height PlaceholderOffsetX:offsetx PlaceholderString:placeholderString SendButtonText:buttonText InputViewTextFontSize:fontsize];
 }
 
-- (void) setBecomeFirstResponder:(BOOL) isResponder{
+- (void) leSetBecomeFirstResponder:(BOOL) isResponder{
     if(isResponder){
         [inputTextView becomeFirstResponder];
     }else{
@@ -192,7 +194,7 @@
     }
 }
 
-- (void) setShowOrHideToolBar:(BOOL) isShow{
+- (void) leSetShowOrHideToolBar:(BOOL) isShow{
     globalVar=[LEUIFramework sharedInstance];
     if(isShow){
         [self setHidden:NO];
@@ -250,7 +252,7 @@
     sendButtonText=@"发送";
     InputTextFontSize=15;
 }
--(void) initUI{
+-(void) leExtraInits{
     [self initDefaultUI];
     
     [self setFrame:CGRectMake(0,  LESCREEN_HEIGHT-heightOfToolBar,  LESCREEN_WIDTH, heightOfToolBar)];
@@ -292,7 +294,10 @@
 }
 
 
--(void) messageSomebody:(NSString *) somebody{
+-(void) leSetDelegate:(id<EmojiTextDelegate>) delegate{
+    self.delegate=delegate;
+}
+-(void) leMessageSomebody:(NSString *) somebody{
     if(somebody&&![somebody isEqualToString:@""]){
         isNeedToSendMsgToSomebody=YES;
         isMeantToSentToSomebody=YES;
@@ -315,7 +320,7 @@
 -(void) setSendButtonString:(NSString*)text{
     [sendButton setTitle:text forState:UIControlStateNormal];
 }
--(void) reset{
+-(void) leReset{
     [self setAllToDefault];
     [placeHolder setHidden:YES];
 }
@@ -450,7 +455,7 @@
 //- (void)textViewDidChangeSelection:(UITextView *)textView{
 //    NSLog(@"textViewDidChangeSelection %@ ",TextView.text);
 //}
-- (void) setNotClearMessage:(BOOL) isNotClear{
+- (void) leSetNotClearMessage:(BOOL) isNotClear{
     isNotClearMessage=isNotClear;
 }
 
@@ -458,12 +463,12 @@
     //    NSLog(@"%@",TextView.text);
     if(self.delegate){
         //        if(isMeantToSentToSomebody){
-        //            if([self.delegate respondsToSelector:@selector(setFinishedText:IsStillToTheOne:)]){
-        //                [self.delegate setFinishedText:inputTextView.text IsStillToTheOne:isNeedToSendMsgToSomebody];
+        //            if([self.delegate respondsToSelector:@selector(leOnInputFinishedWithText:IsStillToTheOne:)]){
+        //                [self.delegate leOnInputFinishedWithText:inputTextView.text IsStillToTheOne:isNeedToSendMsgToSomebody];
         //            }
         //        }else{
-        if([self.delegate respondsToSelector:@selector(setFinishedText:)]){
-            [self.delegate setFinishedText:isMeantToSentToSomebody?[inputTextView.text substringFromIndex:msgForSomebody.length]:inputTextView.text];
+        if([self.delegate respondsToSelector:@selector(leOnInputFinishedWithText:)]){
+            [self.delegate leOnInputFinishedWithText:isMeantToSentToSomebody?[inputTextView.text substringFromIndex:msgForSomebody.length]:inputTextView.text];
         }
         //        }
     }

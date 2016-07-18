@@ -14,9 +14,9 @@
     NSString *curQrcode;
     UIImageView *curQrcodeView;
 }
--(void) setExtraViewInits{
-    int size=self.curFrameWidth*3/4;
-    curQrcodeView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(size,size)] Image:[LEUIFramework leCreateQRForString:curQrcode Size:size]];
+-(void) leExtraInits{
+    int size=self.leCurrentFrameWidth*3/4;
+    curQrcodeView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(size,size)] Image:[LEUIFramework leCreateQRForString:curQrcode Size:size]];
 }
 -(id) initWithViewController:(LEBaseViewController *)vc Qrcode:(NSString *) qrcode{
     curQrcode=qrcode;

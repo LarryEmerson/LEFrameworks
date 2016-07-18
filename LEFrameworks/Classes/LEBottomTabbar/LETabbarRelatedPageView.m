@@ -8,40 +8,45 @@
 
 #import "LETabbarRelatedPageView.h"
 
-@implementation LETabbarRelatedPageView
+@implementation LETabbarRelatedPageView{
+    UIView *rootView;
+}
 
 -(id) initWithFrame:(CGRect)frame{
     self=[super initWithFrame:frame];
     [self setAlpha:0];
-    [self initUI];
+    [self leExtraInits];
     return self;
 }
--(void) initUI{ 
+-(void) leSetRootView:(UIView *)view{
+    rootView=view;
 }
-
--(void) easeInView{
+-(UIView *) leRootView{
+    return rootView;
+}
+-(void) leEaseInView{
     [self setHidden:NO];
     [self setAlpha:0];
     [UIView animateWithDuration:0.2 delay:0.15 options:UIViewAnimationOptionCurveLinear animations:^(void){
         [self setAlpha:1];
     }completion:^(BOOL isDone){
-        [self easeInViewLogic];
+        [self leEaseInViewLogic];
     }];
 }
--(void) easeOutView{
-    [self easeOutViewLogic];
+-(void) leEaseOutView{
+    [self leEaseOutViewLogic];
     [UIView animateWithDuration:0.2 animations:^(void){
         [self setAlpha:0];
     } completion:^(BOOL isDone){
         [self setHidden:YES];
     }];
 }
--(void) easeInViewLogic{
-
-}
--(void) easeOutViewLogic{
+-(void) leEaseInViewLogic{
     
 }
--(void) notifyPageSelected{
+-(void) leEaseOutViewLogic{
+    
+}
+-(void) leNotifyPageSelected{
 }
 @end

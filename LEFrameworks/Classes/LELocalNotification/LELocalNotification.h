@@ -10,6 +10,6 @@
 #import "LEUIFramework.h"  
 @interface LELocalNotification : UIView
 
--(void) setText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime ;
--(void) setText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime ReleaseWhenFinished:(BOOL) isRealse;
+-(void) leSetText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime ;
+-(void) leSetText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime ReleaseWhenFinished:(BOOL) isRealse;
 @end

@@ -12,22 +12,21 @@
 
 @interface LEExcelView : UIScrollView<UIScrollViewDelegate>
 -(id) initWithSettings:(LETableViewSettings *)settings ImmovableViewWidth:(int) immovable MovableViewWidth:(int) movable TabbarHeight:(int) tabbarH TabbarClassname:(NSString *) tabbar;
--(void) onRefreshedWithData:(NSMutableArray *) data;
--(void) onSetTabbarData:(id) data;
+-(void) leOnRefreshedWithData:(NSMutableArray *) data;
+-(void) leOnSetTabbarData:(id) data;
 @end
 @interface LEExcelViewTableView : LEBaseTableView
-@property (nonatomic) int swipOffset;
+@property (nonatomic, readonly) int leSwipOffset;
+-(void) leSetSwipOffset:(int) offset;
 @end
 @interface LEExcelViewTableViewCell : LEBaseTableViewCell
-@property (nonatomic) UIView *immovableView;
-@property (nonatomic) UIView *movableView;
-@property (nonatomic) int immovableWidth;
-@property (nonatomic) int movableWidth;
--(void) initUIForExcelView; 
+@property (nonatomic) UIView *leImmovableViewContainer;
+@property (nonatomic) UIView *leMovableViewContainer;
+@property (nonatomic) int leImmovableWidth;
+@property (nonatomic) int leMovableWidth;
 @end
 @interface LEExcelViewTabbar : UIView
-@property (nonatomic) UIView *immovableView;
-@property (nonatomic) UIView *movableView; 
--(void) initUIForExcelViewTabbar;
--(void) onSetTabbarData:(id) data;
+@property (nonatomic) UIView *leImmovableViewContainer;
+@property (nonatomic) UIView *leMovableViewContainer; 
+-(void) leOnSetTabbarData:(id) data;
 @end

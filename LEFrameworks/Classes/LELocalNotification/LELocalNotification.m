@@ -69,11 +69,11 @@
     }
     return self;
 }
--(void) setText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime {
+-(void) leSetText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime {
     [self.layer removeAllAnimations];
-    [self setText:text WithEnterTime:time AndPauseTime:pauseTime ReleaseWhenFinished:NO];
+    [self leSetText:text WithEnterTime:time AndPauseTime:pauseTime ReleaseWhenFinished:NO];
 }
--(void) setText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime ReleaseWhenFinished:(BOOL) isRelease{
+-(void) leSetText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime ReleaseWhenFinished:(BOOL) isRelease{
     if(!text){
         [self removeFromSuperview];
         return;

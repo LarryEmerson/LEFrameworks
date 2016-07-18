@@ -14,50 +14,50 @@
 
 @protocol LEPopupDelegate<NSObject>
 @optional
--(void) onPopupLeftButtonClicked;
--(void) onPopupRightButtonClicked;
--(void) onPopupCenterButtonClicked;
+-(void) leOnPopupLeftButtonClicked;
+-(void) leOnPopupRightButtonClicked;
+-(void) leOnPopupCenterButtonClicked;
 
 @end
 
 @interface LEPopupSettings:NSObject
-@property (nonatomic) id<LEPopupDelegate> curDelegate;
-@property (nonatomic) NSString *backgroundImage;
-@property (nonatomic) int sideEdge;
-@property (nonatomic) int maxHeight;
-@property (nonatomic) UIEdgeInsets contentInsects;
+@property (nonatomic) id<LEPopupDelegate> leDelegate;
+@property (nonatomic) NSString *leBckgroundImage;
+@property (nonatomic) int leSideEdge;
+@property (nonatomic) int leMaxHeight;
+@property (nonatomic) UIEdgeInsets leContentInsects;
 //
-@property (nonatomic) NSString *title;
-@property (nonatomic) UIFont *titleFont;
-@property (nonatomic) UIColor *titleColor;
+@property (nonatomic) NSString *leTitle;
+@property (nonatomic) UIFont *leTitleFont;
+@property (nonatomic) UIColor *leTitleColor;
 //
-@property (nonatomic) BOOL hasTopSplit;
-@property (nonatomic) UIColor *colorSplit;
+@property (nonatomic) BOOL leHasTopSplit;
+@property (nonatomic) UIColor *leColorSplit;
 //
-@property (nonatomic) NSString *subtitle;
-@property (nonatomic) UIFont *subtitleFont;
-@property (nonatomic) UIColor *subtitleColor;
-@property (nonatomic) NSTextAlignment textAlignment;
+@property (nonatomic) NSString *leSubtitle;
+@property (nonatomic) UIFont *leSubleTitleFont;
+@property (nonatomic) UIColor *leSubTitleColor;
+@property (nonatomic) NSTextAlignment leTextAlignment;
 //
-@property (nonatomic) LEAutoLayoutUIButtonSettings *leftButtonSetting;
-@property (nonatomic) LEAutoLayoutUIButtonSettings *rightButtonSetting;
-@property (nonatomic) LEAutoLayoutUIButtonSettings *centerButtonSetting;
-@property (nonatomic) UIEdgeInsets leftButtonEdge;
-@property (nonatomic) UIEdgeInsets rightButtonEdge;
-@property (nonatomic) UIEdgeInsets centerButtonEdge;
+@property (nonatomic) LEAutoLayoutUIButtonSettings *leLeftButtonSetting;
+@property (nonatomic) LEAutoLayoutUIButtonSettings *leRightButtonSetting;
+@property (nonatomic) LEAutoLayoutUIButtonSettings *leCenterButtonSetting;
+@property (nonatomic) UIEdgeInsets leLeftButtonEdge;
+@property (nonatomic) UIEdgeInsets leRightButtonEdge;
+@property (nonatomic) UIEdgeInsets leCenterButtonEdge;
 @end
 
 @interface LEPopup : UIView
 -(id) initWithSettings:(LEPopupSettings *) settings;
--(void) onUpdatePopupLayout;
--(void) onResetPopupContent;
--(void) easeIn;
-+(LEPopup *) showLEPopupWithSettings:(LEPopupSettings *) settings;
-+(LEPopup *) showQuestionPopupWithSubtitle:(NSString *)subtitle Delegate:(id<LEPopupDelegate>) delegate;
-+(LEPopup *) showQuestionPopupWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Alignment:(NSTextAlignment) textAlignment Delegate:(id<LEPopupDelegate>) delegate;
-+(LEPopup *) showQuestionPopupWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Alignment:(NSTextAlignment) textAlignment LeftButtonText:(NSString *)leftText RightButtonText:(NSString *)rightText Delegate:(id<LEPopupDelegate>) delegate;
-+(LEPopup *) showQuestionPopupWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Alignment:(NSTextAlignment) textAlignment LeftButtonImage:(UIImage *)leftImg RightButtonImage:(UIImage *)rightImg LeftButtonText:(NSString *)leftText RightButtonText:(NSString *)rightText Delegate:(id<LEPopupDelegate>) delegate;
-+(LEPopup *) showTipPopupWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Alignment:(NSTextAlignment) textAlignment;
-+(LEPopup *) showTipPopupWithTitle:(NSString *)title Subtitle:(NSString *)subtitle Alignment:(NSTextAlignment) textAlignment ButtonImage:(UIImage *)img ButtonText:(NSString *) text;
+-(void) leOnUpdatePopupLayout;
+-(void) leOnResetPopupContent;
+-(void) leEaseIn;
++(LEPopup *) leShowLEPopupWithSettings:(LEPopupSettings *) settings;
++(LEPopup *) leShowQuestionPopupWithSubtitle:(NSString *)leSubtitle Delegate:(id<LEPopupDelegate>) delegate;
++(LEPopup *) leShowQuestionPopupWithTitle:(NSString *)title Subtitle:(NSString *)leSubtitle Alignment:(NSTextAlignment) leTextAlignment Delegate:(id<LEPopupDelegate>) delegate;
++(LEPopup *) leShowQuestionPopupWithTitle:(NSString *)title Subtitle:(NSString *)leSubtitle Alignment:(NSTextAlignment) leTextAlignment LeftButtonText:(NSString *)leftText RightButtonText:(NSString *)rightText Delegate:(id<LEPopupDelegate>) delegate;
++(LEPopup *) leShowQuestionPopupWithTitle:(NSString *)title Subtitle:(NSString *)leSubtitle Alignment:(NSTextAlignment) leTextAlignment LeftButtonImage:(UIImage *)leftImg RightButtonImage:(UIImage *)rightImg LeftButtonText:(NSString *)leftText RightButtonText:(NSString *)rightText Delegate:(id<LEPopupDelegate>) delegate;
++(LEPopup *) leShowTipPopupWithTitle:(NSString *)title Subtitle:(NSString *)leSubtitle Alignment:(NSTextAlignment) leTextAlignment;
++(LEPopup *) leShowTipPopupWithTitle:(NSString *)title Subtitle:(NSString *)leSubtitle Alignment:(NSTextAlignment) leTextAlignment ButtonImage:(UIImage *)img ButtonText:(NSString *) text;
 
 @end

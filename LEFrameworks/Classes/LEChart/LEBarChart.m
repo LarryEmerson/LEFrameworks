@@ -9,8 +9,60 @@
 #import "LEBarChart.h"
 #import <QuartzCore/QuartzCore.h>
 @interface LEBarChartSettings()
+@property (nonatomic, readwrite) int minBarHeight;
+@property (nonatomic, readwrite) int barWidth;
+@property (nonatomic, readwrite) int barSpace;
+@property (nonatomic, readwrite) BOOL showTag;
+@property (nonatomic, readwrite) BOOL showValue;
+@property (nonatomic, readwrite) BOOL barRoundRect;
+@property (nonatomic, readwrite) UIColor *barColor;
+@property (nonatomic, readwrite) UIColor *barColorSelected;
+@property (nonatomic, readwrite) UIColor *tagColor;
+@property (nonatomic, readwrite) UIColor *tagColorSelected;
+@property (nonatomic, readwrite) UIColor *valueColor;
+@property (nonatomic, readwrite) int tagFontsize;
+@property (nonatomic, readwrite) int valueFontsize;
 @end
 @implementation LEBarChartSettings
+-(void) leSetMinBarHeight:(int) minBarHeight{
+    self.minBarHeight=minBarHeight;
+}
+-(void) leSetBarWidth:(int) barWidth{
+    self.barWidth=barWidth;
+}
+-(void) leSetBarSpace:(int) barSpace{
+    self.barSpace=barSpace;
+}
+-(void) leSetShowTag:(BOOL) showTag{
+    self.showTag=showTag;
+}
+-(void) leSetShowValue:(BOOL) showValue{
+    self.showValue=showValue;
+}
+-(void) leSetBarRoundRect:(BOOL) barRoundRect{
+    self.barRoundRect=barRoundRect;
+}
+-(void) leSetBarColor:(UIColor *) barColor{
+    self.barColor=barColor;
+}
+-(void) leSetBarColorSelected:(UIColor *) barColorSelected{
+    self.barColorSelected=barColorSelected;
+}
+-(void) leSetTagColor:(UIColor *) tagColor{
+    self.tagColor=tagColor;
+}
+-(void) leSetTagColorSelected:(UIColor *) tagColorSelected{
+    self.tagColorSelected=tagColorSelected;
+}
+-(void) leSetValueColor:(UIColor *) valueColor{
+    self.valueColor=valueColor;
+}
+-(void) leSetTagFontsize:(int) tagFontsize{
+    self.tagFontsize=tagFontsize;
+}
+-(void) leSetValueFontsize:(int) valueFontsize{
+    self.valueFontsize=valueFontsize;
+}
 -(id) init{
     self=[super init];
     [self setMinBarHeight:50];
@@ -48,10 +100,10 @@
 -(id) initWithSettings:(LEBarChartSettings *) settings Height:(int) height{
     curBarChartSetting=settings;
     self=[super initWithFrame:CGRectMake(0, 0, settings.barWidth+settings.barSpace, height)];
-    [self initUI];
+    [self leExtraInits];
     return self;
 }
--(void) initUI{
+-(void) leExtraInits{
     W=self.bounds.size.width;
     H=self.bounds.size.height;
     UIView *viewTag=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(W, LELayoutSideSpace*2+curBarChartSetting.tagFontsize)]];
@@ -85,8 +137,8 @@
 -(void) onClick{
     if(curTarget&&[curTarget respondsToSelector:NSSelectorFromString(@"onCheckedWithIndex:")]){
         LESuppressPerformSelectorLeakWarning(
-                                           [curTarget performSelector:NSSelectorFromString(@"onCheckedWithIndex:") withObject:[NSNumber numberWithInt:curIndex]];
-                                           );
+                                             [curTarget performSelector:NSSelectorFromString(@"onCheckedWithIndex:") withObject:[NSNumber numberWithInt:curIndex]];
+                                             );
     }
 }
 -(void) onCheck:(BOOL) check{
@@ -108,10 +160,10 @@
     self=[super initWithAutoLayoutSettings:settings];
     curDelegate=delegate;
     curBarChartSettings=barSettings;
-    [self initUI];
+    [self leExtraInits];
     return self;
 }
--(void) initUI{
+-(void) leExtraInits{
     curItems=[[NSMutableArray alloc] init];
     curScrollView=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:self.bounds.size]];
     noDataLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curScrollView Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"暂无数据" FontSize:LELayoutFontSize14 Font:nil Width:0 Height:0 Color:LEColorTextGray Line:1 Alignment:NSTextAlignmentCenter]];
@@ -122,11 +174,11 @@
         LEBarChartItem *item=[curItems objectAtIndex:i];
         [item onCheck:[index intValue]==i];
     }
-    if(curDelegate&&[curDelegate respondsToSelector:@selector(onBarSelectedWithIndex:)]){
-        [curDelegate onBarSelectedWithIndex:[index intValue]];
+    if(curDelegate&&[curDelegate respondsToSelector:@selector(leOnBarSelectedWithIndex:)]){
+        [curDelegate leOnBarSelectedWithIndex:[index intValue]];
     }
 }
--(void) onSetValues:(NSArray *) array Tags:(NSArray *) tags{
+-(void) leOnSetValues:(NSArray *) array Tags:(NSArray *) tags{
     [noDataLabel setHidden:array&&array.count>0];
     float max=-10000000;
     float min= 10000000;

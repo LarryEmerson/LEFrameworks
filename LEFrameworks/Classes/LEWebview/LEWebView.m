@@ -8,7 +8,7 @@
 
 #import "LEWebView.h" 
 @interface LEWebViewPage : LEBaseView<UIWebViewDelegate>
-- (void)loadWebPageWithString:(NSString*)urlString;
+- (void)leLoadWebPageWithString:(NSString*)urlString;
 @end
 @implementation LEWebViewPage{
     UIWebView *webView;
@@ -20,7 +20,7 @@
 }
 -(void) onShare{
 }
--(void) setExtraViewInits{
+-(void) leExtraInits{
     curButtons=[[NSMutableArray alloc] init];
     UIImage *imgIconRefresh=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_refresh"];
     UIImage *imgIconBack   =[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"];
@@ -30,17 +30,17 @@
     UIImage *imgBottom=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_browser_bottombg"];
     int bottomHeight=50;
     //
-    bottomView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.curFrameHight-bottomHeight, self.curFrameWidth, bottomHeight)];
+    bottomView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.leCurrentFrameHight-bottomHeight, self.leCurrentFrameWidth, bottomHeight)];
     [bottomView setUserInteractionEnabled:YES];
     [bottomView setImage:[imgBottom stretchableImageWithLeftCapWidth:imgBottom.size.width/2 topCapHeight:imgBottom.size.height/2]];
-    [self.viewContainer addSubview:bottomView];
+    [self.leViewContainer addSubview:bottomView];
     //
-    webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.curFrameWidth, self.curFrameHight-bottomHeight)];
+    webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.leCurrentFrameWidth, self.leCurrentFrameHight-bottomHeight)];
     [webView setDelegate:self];
-    [self.viewContainer addSubview:webView];
+    [self.leViewContainer addSubview:webView];
     //
     NSArray *array=[[NSArray alloc] initWithObjects:imgIconBack,imgIconForward,imgIconRefresh /*,imgIconShare*/ , nil];
-    float buttonWidth=self.curFrameWidth*1.0/array.count;
+    float buttonWidth=self.leCurrentFrameWidth*1.0/array.count;
     NSArray *arrayDisabled=[[NSArray alloc] initWithObjects:imgIconBackDisabled,imgIconForwardDisabled, nil];
     //
     for (int i=0; i<array.count; i++) {
@@ -97,18 +97,22 @@
     return imageView;
 }
 
--(void) startAnimation{
-    [[curButtons objectAtIndex:2] setHidden:YES];
+-(void) leStartAnimation{
+    if(curButtons.count>2){
+        [[curButtons objectAtIndex:2] setHidden:YES];
+    }
     [viewRefresh setHidden:NO];
     viewRefresh=[self rotate360DegreeWithImageView:viewRefresh];
     [curTimer invalidate];
-    curTimer=[NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(stopAnimation) userInfo:nil repeats:NO];   
+    curTimer=[NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(leStopAnimation) userInfo:nil repeats:NO];   
 }
 
--(void) stopAnimation{
+-(void) leStopAnimation{
     [viewRefresh.layer removeAllAnimations];
     [viewRefresh setHidden:YES];
-    [[curButtons objectAtIndex:2] setHidden:NO];
+    if(curButtons.count>2){
+        [[curButtons objectAtIndex:2] setHidden:NO];
+    }
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
@@ -126,7 +130,7 @@
 -(void) onWebRefresh{
     [webView reload];
 }
-- (void)loadWebPageWithString:(NSString*)urlString{
+- (void)leLoadWebPageWithString:(NSString*)urlString{
     if(urlString&&(NSNull *)urlString!=[NSNull null]){
         curURL=[NSURL URLWithString:urlString];
         NSURLRequest *request =[NSURLRequest requestWithURL:curURL];
@@ -136,14 +140,14 @@
     }
 }
 -(void) webViewDidStartLoad:(UIWebView *)webView{
-    [self startAnimation];
+    [self leStartAnimation];
 }
 
 -(void) webViewDidFinishLoad:(UIWebView *)webView{
-    [self stopAnimation];
+    [self leStopAnimation];
 }
 -(void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [self stopAnimation];
+    [self leStopAnimation];
     //    NSLog(@"web didFailLoadWithError %@",error);
     if ([error code] != NSURLErrorCancelled) {
         //show error alert, etc.
@@ -152,7 +156,7 @@
 }
 -(id) initWithViewController:(LEBaseViewController *)vc URLString:(NSString *) url{
     self=[super initWithViewController:vc];
-    [self loadWebPageWithString:url];
+    [self leLoadWebPageWithString:url];
     return self;
 }
 @end
@@ -163,10 +167,10 @@
     NSString *curUrl;
     BOOL isBarHidden;
 }
-- (void)loadWebPageWithString:(NSString*)urlString{
-    [page loadWebPageWithString:curUrl];
+- (void)leLoadWebPageWithString:(NSString*)urlString{
+    [page leLoadWebPageWithString:curUrl];
 }
-- (void)setTitle:(NSString *) title{
+- (void)leSetTitle:(NSString *) title{
     [self.navigationItem setTitle:title];
 }
 -(id) init{

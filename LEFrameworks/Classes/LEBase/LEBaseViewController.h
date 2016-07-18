@@ -9,25 +9,24 @@
 #import <UIKit/UIKit.h>
 #import "LEUIFramework.h" 
 
-@protocol LEBaseViewControllerPageJumpDelagte <NSObject>
--(void) onEaseOutPageWithPageName:(NSString *) order AndData:(id) data;
+@protocol LEViewControllerPopDelegate <NSObject>
+-(void) leOnViewControllerPopedWithPageName:(NSString *) order AndData:(id) data;
 @end
 @interface LEBaseViewController : UIViewController
-@property (nonatomic) id<LEBaseViewControllerPageJumpDelagte> jumpDelegate;
-@property (nonatomic) UIViewController *superViewController;
--(id) initWithDelegate:(id<LEBaseViewControllerPageJumpDelagte>) delegate;
+@property (nonatomic, readonly) id<LEViewControllerPopDelegate> lePopDelegate;
+//@property (nonatomic) UIViewController *superViewController;
+-(id) initWithDelegate:(id<LEViewControllerPopDelegate>) delegate;
 @end
 @interface LEBaseView : UIView
-@property (nonatomic) UISwipeGestureRecognizer *recognizerRight;
-@property (nonatomic) int curFrameWidth;
-@property (nonatomic) int curFrameHight;
-@property (nonatomic) UIView *viewContainer;
-@property (nonatomic) LEBaseViewController *curViewController;
--(UIView *) superViewContainer;
+@property (nonatomic, readonly) UISwipeGestureRecognizer *leRecognizerRight;
+@property (nonatomic, readonly) int leCurrentFrameWidth;
+@property (nonatomic, readonly) int leCurrentFrameHight;
+@property (nonatomic, readonly) UIView *leViewContainer;
+@property (nonatomic, readonly) LEBaseViewController *leCurrentViewController;
+-(UIView *) leSuperViewContainer;
 -(id) initWithViewController:(LEBaseViewController *) vc;
--(void) setExtraViewInits;
--(void) swipGestureLogic;
--(void) onSetRightSwipGesture:(BOOL) gesture;
+-(void) leSwipGestureLogic;
+-(void) leOnSetRightSwipGesture:(BOOL) gesture;
 @end
 
 //typedef NS_ENUM(NSInteger, EffectType) {
@@ -62,26 +61,26 @@
 //@property (nonatomic) LEBaseNavigationView *curNavigationView;
 //@property (nonatomic) NSString *curNavigationClassName;
 //@property (nonatomic) EffectType curEffectType; 
-//@property (nonatomic) UIView *viewContainer;
+//@property (nonatomic) UIView *leViewContainer;
 //
 //@property (nonatomic) LEUIFramework *globalVar;
-//@property (nonatomic) int curFrameWidth;
-//@property (nonatomic) int curFrameHight;
+//@property (nonatomic) int leCurrentFrameWidth;
+//@property (nonatomic) int leCurrentFrameHight;
 //
 //-(id) initWithSuperView:(UIView *)view;
 //-(id) initWithSuperView:(UIView *)view NavigationDataModel:(NSDictionary *)dataModel EffectType:(EffectType)effectType;
 //-(id) initWithSuperView:(UIView *)view NavigationViewClassName:(NSString *) navigationClass NavigationDataModel:(NSDictionary *) dataModel EffectType:(EffectType) effectType; 
 //-(void) setExtraViewInits;
 //
-//-(void) easeInView;
-//-(void) easeOutView;
+//-(void) leEaseInView;
+//-(void) leEaseOutView;
 //-(void) dismissView;
 //
-//-(UIView *) superViewContainer;
+//-(UIView *) leSuperViewContainer;
 //-(void) setSuperViewContainer:(UIView *) view;
 ////
-//-(void) easeInViewLogic;
-//-(void) easeOutViewLogic;
+//-(void) leEaseInViewLogic;
+//-(void) leEaseOutViewLogic;
 //-(void) eventCallFromChild;
 ////
 //-(void) onClickedForLeftButton;

@@ -13,20 +13,16 @@
 #define PopupSubtitleFontSize 14
 
 @protocol LEBasePopupEmptyPageDelegate <NSObject>
--(void) onDoneEaseOut:(NSString *) result;
+-(void) leOnPopupTappedWithResult:(NSString *) result;
 @end
 
 @interface LEBasePopupEmptyPage : UIView
-@property (nonatomic) LEUIFramework *globalVar;
+
+@property (nonatomic) NSString *leResult;
 //
-@property (nonatomic) BOOL needsEaseIn;
-@property (nonatomic) BOOL needsEaseOut;
-@property (nonatomic) id<LEBasePopupEmptyPageDelegate> delegate;
-@property (nonatomic) NSString *result;
-//
--(id) initWithDelegate:(id) delegate; 
--(void) initUI;
--(void) easeIn;
--(void) easeOut;
+-(id) initWithDelegate:(id) delegate;
+-(id) initWithDelegate:(id) delegate EaseInOrOutWithDelayWhenInited:(BOOL) isEaseIn;
+-(void) leEaseIn;
+-(void) leEaseOut;
 
 @end

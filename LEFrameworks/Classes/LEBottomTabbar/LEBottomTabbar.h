@@ -11,13 +11,13 @@
 
 
 @protocol LEBottomTabbarDelegate <NSObject>
--(void) onTabbarTapped:(int) index;
--(BOOL) isOkToShowPageWithIndex:(int) index;
+-(void) leTabbarDidTappedWith:(int) index;
+-(BOOL) leWillShowPageWithIndex:(int) index;
 @end
 
 @interface LEBottomTabbar : UIImageView
 -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *) pages;
 -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *) pages NormalColor:(UIColor *) normalColor HighlightedColor:(UIColor *) highlightedColor;
-@property id<LEBottomTabbarDelegate> delegate;
--(void) onChoosedPage:(int) index;
+@property id<LEBottomTabbarDelegate> leDelegate;
+-(void) leDidChoosedPageWith:(int) index;
 @end

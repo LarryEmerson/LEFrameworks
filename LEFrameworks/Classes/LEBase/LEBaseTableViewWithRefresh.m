@@ -11,8 +11,8 @@
 
 //#import "MJRefresh.h"
 //@implementation LEBaseTableViewWithMJRefresh
-//-(void) initTableView{
-//    [super initTableView];
+//-(void) leExtraInits{
+//    [super leExtraInits];
 //    self.mj_header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
 //        LESuppressPerformSelectorLeakWarning(
 //                                           [self performSelector:NSSelectorFromString(@"onDelegateRefreshData")];
@@ -25,21 +25,21 @@
 //                                           );
 //    }];
 //}
-//-(void) onAutoRefresh{
+//-(void) leOnAutoRefresh{
 //    [self.mj_header beginRefreshing];
 //}
-//-(void) setTopRefresh:(BOOL) enable{
+//-(void) leSetTopRefresh:(BOOL) enable{
 //    [self.mj_header setUserInteractionEnabled:enable];
 //    [self.mj_header setHidden:!enable];
 //}
-//-(void) setBottomRefresh:(BOOL) enable{
+//-(void) leSetBottomRefresh:(BOOL) enable{
 //    [self.mj_footer setUserInteractionEnabled:enable];
 //    [self.mj_footer setHidden:!enable];
 //}
-//-(void) onStopTopRefresh {
+//-(void) leOnStopTopRefresh {
 //    [self onStopRefreshLogic];
 //}
-//-(void) onStopBottomRefresh {
+//-(void) leOnStopBottomRefresh {
 //    [self onStopRefreshLogic];
 //}
 //-(void) onStopRefreshLogic{
@@ -57,8 +57,8 @@
     LERefreshFooter *refreshFooter;
 }
 
--(void) initTableView{
-    [super initTableView];
+-(void) leExtraInits{
+    [super leExtraInits];
     
     refreshHeader=[[LERefreshHeader alloc] initWithTarget:self];
     typeof(self) __weak weakSelf = self;
@@ -74,22 +74,22 @@
                                            );
     };
 }
--(void) onAutoRefresh{
+-(void) leOnAutoRefresh{
     dispatch_async(dispatch_get_main_queue(), ^{
         [refreshHeader onBeginRefresh];
     });
 }
--(void) setTopRefresh:(BOOL) enable{
+-(void) leSetTopRefresh:(BOOL) enable{
     refreshHeader.isEnabled=enable;
 }
--(void) setBottomRefresh:(BOOL) enable{
+-(void) leSetBottomRefresh:(BOOL) enable{
     refreshFooter.isEnabled=enable;
 }
--(void) onStopTopRefresh {
+-(void) leOnStopTopRefresh {
     LELogFunc;
     [self onStopRefreshLogic];
 }
--(void) onStopBottomRefresh {
+-(void) leOnStopBottomRefresh {
     LELogFunc;
     [self onStopRefreshLogic];
 }

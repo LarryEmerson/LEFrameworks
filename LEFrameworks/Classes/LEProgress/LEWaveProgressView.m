@@ -13,6 +13,10 @@
 #define LEWaveDuration 2
 #define LEWaveMinHeight 0.05
 
+@interface LEWaveProgressView ()
+@property (nonatomic) id<LEWaveProgressViewDelegate> delegate;
+@property (nonatomic) UILabel *curProgress;
+@end
 @implementation LEWaveProgressView{
     int curSize;
     int topHeight;
@@ -36,13 +40,16 @@
     NSTimer *curTextTimer;
     
 }
+-(void) leSetDelegate:(id<LEWaveProgressViewDelegate>) delegate{
+    self.delegate=delegate;
+}
 
 -(id) initWithFrame:(CGRect)frame{
     self=[super initWithFrame:frame];
-    [self initUI];
+    [self leExtraInits];
     return self;
 }
--(void) initUI{
+-(void) leExtraInits{
     curSize=self.bounds.size.width;
     [self.layer setMasksToBounds:YES];
     [self.layer setCornerRadius:curSize/2];
@@ -77,7 +84,7 @@
 }
 
 
--(void) setPercentage:(float) percentage{
+-(void) leSetPercentage:(float) percentage{
     float height=bottomHeight*(1-percentage);
     float dur1=0.2+0.4*fabsf(percentage-lastPercentage)+fabs(-topHeight+movingViewContainer.frame.origin.y)/curSize;
     float dur2=0.2+0.4*fabsf(percentage-lastPercentage)+fabs(-topHeight-height)/curSize;

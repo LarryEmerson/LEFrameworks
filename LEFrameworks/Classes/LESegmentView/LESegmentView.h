@@ -11,11 +11,11 @@
 
 @protocol LESegmentViewDelegate <NSObject>
 @optional
--(void) onDoneWithInitPages;
+-(void) leOnDoneWithInitPages;
 @end
 @interface LESegmentView : UIView
 -(id) initWithTitles:(NSArray *) titles Pages:(NSArray *) pages ViewContainer:(UIView *) container SegmentHeight:(int) segmentHeight Indicator:(UIImage *) indicator SegmentSpace:(int) space;
 -(id) initWithTitles:(NSArray *) titles Pages:(NSArray *) pages ViewContainer:(UIView *) container SegmentHeight:(int) segmentHeight Indicator:(UIImage *) indicator SegmentSpace:(int) space Color:(UIColor *) normal HighlightedColor:(UIColor *) highlightedColor;
--(void) onSetTitles:(NSArray *) titles;
--(void) onSetPages:(NSArray *) pages;
+-(void) leOnSetTitles:(NSArray *) titles;
+-(void) leOnSetPages:(NSArray *) pages;
 @end

@@ -7,36 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LEBaseTableView.h"
-//#import "LEBaseSettings.h"
+#import "LEBaseTableView.h" 
 #import "LEUIFramework.h"
 
 @interface LEBaseTableViewCell : UITableViewCell 
-@property (nonatomic) id<LETableViewCellSelectionDelegate> selectionDelegate;
-@property (nonatomic) LEUIFramework *globalVar;
-@property (nonatomic) BOOL hasTopSplit;
-@property (nonatomic) BOOL hasBottomSplit;
-@property (nonatomic) int bottomSplitSpace;
-@property (nonatomic) BOOL hasArrow; 
-//
-@property (nonatomic) int CellLeftSpace;
-@property (nonatomic) int CellRightSpace;
-//
-@property (nonatomic) UIImageView *curArrow;
-@property (nonatomic) UIImageView *curBottomSplit;
+@property (nonatomic, readonly) id<LETableViewCellSelectionDelegate> leSelectionDelegate;
+@property (nonatomic, readonly) BOOL leHasTopSplit;
+@property (nonatomic, readonly) BOOL leHasBottomSplit; 
+@property (nonatomic, readonly) BOOL leHasArrow;  
+@property (nonatomic) UILabel *leTitle;
+@property (nonatomic) UIButton *leTapEffect;
+@property (nonatomic) NSIndexPath *leIndexPath;
 //
 - (id)initWithSettings:(LETableViewCellSettings *)settings;
-@property (nonatomic) UILabel *curTitle;
 //
--(void) initUI;
--(void) initTopClickUIS;
--(void) setBottomSplit:(BOOL) hasSplit Width:(int) width;
--(void) setBottomSplit:(BOOL) hasSplit Width:(int) width Offset:(CGPoint) offset;
--(void) setEnableArrow:(BOOL)hasArrow;
--(void) setCellHeight:(int) height;
--(void) setCellHeight:(int) height TapWidth:(int) width ;
-@property (nonatomic) UIButton *tapEffect;
-@property (nonatomic) NSIndexPath *curIndexPath;
--(void) setData:(id) data IndexPath:(NSIndexPath *) path NS_REQUIRES_SUPER;
--(void) onCellSelectedWithIndex:(int) index;
+-(void) leExtraInitsForTopViews;
+-(void) leSetBottomSplit:(BOOL) hasSplit;
+-(void) leSetBottomSplit:(BOOL) hasSplit Width:(int) width;
+-(void) leSetBottomSplit:(BOOL) hasSplit Width:(int) width Offset:(CGPoint) offset;
+-(void) leSetEnableArrow:(BOOL)leHasArrow;
+-(void) leSetCellHeight:(int) height;
+-(void) leSetCellHeight:(int) height TapWidth:(int) width ;
+-(void) leSetData:(id) data IndexPath:(NSIndexPath *) path NS_REQUIRES_SUPER;
+-(void) leOnCellSelectedWithIndex:(int) index;
 @end

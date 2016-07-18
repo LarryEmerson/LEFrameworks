@@ -36,16 +36,16 @@
     arrayButtons=[[NSMutableArray alloc] init];
     curNormalColor=normalColor;
     curHighlightedColor=highlightedColor;
-    self.delegate=delegate;
+    self.leDelegate=delegate;
     self=[super initWithFrame:frame];
     if(self){
         [self setUserInteractionEnabled:YES];
-        [self initUI];
+        [self leExtraInits];
     }
     return self;
 }
 
--(void) initUI{
+-(void) leExtraInits{
     [self leAddTopSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
     [self setBackgroundColor:LEColorWhite]; 
     int buttonWidth=(int)LESCREEN_WIDTH/arrayNormalIcons.count;
@@ -71,7 +71,7 @@
     button.imageEdgeInsets = UIEdgeInsetsMake(-titleSize.height-titleSize.height/2, 0, 0, -titleSize.width);
     [button.titleLabel setBackgroundColor:[UIColor clearColor]];
 }
--(void) onChoosedPage:(int) index{
+-(void) leDidChoosedPageWith:(int) index{
     if(index<arrayButtons.count){
         UIButton *btn=[arrayButtons objectAtIndex:index];
         [self onClickForButton:btn];
@@ -84,8 +84,8 @@
         return;
     }
     BOOL okToGo=YES;
-    if(self.delegate&&[self.delegate respondsToSelector:@selector(isOkToShowPageWithIndex:)]){
-        okToGo=[self.delegate isOkToShowPageWithIndex:index];
+    if(self.leDelegate&&[self.leDelegate respondsToSelector:@selector(leWillShowPageWithIndex:)]){
+        okToGo=[self.leDelegate leWillShowPageWithIndex:index];
     }
     if(!okToGo){
         return;
@@ -103,8 +103,8 @@
                                                );
         }
     }
-    if(self.delegate&&[self.delegate respondsToSelector:@selector(onTabbarTapped:)]){
-        [self.delegate onTabbarTapped:index];
+    if(self.leDelegate&&[self.leDelegate respondsToSelector:@selector(leTabbarDidTappedWith:)]){
+        [self.leDelegate leTabbarDidTappedWith:index];
     }
 }
 

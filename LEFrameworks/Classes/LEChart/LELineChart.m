@@ -68,7 +68,7 @@
         CGContextStrokePath(context);
     }
 }
--(void) onSetData:(NSArray *) array Min:(float) min Max:(float) max{
+-(void) leOnSetValues:(NSArray *) array Min:(float) min Max:(float) max{
     [noDataLabel setHidden:array.count>0];
     curData=array;
     lineGap=0;
@@ -131,8 +131,8 @@
             //            [lineHorizontal setFrame:CGRectMake(0, totalHeight-y+curPadding-curLineWidth/2, self.bounds.size.width, curLineWidth)];
             [lineHorizontal leSetOffset:CGPointMake(0, totalHeight-y+curVerticalPadding-curRulerWidth/2)];
         }completion:^(BOOL done){
-            if(curTarget&&[curTarget respondsToSelector:@selector(onLineChartSelection:)]){
-                [curTarget onLineChartSelection:lastIndex];
+            if(curTarget&&[curTarget respondsToSelector:@selector(leOnLineChartSelection:)]){
+                [curTarget leOnLineChartSelection:lastIndex];
             }
         }];
     }

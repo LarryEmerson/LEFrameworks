@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LEUIFramework.h"
 
 @interface LETabbarRelatedPageView : UIView
-@property (nonatomic) UIView *rootView;
--(void) initUI;
--(void) easeInView;
--(void) easeOutView;
--(void) easeInViewLogic;
--(void) easeOutViewLogic;
--(void) notifyPageSelected;
+-(void) leSetRootView:(UIView *) view;
+-(UIView *) leRootView;
+-(void) leEaseInView;
+-(void) leEaseOutView;
+-(void) leEaseInViewLogic;
+-(void) leEaseOutViewLogic;
+-(void) leNotifyPageSelected;
 @end

@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @protocol LEAppMessageDelegate <NSObject>
--(void) onShowAppMessageWith:(NSString *) message;
+-(void) leOnShowAppMessageWith:(NSString *) message;
 @end
 

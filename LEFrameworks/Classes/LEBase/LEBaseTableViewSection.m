@@ -22,8 +22,8 @@
 -(id) initWithSectionText:(NSString *)text Color:(UIColor *)color  Height:(int)heiht Split:(BOOL)split{
     self=[super initWithFrame:CGRectMake(0, 0, LESCREEN_WIDTH, heiht)];
     [self setBackgroundColor:color];
-    self.curSplit=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsMake(heiht-1, 0, 0, 0)] Image:[LEColorSplit leImageStrechedFromSizeOne]];
-    [self.curSplit setHidden:!split];
+    self.leSplit=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsMake(heiht-1, 0, 0, 0)] Image:[LEColorSplit leImageStrechedFromSizeOne]];
+    [self.leSplit setHidden:!split];
     self.labelTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:text FontSize:LELayoutFontSize10 Font:nil Width:0 Height:0 Color:LEColorTextGray Line:1 Alignment:NSTextAlignmentLeft]];
     return self;
 }

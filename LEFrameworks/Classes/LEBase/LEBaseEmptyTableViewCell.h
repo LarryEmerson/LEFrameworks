@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LEUIFramework.h" 
 @interface LEBaseEmptyTableViewCell : UITableViewCell
-@property (nonatomic) LEUIFramework *globalVar; 
-@property (nonatomic) NSDictionary *curSettings;
+@property (nonatomic) NSDictionary *leCurSettings;
 - (id)initWithSettings:(NSDictionary *) settings;
--(void) initUI;
--(void) commendsFromTableView:(NSString *) commends;
+-(void) leCommendsFromTableView:(NSString *) commends;
 @end

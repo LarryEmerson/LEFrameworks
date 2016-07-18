@@ -10,7 +10,7 @@
 #import "LEUIFramework.h" 
 
 @interface LEBaseTableViewSection : UIView
-@property (nonatomic) UIImageView *curSplit;
+@property (nonatomic) UIImageView *leSplit;
 @property (nonatomic) UILabel *labelTitle;
 -(id) initWithSectionText:(NSString *) text;
 -(id) initWithSectionText:(NSString *) text Height:(int) heiht;

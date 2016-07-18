@@ -50,11 +50,11 @@
     curTitlesCache=[[NSMutableArray alloc] init];
     curTitlesWidth=[[NSMutableArray alloc] init];
     curTitlesWidthSum=[[NSMutableArray alloc] init];
-    [self onSetTitles:titles];
-    [self onSetPages:pages];
+    [self leOnSetTitles:titles];
+    [self leOnSetPages:pages];
     return self;
 }
--(void) onSetTitles:(NSArray *) titles{
+-(void) leOnSetTitles:(NSArray *) titles{
     [curTitlesWidth removeAllObjects];
     [curTitlesWidthSum removeAllObjects];
     UIButton *last=nil;
@@ -184,7 +184,7 @@
         [btn setTitleColor:i==curSelectedIndex?normalColor:highlightedColor forState:UIControlStateNormal];
     }
 }
--(void) onSetPages:(NSArray *) pages{
+-(void) leOnSetPages:(NSArray *) pages{
     [curPageContainer setContentSize:CGSizeMake(pages.count*pageWidth, self.bounds.size.height-segmentHeight)];
     for (int i=0; i<pages.count; i++) {
         UIView *view=[pages objectAtIndex:i];

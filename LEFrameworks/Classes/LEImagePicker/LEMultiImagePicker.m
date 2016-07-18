@@ -20,10 +20,10 @@
 }
 -(id) initWithFrame:(CGRect)frame{
     self=[super initWithFrame:frame];
-    [self initUI];
+    [self leExtraInits];
     return self;
 }
--(void) initUI{
+-(void) leExtraInits{
     [self setUserInteractionEnabled:YES];
     curIcon=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomRight Offset:CGPointMake(-2, -2) CGSize:CGSizeZero] Image:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_MultiImagePickerCheck"]];
     [curIcon setHidden:YES];
@@ -52,12 +52,12 @@
     int space;
     int cellSize;
 }
--(void) setExtraViewInits{
+-(void) leExtraInits{
     space=2;
-    cellSize=(self.curFrameWidth-space*3)*1.0/4;
+    cellSize=(self.leCurrentFrameWidth-space*3)*1.0/4;
     curArray=[[NSMutableArray alloc] init];
     curCellCache=[[NSMutableArray alloc] init];
-    curScrollView=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.viewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.curFrameWidth, self.curFrameHight)]];
+    curScrollView=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth, self.leCurrentFrameHight)]];
     [curGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
         if(result) {
             [curArray addObject:result];
@@ -110,11 +110,11 @@
 }
 -(void) onRight{
     [self.navigationController popViewControllerAnimated:NO];
-    if(self.jumpDelegate&&[self.jumpDelegate respondsToSelector:@selector(onEaseOutPageWithPageName:AndData:)]){
-        [self.jumpDelegate onEaseOutPageWithPageName:@"" AndData:[page getData]];
+    if(self.lePopDelegate&&[self.lePopDelegate respondsToSelector:@selector(leOnViewControllerPopedWithPageName:AndData:)]){
+        [self.lePopDelegate leOnViewControllerPopedWithPageName:@"" AndData:[page getData]];
     }
 }
--(id) initWithDelegate:(id<LEBaseViewControllerPageJumpDelagte>)delegate AssetsGroup:(ALAssetsGroup *) group{
+-(id) initWithDelegate:(id<LEViewControllerPopDelegate>)delegate AssetsGroup:(ALAssetsGroup *) group{
     self=[super initWithDelegate:delegate];
     page=[[LEMultiImagePickerFlowPage alloc] initWithViewController:self AssetsGroup:group];
     return self;
@@ -131,15 +131,15 @@
     UILabel *curSubtitle;
     int cellH;
 }
--(void) initUI{
+-(void) leExtraInits{
     cellH=LESCREEN_WIDTH/4;
-    [self setCellHeight:cellH];
+    [self leSetCellHeight:cellH];
     curIcon=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace20, 0) CGSize:CGSizeMake(cellH-LELayoutSideSpace20, cellH-LELayoutSideSpace20)] Image:nil];
     curTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideRightCenter RelativeView:curIcon Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:0 Font:[UIFont boldSystemFontOfSize:LELayoutFontSize17] Width:0 Height:0 Color:LEColorTextBlack Line:1 Alignment:NSTextAlignmentLeft]];
     curSubtitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorOutsideRightCenter RelativeView:curTitle Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LELayoutFontSize14 Font:nil Width:0 Height:0 Color:LEColorTextGray Line:1 Alignment:NSTextAlignmentLeft]];
 }
--(void) setData:(NSDictionary *)data IndexPath:(NSIndexPath *)path{
-    [super setData:data IndexPath:path];
+-(void) leSetData:(NSDictionary *)data IndexPath:(NSIndexPath *)path{
+    [super leSetData:data IndexPath:path];
     if(data){
         ALAssetsGroup *assetsGroup=[data objectForKey:@"group"];
         [curIcon setImage:[UIImage imageWithCGImage:assetsGroup.posterImage]];
@@ -151,7 +151,7 @@
 }
 @end
 
-@interface LEMultiImagePickerPage:LEBaseView<LETableViewCellSelectionDelegate,LEBaseViewControllerPageJumpDelagte>
+@interface LEMultiImagePickerPage:LEBaseView<LETableViewCellSelectionDelegate,LEViewControllerPopDelegate>
 @property (nonatomic) ALAssetsLibrary *assetsLibrary;
 @property (nonatomic) NSMutableArray *albumsArray;
 @end
@@ -164,23 +164,23 @@
     curDelegate=delegate;
     return [super initWithViewController:vc];
 }
--(void) setExtraViewInits{
+-(void) leExtraInits{
     self.assetsLibrary = [[ALAssetsLibrary alloc] init];
     curArray=[[NSMutableArray alloc] init];
-    curTableView=[[LEBaseTableView alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.viewContainer TableViewCell:@"LEMultiImagePickerCell" EmptyTableViewCell:nil GetDataDelegate:nil TableViewCellSelectionDelegate:self]];
-    [curTableView setTopRefresh:NO];
-    [curTableView setBottomRefresh:NO];
+    curTableView=[[LEBaseTableView alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.leViewContainer TableViewCell:@"LEMultiImagePickerCell" EmptyTableViewCell:nil GetDataDelegate:nil TableViewCellSelectionDelegate:self]];
+    [curTableView leSetTopRefresh:NO];
+    [curTableView leSetBottomRefresh:NO];
     [self onLoadData];
 }
--(void) onTableViewCellSelectedWithInfo:(NSDictionary *)info{
-    NSIndexPath *index=[info objectForKey:KeyOfCellIndexPath];
+-(void) leOnTableViewCellSelectedWithInfo:(NSDictionary *)info{
+    NSIndexPath *index=[info objectForKey:LEKeyOfIndexPath];
     LEMultiImagePickerFlow *vc=[[LEMultiImagePickerFlow alloc] initWithDelegate:self AssetsGroup:[[self.albumsArray objectAtIndex:index.row] objectForKey:@"group"]];
-    [self.curViewController.navigationController pushViewController:vc animated:YES];
+    [self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
 }
--(void) onEaseOutPageWithPageName:(NSString *)order AndData:(id)data{
-    [self.curViewController.navigationController popViewControllerAnimated:YES];
-    if(curDelegate&&[curDelegate respondsToSelector:@selector(onMultiImagePickedWith:)]){
-        [curDelegate onMultiImagePickedWith:data];
+-(void) leOnViewControllerPopedWithPageName:(NSString *)order AndData:(id)data{
+    [self.leCurrentViewController.navigationController popViewControllerAnimated:YES];
+    if(curDelegate&&[curDelegate respondsToSelector:@selector(leOnMultiImagePickedWith:)]){
+        [curDelegate leOnMultiImagePickedWith:data];
     }
 }
 -(void) onLoadData{
@@ -203,7 +203,7 @@
                     [self.albumsArray addObject:@{@"group":group}];
                 }
             }else{
-                [curTableView onRefreshedWithData:self.albumsArray];
+                [curTableView leOnRefreshedWithData:self.albumsArray];
             }
         } failureBlock:^(NSError *error) {
             NSLog(@"Asset group not found!\n");

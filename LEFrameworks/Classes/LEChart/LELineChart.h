@@ -10,9 +10,9 @@
 #import "LEUIFramework.h"
 
 @protocol LELineChartDelegate <NSObject>
--(void) onLineChartSelection:(NSUInteger) index;
+-(void) leOnLineChartSelection:(NSUInteger) index;
 @end
 @interface LELineChart : UIView
 -(id) initWithAutoLayoutSettings:(LEAutoLayoutSettings *)settings LineWidth:(int) width RulerLineWidth:(int) rulerw Color:(UIColor *) color RulerColor:(UIColor *) rulerColor Padding:(float) padding VerticalPadding:(float) verticalPadding Target:(id<LELineChartDelegate>) target;
--(void) onSetData:(NSArray *) array Min:(float) min Max:(float) max;
+-(void) leOnSetValues:(NSArray *) array Min:(float) min Max:(float) max;
 @end

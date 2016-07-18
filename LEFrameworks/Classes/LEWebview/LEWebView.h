@@ -9,6 +9,6 @@
 
 @interface LEWebView : LEBaseViewController
 -(id) initWithURLString:(NSString *) urlString;
-- (void)loadWebPageWithString:(NSString*)urlString;
-- (void)setTitle:(NSString *) title;
+- (void)leLoadWebPageWithString:(NSString*)urlString;
+- (void)leSetTitle:(NSString *) title;
 @end

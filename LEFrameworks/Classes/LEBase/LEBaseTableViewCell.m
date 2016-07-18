@@ -8,46 +8,52 @@
 
 #import "LEBaseTableViewCell.h" 
 
+@interface LEBaseTableViewCell ()
+@property (nonatomic, readwrite) id<LETableViewCellSelectionDelegate> leSelectionDelegate;
+@property (nonatomic, readwrite) BOOL leHasTopSplit;
+@property (nonatomic, readwrite) BOOL leHasBottomSplit;
+@property (nonatomic, readwrite) BOOL leHasArrow; 
+@property (nonatomic, readwrite) UIImageView *leCurArrow;
+@property (nonatomic, readwrite) UIImageView *curBottomSplit;
+@end
+
 @implementation LEBaseTableViewCell{
     BOOL hasGesture;
 }
 - (id)initWithSettings:(LETableViewCellSettings *) settings {
-    self.selectionDelegate=settings.selectionDelegate;
-    hasGesture=settings.gesture;
-    self = [super initWithStyle:settings.style reuseIdentifier:settings.reuseIdentifier]; 
+    self.leSelectionDelegate=settings.leSelectionDelegate;
+    hasGesture=settings.leGesture;
+    self = [super initWithStyle:settings.leStyle reuseIdentifier:settings.leReuseIdentifier];
     if (self) {
-        self.globalVar=[LEUIFramework sharedInstance];
-        self.CellLeftSpace=LENavigationBarHeight/2;
-        self.CellRightSpace=LESCREEN_WIDTH-LENavigationBarHeight/2;
         [self setFrame:CGRectMake(0, 0, LESCREEN_WIDTH, LEDefaultCellHeight)];
         [self setBackgroundColor:LEColorWhite];
-        self.hasBottomSplit=YES;
+        self.leHasBottomSplit=YES;
         if(hasGesture){
-            self.tapEffect=[[UIButton alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
-            [self.tapEffect setBackgroundImage:[LEColorMask2 leImageStrechedFromSizeOne] forState:UIControlStateHighlighted];
-            [self.tapEffect addTarget:self action:@selector(onButtonTaped) forControlEvents:UIControlEventTouchUpInside];
+            self.leTapEffect=[[UIButton alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
+            [self.leTapEffect setBackgroundImage:[LEColorMask2 leImageStrechedFromSizeOne] forState:UIControlStateHighlighted];
+            [self.leTapEffect addTarget:self action:@selector(onButtonTaped) forControlEvents:UIControlEventTouchUpInside];
         } 
-        [self initUI];
+        [self leExtraInits];
         [self initCellStyle];
-        if(self.tapEffect){
-            [self addSubview:self.tapEffect];
+        if(self.leTapEffect){
+            [self addSubview:self.leTapEffect];
         }
-        [self initTopClickUIS];
+        [self leExtraInitsForTopViews];
     }
     return self;
 }
 
--(void) initUI{
-    self.curTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(self.CellLeftSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LENavigationBarFontSize Font:nil Width:self.CellRightSpace-self.CellLeftSpace Height:self.bounds.size.height Color:LEColorBlack Line:0 Alignment:NSTextAlignmentLeft]];
+-(void) leExtraInits{
+    self.leTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LENavigationBarFontSize Font:nil Width:LESCREEN_WIDTH-LELayoutSideSpace*2 Height:self.bounds.size.height Color:LEColorBlack Line:0 Alignment:NSTextAlignmentLeft]];
 }
--(void) initTopClickUIS{}
--(void) setHasBottomSplit:(BOOL)hasBottomSplit{
-    _hasBottomSplit=hasBottomSplit;
-    if(hasBottomSplit){
+-(void) leExtraInitsForTopViews{}
+-(void) setHasBottomSplit:(BOOL)leHasBottomSplit{
+    _leHasBottomSplit=leHasBottomSplit;
+    if(leHasBottomSplit){
         if(self.curBottomSplit){
             [self.curBottomSplit setHidden:NO];
         }else{
-            self.curBottomSplit=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(self.bounds.size.width-self.bottomSplitSpace*2, 0.5 )] Image:[LEColorSplit leImageStrechedFromSizeOne]];
+            self.curBottomSplit=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(self.bounds.size.width, 0.5 )] Image:[LEColorSplit leImageStrechedFromSizeOne]];
         }
         [self addSubview:self.curBottomSplit];
     }else{
@@ -56,53 +62,56 @@
         }
     }
 }
--(void) setBottomSplit:(BOOL) hasSplit Width:(int) width{
+-(void) leSetBottomSplit:(BOOL) hasSplit{
+    [self setHasBottomSplit:hasSplit];
+}
+-(void) leSetBottomSplit:(BOOL) hasSplit Width:(int) width{
     [self setHasBottomSplit:hasSplit];
     [self.curBottomSplit leSetSize:CGSizeMake(width, 0.5)];
 }
--(void) setBottomSplit:(BOOL) hasSplit Width:(int) width Offset:(CGPoint) offset{
+-(void) leSetBottomSplit:(BOOL) hasSplit Width:(int) width Offset:(CGPoint) offset{
     [self setHasBottomSplit:hasSplit];
     [self.curBottomSplit leSetSize:CGSizeMake(width, 0.5)];
     [self.curBottomSplit leSetOffset:offset];
 }
--(void) setEnableArrow:(BOOL)hasArrow{
-    self.hasArrow=hasArrow;
-    if(self.hasArrow){
-        [self.curArrow leSetImage:LEIMG_Cell_RightArrow WithSize:LEIMG_Cell_RightArrow.size];
+-(void) leSetEnableArrow:(BOOL)leHasArrow{
+    self.leHasArrow=leHasArrow;
+    if(self.leHasArrow){
+        [self.leCurArrow leSetImage:LEIMG_Cell_RightArrow WithSize:LEIMG_Cell_RightArrow.size];
     }else{
-        [self.curArrow leSetImage:nil WithSize:CGSizeZero];
+        [self.leCurArrow leSetImage:nil WithSize:CGSizeZero];
     }
 }
 -(void) initCellStyle{
-    if(self.hasTopSplit){
+    if(self.leHasTopSplit){
         [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.bounds.size.width, 0.5)] Image:[LEColorSplit leImageStrechedFromSizeOne]];
     }
-    if(self.hasArrow){
-        self.curArrow=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LELayoutSideSpace20, 0) CGSize:CGSizeZero] Image:LEIMG_Cell_RightArrow];
+    if(self.leHasArrow){
+        self.leCurArrow=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LELayoutSideSpace20, 0) CGSize:CGSizeZero] Image:LEIMG_Cell_RightArrow];
     }
 }
--(void) setCellHeight:(int) height{
-    [self setCellHeight:height TapWidth:self.bounds.size.width];
+-(void) leSetCellHeight:(int) height{
+    [self leSetCellHeight:height TapWidth:self.bounds.size.width];
 }
--(void) setCellHeight:(int) height TapWidth:(int) width {
+-(void) leSetCellHeight:(int) height TapWidth:(int) width {
     [self leSetSize:CGSizeMake(self.bounds.size.width, height)];
     
 }
 -(void) onButtonTaped{
-    if([self.globalVar leCanItBeTapped]){
-        [self onCellSelectedWithIndex:KeyOfCellClickDefaultStatus];
+    if([LEUIFramework sharedInstance].leCanItBeTapped){
+        [self leOnCellSelectedWithIndex:LEKeyOfClickStatusAsDefault];
     }
 } 
--(void) onCellSelectedWithIndex:(int) index{
-    if(self.selectionDelegate){
-        if(!self.curIndexPath){
-            LELogObject(@"点击事件无效。继承LEBaseTableViewCell后，重写SetData方法中需要设置indexPath：self.curIndexPath=path;")
+-(void) leOnCellSelectedWithIndex:(int) index{
+    if(self.leSelectionDelegate){
+        if(!self.leIndexPath){
+            LELogObject(@"点击事件无效。继承LEBaseTableViewCell后，重写SetData方法中需要设置indexPath：self.leIndexPath=path;")
             return;
         }
-        [self.selectionDelegate onTableViewCellSelectedWithInfo:@{KeyOfCellIndexPath:self.curIndexPath,KeyOfCellClickStatus:[NSNumber numberWithInt:index]}];
+        [self.leSelectionDelegate leOnTableViewCellSelectedWithInfo:@{LEKeyOfIndexPath:self.leIndexPath,LEKeyOfClickStatus:[NSNumber numberWithInt:index]}];
     }
 }
--(void) setData:(id) data IndexPath:(NSIndexPath *) path{
-    self.curIndexPath=path; 
+-(void) leSetData:(id) data IndexPath:(NSIndexPath *) path{
+    self.leIndexPath=path; 
 }
 @end

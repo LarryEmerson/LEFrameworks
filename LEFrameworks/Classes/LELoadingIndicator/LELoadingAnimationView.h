@@ -10,8 +10,8 @@
 
 @interface LELoadingAnimationView : UIView
 
-@property   (nonatomic) int viewWidth;
-@property   (nonatomic) int viewHeight;
--(void) startAnimation;
--(void) stopAnimation;
+@property   (nonatomic) int leViewWidth;
+@property   (nonatomic) int leViewHeight;
+-(void) leStartAnimation;
+-(void) leStopAnimation;
 @end

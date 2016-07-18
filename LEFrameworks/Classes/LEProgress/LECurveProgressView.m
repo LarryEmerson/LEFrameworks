@@ -7,7 +7,7 @@
 //
 
 #import "LECurveProgressView.h"
- 
+
 @implementation LECurveProgressView{
     float minAngle;
     float maxAngle;
@@ -23,12 +23,12 @@
     CAShapeLayer* circle;
     CAShapeLayer* circleBackground;
 }
--(void) setColor:(UIColor *) color ShadowColor:(UIColor *) shadowColor{
+-(void) leSetColor:(UIColor *) color ShadowColor:(UIColor *) shadowColor{
     colorCircle=color;
     colorShadow=shadowColor;
     [circle setStrokeColor:colorCircle.CGColor];
     [circleBackground setStrokeColor:colorShadow.CGColor];
-    [self growChartByAmount:0];
+    [self leGrowChartByAmount:0];
 }
 -(id) initWithAutoLayoutSettings:(LEAutoLayoutSettings *)settings MinAngle:(float) min MaxAngle:(float) max Color:(UIColor *) color  ShadowColor:(UIColor *) shadowColor LineWidth:(float) lineW ShadowLineWidth:(float) shadowLineWidth Progrss:(float) progress{
     self=[super initWithAutoLayoutSettings:settings];
@@ -41,17 +41,17 @@
     current=progress;
     [self initExtra];
     if(progress>0){
-        [self strokeChart];
+        [self leStrokeChart];
     }
     return self;
 }
--(void) setCircleLineCapAsButt{
+-(void) leSetCircleLineCapAsButt{
     circle.lineCap = kCALineCapButt;
 }
--(void) setCircleLineCapAsSquare{
+-(void) leSetCircleLineCapAsSquare{
     circle.lineCap = kCALineCapSquare;
 }
--(void) setCircleLineCapAsRound{
+-(void) leSetCircleLineCapAsRound{
     circle.lineCap = kCALineCapRound;
 }
 -(void) initExtra{
@@ -76,7 +76,7 @@
     [self.layer addSublayer:circle];
     [self.layer addSublayer:circleBackground];
 }
-- (void)strokeChart {
+- (void)leStrokeChart {
     circle.lineWidth = lineWidth;
     circleBackground.lineWidth = lineWidthShadow;
     circleBackground.strokeEnd = 1.0;
@@ -88,10 +88,10 @@
     [circle addAnimation:pathAnimation forKey:nil];
     circle.strokeEnd = current / total;
 }
-- (void)growChartByAmount:(float)growAmount { 
-    [self updateChartByCurrent:current+growAmount];
+- (void)leGrowChartByAmount:(float)growAmount { 
+    [self leUpdateChartByCurrent:current+growAmount];
 }
-- (void)updateChartByCurrent:(float) to {
+- (void)leUpdateChartByCurrent:(float) to {
     CABasicAnimation* pathAnimation = [CABasicAnimation animation];
     [pathAnimation setAdditive:YES];
     pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];

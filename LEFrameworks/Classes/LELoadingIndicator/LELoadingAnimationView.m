@@ -19,16 +19,16 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self initUI];
+        [self leExtraInits];
     }
     return self;
 }
--(void) initUI{
+-(void) leExtraInits{
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
     UIImage *img=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"sr_refresh"]];
     [self setFrame:CGRectMake(0,0, img.size.width, img.size.height)];
-    self.viewWidth=img.size.width;
-    self.viewHeight=img.size.height;
+    self.leViewWidth=img.size.width;
+    self.leViewHeight=img.size.height;
     curView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, img.size.width,img.size.height)];
     [curView setImage:img];
     [self addSubview:curView];
@@ -52,12 +52,12 @@
     [imageView.layer addAnimation:animation forKey:nil ];
     return imageView;
 }
--(void) startAnimation{
+-(void) leStartAnimation{
     [self setHidden:NO];
     curView=[LELoadingAnimationView rotate360DegreeWithImageView:curView];
 }
 
--(void) stopAnimation{
+-(void) leStopAnimation{
     [curView.layer removeAllAnimations];
     [self setHidden:YES];
 }

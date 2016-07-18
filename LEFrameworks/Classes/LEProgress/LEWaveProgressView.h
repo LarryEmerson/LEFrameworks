@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "LEUIFramework.h"
 @protocol LEWaveProgressViewDelegate <NSObject>
--(void) onLEWaveProgressChangedWith:(float) percentage;
+-(void) leOnWaveProgressPercentageChanged:(float) percentage;
 @end
+
 @interface LEWaveProgressView : UIView
-@property (nonatomic) id<LEWaveProgressViewDelegate> delegate;
-@property (nonatomic) UILabel *curProgress;
--(void) setPercentage:(float) percentage;
+-(void) leSetDelegate:(id<LEWaveProgressViewDelegate>) delegate;
+
+-(void) leSetPercentage:(float) percentage;
 @end

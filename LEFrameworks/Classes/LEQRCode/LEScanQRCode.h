@@ -10,18 +10,18 @@
 
 
 @protocol LEScanQRCodeDelegate <NSObject>
--(void) onScannedQRCodeWithResult:(NSString *) code;
+-(void) leOnScannedQRCodeWithResult:(NSString *) code;
 @end
 
 @interface LEScanQRCodeViewPage : LEBaseView 
-@property (nonatomic) NSString *curScanHelperString;
--(void) setCustomizeResultWithView:(UIView *) view;
--(void) showScanView;
--(void) showOrHideResultView:(BOOL) show;
+
+-(void) leSetCustomizeResultWithView:(UIView *) view;
+-(void) leShowScanView;
+-(void) leShowOrHideResultView:(BOOL) show;
 -(id) initWithViewController:(LEBaseViewController *)vc Delegate:(id<LEScanQRCodeDelegate>)delegate;
 @end
 
 @interface LEScanQRCodeViewController : LEBaseViewController
 -(id) initWithDelegate:(id<LEScanQRCodeDelegate>) delegate;
--(void) reScanAfterSeconds:(NSTimeInterval) seconds;
+-(void) leReScanAfterSeconds:(NSTimeInterval) seconds;
 @end

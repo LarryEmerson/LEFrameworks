@@ -10,24 +10,37 @@
 #import "LEUIFramework.h"
 
 @interface LEBarChartSettings : NSObject
-@property (nonatomic) int minBarHeight;
-@property (nonatomic) int barWidth;
-@property (nonatomic) int barSpace;
-@property (nonatomic) BOOL showTag;
-@property (nonatomic) BOOL showValue;
-@property (nonatomic) BOOL barRoundRect;
-@property (nonatomic) UIColor *barColor;
-@property (nonatomic) UIColor *barColorSelected;
-@property (nonatomic) UIColor *tagColor;
-@property (nonatomic) UIColor *tagColorSelected;
-@property (nonatomic) UIColor *valueColor;
-@property (nonatomic) int tagFontsize;
-@property (nonatomic) int valueFontsize;
+@property (nonatomic, readonly) int minBarHeight;
+@property (nonatomic, readonly) int barWidth;
+@property (nonatomic, readonly) int barSpace;
+@property (nonatomic, readonly) BOOL showTag;
+@property (nonatomic, readonly) BOOL showValue;
+@property (nonatomic, readonly) BOOL barRoundRect;
+@property (nonatomic, readonly) UIColor *barColor;
+@property (nonatomic, readonly) UIColor *barColorSelected;
+@property (nonatomic, readonly) UIColor *tagColor;
+@property (nonatomic, readonly) UIColor *tagColorSelected;
+@property (nonatomic, readonly) UIColor *valueColor;
+@property (nonatomic, readonly) int tagFontsize;
+@property (nonatomic, readonly) int valueFontsize;
+-(void) leSetMinBarHeight:(int) minBarHeight;
+-(void) leSetBarWidth:(int) barWidth;
+-(void) leSetBarSpace:(int) barSpace;
+-(void) leSetShowTag:(BOOL) showTag;
+-(void) leSetShowValue:(BOOL) showValue;
+-(void) leSetBarRoundRect:(BOOL) barRoundRect;
+-(void) leSetBarColor:(UIColor *) barColor;
+-(void) leSetBarColorSelected:(UIColor *) barColorSelected;
+-(void) leSetTagColor:(UIColor *) tagColor;
+-(void) leSetTagColorSelected:(UIColor *) tagColorSelected;
+-(void) leSetValueColor:(UIColor *) valueColor;
+-(void) leSetTagFontsize:(int) tagFontsize;
+-(void) leSetValueFontsize:(int) valueFontsize;
 @end
 @protocol LEBarChartDelegate <NSObject>
--(void) onBarSelectedWithIndex:(int) index;
+-(void) leOnBarSelectedWithIndex:(int) index;
 @end
 @interface LEBarChart : UIView
 -(id) initWithAutoLayoutSettings:(LEAutoLayoutSettings *)settings BarChartSettings:(LEBarChartSettings *) barSettings Delegate:(id<LEBarChartDelegate>) delegate;
--(void) onSetValues:(NSArray *) array Tags:(NSArray *) tags;
+-(void) leOnSetValues:(NSArray *) array Tags:(NSArray *) tags;
 @end
