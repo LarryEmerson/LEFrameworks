@@ -34,6 +34,9 @@
 @end
 
 @implementation LETableViewCellSettings
+-(void) leSetGesture:(BOOL) gesture{
+    self.leGesture=gesture;
+}
 -(id) initWithSelectionDelegate:(id<LETableViewCellSelectionDelegate>) delegate EnableGesture:(BOOL) gesture{
     return [self initWithSelectionDelegate:delegate TableViewCellStyle:UITableViewCellStyleDefault reuseIdentifier:LEReuseableCellIdentifier EnableGesture:gesture];
 }
@@ -85,6 +88,9 @@
 @end
 @implementation LEBaseTableView{
     BOOL ignoredFirstEmptyCell;
+}
+-(LEBaseEmptyTableViewCell *) leGetEmptyTableViewCell{
+    return self.leEmptyTableViewCell;
 }
 - (id) initWithSettings:(LETableViewSettings *) settings{
     self.leEmptyTableViewCellClassName=settings.leEmptyTableViewCellClassName?settings.leEmptyTableViewCellClassName:@"LEBaseEmptyTableViewCell";
@@ -182,13 +188,13 @@
         UITableViewCell *cell=[self dequeueReusableCellWithIdentifier:LEReuseableCellIdentifier];
         if(!cell){
             LESuppressPerformSelectorLeakWarning(
-                                               cell=[[self.leTableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.leCellSelectionDelegate]];
-                                               );
+                                                 cell=[[self.leTableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.leCellSelectionDelegate]];
+                                                 );
         }
         if(self.leItemsArray&&indexPath.row<self.leItemsArray.count){
             LESuppressPerformSelectorLeakWarning(
-                                               [cell performSelector:NSSelectorFromString(@"leSetData:IndexPath:") withObject:[self.leItemsArray objectAtIndex:indexPath.row] withObject:indexPath];
-                                               );
+                                                 [cell performSelector:NSSelectorFromString(@"leSetData:IndexPath:") withObject:[self.leItemsArray objectAtIndex:indexPath.row] withObject:indexPath];
+                                                 );
         }
         return cell;
     }
@@ -221,8 +227,8 @@
     if(indexPath.section==0 && [self leNumberOfRowsInSection:0]==0 && [self leNumberOfSections] <=1){
         if(!self.leEmptyTableViewCell){
             LESuppressPerformSelectorLeakWarning(
-                                               self.leEmptyTableViewCell=[[self.leEmptyTableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:@{LEKeyOfCellTitle:@"暂时还没有相关内容"}];
-                                               );
+                                                 self.leEmptyTableViewCell=[[self.leEmptyTableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:@{LEKeyOfCellTitle:@"暂时还没有相关内容"}];
+                                                 );
         }
         return self.leEmptyTableViewCell;
     }

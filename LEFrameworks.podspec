@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'LEFrameworks'
-s.version          = '0.4.1'
+s.version          = '0.4.2'
 s.summary          = 'IOS Development Frameworks 公司IOS开发库：自动排版、列表封装、数据模型、第三方富文本（url点击事件）再次封装'
 
 # This description is used to generate tags and improve search results.

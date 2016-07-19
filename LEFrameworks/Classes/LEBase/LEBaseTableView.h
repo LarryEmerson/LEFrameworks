@@ -33,6 +33,7 @@
 @property (nonatomic, readonly) UITableViewCellStyle leStyle;
 @property (nonatomic, readonly) NSString *leReuseIdentifier;
 @property (nonatomic, readonly) BOOL leGesture;
+-(void) leSetGesture:(BOOL) gesture;
 -(id) initWithSelectionDelegate:(id<LETableViewCellSelectionDelegate>) delegate;
 -(id) initWithSelectionDelegate:(id<LETableViewCellSelectionDelegate>) delegate EnableGesture:(BOOL) gesture;
 -(id) initWithSelectionDelegate:(id<LETableViewCellSelectionDelegate>) delegate reuseIdentifier:(NSString *) reuseIdentifier;
@@ -62,7 +63,7 @@
 @property (nonatomic, readonly) NSMutableArray *leItemsArray;
 @property (nonatomic, readonly) NSString *leEmptyTableViewCellClassName;
 @property (nonatomic, readonly) NSString *leTableViewCellClassName;
-
+-(LEBaseEmptyTableViewCell *) leGetEmptyTableViewCell;
 -(id)   initWithSettings:(LETableViewSettings *) settings;
 -(void) leSetTopRefresh:(BOOL) enable;
 -(void) leSetBottomRefresh:(BOOL) enable;
