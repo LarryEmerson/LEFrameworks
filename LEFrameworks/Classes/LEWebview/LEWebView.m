@@ -163,12 +163,11 @@
 
 
 @implementation LEWebView{
-    LEWebViewPage *page;
-    NSString *curUrl;
+    LEWebViewPage *page; 
     BOOL isBarHidden;
 }
 - (void)leLoadWebPageWithString:(NSString*)urlString{
-    [page leLoadWebPageWithString:curUrl];
+    [page leLoadWebPageWithString:urlString];
 }
 - (void)leSetTitle:(NSString *) title{
     [self.navigationItem setTitle:title];
