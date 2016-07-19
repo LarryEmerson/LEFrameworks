@@ -89,8 +89,8 @@
 @implementation LEBaseTableView{
     BOOL ignoredFirstEmptyCell;
 }
--(LEBaseEmptyTableViewCell *) leGetEmptyTableViewCell{
-    return self.leEmptyTableViewCell;
+-(void) leSetEmptyTableViewCell:(LEBaseEmptyTableViewCell *) emptyTableViewCell{
+    self.leEmptyTableViewCell=emptyTableViewCell;
 }
 - (id) initWithSettings:(LETableViewSettings *) settings{
     self.leEmptyTableViewCellClassName=settings.leEmptyTableViewCellClassName?settings.leEmptyTableViewCellClassName:@"LEBaseEmptyTableViewCell";

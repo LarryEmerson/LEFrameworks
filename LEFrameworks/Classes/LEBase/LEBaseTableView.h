@@ -63,7 +63,7 @@
 @property (nonatomic, readonly) NSMutableArray *leItemsArray;
 @property (nonatomic, readonly) NSString *leEmptyTableViewCellClassName;
 @property (nonatomic, readonly) NSString *leTableViewCellClassName;
--(LEBaseEmptyTableViewCell *) leGetEmptyTableViewCell;
+-(void) leSetEmptyTableViewCell:(LEBaseEmptyTableViewCell *) emptyTableViewCell;
 -(id)   initWithSettings:(LETableViewSettings *) settings;
 -(void) leSetTopRefresh:(BOOL) enable;
 -(void) leSetBottomRefresh:(BOOL) enable;
