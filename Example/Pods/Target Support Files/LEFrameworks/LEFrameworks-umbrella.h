@@ -2,7 +2,11 @@
 
 #import "LEAppMessageDelegate.h"
 #import "LEUIFramework.h"
+#import "LEUIFrameworkExtra.h"
+#import "UIView+WHC_AutoLayout.h"
 #import "LEBadge.h"
+#import "LEBaseCollectionView.h"
+#import "LEBaseCollectionViewWithRefresh.h"
 #import "LEBaseEmptyTableViewCell.h"
 #import "LEBaseTableView.h"
 #import "LEBaseTableViewCell.h"

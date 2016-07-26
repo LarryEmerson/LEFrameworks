@@ -56,7 +56,12 @@
 -(void) leAddTapEventWithSEL:(SEL) sel{ 
     [self leAddTapEventWithSEL:sel Target:self ];
 }
+-(void) leSetRoundCornerWithRadius:(CGFloat) radius{
+    [self.layer setCornerRadius:radius];
+    [self.layer setMasksToBounds:YES];
+}
 -(void) leAddTapEventWithSEL:(SEL)sel Target:(id) target{
+    [target setUserInteractionEnabled:YES];
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:target action:sel]];
 }
 -(UIImageView *) leAddTopSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width{
@@ -104,18 +109,6 @@
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData* da = [self dataUsingEncoding:enc];
     return (int)[da length];
-    //    int strlength = 0;
-    //    char* p = (char*)[self cStringUsingEncoding:NSUnicodeStringEncoding];
-    //    for (int i=0 ; i<[self lengthOfBytesUsingEncoding:NSUnicodeStringEncoding] ;i++) {
-    //        if (*p) {
-    //            p++;
-    //            strlength++;
-    //        }
-    //        else {
-    //            p++;
-    //        }
-    //    }
-    //    return strlength;
 }
 -(NSString *) leGetTrimmedString{
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -125,72 +118,52 @@
     NSAssert(obj!=nil,([NSString stringWithFormat:@"请检查类名是否正确：%@",self]));
     return obj;
 }
-//返回字符串所占用的尺寸.
 -(CGSize) leGetSizeWithFont:(UIFont *)font MaxSize:(CGSize) size{
     if(!self){
         return CGSizeZero;
     }
-    //    if([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]){
     CGRect rect = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:font}  context:nil];
     rect.size.height=(int)rect.size.height+2;
     return rect.size;
-    //    } else{
-    //        CGSize strSize= [self sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
-    //        strSize.width=size.width;
-    //        strSize.height=(int)strSize.height+2;
-    //        return strSize;
-    //    }
 }
 @end
 
 @implementation UILabel (LEExtension)
-//- (void)alignTop {
-//    CGSize fontSize = [self.text sizeWithFont:self.font];
-//    double finalHeight = fontSize.height * self.numberOfLines;
-//    double finalWidth = self.frame.size.width;    //expected width of label
-//    CGSize theStringSize = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:self.lineBreakMode];
-//    int newLinesToPad = (finalHeight  - theStringSize.height) / fontSize.height;
-//    for(int i=0; i<newLinesToPad; i++)
-//        self.text = [self.text stringByAppendingString:@"\n "];
-//}
+static void * LEAutoLayoutLabelSettingsKey = (void *) @"LEAutoLayoutLabelSettings";
+- (LEAutoLayoutLabelSettings *) leAutoLayoutLabelSettings {
+    return objc_getAssociatedObject(self, LEAutoLayoutLabelSettingsKey);
+}
+- (void) setLeAutoLayoutLabelSettings:(LEAutoLayoutLabelSettings *)leAutoLayoutLabelSettings{
+    objc_setAssociatedObject(self, LEAutoLayoutLabelSettingsKey, leAutoLayoutLabelSettings, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
-//- (void)alignBottom {
-//    CGSize fontSize = [self.text sizeWithFont:self.font];
-//    double finalHeight = fontSize.height * self.numberOfLines;
-//    double finalWidth = self.frame.size.width;    //expected width of label
-//    CGSize theStringSize = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:self.lineBreakMode];
-//    int newLinesToPad = (finalHeight  - theStringSize.height) / fontSize.height;
-//    for(int i=0; i<newLinesToPad; i++)
-//        self.text = [NSString stringWithFormat:@" \n%@",self.text];
-//}
 -(void) leSetText:(NSString *) text{
-    if(self.leAutoLayoutSettings){
-        int width=self.leAutoLayoutSettings.leLabelMaxWidth;
-        int height=self.leAutoLayoutSettings.leLabelMaxHeight;
+    if(self.leAutoLayoutLabelSettings){
+        int width=self.leAutoLayoutLabelSettings.leWidth;
+        int height=self.leAutoLayoutLabelSettings.leHeight;
         if(width==0||width>LESCREEN_WIDTH){
             width=LESCREEN_WIDTH;
         }
         CGSize size=CGSizeZero;
         if(text){
-            if(self.leAutoLayoutSettings.leLabelNumberOfLines==0){
+            if(self.leAutoLayoutLabelSettings.leLine==0){
                 size=[text leGetSizeWithFont:self.font MaxSize:CGSizeMake(width, height)];
-            }else if(self.leAutoLayoutSettings.leLabelNumberOfLines>=1){
+            }else if(self.leAutoLayoutLabelSettings.leLine>=1){
                 size=[text leGetSizeWithFont:self.font MaxSize:CGSizeMake(width, height)];
-                if(self.leAutoLayoutSettings.leLabelNumberOfLines==1&&self.leAutoLayoutSettings.leLabelMaxHeight==0){
+                if(self.leAutoLayoutLabelSettings.leLine==1&&self.leAutoLayoutLabelSettings.leHeight==0){
                     size.height=self.font.lineHeight;
                 }
-                if(self.leAutoLayoutSettings.leLabelMaxHeight!=0){
-                    size.height=self.leAutoLayoutSettings.leLabelMaxHeight;
+                if(self.leAutoLayoutLabelSettings.leHeight!=0){
+                    size.height=self.leAutoLayoutLabelSettings.leHeight;
                 } 
             }
         }else{
-            size=CGSizeMake(self.leAutoLayoutSettings.leLabelMaxWidth, self.leAutoLayoutSettings.leLabelMaxHeight);
+            size=CGSizeMake(self.leAutoLayoutLabelSettings.leWidth, self.leAutoLayoutLabelSettings.leHeight);
         }
         self.leAutoLayoutSettings.leSize=size;
         [self leSetSize:size];
     }
     [self setText:text];
-    //    [self alignTop];
 }
 -(CGSize) leGetLabelTextSize{
     return [self.text leGetSizeWithFont:self.font MaxSize:LELabelMaxSize];
@@ -220,26 +193,16 @@
         }
         [self setAttributedText:attributedString];
         //
-        int width=self.leAutoLayoutSettings.leLabelMaxWidth;
+        int width=self.leAutoLayoutLabelSettings.leWidth;
         if(width==0||width>LESCREEN_WIDTH){
             width=LESCREEN_WIDTH;
         }
         CGRect rect = [self.text boundingRectWithSize:CGSizeMake(width, LELabelMaxSize.height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
         [self leSetSize:CGSizeMake(rect.size.width, rect.size.height)]; 
         [self leRedrawAttributedStringWithRect:rect LineSpace:space];
-        //        if(color &&rect.size.height<=self.font.lineHeight+space){
-        //            [attributedString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithInt: -space/2+1] range:NSMakeRange(0, self.text.length)];
-        //            [self setAttributedText:attributedString];
-        //            [self leSetSize:rect.size];
-        //        } else if(rect.size.height==self.font.lineHeight+space){
-        //            attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
-        //            [self setAttributedText:attributedString];
-        //            [self leSetSize:CGSizeMake(rect.size.width, self.font.lineHeight)];
-        //        }
     }
 }
 -(void) leRedrawAttributedStringWithRect:(CGRect) rect LineSpace:(int) lineSpace{
-    //    if(YES)return;
     if(self.attributedText){
         __block BOOL hasColor=NO;
         [self.attributedText enumerateAttributesInRange:NSMakeRange(0, self.text.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:
@@ -274,7 +237,6 @@
                     [self setFrame:CGRectMake(0, 0, rect.size.width, (self.numberOfLines>1?self.numberOfLines-1:0)*lineSpace+self.numberOfLines*self.font.lineHeight)];
                 }
                 [self setLineBreakMode:NSLineBreakByTruncatingTail];
-                //                [self setBackgroundColor:LEColorMask];
             }
         }
     }
@@ -351,6 +313,13 @@ static void * UILabelSupportCopyKey = (void *) @"UILabelSupportCopyKey";
 @end
 
 @implementation UIButton (LEExtension)
+static void * LEAutoLayoutButtonSettingsKey = (void *) @"LEAutoLayoutButtonSettings";
+- (LEAutoLayoutUIButtonSettings *) leAutoLayoutButtonSettings {
+    return objc_getAssociatedObject(self, LEAutoLayoutButtonSettingsKey);
+}
+- (void) setLeAutoLayoutButtonSettings:(LEAutoLayoutUIButtonSettings *)leAutoLayoutButtonSettings{
+    objc_setAssociatedObject(self, LEAutoLayoutButtonSettingsKey, leAutoLayoutButtonSettings, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 -(void) leSetText:(NSString *) text{
     [self setTitle:text forState:UIControlStateNormal];
     //
@@ -363,8 +332,8 @@ static void * UILabelSupportCopyKey = (void *) @"UILabelSupportCopyKey";
         if(textSize.height+LEDefaultButtonVerticalSpace*2>finalSize.height){
             finalSize.height = textSize.height+LEDefaultButtonVerticalSpace*2;
         }
-        if(self.leAutoLayoutSettings.leButtonMaxWidth>0 && finalSize.width>self.leAutoLayoutSettings.leButtonMaxWidth){
-            finalSize.width=self.leAutoLayoutSettings.leButtonMaxWidth;
+        if(self.leAutoLayoutButtonSettings.leMaxWidth>0 && finalSize.width>self.leAutoLayoutButtonSettings.leMaxWidth){
+            finalSize.width=self.leAutoLayoutButtonSettings.leMaxWidth;
             self.titleLabel.font=[self.titleLabel.font fontWithSize:self.titleLabel.font.pointSize-0.2];
         }else{
             break;
@@ -570,7 +539,6 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
     objc_setAssociatedObject(self, LEAutoResizeObserversKey, leAutoResizeObservers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 //
-
 -(instancetype) initWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings{
     self=[self initWithFrame:[UIView leGetFrameWithAutoLayoutSettings:settings]];
     //
@@ -582,10 +550,14 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
         if(!settings.leRelativeView.leAutoLayoutObservers){
             settings.leRelativeView.leAutoLayoutObservers=[[NSMutableArray alloc] init];
         }
-        [settings.leRelativeView.leAutoLayoutObservers addObject:self];
+        if(![self.leAutoLayoutSettings.leRelativeView.leAutoLayoutObservers containsObject:self]){
+            [settings.leRelativeView.leAutoLayoutObservers addObject:self];
+        }
     }
     if(settings.leRelativeChangeView){
-        [settings.leRelativeChangeView.leAutoResizeObservers addObject:self];
+        if(![settings.leRelativeChangeView.leAutoResizeObservers containsObject:self]){
+            [settings.leRelativeChangeView.leAutoResizeObservers addObject:self];
+        }
     }
     return self;
 }
@@ -651,10 +623,23 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 }
 -(void) leExecAutoLayout{
     if(self.leAutoLayoutSettings){
-        CGRect frame=[UIView leGetFrameWithAutoLayoutSettings:self.leAutoLayoutSettings];
-        if(!CGRectEqualToRect(frame, self.frame)){
-            [self setFrame:frame];
-            [self leExecAutoLayoutSubviews];
+        if(self.leAutoLayoutSettings.leRelativeView){
+            if(!self.leAutoLayoutSettings.leRelativeView.leAutoLayoutObservers){
+                self.leAutoLayoutSettings.leRelativeView.leAutoLayoutObservers=[[NSMutableArray alloc] init];
+            }
+            if(![self.leAutoLayoutSettings.leRelativeView.leAutoLayoutObservers containsObject:self]){
+                [self.leAutoLayoutSettings.leRelativeView.leAutoLayoutObservers addObject:self];
+            }
+        } 
+        if(self.leAutoLayoutSettings.leSuperView&&self.leAutoLayoutSettings.leRelativeView){
+            if(![self.superview isEqual:self.leAutoLayoutSettings.leSuperView]){
+                [self.leAutoLayoutSettings.leSuperView addSubview:self];
+            }
+            CGRect frame=[UIView leGetFrameWithAutoLayoutSettings:self.leAutoLayoutSettings];
+            if(!CGRectEqualToRect(frame, self.frame)){
+                [self setFrame:frame];
+                [self leExecAutoLayoutSubviews];
+            }
         }
     }
 }
@@ -690,16 +675,6 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 }
 @end
 
-@interface LEAutoLayoutLabelSettings ()
-@property (nonatomic, readwrite) NSString *leText;
-@property (nonatomic, readwrite) int leFontSize;
-@property (nonatomic, readwrite) UIFont *leFont;
-@property (nonatomic, readwrite) int leWidth;
-@property (nonatomic, readwrite) int leHeight;
-@property (nonatomic, readwrite) UIColor *leColor;
-@property (nonatomic, readwrite) int leLine;
-@property (nonatomic, readwrite) NSTextAlignment leAlignment;
-@end
 @implementation LEAutoLayoutLabelSettings
 
 -(id) initWithText:(NSString *) text FontSize:(int) fontSize Font:(UIFont *) font Width:(int) width Height:(int) height Color:(UIColor *) color Line:(int) line Alignment:(NSTextAlignment) alignment{
@@ -719,20 +694,7 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
     }
     return self;
 }
-@end
-@interface LEAutoLayoutUIButtonSettings ()
-@property (nonatomic, readwrite) NSString *leTitle;
-@property (nonatomic, readwrite) int leTitleFontSize;
-@property (nonatomic, readwrite) UIFont *leTitleFont;
-@property (nonatomic, readwrite) UIImage *leImage;
-@property (nonatomic, readwrite) UIImage *leBackgroundImage;
-@property (nonatomic, readwrite) UIColor *leColorNormal;
-@property (nonatomic, readwrite) UIColor *leColorSelected; 
-@property (nonatomic, readwrite) int leMaxWidth;
-@property (nonatomic, readwrite) int leSpace;
-@property (nonatomic, readwrite) SEL leSEL;
-@property (nonatomic, readwrite) id leTarget;
-@end
+@end 
 @implementation LEAutoLayoutUIButtonSettings
 -(id) initWithImage:(UIImage *) image SEL:(SEL) sel Target:(id) target{
     return [self initWithTitle:nil FontSize:0 Font:nil Image:image BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:sel Target:target];
@@ -865,7 +827,6 @@ LESingleton_implementation(LEUIFramework)
     return label;
 }
 +(UILabel *) leGetLabelWithSettings:(LEAutoLayoutSettings *) settings LabelSettings:(LEAutoLayoutLabelSettings *) labelSettings {
-    CGSize size=CGSizeZero;
     int width=labelSettings.leWidth;
     int height=labelSettings.leHeight;
     if(width==0||width>LESCREEN_WIDTH){
@@ -874,6 +835,7 @@ LESingleton_implementation(LEUIFramework)
     if(height==0){
         height=LELabelMaxSize.height;
     }
+    CGSize size=CGSizeZero;
     if(labelSettings.leText){
         if(labelSettings.leLine==0){
             size=[labelSettings.leText leGetSizeWithFont:labelSettings.leFont MaxSize:CGSizeMake(width, height)];
@@ -887,16 +849,14 @@ LESingleton_implementation(LEUIFramework)
         size=CGSizeMake(labelSettings.leWidth, labelSettings.leHeight);
     }
     settings.leSize=size;
-    UILabel *label=[[UILabel alloc] initWithAutoLayoutSettings:settings];  
+    UILabel *label=[[UILabel alloc] initWithAutoLayoutSettings:settings];
+    label.leAutoLayoutLabelSettings=labelSettings;
     [label setTextAlignment:labelSettings.leAlignment];
     [label setTextColor:labelSettings.leColor];
     [label setFont:labelSettings.leFont];
     [label setNumberOfLines:labelSettings.leLine];
     [label setBackgroundColor:LEColorClear];
-    //    [label setLineBreakMode:NSLineBreakByWordWrapping];
-    label.leAutoLayoutSettings.leLabelMaxWidth=labelSettings.leWidth==0?LESCREEN_WIDTH:labelSettings.leWidth;
-    //    label.leAutoLayoutSettings.leLabelMaxHeight=height;
-    label.leAutoLayoutSettings.leLabelNumberOfLines=labelSettings.leLine;
+    label.leAutoLayoutLabelSettings.leWidth=labelSettings.leWidth==0?LESCREEN_WIDTH:labelSettings.leWidth;
     [label setText:labelSettings.leText];
     
     
@@ -919,6 +879,7 @@ LESingleton_implementation(LEUIFramework)
         return nil;
     }
     UIButton *button=[[UIButton alloc] initWithAutoLayoutSettings:settings];
+    button.leAutoLayoutButtonSettings=buttonSettings;
     [button setTitle:buttonSettings.leTitle forState:UIControlStateNormal];
     [button setTitleColor:buttonSettings.leColorNormal forState:UIControlStateNormal];
     [button setTitleColor:buttonSettings.leColorSelected forState:UIControlStateHighlighted];
@@ -926,8 +887,7 @@ LESingleton_implementation(LEUIFramework)
     [button setBackgroundImage:buttonSettings.leBackgroundImage forState:UIControlStateNormal];
     [button addTarget:buttonSettings.leTarget action:buttonSettings.leSEL forControlEvents:UIControlEventTouchUpInside];
     [settings.leSuperView addSubview:button];
-    [button.titleLabel setFont:buttonSettings.leTitleFont];
-    settings.leButtonMaxWidth=buttonSettings.leMaxWidth;
+    [button.titleLabel setFont:buttonSettings.leTitleFont]; 
     //
     int space=buttonSettings.leSpace;
     if(space==0){
@@ -943,6 +903,7 @@ LESingleton_implementation(LEUIFramework)
             finalSize.height = textSize.height+LEDefaultButtonVerticalSpace*2;
         }
         if(buttonSettings.leMaxWidth>0 && finalSize.width>buttonSettings.leMaxWidth){
+            finalSize.width=button.leAutoLayoutButtonSettings.leMaxWidth;
             buttonSettings.leTitleFont=[buttonSettings.leTitleFont fontWithSize:buttonSettings.leTitleFont.pointSize-0.2];
         }else{
             break;

@@ -6,8 +6,29 @@
 //  Copyright (c) 2015年 360cbs. All rights reserved.
 //
 
-#import "LEBottomTabbar.h" 
-#import "LETabbarRelatedPageView.h"  
+#import "LEBottomTabbar.h"
+#import "LETabbarRelatedPageView.h"
+
+@interface LEButton : UIButton
+@end
+@implementation LEButton
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    // Center image
+    CGPoint center = self.imageView.center;
+    center.x = self.frame.size.width/2;
+    center.y = self.imageView.frame.size.height/2;
+    self.imageView.center = center;
+    //Center text
+    CGRect newFrame = [self titleLabel].frame;
+    newFrame.origin.x = 0;
+    newFrame.origin.y = self.imageView.frame.size.height ;
+    newFrame.size.width = self.frame.size.width;
+    //
+    self.titleLabel.frame = newFrame;
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+}
+@end
 
 @implementation LEBottomTabbar{
     LEUIFramework *globalVar;
@@ -22,8 +43,6 @@
     UIColor *curHighlightedColor;
     int lastIndex;
 }
-
-
 -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages{
     return [self initTabbarWithFrame:frame Delegate:delegate NormalIcons:icons HighlightedIcons:iconsSelected Titles:titles Pages:pages NormalColor:LEColorGray HighlightedColor:LEColorBlue];
 }
@@ -47,29 +66,20 @@
 
 -(void) leExtraInits{
     [self leAddTopSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
-    [self setBackgroundColor:LEColorWhite]; 
+    [self setBackgroundColor:LEColorWhite];
     int buttonWidth=(int)LESCREEN_WIDTH/arrayNormalIcons.count;
     for (int i=0; i<arrayNormalIcons.count; i++) {
-        UIButton *btn=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointMake(i*buttonWidth, 0) CGSize:CGSizeMake(buttonWidth, LEBottomTabbarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:arrayTitles?[arrayTitles objectAtIndex:i]:nil FontSize:LELayoutFontSize10 Font:nil Image:[LEUIFramework leGetUIImage:[arrayNormalIcons objectAtIndex:i]] BackgroundImage:nil Color:curHighlightedColor SelectedColor:curNormalColor MaxWidth:buttonWidth SEL:@selector(onClickForButton:) Target:self]];
-        if(arrayTitles){
-            [self leVerticallyLayoutButton:btn];
-        }
+        LEButton *btn=[[LEButton alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointMake(i*buttonWidth, 0) CGSize:CGSizeMake(buttonWidth, LEBottomTabbarHeight)]];
+        [btn setTitle:arrayTitles?[arrayTitles objectAtIndex:i]:nil forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont systemFontOfSize:LELayoutFontSize10]];
+        [btn setImage:[LEUIFramework leGetUIImage:[arrayNormalIcons objectAtIndex:i]] forState:UIControlStateNormal];
+        [btn setTitleColor:curHighlightedColor forState:UIControlStateNormal];
+        [btn setTitleColor:curNormalColor forState:UIControlStateHighlighted];
+        [btn addTarget:self action:@selector(onClickForButton:) forControlEvents:UIControlEventTouchUpInside];
         [arrayButtons addObject:btn];
     }
     lastIndex=-1;
     [self onClickForButton:[arrayButtons objectAtIndex:0]];
-}
--(void) leVerticallyLayoutButton:(UIButton *) btn{
-    UIButton *button=btn;
-    button.imageView.backgroundColor=[UIColor clearColor];
-    [button.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
-    [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    CGSize imageSize = button.imageView.frame.size;
-    CGSize titleSize = button.titleLabel.frame.size;
-    button.titleEdgeInsets = UIEdgeInsetsMake(imageSize.height/2+titleSize.height , -imageSize.width, 0, 0);
-    titleSize = button.titleLabel.frame.size;
-    button.imageEdgeInsets = UIEdgeInsetsMake(-titleSize.height-titleSize.height/2, 0, 0, -titleSize.width);
-    [button.titleLabel setBackgroundColor:[UIColor clearColor]];
 }
 -(void) leDidChoosedPageWith:(int) index{
     if(index<arrayButtons.count){
@@ -77,7 +87,6 @@
         [self onClickForButton:btn];
     }
 }
-
 -(void) onClickForButton:(UIButton *) btn{
     int index=(int)[arrayButtons indexOfObject:btn];
     if(index==lastIndex){
@@ -99,13 +108,12 @@
         id obj=[arrayPages objectAtIndex:i];
         if([obj isKindOfClass:[LETabbarRelatedPageView class]]){
             LESuppressPerformSelectorLeakWarning(
-                                               [obj performSelector:NSSelectorFromString(i==index?@"easeInView":@"easeOutView")];
-                                               );
+                                                 [obj performSelector:NSSelectorFromString(i==index?@"leEaseInView":@"leEaseOutView")];
+                                                 );
         }
     }
     if(self.leDelegate&&[self.leDelegate respondsToSelector:@selector(leTabbarDidTappedWith:)]){
         [self.leDelegate leTabbarDidTappedWith:index];
     }
 }
-
 @end

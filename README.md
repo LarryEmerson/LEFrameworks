@@ -55,7 +55,7 @@ Gif中组件测试代码如下：
 	LEBaseViewController *vc=[[LEBaseViewController alloc] init];
 	[vc leSetNavigationTitle:@"LECurveProgressView"];
 	LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
-curveProgress=[[LECurveProgressView alloc] initWithAutoLayoutSettings:	[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorInsideBottomCenter Offset:CGPointMake(0, LEStatusBarHeight) CGSize:CGSizeMake(240, 240)] MinAngle:-225 MaxAngle:45 Color:[UIColor colorWithRed:0.345 green:0.748 blue:0.885 alpha:1.000] ShadowColor:[UIColor colorWithRed:0.271 green:0.496 blue:0.712 alpha:1.000] LineWidth:12 ShadowLineWidth:6 Progrss:12];
+	curveProgress=[[LECurveProgressView alloc] initWithAutoLayoutSettings:	[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorInsideBottomCenter Offset:CGPointMake(0, LEStatusBarHeight) CGSize:CGSizeMake(240, 240)] MinAngle:-225 MaxAngle:45 Color:[UIColor colorWithRed:0.345 green:0.748 blue:0.885 alpha:1.000] ShadowColor:[UIColor colorWithRed:0.271 green:0.496 blue:0.712 alpha:1.000] LineWidth:12 ShadowLineWidth:6 Progrss:12];
 	[curveProgress leStrokeChart];
 	[self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
 	[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onCheckCurveProgressView) userInfo:nil repeats:YES];
@@ -76,7 +76,7 @@ UILabel *labelLineChart;
 
 -(void) onTestLELineChart{
 	LEBaseViewController *vc=[[LEBaseViewController alloc] init];
-[vc leSetNavigationTitle:@"LELineChart"];
+	[vc leSetNavigationTitle:@"LELineChart"];
 	LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
 	LELineChart *line=[[LELineChart alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth, self.leCurrentFrameWidth/2)] LineWidth:2 RulerLineWidth:1 Color:LEColorRed RulerColor:[UIColor greenColor] Padding:14 VerticalPadding:20 Target:self];
 	labelLineChart=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:line Offset:CGPointMake(0, LELayoutSideSpace) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LELayoutFontSize14 Font:nil Width:0 Height:0 Color:LEColorRed Line:1 Alignment:NSTextAlignmentCenter]];
@@ -101,7 +101,7 @@ UILabel *labelBarChart;
 
 -(void) onTestBarChart{
 	LEBaseViewController *vc=[[LEBaseViewController alloc] init];
-[vc leSetNavigationTitle:@"LEBarChart"];
+	[vc leSetNavigationTitle:@"LEBarChart"];
 	LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
 	LEBarChart *bar=[[LEBarChart alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth, self.leCurrentFrameWidth/2)] BarChartSettings:[[LEBarChartSettings alloc] init] Delegate:self];
 	labelBarChart=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:bar Offset:CGPointMake(0, LELayoutSideSpace) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LELayoutFontSize14 Font:nil Width:0 Height:0 Color:LEColorRed Line:1 Alignment:NSTextAlignmentCenter]];
@@ -148,7 +148,7 @@ GIF中组件测试代码如下：
 	LEBaseViewController *vc=[[LEBaseViewController alloc] init];
 	[vc leSetNavigationTitle:@"LEExcelView"];
 	LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
-curExcelView=[[LEExcelView alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:view ParentView:view.leViewContainer TableViewCell:@"TestExcelViewCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self] ImmovableViewWidth:120 MovableViewWidth:300 TabbarHeight:LEBottomTabbarHeight TabbarClassname:@"TestExcelViewTabbar"];
+	curExcelView=[[LEExcelView alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:view ParentView:view.leViewContainer TableViewCell:@"TestExcelViewCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self] ImmovableViewWidth:120 MovableViewWidth:300 TabbarHeight:LEBottomTabbarHeight TabbarClassname:@"TestExcelViewTabbar"];
 	[curExcelView leOnRefreshedWithData:	[@[@"",@"",@"",@"",@"",@"",@"",@""]mutableCopy]];
 	[self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
 }

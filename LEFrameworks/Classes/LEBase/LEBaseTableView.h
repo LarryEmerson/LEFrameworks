@@ -9,20 +9,14 @@
 #import <UIKit/UIKit.h> 
 #import "LEBaseEmptyTableViewCell.h"
 
-#define LEKeyOfCellSplit                  @"cellsplit"
-#define LEKeyOfIndexPath                @"cellindex"
-#define LEKeyOfClickStatus              @"cellstatus"
-#define LEKeyOfClickStatusContent       @"cellstatuscontent"
-#define LEKeyOfClickStatusContentExtra  @"cellstatuscontentextra"
-#define LEKeyOfClickStatusAsDefault     0
-#define LEKeyOfCellTitle @"emptycelltitle"
+
 #define LEReuseableCellIdentifier @"LECELL"
 
 @protocol LETableViewCellSelectionDelegate <NSObject>
 -(void) leOnTableViewCellSelectedWithInfo:(NSDictionary *) info;
 @end
 
-@protocol LEGetDataDelegate <NSObject>
+@protocol LETableViewDataSourceDelegate <NSObject>
 -(void) leOnRefreshData;
 @optional
 -(void) leOnLoadMore;
@@ -46,18 +40,18 @@
 @property (nonatomic, readonly) NSString *leTableViewCellClassName;
 @property (nonatomic, readonly) UIView *leSuperViewContainer;
 @property (nonatomic, readonly) UIView *leParentView;
-@property (nonatomic, readonly) id<LEGetDataDelegate> leGetDataDelegate;
-@property (nonatomic, readonly) id<LETableViewCellSelectionDelegate> leTableViewCellSelectionDelegate;
+@property (nonatomic, readonly) id<LETableViewDataSourceDelegate> leDataSourceDelegate;
+@property (nonatomic, readonly) id<LETableViewCellSelectionDelegate> leCellSelectionDelegate;
 @property (nonatomic, readonly) BOOL leIsAutoRefresh;
 -(void) leSetParentView:(UIView *) view;
--(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent GetDataDelegate:(id<LEGetDataDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection;
--(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent TableViewCell:(NSString *) cell EmptyTableViewCell:(NSString *) empty GetDataDelegate:(id<LEGetDataDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection;
--(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent TableViewCell:(NSString *) cell EmptyTableViewCell:(NSString *) empty GetDataDelegate:(id<LEGetDataDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection AutoRefresh:(BOOL) autorefresh;
+-(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent GetDataDelegate:(id<LETableViewDataSourceDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection;
+-(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent TableViewCell:(NSString *) cell EmptyTableViewCell:(NSString *) empty GetDataDelegate:(id<LETableViewDataSourceDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection;
+-(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent TableViewCell:(NSString *) cell EmptyTableViewCell:(NSString *) empty GetDataDelegate:(id<LETableViewDataSourceDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection AutoRefresh:(BOOL) autorefresh;
 @end
 
 @interface LEBaseTableView : UITableView
 @property (nonatomic, readonly) LEBaseEmptyTableViewCell *leEmptyTableViewCell;
-@property (nonatomic, readonly) id<LEGetDataDelegate> leGetDataDelegate;
+@property (nonatomic, readonly) id<LETableViewDataSourceDelegate> leDataSourceDelegate;
 @property (nonatomic, readonly) id<LETableViewCellSelectionDelegate> leCellSelectionDelegate;
 @property (nonatomic, readonly) UIView * leSuperViewContainer;
 @property (nonatomic, readonly) NSMutableArray *leItemsArray;

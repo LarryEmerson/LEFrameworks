@@ -7,7 +7,23 @@
 //
 
 #import "ViewController.h"
+#import "LEBaseCollectionView.h"
 
+@interface TestCollectionViewCell : LEBaseCollectionViewCell
+@end
+@implementation TestCollectionViewCell{
+    UILabel *label;
+}
+-(void) leExtraInits{
+    //    [self setBackgroundColor:LEColorTest];
+    label=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:LELayoutFontSize10 Font:nil Width:0 Height:0 Color:LEColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
+    self.backgroundView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero] Image:[LEColorMask leImageStrechedFromSizeOne]];
+    self.selectedBackgroundView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero] Image:[LEColorTest leImageStrechedFromSizeOne]];
+}
+-(void) leSetData:(id)data IndexPath:(NSIndexPath *)path{ 
+    [label leSetText:data];
+}
+@end
 
 
 @interface TestLEbaseTableViewCell : LEBaseTableViewCell
@@ -59,7 +75,7 @@
 }
 @end
 
-@interface ViewControllerPage : LEBaseView<LEGetDataDelegate,LETableViewCellSelectionDelegate,LELineChartDelegate,LEBarChartDelegate>
+@interface ViewControllerPage : LEBaseView<LETableViewDataSourceDelegate,LETableViewCellSelectionDelegate,LELineChartDelegate,LEBarChartDelegate,LECollectionViewDataSourceDelegate,LECollectionViewCellSelectionDelegate>
 @end
 @implementation ViewControllerPage{
     
@@ -75,9 +91,12 @@
     LEWaveProgressView *curWaveProgressView;
     LECurveProgressView *curveProgress;
     LEExcelView *curExcelView;
+    //
+    LEBaseCollectionViewWithRefresh *collectionView;
 }
 -(void) leExtraInits{
     [self onTestLEBaseTableView];
+    [self onTestAutoLayout];
 }
 //===================测试 LEBaseTableView TableView的封装
 -(void) onTestLEBaseTableView{
@@ -95,6 +114,7 @@
     [muta addObject:@"LEFrameworks测试 之 Excel表格化查阅框架 LEExcelView"];
     [muta addObject:@"LEFrameworks测试 之 自动排版 LEUIFramework"];
     [muta addObject:@"LEFrameworks测试 之 图片多选 LEMultiImagePicker"];
+    [muta addObject:@"LEFrameworks测试 之 CollectionView封装 LEBaseCollectionViewWithRefresh"];
     [curTableView leOnRefreshedWithData:muta];
 }
 -(void) leOnTableViewCellSelectedWithInfo:(NSDictionary *)info{
@@ -130,9 +150,41 @@
             [self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case 9:
+            [self onTestCollectionView];
+            break;
         default:
             break;
     }
+}
+//===================测试CollectionView
+-(void) onTestCollectionView{
+    LEBaseViewController *vc=[[LEBaseViewController alloc] init];
+    [vc leSetNavigationTitle:@"LESegmentView"];
+    LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    layout.itemSize=CGSizeMake((LESCREEN_WIDTH-LELayoutSideSpace16*4)*1.0/3, LENavigationBarHeight);
+    layout.scrollDirection=UICollectionViewScrollDirectionVertical;
+    layout.minimumLineSpacing=LELayoutSideSpace;
+    layout.minimumInteritemSpacing=LELayoutSideSpace;
+    layout.sectionInset=UIEdgeInsetsMake(LELayoutSideSpace16, LELayoutSideSpace16, LELayoutSideSpace16, LELayoutSideSpace16);
+    collectionView=[[LEBaseCollectionViewWithRefresh alloc] initWithSettings:[[LECollectionViewSettings alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer EdgeInsects:UIEdgeInsetsZero] CollectionLayout:layout CellClassname:@"TestCollectionViewCell" DataSource:self CellSelectionDelegate:self]];
+    [collectionView setBackgroundColor:LEColorClear];
+    [collectionView leOnSetContentInsects:layout.sectionInset];
+    [self.leCurrentViewController leThroughNavigationAnimatedPush:vc];
+    [self leOnRefreshDataForCollection];
+}
+-(void) leOnRefreshDataForCollection{
+    [collectionView leOnRefreshedWithData:[@[@"0 - 0",@"0 - 1",@"0 - 2",@"0 - 3",@"0 - 4",@"0 - 5",@"0 - 6",@"0 - 7",@"0 - 8",@"0 - 9",@"0 - 10",@"0 - 11",@"0 - 12",@"0 - 13",@"0 - 14",@"0 - 15",@"0 - 16",@"0 - 17",@"0 - 18",@"0 - 19"]mutableCopy]];
+}
+-(void) leOnLoadMoreForCollection{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [collectionView leOnLoadedMoreWithData:[@[@"0"]mutableCopy]];
+    });
+}
+-(void) leOnCollectionCellSelectedWithInfo:(NSDictionary *)info{
+    LELogObject(info);
+    [self leAddLocalNotification:[[info objectForKey:LEKeyOfIndexPath] leStringValue]];
 }
 //===================测试Webview
 -(void) onTestWebview{
@@ -229,19 +281,27 @@
     [vc leSetNavigationTitle:@"LEUIFramework 自动排版"];
     LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
     autoLayoutCounter=0;
-    autoLayoutTopButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, 10) CGSize:CGSizeMake(100, 100)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"点击改变大小" FontSize:10 Font:nil Image:[[UIColor redColor] leImageWithSize:CGSizeMake(20, 20)] BackgroundImage:[[[UIColor yellowColor] leImageWithSize:CGSizeMake(1,1)] leMiddleStrechedImage] Color:LEColorBlack SelectedColor:LEColorMask5 MaxWidth:100 SEL:@selector(onClickForAutoLayout) Target:self]];
+    autoLayoutTopButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, 10) CGSize:CGSizeMake(60, 100)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"点击改变大小" FontSize:10 Font:nil Image:[[UIColor redColor] leImageWithSize:CGSizeMake(20, 20)] BackgroundImage:[[[UIColor yellowColor] leImageWithSize:CGSizeMake(1,1)] leMiddleStrechedImage] Color:LEColorBlack SelectedColor:LEColorMask5 MaxWidth:120 SEL:@selector(onClickForAutoLayout) Target:self]];
     autoLayoutLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:autoLayoutTopButton Offset:CGPointMake(0, 10) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:10 Font:nil Width:0 Height:0 Color:LEColorBlack Line:1 Alignment:NSTextAlignmentCenter]];
     autoLayoutMultiLineLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorInsideBottomCenter  Offset:CGPointMake(0, -10) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:15 Font:nil Width:self.leCurrentFrameWidth-20 Height:0 Color:LEColorBlack Line:0 Alignment:NSTextAlignmentCenter]];
     [LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer Anchor:LEAnchorOutsideTopCenter RelativeView:autoLayoutMultiLineLabel Offset:CGPointMake(0, -10) CGSize:CGSizeMake(100, 30)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"Label会把我顶上去" FontSize:10 Font:nil Image:[[UIColor redColor] leImageWithSize:CGSizeMake(20, 20)] BackgroundImage:[[[UIColor yellowColor] leImageWithSize:CGSizeMake(1,1)] leMiddleStrechedImage] Color:LEColorBlack SelectedColor:LEColorMask5 MaxWidth:0 SEL:@selector(onClickForAutoLayout) Target:self]];
     [self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
+    //    UIView *test=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    //测试LEUIFrameworkExtra
+    [[UIView new].leBackground(LEColorRed).leRelativeView(autoLayoutTopButton).leSize(CGSizeMake(30, 30)).leAutoLayout leAddTapEventWithSEL:@selector(onClickForAutoLayout) Target:self];
+    UILabel *label=nil;
+    [label=(LEFormatAsLabel [UILabel new].leBackground(LEColorRed).leRelativeView(view.leViewContainer).leOffset(CGPointMake(LELayoutSideSpace16, 0)).leUserInteraction(YES)).leText(@"asdasdasda阿斯达达到爱上as爱上sdasdas").leFont(LEBoldFont(LELayoutFontSize12)).leWidth(100).leColor(LEColorBlue).leAlignment(NSTextAlignmentRight).leLine(2) leLabelLayout];
+    [(LEFormatAsButton [UIButton new].leRelativeView(label).leEdgeInsects(UIEdgeInsetsZero)).leTapEvent(@selector(onClickForAutoLayout),self).leBackgroundImageHighlighted([LEColorRed leImageStrechedFromSizeOne]) leButtonLayout];
+    UIView *bg=[UIView new].leSuperView(view.leViewContainer).leAnchor(LEAnchorInsideCenter).leSize(CGSizeMake(LESCREEN_WIDTH-LENavigationBarHeight, LENavigationBarHeight)).leBackground(LEColorMask2).leAutoLayout;
+    [(LEFormatAsTextField[UITextField new].leSuperView(bg).leEdgeInsects(UIEdgeInsetsMake(0, LELayoutSideSpace, 0, LELayoutSideSpace))).lePlaceHolder(@"PlaceHolder") leTextFieldLayout];
 }
 -(void) onClickForAutoLayout{
     autoLayoutCounter++;
     CGSize size=autoLayoutTopButton.bounds.size;
     size.width+=5;
     size.height+=5;
-    [autoLayoutLabel leSetText:[NSString stringWithFormat:@"点击了第%d次，目前按钮大小为%@",autoLayoutCounter,NSStringFromCGSize(size)]];
     [autoLayoutTopButton leSetSize:size];
+    [autoLayoutLabel leSetText:[NSString stringWithFormat:@"点击了第%d次，目前按钮大小为%@",autoLayoutCounter,NSStringFromCGSize(size)]];
     NSString *text=@"";
     for (int i=0; i<autoLayoutCounter; i++) {
         text=[text stringByAppendingString:@"测试的句子"];

@@ -259,7 +259,14 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 #define LEIntToString(__int) [NSString stringWithFormat:@"%d",(int)__int]
 #define LENumberToString(__number) [NSString stringWithFormat:@"%@",(NSNumber *)__number]
 #define LEIntegerToInt(__integer) ((int)__integer)
-
+#pragma mark 
+#define LEKeyOfCellSplit                @"cellsplit"
+#define LEKeyOfIndexPath                @"cellindex"
+#define LEKeyOfClickStatus              @"cellstatus"
+#define LEKeyOfClickStatusContent       @"cellstatuscontent"
+#define LEKeyOfClickStatusContentExtra  @"cellstatuscontentextra"
+#define LEKeyOfClickStatusAsDefault     0
+#define LEKeyOfCellTitle                @"emptycelltitle"
 
 @interface UIViewController (LEExtension)
 -(void) leSetLeftBarButtonWithImage:(UIImage *) img SEL:(SEL) sel;
@@ -280,6 +287,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 -(void) leEndEdit;
 -(void) leAddTapEventWithSEL:(SEL) sel;
 -(void) leAddTapEventWithSEL:(SEL)sel Target:(id) target;
+-(void) leSetRoundCornerWithRadius:(CGFloat) radius;
 -(UIImageView *) leAddTopSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width;
 -(UIImageView *) leAddBottomSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width;
 @end
@@ -300,7 +308,25 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 -(NSString *) leGetTrimmedString;
 @end
 
+@interface LEAutoLayoutLabelSettings : NSObject
+@property (nonatomic) NSString *leText;
+@property (nonatomic) int leFontSize;
+@property (nonatomic) UIFont *leFont;
+@property (nonatomic) int leWidth;
+@property (nonatomic) int leHeight;
+@property (nonatomic) UIColor *leColor;
+@property (nonatomic) int leLine;
+@property (nonatomic) NSTextAlignment leAlignment;
+-(id) initWithText:(NSString *) text FontSize:(int) fontSize Font:(UIFont *) font Width:(int) width Height:(int) height Color:(UIColor *) color Line:(int) line Alignment:(NSTextAlignment) alignment;
+@end
+
+@interface UIImageView (LEExtension)
+-(void) leSetImage:(UIImage *) image;
+-(void) leSetImage:(UIImage *) image WithSize:(CGSize) size;
+@end
+
 @interface UILabel (LEExtension)
+@property (nonatomic) LEAutoLayoutLabelSettings *leAutoLayoutLabelSettings;
 //- (void)alignTop;
 //- (void)alignBottom;
 -(CGSize) leGetLabelTextSize;
@@ -314,11 +340,27 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 -(void) leAddLongPressGestureWithSel:(SEL) sel  Target:(id) target;
 -(void) leAddCopyGesture;
 @end
-@interface UIImageView (LEExtension)
--(void) leSetImage:(UIImage *) image;
--(void) leSetImage:(UIImage *) image WithSize:(CGSize) size;
-@end 
+
+@interface LEAutoLayoutUIButtonSettings : NSObject
+@property (nonatomic) NSString *leTitle;
+@property (nonatomic) int leTitleFontSize;
+@property (nonatomic) UIFont *leTitleFont;
+@property (nonatomic) UIImage *leImage;
+@property (nonatomic) UIImage *leBackgroundImage;
+@property (nonatomic) UIImage *leImageHighlighted;
+@property (nonatomic) UIImage *leBackgroundImageHighlighted;
+@property (nonatomic) UIColor *leColorNormal;
+@property (nonatomic) UIColor *leColorSelected;
+@property (nonatomic) int leMaxWidth;
+@property (nonatomic) SEL leSEL;
+@property (nonatomic) id leTarget;
+@property (nonatomic) int leSpace;
+-(id) initWithImage:(UIImage *) image SEL:(SEL) sel Target:(id) target;
+-(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(id) target;
+-(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(id) target HorizontalSpace:(int) space;
+@end
 @interface UIButton (LEExtension)
+@property (nonatomic) LEAutoLayoutUIButtonSettings *leAutoLayoutButtonSettings;
 -(void) leSetText:(NSString *) text;
 -(void) leVerticallyLayoutButton;
 @end
@@ -336,10 +378,6 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 @property (nonatomic) UIView *leRelativeChangeView;
 @property (nonatomic) UIEdgeInsets leEdgeInsets;
 
-@property (nonatomic) int leLabelMaxWidth;
-@property (nonatomic) int leLabelMaxHeight;
-@property (nonatomic) int leLabelNumberOfLines;
-@property (nonatomic) int leButtonMaxWidth;
 //AutoLayout
 -(id) initWithSuperView:(UIView *) superView Anchor:(LEAnchors) anchor Offset:(CGPoint) offset CGSize:(CGSize) size;
 -(id) initWithSuperView:(UIView *) superView Anchor:(LEAnchors) anchor RelativeView:(UIView *) relativeView Offset:(CGPoint) offset CGSize:(CGSize) size;
@@ -353,7 +391,8 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 @property (nonatomic) NSMutableArray *leAutoResizeObservers;
 +(CGRect) leGetFrameWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings;
 @property (nonatomic) LEAutoLayoutSettings *leAutoLayoutSettings;
--(instancetype) initWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings;
+-(instancetype) initWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings; 
+//
 -(void) leAddAutoResizeRelativeView:(UIView *) changeView EdgeInsects:(UIEdgeInsets) edge;
 -(void) leSetFrame:(CGRect) rect;
 -(void) leSetOffset:(CGPoint) offset;
@@ -362,27 +401,6 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 -(void) leExecAutoLayout;
 -(void) leExecAutoResize;
 -(void) leExecAutoResizeWithEdgeInsets:(UIEdgeInsets) edge;
-@end
-
-@interface LEAutoLayoutLabelSettings : NSObject
--(id) initWithText:(NSString *) text FontSize:(int) fontSize Font:(UIFont *) font Width:(int) width Height:(int) height Color:(UIColor *) color Line:(int) line Alignment:(NSTextAlignment) alignment;
-@end
-
-@interface LEAutoLayoutUIButtonSettings : NSObject
-@property (nonatomic, readonly) NSString *leTitle;
-@property (nonatomic, readonly) int leTitleFontSize;
-@property (nonatomic, readonly) UIFont *leTitleFont;
-@property (nonatomic, readonly) UIImage *leImage;
-@property (nonatomic, readonly) UIImage *leBackgroundImage;
-@property (nonatomic, readonly) UIColor *leColorNormal;
-@property (nonatomic, readonly) UIColor *leColorSelected;
-@property (nonatomic, readonly) int leMaxWidth;
-@property (nonatomic, readonly) SEL leSEL;
-@property (nonatomic, readonly) id leTarget;
-@property (nonatomic, readonly) int leSpace;
--(id) initWithImage:(UIImage *) image SEL:(SEL) sel Target:(id) target;
--(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(id) target;
--(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(id) target HorizontalSpace:(int) space;
 @end
 
 @interface LEUIFramework : NSObject

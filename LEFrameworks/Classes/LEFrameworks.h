@@ -8,6 +8,7 @@
 
 //自动排版，UI组件Category
 #import "LEUIFramework.h"
+#import "LEUIFrameworkExtra.h"
 //基类 
 #import "LEBaseViewController.h"
 #import "LEBaseTableView.h"
@@ -16,6 +17,8 @@
 #import "LEBaseTableViewSectionWithIcon.h"
 #import "LEBaseEmptyTableViewCell.h" 
 #import "LEBaseTableViewWithRefresh.h"
+#import "LEBaseCollectionView.h"
+#import "LEBaseCollectionViewWithRefresh.h"
 //
 #import "LEBadge.h"
 //导航栏界面跳转通知
@@ -51,6 +54,7 @@
 #import "LEScanQRCode.h" 
 //Webview
 #import "LEWebView.h"
+
 
 
 

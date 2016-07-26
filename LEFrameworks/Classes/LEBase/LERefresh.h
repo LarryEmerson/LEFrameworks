@@ -45,4 +45,5 @@ typedef NS_ENUM(NSInteger, LERefreshState) {
 @interface LERefreshHeader : LERefresh
 @end
 @interface LERefreshFooter : LERefresh
+-(void) onSetCollectionViewContentInsects:(UIEdgeInsets ) insects;
 @end

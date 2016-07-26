@@ -23,7 +23,7 @@
     [self.curScrollView removeObserver:self forKeyPath:@"contentOffset"];
 }
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
-    if([@"contentOffset" isEqualToString:keyPath]){
+    if([@"contentOffset" isEqualToString:keyPath]){ 
         [self onScrolling];
     }
 }
@@ -140,6 +140,10 @@
 @end
 @implementation LERefreshFooter{
     float topRefreshHeight;
+    float offset;
+}
+-(void) onSetCollectionViewContentInsects:(UIEdgeInsets ) insects{
+    offset=insects.top+insects.bottom;
 }
 -(void) initRefreshView{
     self.beginRefreshString=LERefreshStringPullUp;
@@ -156,13 +160,15 @@
     [super onScrolling];
     if(self.isEnabled){
         float offsetY=self.curScrollView.contentOffset.y;
-        CGSize size=self.curScrollView.contentSize;
-        size.height=MAX(size.height, self.curScrollView.bounds.size.height);
-        [self.curScrollView setContentSize:size];
-        float gap=self.curScrollView.contentSize.height-self.curScrollView.bounds.size.height;
-        float maxOffset=MAX(topRefreshHeight, topRefreshHeight+gap);
-        [self.refreshContainer leSetOffset:CGPointMake(0, maxOffset)];
         if(offsetY>=0){
+            CGSize size=self.curScrollView.contentSize;
+            size.height=MAX(size.height, self.curScrollView.bounds.size.height);
+            if(CGSizeEqualToSize(size, self.curScrollView.contentSize)){
+                [self.curScrollView setContentSize:size];
+            }
+            float gap=self.curScrollView.contentSize.height-self.curScrollView.bounds.size.height;
+            float maxOffset=MAX(topRefreshHeight, topRefreshHeight+gap);
+            [self.refreshContainer leSetOffset:CGPointMake(0, (gap>0?gap+topRefreshHeight:topRefreshHeight-self.curScrollView.contentInset.top-self.curScrollView.contentInset.bottom+offset))];
             if(self.curScrollView.dragging){
                 if(self.curRefreshState!=LERefreshLoading){
                     if(offsetY>maxOffset){
