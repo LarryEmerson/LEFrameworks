@@ -95,10 +95,10 @@
 }
 @end
 
-@interface ViewControllerPage : LEBaseView<LETableViewDataSourceDelegate,LETableViewCellSelectionDelegate,LELineChartDelegate,LEBarChartDelegate,LECollectionViewDataSourceDelegate,LECollectionViewCellSelectionDelegate>
+@interface ViewControllerPage : LEBaseView<LETableViewDataSourceDelegate,LETableViewCellSelectionDelegate,LELineChartDelegate,LEBarChartDelegate,LECollectionViewDataSourceDelegate,LECollectionViewCellSelectionDelegate,LENavigationDelegate>
 @end
 @implementation ViewControllerPage{
-    
+    LEBaseNavigation *navigationView;
     UIButton *autoLayoutTopButton;
     int autoLayoutCounter;
     UILabel *autoLayoutLabel;
@@ -114,10 +114,19 @@
     //
     TestCollectionView *collectionView;
 }
--(void) leExtraInits{
+-(void) leExtraInits{ 
     [self onTestLEBaseTableView];
     //    [self onTestAutoLayout];
-    [self onTestCollectionView];
+    //    [self onTestCollectionView];
+}
+-(void) leNavigationLeftButtonTapped{
+    [navigationView leSetRightNavigationItemWith:@"测试" Image:nil];
+}
+-(void) leNavigationRightButtonTapped{
+    [navigationView leSetRightNavigationItemWith:nil Image:nil];
+}
+-(void) leNavigationNotifyTitleViewContainerWidth:(int)width{
+    LELogInt(width);
 }
 //===================测试 LEBaseTableView TableView的封装
 -(void) onTestLEBaseTableView{
@@ -350,8 +359,9 @@
 @implementation ViewController{
     ViewControllerPage *curPage;
 }
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)leExtraInits {
+    [self setExtendedLayoutIncludesOpaqueBars:YES];
+    [self setEdgesForExtendedLayout:UIRectEdgeLeft|UIRectEdgeRight|UIRectEdgeBottom];
     curPage=[[ViewControllerPage alloc] initWithViewController:self];
     [self.navigationItem setTitle:@"LEFrameworks 测试"];
 }
