@@ -8,6 +8,7 @@
 
 #import "LEUIFramework.h"
 #define LEReuseableCollectionCellIdentifier @"LECollectionCell"
+#define LEReuseableCollectionViewIdentifier @"LECollectionView"
 @protocol LECollectionViewCellSelectionDelegate <NSObject>
 -(void) leOnCollectionCellSelectedWithInfo:(NSDictionary *) info;
 @end
@@ -21,10 +22,11 @@
 @property (nonatomic, readonly) LEAutoLayoutSettings *leSettings;
 @property (nonatomic, readonly) UICollectionViewLayout *leLayout;
 @property (nonatomic, readonly) NSString *leCellClassname;
+@property (nonatomic, readonly) NSString *leReusableViewClassname;
 @property (nonatomic, readonly) id<LECollectionViewDataSourceDelegate> leDataSourceDelegate;
 @property (nonatomic, readonly) id<LECollectionViewCellSelectionDelegate> leCellSelectionDelegate;
 -(instancetype) initWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings CollectionLayout:(UICollectionViewLayout *) layout CellClassname:(NSString *) cellClassname DataSource:(id<LECollectionViewDataSourceDelegate>) dataSource CellSelectionDelegate:(id<LECollectionViewCellSelectionDelegate>) selection;
-
+-(instancetype) initWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings CollectionLayout:(UICollectionViewLayout *) layout CellClassname:(NSString *) cellClassname ReusableView:(NSString *) reusableClassname DataSource:(id<LECollectionViewDataSourceDelegate>) dataSource CellSelectionDelegate:(id<LECollectionViewCellSelectionDelegate>) selection;
 @end
 
 @interface LEBaseCollectionViewCell : UICollectionViewCell
@@ -32,10 +34,16 @@
 @property (nonatomic, readonly) NSIndexPath *leIndexPath;
 -(void) leSetData:(id) data IndexPath:(NSIndexPath *) path;
 @end
+@interface LEBaseCollectionReusableView : UICollectionReusableView
+@property (nonatomic) BOOL isInited;
+@property (nonatomic, readonly) NSIndexPath *leIndexPath;
+-(void) leSetData:(id) data Kind:(NSString *) kind IndexPath:(NSIndexPath *) path;
+@end
 @interface LEBaseCollectionView : UICollectionView<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic, readonly) NSMutableArray *leItemsArray;
 @property (nonatomic, readonly) id<LECollectionViewDataSourceDelegate> leDataSourceDelegate;
 @property (nonatomic, readonly) id<LECollectionViewCellSelectionDelegate> leCellSelectionDelegate;
+@property (nonatomic, readwrite) NSMutableArray *leSectionHeaderArray;
 -(instancetype) initWithSettings:(LECollectionViewSettings *) settings;
 //
 -(void) leSetTopRefresh:(BOOL) enable;
