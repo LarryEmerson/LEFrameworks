@@ -59,9 +59,74 @@
     return [super init];
 }
 -(void) viewDidLoad{
-    [self setExtendedLayoutIncludesOpaqueBars:NO];
-    [self setEdgesForExtendedLayout:UIRectEdgeLeft&UIRectEdgeRight&UIRectEdgeBottom];
+    [self setExtendedLayoutIncludesOpaqueBars:YES];
+    [self setEdgesForExtendedLayout:UIRectEdgeAll];
     [super viewDidLoad];
+    [self leExtraInits];
+}
+@end
+
+
+@implementation LEBaseNavigation{
+    UIView *viewTopCover;
+    id<LENavigationDelegate> curDelegate;
+    UIViewController *curViewController;
+    UIImageView *background;
+}
+
+-(id) initWithDelegate:(id<LENavigationDelegate>) delegate ViewController:(UIViewController *) viewController SuperView:(UIView *) superview Offset:(int) offset BackgroundImage:(UIImage *) bg TitleColor:(UIColor *) color LeftItemImage:(UIImage *) left{
+    self=[super initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:superview Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, offset) CGSize:CGSizeMake(LESCREEN_WIDTH, LENavigationBarHeight)]];
+    curViewController=viewController;
+    curDelegate=delegate;
+    viewTopCover=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:superview Anchor:LEAnchorOutsideTopCenter RelativeView:self Offset:CGPointZero CGSize:CGSizeMake(LESCREEN_WIDTH, offset)]];
+    background=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero] Image:bg];
+    self.leTitleViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(LESCREEN_WIDTH-LENavigationBarHeight*2, LENavigationBarHeight)]];
+    leNavigationTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:0 Font:LEBoldFont(LENavigationBarFontSize) Width:LESCREEN_WIDTH-LENavigationBarHeight*2 Height:0 Color:color Line:1 Alignment:NSTextAlignmentCenter]];
+    UIView *viewLeft=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)]];
+    leBackButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc]initWithSuperView:viewLeft Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:nil FontSize:0 Font:nil Image:left BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:@selector(onLeft) Target:self]];
+    return self;
+}
+-(void) leSetBackground:(UIImage *) image{
+    [background setImage:image];
+}
+-(void) leSetNavigationTitle:(NSString *) title{
+    [leNavigationTitle leSetText:title];
+}
+-(void) leSetRightNavigationItemWith:(NSString *) title Image:(UIImage *) image{
+    [self lazyInitRightButton];
+    [leRightButton setTitle:title forState:UIControlStateNormal];
+    [leRightButton setImage:image forState:UIControlStateNormal];
+    if(title==nil&&image==nil){
+        [leRightButton setHidden:YES];
+    }else{
+        [leRightButton setHidden:NO];
+    }
+    if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationNotifyTitleViewContainerWidth:)]){
+        int width=LESCREEN_WIDTH-LELayoutSideSpace*2-LENavigationBarHeight;
+        [self.leTitleViewContainer leSetSize:CGSizeMake(width, LENavigationBarHeight)];
+        [curDelegate leNavigationNotifyTitleViewContainerWidth:width];
+    }
+}
+-(void)lazyInitRightButton{
+    if(leRightButton==nil){
+        leRightButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LELayoutSideSpace, 0) CGSize:CGSizeZero] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"" FontSize:LELayoutFontSize12 Font:nil Image:nil BackgroundImage:nil Color:LEColorBlue SelectedColor:LEColorGray MaxWidth:0 SEL:@selector(onRight) Target:self]];
+    }
+}
+
+-(void) leSetNavigationOffset:(int) offset{
+    [viewTopCover leSetSize:CGSizeMake(LESCREEN_WIDTH, offset)];
+    [self leSetOffset:CGPointMake(0, offset)];
+}
+-(void) onLeft{
+    if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationLeftButtonTapped)]){
+        [curDelegate leNavigationLeftButtonTapped];
+    }
+    [curViewController.navigationController popViewControllerAnimated:YES];
+}
+-(void) onRight{
+    if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationRightButtonTapped)]){
+        [curDelegate leNavigationRightButtonTapped];
+    }
 }
 @end
 

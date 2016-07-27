@@ -29,6 +29,26 @@
 -(void) leOnSetRightSwipGesture:(BOOL) gesture;
 @end
 
+@protocol LENavigationDelegate <NSObject>
+@optional
+-(void) leNavigationRightButtonTapped;
+-(void) leNavigationNotifyTitleViewContainerWidth:(int) width;
+-(void) leNavigationLeftButtonTapped;
+@end
+@interface LEBaseNavigation : UIView{
+    UILabel *leNavigationTitle;
+    UIButton *leBackButton;
+    UIButton *leRightButton;
+    
+}
+@property (nonatomic) UIView *leTitleViewContainer;
+-(id) initWithDelegate:(id<LENavigationDelegate>) delegate ViewController:(UIViewController *) viewController SuperView:(UIView *) superview Offset:(int) offset BackgroundImage:(UIImage *) background TitleColor:(UIColor *) color LeftItemImage:(UIImage *) left;
+-(void) leSetNavigationTitle:(NSString *) title;
+-(void) leSetBackground:(UIImage *) image;
+-(void) leSetRightNavigationItemWith:(NSString *) title Image:(UIImage *) image;
+-(void) leSetNavigationOffset:(int) offset;
+@end
+
 //typedef NS_ENUM(NSInteger, EffectType) {
 //    EffectTypeWithAlpha = 0,
 //    EffectTypeFromRight = 1,
