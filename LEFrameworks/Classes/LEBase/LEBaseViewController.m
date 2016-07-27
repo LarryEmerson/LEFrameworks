@@ -68,7 +68,6 @@
 
 
 @implementation LEBaseNavigation{
-    UIView *viewTopCover;
     id<LENavigationDelegate> curDelegate;
     UIViewController *curViewController;
     UIImageView *background;
@@ -78,8 +77,7 @@
     self=[super initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:superview Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, offset) CGSize:CGSizeMake(LESCREEN_WIDTH, LENavigationBarHeight)]];
     curViewController=viewController;
     curDelegate=delegate;
-    viewTopCover=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:superview Anchor:LEAnchorOutsideTopCenter RelativeView:self Offset:CGPointZero CGSize:CGSizeMake(LESCREEN_WIDTH, offset)]];
-    background=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero] Image:bg];
+    background=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(LESCREEN_WIDTH, offset+LENavigationBarHeight)] Image:bg];
     self.leTitleViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(LESCREEN_WIDTH-LENavigationBarHeight*2, LENavigationBarHeight)]];
     leNavigationTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:0 Font:LEBoldFont(LENavigationBarFontSize) Width:LESCREEN_WIDTH-LENavigationBarHeight*2 Height:0 Color:color Line:1 Alignment:NSTextAlignmentCenter]];
     UIView *viewLeft=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)]];
@@ -114,7 +112,7 @@
 }
 
 -(void) leSetNavigationOffset:(int) offset{
-    [viewTopCover leSetSize:CGSizeMake(LESCREEN_WIDTH, offset)];
+    [background leSetSize:CGSizeMake(LESCREEN_WIDTH, offset+LENavigationBarHeight)];
     [self leSetOffset:CGPointMake(0, offset)];
 }
 -(void) onLeft{
