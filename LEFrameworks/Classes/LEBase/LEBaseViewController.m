@@ -129,8 +129,9 @@
 -(void) onLeft{
     if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationLeftButtonTapped)]){
         [curDelegate leNavigationLeftButtonTapped];
+    }else{
+        [curViewController.navigationController popViewControllerAnimated:YES];
     }
-    [curViewController.navigationController popViewControllerAnimated:YES];
 }
 -(void) onRight{
     if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationRightButtonTapped)]){
