@@ -15,13 +15,12 @@
     UILabel *label;
 }
 -(void) leExtraInits{
-    //    [self setBackgroundColor:LEColorTest];
     label=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:LELayoutFontSize10 Font:nil Width:0 Height:0 Color:LEColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
     self.backgroundView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero] Image:[LEColorMask leImageStrechedFromSizeOne]];
     self.selectedBackgroundView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero] Image:[LEColorTest leImageStrechedFromSizeOne]];
 }
--(void) leSetData:(id)data IndexPath:(NSIndexPath *)path{ 
-    [label leSetText:data];
+-(void) leSetData:(id)data IndexPath:(NSIndexPath *)path{
+    [label leSetText:[NSString stringWithFormat:@"%@",data]];
 }
 @end
 @interface TestCollectionReusableView : LEBaseCollectionReusableView
@@ -40,10 +39,6 @@
 @interface TestCollectionView : LEBaseCollectionViewWithRefresh
 @end
 @implementation TestCollectionView
-//-(NSInteger) leNumberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-//    return 2;
-//}
-
 @end
 
 @interface TestLEbaseTableViewCell : LEBaseTableViewCell
@@ -112,7 +107,8 @@
     LECurveProgressView *curveProgress;
     LEExcelView *curExcelView;
     //
-    TestCollectionView *collectionView;
+    LEBaseCollectionViewWithRefresh *collectionView;
+    LEVerticalFlowLayout *flowLayout;
 }
 -(void) leExtraInits{ 
     [self onTestLEBaseTableView];
@@ -192,18 +188,26 @@
     LEBaseViewController *vc=[[LEBaseViewController alloc] init];
     [vc leSetNavigationTitle:@"LESegmentView"];
     LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
-    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize=CGSizeMake((LESCREEN_WIDTH-LELayoutSideSpace16*4)*1.0/3, LENavigationBarHeight);
-    layout.scrollDirection=UICollectionViewScrollDirectionVertical;
-    //    layout.minimumLineSpacing=LELayoutSideSpace;
-    layout.minimumInteritemSpacing=LELayoutSideSpace;
-    layout.headerReferenceSize=CGSizeMake(LESCREEN_WIDTH, LEStatusBarHeight);
-    layout.footerReferenceSize=CGSizeMake(LESCREEN_WIDTH, LEStatusBarHeight);
-    layout.sectionInset=UIEdgeInsetsMake(LELayoutSideSpace16, LELayoutSideSpace16, LELayoutSideSpace16, LELayoutSideSpace16);
-    collectionView=[[TestCollectionView alloc] initWithSettings:[[LECollectionViewSettings alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer EdgeInsects:UIEdgeInsetsZero] CollectionLayout:layout CellClassname:@"TestCollectionViewCell" ReusableView:@"TestCollectionReusableView"DataSource:self CellSelectionDelegate:self]];
-    [collectionView setBackgroundColor:LEColorClear];
-    //    [collectionView leOnSetContentInsects:layout.sectionInset];
-    //    [collectionView leOnSetContentInsects:UIEdgeInsetsMake(0, LELayoutSideSpace16, 0, LELayoutSideSpace16)];
+    //    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    //    //        layout.itemSize=CGSizeMake((LESCREEN_WIDTH-LELayoutSideSpace16*4)*1.0/3, LENavigationBarHeight);
+    //    layout.itemSize=CGSizeMake(LESCREEN_WIDTH, LENavigationBarHeight);
+    //    //    layout.estimatedItemSize=CGSizeMake(LESCREEN_WIDTH, LENavigationBarHeight);
+    //    layout.scrollDirection=UICollectionViewScrollDirectionVertical;
+    //    //    layout.minimumLineSpacing=LELayoutSideSpace;
+    //    layout.minimumInteritemSpacing=0;
+    //    layout.headerReferenceSize=CGSizeMake(LESCREEN_WIDTH, LEStatusBarHeight+LENavigationBarHeight);
+    //    layout.footerReferenceSize=CGSizeMake(LESCREEN_WIDTH, LEStatusBarHeight);
+    //    layout.sectionInset=UIEdgeInsetsMake(LELayoutSideSpace16, LELayoutSideSpace16, LELayoutSideSpace16, LELayoutSideSpace16);
+    
+    flowLayout=[[LEVerticalFlowLayout alloc] init];
+    collectionView=[[LEBaseCollectionViewWithRefresh alloc] initWithSettings:[[LECollectionViewSettings alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer EdgeInsects:UIEdgeInsetsZero] CollectionLayout:flowLayout CellClassname:@"TestCollectionViewCell" ReusableView:@"TestCollectionReusableView"DataSource:self CellSelectionDelegate:self]];
+    [flowLayout leSetCollectionView:collectionView CellHeightGetter:^CGFloat(id data, NSIndexPath *index) {
+//        return [[data objectAtIndex:index.row] floatValue];
+        return [[[data objectAtIndex:index.section] objectAtIndex:index.row] floatValue];
+    }];
+//    [collectionView setBackgroundColor:LEColorClear];
+//    [collectionView leOnSetContentInsects:flowLayout.sectionInset];
+//    [collectionView leOnSetContentInsects:UIEdgeInsetsMake(0, LELayoutSideSpace16, 0, LELayoutSideSpace16)];
     [collectionView setLeSectionHeaderArray:[@[
                                                @{UICollectionElementKindSectionHeader:@"Header",UICollectionElementKindSectionFooter:@"Footer"},
                                                @{UICollectionElementKindSectionHeader:@"Header2",UICollectionElementKindSectionFooter:@"Footer2"},
@@ -213,16 +217,18 @@
     [self leOnRefreshDataForCollection];
 }
 -(void) leOnRefreshDataForCollection{
-    [collectionView leOnRefreshedWithData:[
-                                           @[
-                                             @[@"0 - 0",@"0 - 1",@"0 - 2",@"0 - 3",@"0 - 4",@"0 - 5",@"0 - 6",@"0 - 7",@"0 - 8",@"0 - 9",@"0 - 10",@"0 - 11"]
-                                             ,@[@"sec2_1",@"sec2_2"]
-                                             ]
-                                           mutableCopy]];
+    NSMutableArray *data=[
+                                                    @[
+                          @[@"40",@"50",@"60",@"70",@"40",@"30"]
+                          //                                             @[@"0 - 0",@"0 - 1",@"0 - 2",@"0 - 3",@"0 - 4",@"0 - 5",@"0 - 6",@"0 - 7",@"0 - 8",@"0 - 9",@"0 - 10",@"0 - 11"]
+                          //                                             ,@[@"sec2_1",@"sec2_2"]
+                                                      ]
+                          mutableCopy];
+    [collectionView leOnRefreshedWithData:data];
 }
 -(void) leOnLoadMoreForCollection{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [collectionView leOnLoadedMoreWithData:[@[@"more1"] mutableCopy]];
+        [collectionView leOnLoadedMoreWithData:[@[@"20"] mutableCopy]];
     });
 }
 -(void) leOnCollectionCellSelectedWithInfo:(NSDictionary *)info{

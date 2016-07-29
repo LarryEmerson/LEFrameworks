@@ -60,3 +60,8 @@
 -(UICollectionViewCell *)leCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 -(NSInteger)leNumberOfSectionsInCollectionView:(UICollectionView *)collectionView;
 @end
+
+@interface LEVerticalFlowLayout : UICollectionViewFlowLayout
+typedef CGFloat(^LEVerticalFlowLayoutCellHeight)(id data, NSIndexPath *index);
+-(void) leSetCollectionView:(LEBaseCollectionView *) target CellHeightGetter:(LEVerticalFlowLayoutCellHeight) block;
+@end

@@ -246,4 +246,38 @@
 }
 @end
 
-
+@implementation LEVerticalFlowLayout{
+    NSMutableArray * _attributeAttay;
+    LEVerticalFlowLayoutCellHeight cellHeight;
+    LEBaseCollectionView *curTarget;
+}
+-(void) leSetCollectionView:(LEBaseCollectionView *) target CellHeightGetter:(LEVerticalFlowLayoutCellHeight) block{
+    curTarget=target;
+    cellHeight=block;
+}
+-(void)prepareLayout{
+    if(!_attributeAttay){
+        _attributeAttay = [[NSMutableArray alloc]init];
+    }else{
+        [_attributeAttay removeAllObjects];
+    }
+    [super prepareLayout];
+    float WIDTH =LESCREEN_WIDTH;
+    float colHight=0;
+    for (int i=0; i<curTarget.leItemsArray.count; i++) {
+        NSIndexPath *index = [NSIndexPath indexPathForItem:i inSection:0];
+        UICollectionViewLayoutAttributes * attris = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:index];
+        float hight = LEDefaultCellHeight;
+        if(cellHeight){
+            hight=cellHeight(curTarget.leItemsArray,index);
+        }
+        attris.frame = CGRectMake(0, colHight, WIDTH, hight);
+        colHight+=hight;
+        [_attributeAttay addObject:attris];
+    }
+    self.itemSize=CGSizeMake(LESCREEN_WIDTH, colHight/curTarget.leItemsArray.count);
+}
+-(NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect{
+    return _attributeAttay;
+}
+@end

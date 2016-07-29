@@ -22,6 +22,7 @@
 @property (nonatomic, readonly) int leCurrentFrameWidth;
 @property (nonatomic, readonly) int leCurrentFrameHight;
 @property (nonatomic, readonly) UIView *leViewContainer;
+@property (nonatomic, readonly) UIView *leViewBelowCustomizedNavigation;
 @property (nonatomic, readonly) LEBaseViewController *leCurrentViewController;
 -(UIView *) leSuperViewContainer;
 -(id) initWithViewController:(LEBaseViewController *) vc;
@@ -44,6 +45,8 @@
 @property (nonatomic) UIView *leTitleViewContainer;
 -(id) initWithDelegate:(id<LENavigationDelegate>) delegate ViewController:(UIViewController *) viewController SuperView:(UIView *) superview Offset:(int) offset BackgroundImage:(UIImage *) background TitleColor:(UIColor *) color LeftItemImage:(UIImage *) left;
 -(void) leSetNavigationTitle:(NSString *) title;
+-(void) leSetLeftButton:(UIImage *) img;
+-(void) leEnableBottomSplit:(BOOL) enable Color:(UIColor *) color;
 -(void) leSetBackground:(UIImage *) image;
 -(void) leSetRightNavigationItemWith:(NSString *) title Image:(UIImage *) image;
 -(void) leSetNavigationOffset:(int) offset;

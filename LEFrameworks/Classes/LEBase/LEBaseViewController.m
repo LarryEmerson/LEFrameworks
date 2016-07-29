@@ -12,6 +12,7 @@
 @property (nonatomic, readwrite) int leCurrentFrameWidth;
 @property (nonatomic, readwrite) int leCurrentFrameHight;
 @property (nonatomic, readwrite) UIView *leViewContainer;
+@property (nonatomic, readwrite) UIView *leViewBelowCustomizedNavigation;
 @property (nonatomic, readwrite) LEBaseViewController *leCurrentViewController;
 @end
 @implementation LEBaseView{
@@ -28,6 +29,9 @@
     self.leViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth,self.leCurrentFrameHight)]];
     [self.leViewContainer setBackgroundColor:[LEUIFramework sharedInstance].leColorViewContainer];
     //
+    if(self.leCurrentFrameHight==LESCREEN_HEIGHT){
+        self.leViewBelowCustomizedNavigation=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, LEStatusBarHeight+LENavigationBarHeight) CGSize:CGSizeMake(LESCREEN_WIDTH, LESCREEN_HEIGHT-LEStatusBarHeight-LENavigationBarHeight)]];
+    }
     self.recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGesture:)];
     [self.recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
     [self.leViewContainer addGestureRecognizer:self.recognizerRight];
@@ -61,6 +65,7 @@
 -(void) viewDidLoad{
     [self setExtendedLayoutIncludesOpaqueBars:YES];
     [self setEdgesForExtendedLayout:UIRectEdgeAll];
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
     [super viewDidLoad];
     [self leExtraInits];
 }
@@ -71,6 +76,7 @@
     id<LENavigationDelegate> curDelegate;
     UIViewController *curViewController;
     UIImageView *background;
+    UIView *bottomSplit;
 }
 
 -(id) initWithDelegate:(id<LENavigationDelegate>) delegate ViewController:(UIViewController *) viewController SuperView:(UIView *) superview Offset:(int) offset BackgroundImage:(UIImage *) bg TitleColor:(UIColor *) color LeftItemImage:(UIImage *) left{
@@ -82,7 +88,19 @@
     leNavigationTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:0 Font:LEBoldFont(LENavigationBarFontSize) Width:LESCREEN_WIDTH-LENavigationBarHeight-LELayoutSideSpace*2 Height:LENavigationBarFontSize Color:color Line:1 Alignment:NSTextAlignmentCenter]];
     UIView *viewLeft=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)]];
     leBackButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc]initWithSuperView:viewLeft Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:nil FontSize:0 Font:nil Image:left BackgroundImage:nil Color:nil SelectedColor:nil MaxWidth:0 SEL:@selector(onLeft) Target:self]]; 
+    [leBackButton setHidden:!left];
+    [self leEnableBottomSplit:YES Color:LEColorSplit];
     return self;
+}
+-(void) leSetLeftButton:(UIImage *) img{
+    [leBackButton setImage:img forState:UIControlStateNormal];
+    [leBackButton setHidden:!img];
+}
+-(void) leEnableBottomSplit:(BOOL) enable Color:(UIColor *) color{
+    if(enable&&bottomSplit==nil){
+        bottomSplit=[self leAddBottomSplitWithColor:color Offset:CGPointZero Width:LESCREEN_WIDTH];
+    }
+    [bottomSplit setHidden:!enable];
 }
 -(void) leSetBackground:(UIImage *) image{
     [background setImage:image];
