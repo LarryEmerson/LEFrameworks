@@ -49,6 +49,7 @@
 -(void) leEnableBottomSplit:(BOOL) enable Color:(UIColor *) color;
 -(void) leSetBackground:(UIImage *) image;
 -(void) leSetRightNavigationItemWith:(NSString *) title Image:(UIImage *) image;
+-(void) leSetRightNavigationItemWith:(NSString *) title Image:(UIImage *) image Color:(UIColor *) color;
 -(void) leSetNavigationOffset:(int) offset;
 @end
 

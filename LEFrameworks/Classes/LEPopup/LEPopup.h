@@ -35,7 +35,8 @@
 @property (nonatomic) UIColor *leColorSplit;
 //
 @property (nonatomic) NSString *leSubtitle;
-@property (nonatomic) UIFont *leSubleTitleFont;
+@property (nonatomic) int leSubtitleLineSpace;
+@property (nonatomic) UIFont *leSubtitleFont;
 @property (nonatomic) UIColor *leSubTitleColor;
 @property (nonatomic) NSTextAlignment leTextAlignment;
 //

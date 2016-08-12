@@ -105,8 +105,9 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 #define LELayoutSideSpace27                                        27
 #define LELayoutSideSpace20                                        20
 #define LELayoutSideSpace16                                        16
+#define LELayoutSideSpace15                                        15
 #define LELayoutSideSpace                                          10
-#define LELayoutChildSideSpace                                     7
+#define LELayoutChildSideSpace                                     8
 #define LELayoutInputSpace                                         20
 #define LELayoutContentBottomSpace45                               45
 #define LELayoutContentTopSpace30                                  30
@@ -125,7 +126,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 #define LELayoutTextLineSpace14                                    14
 #define LELayoutTextLineSpace                                      12
 #define LELayoutChildTextLineSpace                                 10
-#define LELayoutSnapshotTextLineSpace                              7
+#define LELayoutSnapshotTextLineSpace                              8
 #pragma mark Layout Avatar
 #define LELayoutAvatarSizeBig                                      60
 #define LELayoutAvatarSizeMid                                      40
@@ -135,7 +136,9 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 #define LELayoutFontSize70                                         70
 #define LELayoutFontSize30                                         30
 #define LELayoutFontSize20                                         20
+#define LELayoutFontSize18                                         18
 #define LELayoutFontSize17                                         17
+#define LELayoutFontSize16                                         16
 #define LELayoutFontSize14                                         14
 #define LELayoutFontSize13                                         13
 #define LELayoutFontSize12                                         12
@@ -216,19 +219,21 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 #define LEDefaultCellHeight (LEIS_IPHONE_6P?LEDefaultCellHeightBig:(LEIS_IPHONE_6?LEDefaultCellHeightMid:LEDefaultCellHeightSml))
 #define LEDefaultCellIconRect 30
 
+#define LEDefaultSectionHeight8 8
 #define LEDefaultSectionHeight 12
 #define LEDefaultSectionHeightBig 24
 
 #pragma mark Define Colors
 #define LEColorTableViewGray      [UIColor colorWithWhite:0.941 alpha:1.000]
-#define LEColorGrayDark           [UIColor colorWithRed:0.1959 green:0.2207 blue:0.2707 alpha:1.0]
+#define LEColorGrayDark           [UIColor colorWithRed:0.1892 green:0.2134 blue:0.2779 alpha:1.0]
 #define LEColorGray               [UIColor colorWithRed:0.6384 green:0.6588 blue:0.7095 alpha:1.0]
-#define LEColorGrayLight        [UIColor colorWithRed:0.9412 green:0.9412 blue:0.9412 alpha:1.0]
+#define LEColorGrayLight          [UIColor colorWithRed:0.9264 green:0.9263 blue:0.9263 alpha:1.0]
 #define LEColorTextBlack          [UIColor colorWithRed:0.2549 green:0.2863 blue:0.3412 alpha:1.0]
-#define LEColorTextGray           [UIColor colorWithRed:0.6966 green:0.7178 blue:0.76    alpha:1.0]
-#define LEColorBlue               [UIColor colorWithRed:0.1922 green:0.4204 blue:0.8959 alpha:1.0]
-#define LEColorRed 				  [UIColor colorWithRed:0.949 green:0.3451 blue:0.3451  alpha:1.0]
-#define LEColorSplit              [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.08]
+#define LEColorTextGray           [UIColor colorWithRed:0.372 green:0.3934 blue:0.4507    alpha:1.0]
+#define LEColorBlue               [UIColor colorWithRed:0.2071 green:0.467 blue:0.8529 alpha:1.0]
+#define LEColorRed 				  [UIColor colorWithRed:0.9337 green:0.2135 blue:0.3201  alpha:1.0]
+#define LEColorSplit              [UIColor colorWithRed:0.8843 green:0.8886 blue:0.9138 alpha:1.0]
+#define LEColorSection            [UIColor colorWithRed:0.9412 green:0.9502 blue:0.9703 alpha:0.08]
 #define LEColorTest               [UIColor colorWithRed:0.867 green:0.852 blue:0.539 alpha:1.000]
 #define LEColorClear              [UIColor clearColor]
 #define LEColorWhite              [UIColor whiteColor]
@@ -267,7 +272,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 #define LEKeyOfClickStatusContentExtra  @"cellstatuscontentextra"
 #define LEKeyOfClickStatusAsDefault     0
 #define LEKeyOfCellTitle                @"emptycelltitle"
-
+#define LESquareSize(__integer)         CGSizeMake(__integer,__integer)
 @interface UIViewController (LEExtension)
 -(void) leSetLeftBarButtonWithImage:(UIImage *) img SEL:(SEL) sel;
 -(void) leSetRightBarButtonWithImage:(UIImage *)img SEL:(SEL) sel;

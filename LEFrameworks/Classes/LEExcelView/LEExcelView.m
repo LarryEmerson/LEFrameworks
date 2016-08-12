@@ -45,18 +45,21 @@
 @end
 @implementation LEExcelViewTabbar{
     LEExcelViewTableView *curTableView;
+    NSDictionary *curParam;
 }
 -(id) initWithSettings:(LEAutoLayoutSettings *)settings UIParam:(NSDictionary *) param{
+    curParam=param;
     self=[super initWithAutoLayoutSettings:settings];
-    int immovable=[[param objectForKey:@"immovable"] intValue];
-    int movable  =[[param objectForKey:@"movable"] intValue];
+    return self;
+}
+-(void) leExtraInits{
+    int immovable=[[curParam objectForKey:@"immovable"] intValue];
+    int movable  =[[curParam objectForKey:@"movable"] intValue];
     UIView *movableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
     UIView *immovableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
     self.leImmovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:immovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(immovable, self.bounds.size.height)]];
     self.leMovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:movableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(immovable, 0) CGSize:CGSizeMake(movable, self.bounds.size.height)]];
-    [self leExtraInits];
-    return self;
-} 
+}
 -(void) leOnSetTabbarData:(id) data{
     
 } 
@@ -98,6 +101,7 @@
         LESuppressPerformSelectorLeakWarning(
                                              curTabbar=[[curTabbarClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:UIParam:") withObject:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointZero CGSize:CGSizeMake(leImmovableWidth+movableWidth, tabbarHeight)] withObject:dic];
                                              );
+        [curTabbar setDelegate:self.leCellSelectionDelegate];
         [curTabbar addSwipObserver:self];
     }
     return curTabbar;
@@ -132,6 +136,9 @@
     int movableWidth;
     LEExcelViewTableView *curTableView;
 }
+-(UITableView *) leGetTableView{
+    return curTableView;
+}
 -(id) initWithSettings:(LETableViewSettings *)settings ImmovableViewWidth:(int) immovable MovableViewWidth:(int) movable TabbarHeight:(int) tabbarH TabbarClassname:(NSString *) tabbar{
     leImmovableWidth=immovable;
     movableWidth=movable;
@@ -146,6 +153,9 @@
     [curTableView leSetTopRefresh:NO];
     [curTableView leSetBottomRefresh:NO];
     return self;
+}
+-(void) leScrollToTop{
+    [curTableView setContentOffset:CGPointZero animated:YES];
 }
 -(void) leOnRefreshedWithData:(NSMutableArray *) data{
     [curTableView leOnRefreshedWithData:data];

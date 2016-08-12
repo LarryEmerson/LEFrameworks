@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'LEFrameworks'
-s.version          = '0.4.9'
+s.version          = '0.5.0'
 s.summary          = 'LarryEmerson 之 IOS 基础封装'
 s.homepage         = 'https://github.com/LarryEmerson/LEFrameworks'
 s.license          = { :type => 'MIT', :file => 'LICENSE' }

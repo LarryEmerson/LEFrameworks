@@ -62,6 +62,7 @@
 }
 -(void) leAddTapEventWithSEL:(SEL)sel Target:(id) target{
     [target setUserInteractionEnabled:YES];
+    [self setUserInteractionEnabled:YES];
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:target action:sel]];
 }
 -(UIImageView *) leAddTopSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width{
@@ -197,8 +198,8 @@ static void * LEAutoLayoutLabelSettingsKey = (void *) @"LEAutoLayoutLabelSetting
         if(width==0||width>LESCREEN_WIDTH){
             width=LESCREEN_WIDTH;
         }
-        CGRect rect = [self.text boundingRectWithSize:CGSizeMake(width, LELabelMaxSize.height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
-        [self leSetSize:CGSizeMake(rect.size.width, rect.size.height)]; 
+        CGRect rect = [attributedString boundingRectWithSize:CGSizeMake(width, LELabelMaxSize.height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
+        [self leSetSize:CGSizeMake(rect.size.width, rect.size.height)];
         [self leRedrawAttributedStringWithRect:rect LineSpace:space];
     }
 }
@@ -559,6 +560,7 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
             [settings.leRelativeChangeView.leAutoResizeObservers addObject:self];
         }
     }
+    [self leExtraInits];
     return self;
 }
 -(void) leAddAutoResizeRelativeView:(UIView *) changeView EdgeInsects:(UIEdgeInsets) edge{

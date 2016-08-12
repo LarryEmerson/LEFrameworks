@@ -10,5 +10,6 @@
 #import "LEUIFramework.h" 
 @interface LEBaseTableViewSectionWithIcon : UIView
 @property (nonatomic) UIImageView *leIcon;
+@property (nonatomic) UILabel *leTitle;
 -(id) initWithSectionText:(NSString *) title;
 @end

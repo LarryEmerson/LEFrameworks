@@ -69,6 +69,15 @@
     [super viewDidLoad];
     [self leExtraInits];
 }
+-(void) leExtraInits{
+    NSString *class=NSStringFromClass(self.class);
+    class=[class stringByAppendingString:@"Page"];
+    NSObject *obj=[NSClassFromString(class) alloc];
+    if(obj&&([obj isKindOfClass:[LEBaseView class]]||[obj isMemberOfClass:[LEBaseView class]])){
+        LEBaseView *view= [(LEBaseView *) obj initWithViewController:self];
+        [view setUserInteractionEnabled:YES];
+    }
+}
 @end
 
 
@@ -115,28 +124,33 @@
     }
 }
 -(void) leSetRightNavigationItemWith:(NSString *) title Image:(UIImage *) image{
+    [self leSetRightNavigationItemWith:title Image:image Color:LEColorTextBlack];
+}
+-(void) leSetRightNavigationItemWith:(NSString *) title Image:(UIImage *) image Color:(UIColor *) color{
     [self lazyInitRightButton];
-    [leRightButton setTitle:title forState:UIControlStateNormal];
+    [leRightButton leSetText:title];
+    //    [leRightButton setTitle:title forState:UIControlStateNormal];
+    [leRightButton setTitleColor:color forState:UIControlStateNormal];
     [leRightButton setImage:image forState:UIControlStateNormal];
     if((title==nil||title.length==0)&&image==nil){
         [leRightButton setHidden:YES];
     }else{
         [leRightButton setHidden:NO];
     }
+    int width=LESCREEN_WIDTH-LENavigationBarHeight-(leRightButton.isHidden?0:leRightButton.bounds.size.width);
+    [self.leTitleViewContainer leSetSize:CGSizeMake(width, LENavigationBarHeight)];
     if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationNotifyTitleViewContainerWidth:)]){
-        int width=LESCREEN_WIDTH-LENavigationBarHeight-(leRightButton.isHidden?0:leRightButton.bounds.size.width);
-        [self.leTitleViewContainer leSetSize:CGSizeMake(width, LENavigationBarHeight)];
         [curDelegate leNavigationNotifyTitleViewContainerWidth:width];
-        [leNavigationTitle.leAutoLayoutLabelSettings setLeWidth:width-LELayoutSideSpace*2];
-        [UIView animateWithDuration:0.1 animations:^{
-            [leNavigationTitle leSetOffset:CGPointZero];
-            [self leSetNavigationTitle:leNavigationTitle.text];
-        }];
     }
+    [leNavigationTitle.leAutoLayoutLabelSettings setLeWidth:width-LELayoutSideSpace*2];
+    [UIView animateWithDuration:0.1 animations:^{
+        [leNavigationTitle leSetOffset:CGPointZero];
+        [self leSetNavigationTitle:leNavigationTitle.text];
+    }];
 }
 -(void)lazyInitRightButton{
     if(leRightButton==nil){
-        leRightButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LELayoutSideSpace, 0) CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"" FontSize:LELayoutFontSize12 Font:nil Image:nil BackgroundImage:nil Color:LEColorBlue SelectedColor:LEColorGray MaxWidth:0 SEL:@selector(onRight) Target:self]];
+        leRightButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LELayoutSideSpace, 0) CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"" FontSize:LELayoutFontSize12 Font:nil Image:nil BackgroundImage:nil Color:LEColorTextBlack SelectedColor:LEColorGray MaxWidth:0 SEL:@selector(onRight) Target:self]];
     }
 }
 

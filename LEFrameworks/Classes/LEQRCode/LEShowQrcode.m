@@ -41,5 +41,5 @@
     [self.view addSubview:page];
     [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
 }
-
+-(void) leExtraInits{}
 @end

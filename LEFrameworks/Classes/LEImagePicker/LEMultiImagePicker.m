@@ -119,6 +119,7 @@
     page=[[LEMultiImagePickerFlowPage alloc] initWithViewController:self AssetsGroup:group];
     return self;
 }
+-(void) leExtraInits{}
 @end
 
 //==============================

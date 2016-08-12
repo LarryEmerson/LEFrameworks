@@ -254,6 +254,9 @@
 -(void) leSetCollectionView:(LEBaseCollectionView *) target CellHeightGetter:(LEVerticalFlowLayoutCellHeight) block{
     curTarget=target;
     cellHeight=block;
+    [curTarget setAlwaysBounceHorizontal:NO];
+    [curTarget setAlwaysBounceVertical:YES];
+    self.scrollDirection=UICollectionViewScrollDirectionHorizontal;
 }
 -(void)prepareLayout{
     if(!_attributeAttay){
@@ -276,6 +279,41 @@
         [_attributeAttay addObject:attris];
     }
     self.itemSize=CGSizeMake(LESCREEN_WIDTH, colHight/curTarget.leItemsArray.count);
+}
+-(NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect{
+    return _attributeAttay;
+}
+@end
+@implementation LEHorizontalFlowLayout{
+    NSMutableArray * _attributeAttay;
+    LEHorizontalFlowLayoutCellWidth cellWidth;
+    LEBaseCollectionView *curTarget;
+}
+-(void) leSetCollectionView:(LEBaseCollectionView *) target CellWidthGetter:(LEHorizontalFlowLayoutCellWidth) block{
+    curTarget=target;
+    [curTarget setAlwaysBounceHorizontal:YES];
+    [curTarget setAlwaysBounceVertical:NO];
+    self.scrollDirection=UICollectionViewScrollDirectionHorizontal;
+    cellWidth=block;
+}
+-(void)prepareLayout{
+    if(!_attributeAttay){
+        _attributeAttay = [[NSMutableArray alloc]init];
+    }else{
+        [_attributeAttay removeAllObjects];
+    }
+    [super prepareLayout];
+    float colWidth=0;
+    float HEIGHT=curTarget.bounds.size.height-1;
+    for (int i=0; i<curTarget.leItemsArray.count; i++) {
+        NSIndexPath *index = [NSIndexPath indexPathForItem:i inSection:0];
+        UICollectionViewLayoutAttributes * attris = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:index];
+        float width = cellWidth(curTarget.leItemsArray,index);
+        attris.frame = CGRectMake(colWidth, 0, width, HEIGHT);
+        colWidth+=width;
+        [_attributeAttay addObject:attris];
+    }
+    self.itemSize=CGSizeMake(colWidth/curTarget.leItemsArray.count, HEIGHT);
 }
 -(NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect{
     return _attributeAttay;

@@ -228,4 +228,5 @@
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:isBarHidden animated:YES];
 }
+-(void) leExtraInits{}
 @end

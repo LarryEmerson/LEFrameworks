@@ -192,4 +192,5 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
 }
+-(void) leExtraInits{}
 @end

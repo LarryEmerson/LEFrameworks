@@ -109,8 +109,8 @@
     if(!curSettings.leTitleColor){
         curSettings.leTitleColor=LEColorTextBlack;
     }
-    if(!curSettings.leSubleTitleFont){
-        curSettings.leSubleTitleFont=[UIFont systemFontOfSize:LELayoutFontSize12];
+    if(!curSettings.leSubtitleFont){
+        curSettings.leSubtitleFont=[UIFont systemFontOfSize:LELayoutFontSize12];
     }
     if(!curSettings.leSubTitleColor){
         curSettings.leSubTitleColor=LEColorTextBlack;
@@ -132,8 +132,8 @@
     curTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curContentContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(ContentW, ContentHExtra)] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:curSettings.leTitle FontSize:0 Font:curSettings.leTitleFont Width:ContentW Height:0 Color:curSettings.leTitleColor Line:0 Alignment:NSTextAlignmentCenter]];
     curSplit=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curContentContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:curTitle Offset:CGPointMake(0, LELayoutSideSpace) CGSize:CGSizeMake(ContentW, 1)] Image:[curSettings.leColorSplit leImageStrechedFromSizeOne]];
     [curSplit setHidden:!curSettings.leHasTopSplit];
-    curSubtitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curContentContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:curSplit Offset:CGPointMake(0, curSettings.leHasTopSplit?LELayoutSideSpace:0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:curSettings.leSubtitle FontSize:0 Font:curSettings.leSubleTitleFont Width:ContentW Height:0 Color:curSettings.leSubTitleColor Line:0 Alignment:curSettings.leTextAlignment]];
-    //    [curSubtitle leSetLineSpace:LayoutTextLineSpace];
+    curSubtitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curContentContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:curSplit Offset:CGPointMake(0, curSettings.leHasTopSplit?LELayoutSideSpace:0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:curSettings.leSubtitle FontSize:0 Font:curSettings.leSubtitleFont Width:ContentW Height:0 Color:curSettings.leSubTitleColor Line:0 Alignment:curSettings.leTextAlignment]];
+    [curSubtitle leSetLineSpace:curSettings.leSubtitleLineSpace];
     btnHeight=LENavigationBarHeight;
     if(curSettings.leLeftButtonSetting.leBackgroundImage){
         btnHeight=MAX(LENavigationBarHeight, curSettings.leLeftButtonSetting.leBackgroundImage.size.height);
@@ -157,7 +157,7 @@
     [curTitle leSetText:curSettings.leTitle];
     [curSplit setHidden:!curSettings.leHasTopSplit];
     [curSubtitle leSetText:curSettings.leSubtitle];
-    //    [curSubtitle leSetLineSpace:LayoutTextLineSpace];
+    [curSubtitle leSetLineSpace:curSettings.leSubtitleLineSpace];
     [curSubtitle leSetOffset:CGPointMake(0, curSettings.leHasTopSplit?LELayoutSideSpace:0)];
     [self initLeftButton];
     [self initRightButton];
@@ -252,8 +252,8 @@
     } completion:^(BOOL done){
         if(sel){
             LESuppressPerformSelectorLeakWarning(
-                                               [self performSelector:sel];
-                                               );
+                                                 [self performSelector:sel];
+                                                 );
         }
         [self removeFromSuperview];
     }];

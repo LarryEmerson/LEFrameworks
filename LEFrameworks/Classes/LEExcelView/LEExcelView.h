@@ -14,6 +14,8 @@
 -(id) initWithSettings:(LETableViewSettings *)settings ImmovableViewWidth:(int) immovable MovableViewWidth:(int) movable TabbarHeight:(int) tabbarH TabbarClassname:(NSString *) tabbar;
 -(void) leOnRefreshedWithData:(NSMutableArray *) data;
 -(void) leOnSetTabbarData:(id) data;
+-(void) leScrollToTop;
+-(UITableView *) leGetTableView;
 @end
 @interface LEExcelViewTableView : LEBaseTableView
 @property (nonatomic, readonly) int leSwipOffset;
@@ -27,6 +29,8 @@
 @end
 @interface LEExcelViewTabbar : UIView
 @property (nonatomic) UIView *leImmovableViewContainer;
-@property (nonatomic) UIView *leMovableViewContainer; 
+@property (nonatomic) UIView *leMovableViewContainer;
+@property (nonatomic) id<LETableViewCellSelectionDelegate> delegate;
 -(void) leOnSetTabbarData:(id) data;
+-(void) leExtraInits NS_REQUIRES_SUPER;
 @end

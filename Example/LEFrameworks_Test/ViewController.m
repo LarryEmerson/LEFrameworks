@@ -202,12 +202,12 @@
     flowLayout=[[LEVerticalFlowLayout alloc] init];
     collectionView=[[LEBaseCollectionViewWithRefresh alloc] initWithSettings:[[LECollectionViewSettings alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewContainer EdgeInsects:UIEdgeInsetsZero] CollectionLayout:flowLayout CellClassname:@"TestCollectionViewCell" ReusableView:@"TestCollectionReusableView"DataSource:self CellSelectionDelegate:self]];
     [flowLayout leSetCollectionView:collectionView CellHeightGetter:^CGFloat(id data, NSIndexPath *index) {
-//        return [[data objectAtIndex:index.row] floatValue];
+        //        return [[data objectAtIndex:index.row] floatValue];
         return [[[data objectAtIndex:index.section] objectAtIndex:index.row] floatValue];
     }];
-//    [collectionView setBackgroundColor:LEColorClear];
-//    [collectionView leOnSetContentInsects:flowLayout.sectionInset];
-//    [collectionView leOnSetContentInsects:UIEdgeInsetsMake(0, LELayoutSideSpace16, 0, LELayoutSideSpace16)];
+    //    [collectionView setBackgroundColor:LEColorClear];
+    //    [collectionView leOnSetContentInsects:flowLayout.sectionInset];
+    //    [collectionView leOnSetContentInsects:UIEdgeInsetsMake(0, LELayoutSideSpace16, 0, LELayoutSideSpace16)];
     [collectionView setLeSectionHeaderArray:[@[
                                                @{UICollectionElementKindSectionHeader:@"Header",UICollectionElementKindSectionFooter:@"Footer"},
                                                @{UICollectionElementKindSectionHeader:@"Header2",UICollectionElementKindSectionFooter:@"Footer2"},
@@ -218,11 +218,11 @@
 }
 -(void) leOnRefreshDataForCollection{
     NSMutableArray *data=[
-                                                    @[
-                          @[@"40",@"50",@"60",@"70",@"40",@"30"]
-                          //                                             @[@"0 - 0",@"0 - 1",@"0 - 2",@"0 - 3",@"0 - 4",@"0 - 5",@"0 - 6",@"0 - 7",@"0 - 8",@"0 - 9",@"0 - 10",@"0 - 11"]
-                          //                                             ,@[@"sec2_1",@"sec2_2"]
-                                                      ]
+                          @[
+                            @[@"40",@"50",@"60",@"70",@"40",@"30"]
+                            //                                             @[@"0 - 0",@"0 - 1",@"0 - 2",@"0 - 3",@"0 - 4",@"0 - 5",@"0 - 6",@"0 - 7",@"0 - 8",@"0 - 9",@"0 - 10",@"0 - 11"]
+                            //                                             ,@[@"sec2_1",@"sec2_2"]
+                            ]
                           mutableCopy];
     [collectionView leOnRefreshedWithData:data];
 }
@@ -322,6 +322,7 @@
     LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
     curExcelView=[[LEExcelView alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:view ParentView:view.leViewContainer TableViewCell:@"TestExcelViewCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self] ImmovableViewWidth:120 MovableViewWidth:300 TabbarHeight:LEBottomTabbarHeight TabbarClassname:@"TestExcelViewTabbar"];
     [curExcelView leOnRefreshedWithData:[@[@"",@"",@"",@"",@"",@"",@"",@""]mutableCopy]];
+    [[curExcelView leGetTableView] setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, 0, LENavigationBarHeight)];
     [self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
 }
 //===================测试 自动排版

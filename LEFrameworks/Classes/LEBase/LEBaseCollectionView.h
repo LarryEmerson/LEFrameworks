@@ -65,3 +65,8 @@
 typedef CGFloat(^LEVerticalFlowLayoutCellHeight)(id data, NSIndexPath *index);
 -(void) leSetCollectionView:(LEBaseCollectionView *) target CellHeightGetter:(LEVerticalFlowLayoutCellHeight) block;
 @end
+
+@interface LEHorizontalFlowLayout : UICollectionViewFlowLayout
+typedef CGFloat(^LEHorizontalFlowLayoutCellWidth)(id data, NSIndexPath *index);
+-(void) leSetCollectionView:(LEBaseCollectionView *) target CellWidthGetter:(LEHorizontalFlowLayoutCellWidth) block;
+@end
