@@ -70,7 +70,7 @@
             [curArray addObject:result];
         }else{
             if(curArray&&curArray.count>0){
-                curArray=[[curArray reverseObjectEnumerator] allObjects];
+                curArray=[[[curArray reverseObjectEnumerator] allObjects] mutableCopy];
             }
             [self reloadCell];
         }
@@ -204,7 +204,7 @@
                 }
             }else{
                 if(self.albumsArray&&self.albumsArray.count>0){
-                    self.albumsArray=[[self.albumsArray reverseObjectEnumerator] allObjects];
+                    self.albumsArray=[[[self.albumsArray reverseObjectEnumerator] allObjects] mutableCopy];
                 }
                 [curTableView leOnRefreshedWithData:self.albumsArray];
             }
