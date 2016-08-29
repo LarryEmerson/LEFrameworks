@@ -185,7 +185,7 @@
 -(void)leLabelLayout{
     int width=self.leAutoLayoutLabelSettings.leWidth;
     int height=self.leAutoLayoutLabelSettings.leHeight;
-    if(width==0||width>LESCREEN_WIDTH){
+    if(width<=0/*||width>LESCREEN_WIDTH*/){
         width=LESCREEN_WIDTH;
     }
     self.leAutoLayoutLabelSettings.leWidth=width;

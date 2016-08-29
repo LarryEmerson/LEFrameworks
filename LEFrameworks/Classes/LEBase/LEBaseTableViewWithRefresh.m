@@ -87,6 +87,7 @@
 }
 -(void) leOnStopTopRefresh {
     //    LELogFunc;
+    [self reloadData];
     [self onStopRefreshLogic];
 }
 -(void) leOnStopBottomRefresh {
@@ -98,7 +99,7 @@
         // 结束刷新
         [refreshHeader onEndRefresh];
         [refreshFooter onEndRefresh];
-        [self reloadData];
+//        [self reloadData];
     });
 }
 

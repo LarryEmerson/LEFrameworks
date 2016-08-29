@@ -150,7 +150,7 @@
 }
 -(void)lazyInitRightButton{
     if(leRightButton==nil){
-        leRightButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LELayoutSideSpace, 0) CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"" FontSize:LELayoutFontSize12 Font:nil Image:nil BackgroundImage:nil Color:LEColorTextBlack SelectedColor:LEColorGray MaxWidth:0 SEL:@selector(onRight) Target:self]];
+        leRightButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LELayoutSideSpace, 0) CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"" FontSize:LELayoutFontSize14 Font:nil Image:nil BackgroundImage:nil Color:LEColorTextBlack SelectedColor:LEColorGray MaxWidth:0 SEL:@selector(onRight) Target:self]];
     }
 }
 

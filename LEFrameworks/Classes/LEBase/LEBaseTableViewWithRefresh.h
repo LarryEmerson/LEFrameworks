@@ -12,4 +12,5 @@
 //@interface LEBaseTableViewWithMJRefresh : LEBaseTableView
 //@end
 @interface LEBaseTableViewWithRefresh : LEBaseTableView
+-(void) leExtraInits NS_REQUIRES_SUPER;
 @end

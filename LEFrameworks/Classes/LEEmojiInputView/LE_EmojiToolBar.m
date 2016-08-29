@@ -66,11 +66,9 @@
     
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        
         [self setUserInteractionEnabled:YES];
         [self leExtraInits];
     }

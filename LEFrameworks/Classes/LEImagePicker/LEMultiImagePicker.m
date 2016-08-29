@@ -42,7 +42,7 @@
 }
 @end
 
-@interface LEMultiImagePickerFlowPage:LEBaseView
+@interface LEMultiImagePickerFlowPage:LEBaseView<LENavigationDelegate>
 @end
 @implementation LEMultiImagePickerFlowPage{
     UIScrollView *curScrollView;
@@ -51,28 +51,45 @@
     ALAssetsGroup *curGroup;
     int space;
     int cellSize;
+    LEBaseNavigation *curNavi;
+    id<LEMultiImagePickerDelegate> curDelegate;
 }
 -(void) leExtraInits{
+    curNavi=[[LEBaseNavigation alloc] initWithDelegate:self ViewController:self.leCurrentViewController SuperView:self.leViewContainer Offset:LEStatusBarHeight BackgroundImage:[LEColorWhite leImageStrechedFromSizeOne] TitleColor:LEColorTextBlack LeftItemImage:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"]];
+    [curNavi leSetNavigationTitle:@"照片图库"];
+    [curNavi leSetRightNavigationItemWith:@"完成" Image:nil];
+    //
     space=2;
     cellSize=(self.leCurrentFrameWidth-space*3)*1.0/4;
     curArray=[[NSMutableArray alloc] init];
     curCellCache=[[NSMutableArray alloc] init];
-    curScrollView=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth, self.leCurrentFrameHight)]];
+    curScrollView=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewBelowCustomizedNavigation Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(LESCREEN_WIDTH, self.leViewBelowCustomizedNavigation.bounds.size.height)]];
+    [curScrollView setClipsToBounds:YES];
     [curGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
         if(result) {
             [curArray addObject:result];
         }else{
+            if(curArray&&curArray.count>0){
+                curArray=[[curArray reverseObjectEnumerator] allObjects];
+            }
             [self reloadCell];
         }
     }];
 }
+-(void) leNavigationRightButtonTapped{
+    if(curDelegate&&[curDelegate respondsToSelector:@selector(leOnMultiImagePickedWith:)]){
+        [curDelegate leOnMultiImagePickedWith:[self getData]];
+    }
+    [[self.leCurrentViewController.navigationController popViewControllerAnimated:YES] lePopSelfAnimated];
+}
 -(void) reloadCell{
     for (int i=0; i<curArray.count; i++) {
-        LEMultiImagePickerFlowCell *cell=[[LEMultiImagePickerFlowCell alloc] initWithFrame:CGRectMake((cellSize+space)*(i%4), LELayoutSideSpace+(cellSize+space)*(i/4), cellSize, cellSize)];
-        [self addSubview:cell];
+        LEMultiImagePickerFlowCell *cell=[[LEMultiImagePickerFlowCell alloc] initWithFrame:CGRectMake((cellSize+space)*(i%4), (cellSize+space)*(i/4), cellSize, cellSize)];
+        [curScrollView addSubview:cell];
         [cell setAlAsset:[curArray objectAtIndex:i]];
         [curCellCache addObject:cell];
     }
+    [curScrollView setContentSize:CGSizeMake(LESCREEN_WIDTH, (cellSize+space)*(curArray.count/4+(curArray.count%4==0?0:1)))];
 }
 -(NSArray *) getData{
     NSMutableArray *array=[[NSMutableArray alloc] init];
@@ -80,43 +97,24 @@
         LEMultiImagePickerFlowCell *cell=[curCellCache objectAtIndex:i];
         if(cell.isChecked){
             ALAsset *asset=[cell getAsset];
-            [array addObject:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]]];
+            [array addObject:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]]];
         }
     }
     return array;
 }
--(id) initWithViewController:(LEBaseViewController *)vc AssetsGroup:(ALAssetsGroup *) group{
+-(id) initWithViewController:(LEBaseViewController *)vc AssetsGroup:(ALAssetsGroup *) group Delegate:(id<LEMultiImagePickerDelegate>) delegate{
     curGroup=group;
+    curDelegate=delegate;
     return [super initWithViewController:vc];
 }
 @end
 
 @interface LEMultiImagePickerFlow:LEBaseViewController
 @end
-@implementation LEMultiImagePickerFlow{
-    BOOL isBarHide;
-    LEMultiImagePickerFlowPage *page;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    isBarHide=self.navigationController.navigationBarHidden;
-    
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.view addSubview:page];
-    //    [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
-    [self.navigationItem setTitle:@"照片图库"];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(onRight)]];
-}
--(void) onRight{
-    [self.navigationController popViewControllerAnimated:NO];
-    if(self.lePopDelegate&&[self.lePopDelegate respondsToSelector:@selector(leOnViewControllerPopedWithPageName:AndData:)]){
-        [self.lePopDelegate leOnViewControllerPopedWithPageName:@"" AndData:[page getData]];
-    }
-}
--(id) initWithDelegate:(id<LEViewControllerPopDelegate>)delegate AssetsGroup:(ALAssetsGroup *) group{
-    self=[super initWithDelegate:delegate];
-    page=[[LEMultiImagePickerFlowPage alloc] initWithViewController:self AssetsGroup:group];
+@implementation LEMultiImagePickerFlow
+-(id) initWithDelegate:(id<LEMultiImagePickerDelegate>)delegate AssetsGroup:(ALAssetsGroup *) group{
+    self=[super init];
+    [[[LEMultiImagePickerFlowPage alloc] initWithViewController:self AssetsGroup:group Delegate:delegate] setUserInteractionEnabled:YES];
     return self;
 }
 -(void) leExtraInits{}
@@ -152,7 +150,7 @@
 }
 @end
 
-@interface LEMultiImagePickerPage:LEBaseView<LETableViewCellSelectionDelegate,LEViewControllerPopDelegate>
+@interface LEMultiImagePickerPage:LEBaseView<LETableViewCellSelectionDelegate,LENavigationDelegate>
 @property (nonatomic) ALAssetsLibrary *assetsLibrary;
 @property (nonatomic) NSMutableArray *albumsArray;
 @end
@@ -160,29 +158,30 @@
     LEBaseTableView *curTableView;
     NSMutableArray *curArray;
     id<LEMultiImagePickerDelegate> curDelegate;
+    LEBaseNavigation *curNavi;
 }
 -(id) initWithViewController:(LEBaseViewController *)vc Delegate:(id<LEMultiImagePickerDelegate>) delegate{
     curDelegate=delegate;
     return [super initWithViewController:vc];
 }
 -(void) leExtraInits{
+    curNavi=[[LEBaseNavigation alloc] initWithDelegate:self ViewController:self.leCurrentViewController SuperView:self.leViewContainer Offset:LEStatusBarHeight BackgroundImage:[LEColorWhite leImageStrechedFromSizeOne] TitleColor:LEColorTextBlack LeftItemImage:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"]];
+    [curNavi leSetNavigationTitle:@"照片"];
+    [curNavi leSetRightNavigationItemWith:@"取消" Image:nil];
     self.assetsLibrary = [[ALAssetsLibrary alloc] init];
     curArray=[[NSMutableArray alloc] init];
-    curTableView=[[LEBaseTableView alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.leViewContainer TableViewCell:@"LEMultiImagePickerCell" EmptyTableViewCell:nil GetDataDelegate:nil TableViewCellSelectionDelegate:self]];
+    curTableView=[[LEBaseTableView alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.leViewBelowCustomizedNavigation TableViewCell:@"LEMultiImagePickerCell" EmptyTableViewCell:nil GetDataDelegate:nil TableViewCellSelectionDelegate:self]];
     [curTableView leSetTopRefresh:NO];
     [curTableView leSetBottomRefresh:NO];
     [self onLoadData];
 }
+-(void) leNavigationRightButtonTapped{
+    [self.leCurrentViewController lePopSelfAnimated];
+}
 -(void) leOnTableViewCellSelectedWithInfo:(NSDictionary *)info{
     NSIndexPath *index=[info objectForKey:LEKeyOfIndexPath];
-    LEMultiImagePickerFlow *vc=[[LEMultiImagePickerFlow alloc] initWithDelegate:self AssetsGroup:[[self.albumsArray objectAtIndex:index.row] objectForKey:@"group"]];
+    LEMultiImagePickerFlow *vc=[[LEMultiImagePickerFlow alloc] initWithDelegate:curDelegate AssetsGroup:[[self.albumsArray objectAtIndex:index.row] objectForKey:@"group"]];
     [self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
-}
--(void) leOnViewControllerPopedWithPageName:(NSString *)order AndData:(id)data{
-    [self.leCurrentViewController.navigationController popViewControllerAnimated:YES];
-    if(curDelegate&&[curDelegate respondsToSelector:@selector(leOnMultiImagePickedWith:)]){
-        [curDelegate leOnMultiImagePickedWith:data];
-    }
 }
 -(void) onLoadData{
     NSString *tipTextWhenNoPhotosAuthorization; // 提示语
@@ -204,6 +203,9 @@
                     [self.albumsArray addObject:@{@"group":group}];
                 }
             }else{
+                if(self.albumsArray&&self.albumsArray.count>0){
+                    self.albumsArray=[[self.albumsArray reverseObjectEnumerator] allObjects];
+                }
                 [curTableView leOnRefreshedWithData:self.albumsArray];
             }
         } failureBlock:^(NSError *error) {
@@ -215,28 +217,11 @@
 
 @interface LEMultiImagePicker ()
 @end
-@implementation LEMultiImagePicker{
-    BOOL isBarHide;
-    LEMultiImagePickerPage *page;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    isBarHide=self.navigationController.navigationBarHidden;
-    
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.view addSubview:page];
-    [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
-    [self.navigationItem setTitle:@"照片"];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil]];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(onRight)]];
-}
--(void) onRight{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+@implementation LEMultiImagePicker
 -(id) initWithImagePickerDelegate:(id<LEMultiImagePickerDelegate>) delegate{
     self=[super init];
-    page=[[LEMultiImagePickerPage alloc] initWithViewController:self Delegate:delegate];
+    [[[LEMultiImagePickerPage alloc] initWithViewController:self Delegate:delegate] setUserInteractionEnabled:YES];
     return self;
 }
+-(void) leExtraInits{}
 @end

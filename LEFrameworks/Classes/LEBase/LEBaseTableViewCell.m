@@ -101,7 +101,16 @@
     if([LEUIFramework sharedInstance].leCanItBeTapped){
         [self leOnCellSelectedWithIndex:LEKeyOfClickStatusAsDefault];
     }
-} 
+}
+-(void) leOnCellSelectedWithInfo:(NSDictionary *) info{
+    if(self.leSelectionDelegate){
+        if(!self.leIndexPath){
+            LELogObject(@"点击事件无效。继承LEBaseTableViewCell后，重写SetData方法中需要设置indexPath：self.leIndexPath=path;")
+            return;
+        }
+        [self.leSelectionDelegate leOnTableViewCellSelectedWithInfo:@{LEKeyOfIndexPath:self.leIndexPath,LEKeyOfClickStatus:info}];
+    }
+}
 -(void) leOnCellSelectedWithIndex:(int) index{
     if(self.leSelectionDelegate){
         if(!self.leIndexPath){

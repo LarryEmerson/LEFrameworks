@@ -20,4 +20,5 @@
 -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *) pages NormalColor:(UIColor *) normalColor HighlightedColor:(UIColor *) highlightedColor;
 @property id<LEBottomTabbarDelegate> leDelegate;
 -(void) leDidChoosedPageWith:(int) index;
+-(NSArray *) getTabbars;
 @end

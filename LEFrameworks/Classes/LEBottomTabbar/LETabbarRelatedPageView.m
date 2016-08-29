@@ -15,7 +15,6 @@
 -(id) initWithFrame:(CGRect)frame{
     self=[super initWithFrame:frame];
     [self setAlpha:0];
-    [self leExtraInits];
     return self;
 }
 -(void) leSetRootView:(UIView *)view{
@@ -27,15 +26,16 @@
 -(void) leEaseInView{
     [self setHidden:NO];
     [self setAlpha:0];
-    [UIView animateWithDuration:0.2 delay:0.15 options:UIViewAnimationOptionCurveLinear animations:^(void){
+    [UIView animateWithDuration:0 delay:0 options:UIViewAnimationOptionCurveLinear animations:^(void){
         [self setAlpha:1];
     }completion:^(BOOL isDone){
         [self leEaseInViewLogic];
     }];
 }
 -(void) leEaseOutView{
+    [self setHidden:NO];
     [self leEaseOutViewLogic];
-    [UIView animateWithDuration:0.2 animations:^(void){
+    [UIView animateWithDuration:0 animations:^(void){
         [self setAlpha:0];
     } completion:^(BOOL isDone){
         [self setHidden:YES];

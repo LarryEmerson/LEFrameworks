@@ -121,6 +121,11 @@
     }
     [self leOnStopBottomRefresh];
 }
+-(void) leSelectCellAtIndex:(NSIndexPath *)index{
+    if(self.leCellSelectionDelegate&&[self.leCellSelectionDelegate respondsToSelector:@selector(leOnCollectionCellSelectedWithInfo:)]){
+        [self.leCellSelectionDelegate leOnCollectionCellSelectedWithInfo:@{LEKeyOfIndexPath:index}];
+    }
+}
 -(void) leDeselectCellAtIndex:(NSIndexPath *) index{
     [self deselectItemAtIndexPath:index animated:YES];
 }
@@ -189,6 +194,7 @@
 //Cell
 - (UICollectionViewCell *)leCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     LEBaseCollectionViewCell *cell=[self dequeueReusableCellWithReuseIdentifier:LEReuseableCollectionCellIdentifier forIndexPath:indexPath];
+    cell.leCollectionView=self;
     if(!cell.isInited){
         cell.isInited=YES;
         [cell leExtraInits];
@@ -256,7 +262,7 @@
     cellHeight=block;
     [curTarget setAlwaysBounceHorizontal:NO];
     [curTarget setAlwaysBounceVertical:YES];
-    self.scrollDirection=UICollectionViewScrollDirectionHorizontal;
+    self.scrollDirection=UICollectionViewScrollDirectionVertical; 
 }
 -(void)prepareLayout{
     if(!_attributeAttay){

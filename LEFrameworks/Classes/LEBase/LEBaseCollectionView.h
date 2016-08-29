@@ -28,8 +28,9 @@
 -(instancetype) initWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings CollectionLayout:(UICollectionViewLayout *) layout CellClassname:(NSString *) cellClassname DataSource:(id<LECollectionViewDataSourceDelegate>) dataSource CellSelectionDelegate:(id<LECollectionViewCellSelectionDelegate>) selection;
 -(instancetype) initWithAutoLayoutSettings:(LEAutoLayoutSettings *) settings CollectionLayout:(UICollectionViewLayout *) layout CellClassname:(NSString *) cellClassname ReusableView:(NSString *) reusableClassname DataSource:(id<LECollectionViewDataSourceDelegate>) dataSource CellSelectionDelegate:(id<LECollectionViewCellSelectionDelegate>) selection;
 @end
-
+@class LEBaseCollectionView;
 @interface LEBaseCollectionViewCell : UICollectionViewCell
+@property (nonatomic) LEBaseCollectionView *leCollectionView;
 @property (nonatomic) BOOL isInited;
 @property (nonatomic, readonly) NSIndexPath *leIndexPath;
 -(void) leSetData:(id) data IndexPath:(NSIndexPath *) path;
@@ -55,6 +56,7 @@
 -(void) leOnAutoRefreshWithDuration:(float) duration;
 -(void) leOnRefreshedWithData:(NSMutableArray *)data;
 -(void) leOnLoadedMoreWithData:(NSMutableArray *)data;
+-(void) leSelectCellAtIndex:(NSIndexPath *)index;
 -(void) leDeselectCellAtIndex:(NSIndexPath *) index;
 -(NSInteger)leCollectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
 -(UICollectionViewCell *)leCollectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;

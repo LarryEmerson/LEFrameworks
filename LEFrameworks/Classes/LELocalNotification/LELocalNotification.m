@@ -37,15 +37,17 @@
     self = [super initWithFrame:frame];
     [self setUserInteractionEnabled:NO];
     if (self) {
-        UIImage *BG=[UIImage imageNamed:@"LE_MessageBackground"];
+//        UIImage *BG=[UIImage imageNamed:@"LE_MessageBackground"];
+        UIImage *BG=[LEColorGrayDark leImageWithSize:CGSizeMake(20, 40)];
         height=BG.size.height;
         space=10;
-        MessageFontSize =20;
+        MessageFontSize =16;
         MessageSpace = 2;
         MessageBoardWidth=LESCREEN_WIDTH-space*2;
         [self setFrame:CGRectMake(space, LESCREEN_HEIGHT+MessageFontSize*10, MessageBoardWidth, BG.size.height)];
         BGView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MessageBoardWidth, height)];
         [BGView setImage:[BG stretchableImageWithLeftCapWidth:BG.size.width/2 topCapHeight:BG.size.height/2]];
+        [BGView leSetRoundCornerWithRadius:6];
         [self addSubview:BGView];
         curText=[[UILabel alloc]initWithFrame:CGRectMake(MessageBoardWidth/2, MessageSpace, MessageBoardWidth-MessageSpace*2, height-MessageSpace*2)];
         [curText setContentMode:UIViewContentModeCenter];

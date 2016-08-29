@@ -46,6 +46,9 @@
 -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages{
     return [self initTabbarWithFrame:frame Delegate:delegate NormalIcons:icons HighlightedIcons:iconsSelected Titles:titles Pages:pages NormalColor:LEColorGray HighlightedColor:LEColorBlue];
 }
+-(NSArray *) getTabbars{
+    return arrayButtons;
+}
 -(id) initTabbarWithFrame:(CGRect) frame Delegate:(id<LEBottomTabbarDelegate>) delegate  NormalIcons:(NSArray *) icons HighlightedIcons:(NSArray *) iconsSelected Titles:(NSArray *) titles Pages:(NSArray *)pages NormalColor:(UIColor *) normalColor HighlightedColor:(UIColor *) highlightedColor{
     globalVar=[LEUIFramework sharedInstance];
     arrayNormalIcons=icons;
