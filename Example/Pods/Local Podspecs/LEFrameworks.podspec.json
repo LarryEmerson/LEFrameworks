@@ -1,6 +1,6 @@
 {
   "name": "LEFrameworks",
-  "version": "0.4.9",
+  "version": "0.5.2",
   "summary": "LarryEmerson 之 IOS 基础封装",
   "homepage": "https://github.com/LarryEmerson/LEFrameworks",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/LarryEmerson/LEFrameworks.git",
-    "tag": "0.4.9"
+    "tag": "0.5.2"
   },
   "platforms": {
     "ios": "7.0"

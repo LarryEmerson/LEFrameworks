@@ -16,34 +16,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSString *searchText=@"\\@asd :\\@qqq :\\@:@asd :\\@asd \\";
-    NSString *match=@"@(.*?) :";
-    
-    NSRange range=[searchText rangeOfString:match options:NSRegularExpressionSearch];
-    if(range.location!=NSNotFound){
-        LELog(@"range:%@",[searchText substringWithRange:range]);
-    }
-    LELogObject(NSStringFromRange(range));
-    NSPredicate *numberPre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",match];
-    LELogInt([numberPre evaluateWithObject:searchText]);
-    
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:match options:NSRegularExpressionCaseInsensitive error:&error];
-    NSTextCheckingResult *result = [regex firstMatchInString:searchText options:0 range:NSMakeRange(0, [searchText length])];
-    if (result) {
-        LELog(@"%@", [searchText substringWithRange:result.range]);
-    }else{
-        LELogObject(result);
-    } 
-    
-    //    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    //    self.window.backgroundColor = [UIColor lightGrayColor];
-    //    ViewController *viewController=[[ViewController alloc] init];
-    //    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:viewController];
-    //    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    //    [nav setNavigationBarHidden:NO animated:YES];
-    //    [self.window setRootViewController:nav];
-    //    [self.window makeKeyAndVisible]; 
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.window.backgroundColor = [UIColor lightGrayColor];
+        ViewController *viewController=[[ViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:viewController];
+        [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+        [nav setNavigationBarHidden:YES];
+        [self.window setRootViewController:nav];
+        [self.window makeKeyAndVisible]; 
     return YES;
 }
 

@@ -55,8 +55,7 @@
     id<LEMultiImagePickerDelegate> curDelegate;
 }
 -(void) leExtraInits{
-    curNavi=[[LEBaseNavigation alloc] initWithDelegate:self ViewController:self.leCurrentViewController SuperView:self.leViewContainer Offset:LEStatusBarHeight BackgroundImage:[LEColorWhite leImageStrechedFromSizeOne] TitleColor:LEColorTextBlack LeftItemImage:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"]];
-    [curNavi leSetNavigationTitle:@"照片图库"];
+    curNavi=[[LEBaseNavigation alloc] initWithSuperViewAsDelegate:self Title:@"照片图库"];
     [curNavi leSetRightNavigationItemWith:@"完成" Image:nil];
     //
     space=2;
@@ -165,8 +164,7 @@
     return [super initWithViewController:vc];
 }
 -(void) leExtraInits{
-    curNavi=[[LEBaseNavigation alloc] initWithDelegate:self ViewController:self.leCurrentViewController SuperView:self.leViewContainer Offset:LEStatusBarHeight BackgroundImage:[LEColorWhite leImageStrechedFromSizeOne] TitleColor:LEColorTextBlack LeftItemImage:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"]];
-    [curNavi leSetNavigationTitle:@"照片"];
+    curNavi=[[LEBaseNavigation alloc] initWithSuperViewAsDelegate:self Title:@"照片"];
     [curNavi leSetRightNavigationItemWith:@"取消" Image:nil];
     self.assetsLibrary = [[ALAssetsLibrary alloc] init];
     curArray=[[NSMutableArray alloc] init];

@@ -17,10 +17,16 @@
     UIImageView *viewRefresh;
     NSTimer *curTimer;
     NSMutableArray *curButtons;
+    LEBaseNavigation *navi;
 }
 -(void) onShare{
+    
+}
+-(void) setNavigationTitle:(NSString *) title{
+    [navi leSetNavigationTitle:title];
 }
 -(void) leExtraInits{
+    navi=[[LEBaseNavigation alloc] initWithDelegate:nil SuperView:self Title:nil];
     curButtons=[[NSMutableArray alloc] init];
     UIImage *imgIconRefresh=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_refresh"];
     UIImage *imgIconBack   =[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"];
@@ -30,14 +36,14 @@
     UIImage *imgBottom=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_browser_bottombg"];
     int bottomHeight=50;
     //
-    bottomView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.leCurrentFrameHight-bottomHeight, self.leCurrentFrameWidth, bottomHeight)];
+    bottomView=[[UIImageView alloc] initWithFrame:CGRectMake(0, self.leFrameHightForCustomizedView-bottomHeight, self.leCurrentFrameWidth, bottomHeight)];
     [bottomView setUserInteractionEnabled:YES];
     [bottomView setImage:[imgBottom stretchableImageWithLeftCapWidth:imgBottom.size.width/2 topCapHeight:imgBottom.size.height/2]];
-    [self.leViewContainer addSubview:bottomView];
+    [self.leViewBelowCustomizedNavigation addSubview:bottomView];
     //
-    webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.leCurrentFrameWidth, self.leCurrentFrameHight-bottomHeight)];
+    webView=[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.leCurrentFrameWidth, self.leFrameHightForCustomizedView-bottomHeight)];
     [webView setDelegate:self];
-    [self.leViewContainer addSubview:webView];
+    [self.leViewBelowCustomizedNavigation addSubview:webView];
     //
     NSArray *array=[[NSArray alloc] initWithObjects:imgIconBack,imgIconForward,imgIconRefresh /*,imgIconShare*/ , nil];
     float buttonWidth=self.leCurrentFrameWidth*1.0/array.count;
@@ -163,14 +169,13 @@
 
 
 @implementation LEWebView{
-    LEWebViewPage *page; 
-    BOOL isBarHidden;
+    LEWebViewPage *page;
 }
 - (void)leLoadWebPageWithString:(NSString*)urlString{
     [page leLoadWebPageWithString:urlString];
 }
 - (void)leSetTitle:(NSString *) title{
-    [self.navigationItem setTitle:title];
+    [page setNavigationTitle:title];
 }
 -(id) init{
     self=[super init];
@@ -181,16 +186,6 @@
     self=[super init];
     page=[[LEWebViewPage alloc] initWithViewController:self URLString:urlString];
     return self;
-}
--(void) viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:isBarHidden animated:YES];
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    isBarHidden=self.navigationController.navigationBarHidden;
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
-}
+} 
 -(void) leExtraInits{}
 @end

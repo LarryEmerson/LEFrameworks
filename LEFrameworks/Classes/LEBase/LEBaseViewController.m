@@ -11,6 +11,7 @@
 @property (nonatomic, readwrite) UISwipeGestureRecognizer *recognizerRight;
 @property (nonatomic, readwrite) int leCurrentFrameWidth;
 @property (nonatomic, readwrite) int leCurrentFrameHight;
+@property (nonatomic, readwrite) int leFrameHightForCustomizedView;
 @property (nonatomic, readwrite) UIView *leViewContainer;
 @property (nonatomic, readwrite) UIView *leViewBelowCustomizedNavigation;
 @property (nonatomic, readwrite) LEBaseViewController *leCurrentViewController;
@@ -26,11 +27,13 @@
     [curSuperView addSubview:self];
     self.leCurrentFrameWidth=self.bounds.size.width;
     self.leCurrentFrameHight=self.bounds.size.height-(self.leCurrentViewController.extendedLayoutIncludesOpaqueBars?0:(LEStatusBarHeight+LENavigationBarHeight));
+    self.leFrameHightForCustomizedView=self.leCurrentFrameHight;
     self.leViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(self.leCurrentFrameWidth,self.leCurrentFrameHight)]];
     [self.leViewContainer setBackgroundColor:[LEUIFramework sharedInstance].leColorViewContainer];
     //
     if(self.leCurrentFrameHight==LESCREEN_HEIGHT){
         self.leViewBelowCustomizedNavigation=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, LEStatusBarHeight+LENavigationBarHeight) CGSize:CGSizeMake(LESCREEN_WIDTH, LESCREEN_HEIGHT-LEStatusBarHeight-LENavigationBarHeight)]];
+        self.leFrameHightForCustomizedView=self.leViewBelowCustomizedNavigation.bounds.size.height;
     }
     self.recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipGesture:)];
     [self.recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
@@ -87,7 +90,14 @@
     UIImageView *background;
     UIView *bottomSplit;
 }
-
+-(id) initWithSuperViewAsDelegate:(LEBaseView *)superview Title:(NSString *) title{
+    return [self initWithDelegate:(id)superview SuperView:superview Title:title];
+}
+-(id) initWithDelegate:(id<LENavigationDelegate>)delegate SuperView:(LEBaseView *)superview Title:(NSString *) title{
+    self= [self initWithDelegate:delegate ViewController:superview.leCurrentViewController SuperView:superview Offset:LEStatusBarHeight BackgroundImage:[LEUIFramework sharedInstance].leImageNavigationBar TitleColor:[LEUIFramework sharedInstance].leColorNavigationContent LeftItemImage:[LEUIFramework sharedInstance].leImageNavigationBack];
+    [self leSetNavigationTitle:title];
+    return self;
+}
 -(id) initWithDelegate:(id<LENavigationDelegate>) delegate ViewController:(UIViewController *) viewController SuperView:(UIView *) superview Offset:(int) offset BackgroundImage:(UIImage *) bg TitleColor:(UIColor *) color LeftItemImage:(UIImage *) left{
     self=[super initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:superview Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, offset) CGSize:CGSizeMake(LESCREEN_WIDTH, LENavigationBarHeight)]];
     curViewController=viewController;
@@ -150,7 +160,7 @@
 }
 -(void)lazyInitRightButton{
     if(leRightButton==nil){
-        leRightButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LELayoutSideSpace, 0) CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"" FontSize:LELayoutFontSize14 Font:nil Image:nil BackgroundImage:nil Color:LEColorTextBlack SelectedColor:LEColorGray MaxWidth:0 SEL:@selector(onRight) Target:self]];
+        leRightButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:CGPointMake(-LELayoutSideSpace, 0) CGSize:CGSizeMake(LENavigationBarHeight, LENavigationBarHeight)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"" FontSize:[LEUIFramework sharedInstance].leNavigationButtonFontsize Font:nil Image:nil BackgroundImage:nil Color:LEColorTextBlack SelectedColor:LEColorGray MaxWidth:0 SEL:@selector(onRight) Target:self]];
     }
 }
 

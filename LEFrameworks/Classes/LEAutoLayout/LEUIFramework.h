@@ -409,6 +409,9 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 @end
 
 @interface LEUIFramework : NSObject
+@property (nonatomic,readonly) int leNavigationButtonFontsize;
+@property (nonatomic,readonly) UIImage *leImageNavigationBack;
+@property (nonatomic,readonly) UIImage *leImageNavigationBar;
 @property (nonatomic,readonly) UIColor *leColorNavigationBar;
 @property (nonatomic,readonly) UIColor *leColorNavigationContent;
 @property (nonatomic,readonly) UIColor *leColorViewContainer;
@@ -417,6 +420,18 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 #pragma Singleton
 LESingleton_interface(LEUIFramework)
 #pragma public Variables
+/*
+ * @brief 设置导航栏按钮字体大小
+ */
+-(void) leSetNavigationButtonFontsize:(int) fontsize;
+/*
+ * @brief 设置导航栏返回按钮
+ */
+-(void) leSetImageNavigationBack:(UIImage *) image;
+/*
+ * @brief 设置导航栏颜色
+ */
+-(void) leSetImageNavigationBar:(UIImage *) image;
 /*
  * @brief 设置导航栏颜色
  */
