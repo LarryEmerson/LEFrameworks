@@ -271,14 +271,14 @@
         [_attributeAttay removeAllObjects];
     }
     [super prepareLayout];
-    float WIDTH =LESCREEN_WIDTH;
-    float colHight=0;
+    float WIDTH =LESCREEN_WIDTH*1.0;
+    float colHight=0.0;
     for (int i=0; i<curTarget.leItemsArray.count; i++) {
         NSIndexPath *index = [NSIndexPath indexPathForItem:i inSection:0];
         UICollectionViewLayoutAttributes * attris = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:index];
-        float hight = LEDefaultCellHeight;
+        float hight = LEDefaultCellHeight*1.0;
         if(cellHeight){
-            hight=cellHeight(curTarget.leItemsArray,index);
+            hight=cellHeight(curTarget.leItemsArray,index); 
         }
         attris.frame = CGRectMake(0, colHight, WIDTH, hight);
         colHight+=hight;

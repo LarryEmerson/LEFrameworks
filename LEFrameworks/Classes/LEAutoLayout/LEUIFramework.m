@@ -61,7 +61,9 @@
     [self.layer setMasksToBounds:YES];
 }
 -(void) leAddTapEventWithSEL:(SEL)sel Target:(id) target{
-    [target setUserInteractionEnabled:YES];
+    if([target respondsToSelector:@selector(setUserInteractionEnabled:)]){
+        [target setUserInteractionEnabled:YES];
+    }
     [self setUserInteractionEnabled:YES];
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:target action:sel]];
 }
@@ -781,6 +783,22 @@ LESingleton_implementation(LEUIFramework)
 }
 +(UIFont *) leGetSystemFontWithSize:(int)size{
     return [UIFont systemFontOfSize:size];
+}
++(UIView *) getTransparentCircleLayerForView:(UIView *) view Diameter:(float) diameter MaskColor:(UIColor *) maskColor{
+    UIView *layerView=[[UIView alloc] initWithFrame:view.bounds];
+    CAShapeLayer *layer=[CAShapeLayer layer];
+    layer.fillColor=maskColor.CGColor;
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:view.bounds];
+    [path moveToPoint:CGPointMake(CGRectGetWidth(view.bounds) / 2, (CGRectGetHeight(view.bounds) -diameter) / 2)];
+    [path addArcWithCenter:view.center radius:diameter / 2 startAngle:-M_PI / 2 endAngle:M_PI *3.0/2.0 clockwise:YES];
+    layer.path=path.CGPath;
+    layer.fillRule=kCAFillRuleEvenOdd;
+    layerView.layer.cornerRadius=layer.cornerRadius;
+    layerView.layer.masksToBounds=layer.masksToBounds;
+    [layerView.layer addSublayer:layer];
+    layerView.layer.masksToBounds=YES;
+    [view addSubview:layerView];
+    return layerView;
 }
 #pragma UIImage
 + (UIImage *) leGetMiddleStrechedImage:(UIImage *) image{

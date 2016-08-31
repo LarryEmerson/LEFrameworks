@@ -438,6 +438,7 @@ LESingleton_interface(LEUIFramework)
 +(NSString *) leIntToString:(int) i;
 +(NSString *) leNumberToString:(NSNumber *) num;
 +(UIFont *) leGetSystemFontWithSize:(int) size;
++(UIView *) getTransparentCircleLayerForView:(UIView *) view Diameter:(float) diameter MaskColor:(UIColor *) maskColor;
 #pragma UIImage
 +(UIImage *) leGetMiddleStrechedImage:(UIImage *) image ;
 +(CGSize) leGetMiddleStrechedSize:(CGSize) size ;
