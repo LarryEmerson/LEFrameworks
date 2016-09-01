@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LEUIFramework.h" 
-
+#import "LEUIFrameworkExtra.h"
 @protocol LEViewControllerPopDelegate <NSObject>
 -(void) leOnViewControllerPopedWithPageName:(NSString *) order AndData:(id) data;
 @end
@@ -48,9 +48,10 @@
 -(id) initWithDelegate:(id<LENavigationDelegate>)delegate SuperView:(LEBaseView *)superview Title:(NSString *) title;
 -(id) initWithDelegate:(id<LENavigationDelegate>) delegate ViewController:(UIViewController *) viewController SuperView:(UIView *) superview Offset:(int) offset BackgroundImage:(UIImage *) background TitleColor:(UIColor *) color LeftItemImage:(UIImage *) left;
 -(void) leSetNavigationTitle:(NSString *) title;
--(void) leSetLeftButton:(UIImage *) img;
+//-(void) leSetLeftButton:(UIImage *) img;
 -(void) leEnableBottomSplit:(BOOL) enable Color:(UIColor *) color;
 -(void) leSetBackground:(UIImage *) image;
+-(void) leSetLeftNavigationItemWith:(NSString *)title Image:(UIImage *)image Color:(UIColor *) color;
 -(void) leSetRightNavigationItemWith:(NSString *) title Image:(UIImage *) image;
 -(void) leSetRightNavigationItemWith:(NSString *) title Image:(UIImage *) image Color:(UIColor *) color;
 -(void) leSetNavigationOffset:(int) offset;

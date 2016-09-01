@@ -329,8 +329,8 @@ static void * LEAutoLayoutButtonSettingsKey = (void *) @"LEAutoLayoutButtonSetti
     CGSize finalSize=self.leAutoLayoutSettings.leSize;
     while (YES) {
         CGSize textSize=[self.titleLabel leGetLabelTextSize];
-        if(textSize.width+LEDefaultButtonHorizontalSpace*2>finalSize.width){
-            finalSize.width = textSize.width+LEDefaultButtonHorizontalSpace*2;
+        if(textSize.width+self.leAutoLayoutButtonSettings.leSpace*2>finalSize.width){
+            finalSize.width = textSize.width+self.leAutoLayoutButtonSettings.leSpace*2;
         }
         if(textSize.height+LEDefaultButtonVerticalSpace*2>finalSize.height){
             finalSize.height = textSize.height+LEDefaultButtonVerticalSpace*2;
@@ -927,6 +927,7 @@ LESingleton_implementation(LEUIFramework)
     int space=buttonSettings.leSpace;
     if(space==0){
         space=LEDefaultButtonHorizontalSpace;
+        buttonSettings.leSpace=space;
     }
     CGSize finalSize=settings.leSize;
     while (YES) {
