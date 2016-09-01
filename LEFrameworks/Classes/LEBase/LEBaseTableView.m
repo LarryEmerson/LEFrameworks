@@ -125,7 +125,7 @@
     self = [super initWithFrame:leParentView.bounds style:UITableViewStylePlain];
     [self setLeAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:leParentView EdgeInsects:UIEdgeInsetsZero]];
     [self leExecAutoLayout];
-    self.leSuperViewContainer=superView;
+    self.leSuperViewContainer=superView; 
     [leParentView addSubview:self];
     if (self) {
         [self setBackgroundColor:LEColorClear];
@@ -195,7 +195,7 @@
             NSIndexPath *newPath =  [NSIndexPath indexPathForRow:loc+ind inSection:[self leNumberOfSections]>1?[self leNumberOfSections]-1:0];
             [insertIndexPaths addObject:newPath];
         }
-        [self insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+        [self insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [self leOnStopBottomRefresh];
 }

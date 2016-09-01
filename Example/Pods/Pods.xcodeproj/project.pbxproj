@@ -64,6 +64,8 @@
 		766C01BF318B5797BAA9CC6AE9096C73 /* LEBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 854787D3B3C02424403EE9A4BC8B2245 /* LEBarChart.m */; };
 		7D33D3AF48105AB1FB11CBF87437304F /* LEBottomTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 655FD174C88445AB11CB2EB54F874E17 /* LEBottomTabbar.m */; };
 		7FCF80F041D7523F010F2B1794630B58 /* LELocalNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FC0A096F627960BF7A11534D9107E1 /* LELocalNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		801FBBB71D785621004CC69E /* LEBaseSettingsCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 801FBBB51D785621004CC69E /* LEBaseSettingsCell.h */; };
+		801FBBB81D785621004CC69E /* LEBaseSettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 801FBBB61D785621004CC69E /* LEBaseSettingsCell.m */; };
 		804004152F6D91AAA3F567B9CE0E9445 /* LE_emoji_smileface@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A395C63101861022DC5306FF253F651 /* LE_emoji_smileface@3x.png */; };
 		8330DFE2A165388F548966BBFE1CA67E /* LELoadingAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F2600A61448D1517791C4CABEC2828 /* LELoadingAnimationView.m */; };
 		841ED79A8860E148CB4F7AF3F758C63F /* LE_web_icon_forward_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C152D1B326D02629018C1FE13F3CAB0 /* LE_web_icon_forward_off@3x.png */; };
@@ -209,6 +211,8 @@
 		7BEBCAD98864F9255F661F885DB16C2D /* Pods_LEFrameworks_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LEFrameworks_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C013A08B3BE2CE9D0FA602F84E22088 /* Pods-LEFrameworks_Test-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LEFrameworks_Test-frameworks.sh"; sourceTree = "<group>"; };
 		7D2BBD149781A996112AA9B43313E56A /* LEFrameworks.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LEFrameworks.xcconfig; sourceTree = "<group>"; };
+		801FBBB51D785621004CC69E /* LEBaseSettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEBaseSettingsCell.h; sourceTree = "<group>"; };
+		801FBBB61D785621004CC69E /* LEBaseSettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEBaseSettingsCell.m; sourceTree = "<group>"; };
 		8222EC26429303E2ED2E665B336AD327 /* LEBadge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LEBadge.h; sourceTree = "<group>"; };
 		83BB0D3CDBBD16A2FCEC2255C2E5689B /* LE_web_icon_forward_on@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "LE_web_icon_forward_on@3x.png"; sourceTree = "<group>"; };
 		854787D3B3C02424403EE9A4BC8B2245 /* LEBarChart.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LEBarChart.m; sourceTree = "<group>"; };
@@ -643,6 +647,8 @@
 				E6A129ABA4E35C4BAEBF01DF4838F1D5 /* LEBaseCollectionViewWithRefresh.m */,
 				49748DB1AEA3E791D473B2573F3DF17E /* LEBaseEmptyTableViewCell.h */,
 				A9A307572ED41F28DC5DA18EE93D0C3A /* LEBaseEmptyTableViewCell.m */,
+				801FBBB51D785621004CC69E /* LEBaseSettingsCell.h */,
+				801FBBB61D785621004CC69E /* LEBaseSettingsCell.m */,
 				3014B06F82B19FA07EF5466C8CB06F47 /* LEBaseTableView.h */,
 				EA79D8DDF3C065D43021809E4BE23E0C /* LEBaseTableView.m */,
 				399CE63080D6862C8EEE4FB89689F10B /* LEBaseTableViewCell.h */,
@@ -719,6 +725,7 @@
 				C17F20ED7723A5EE6C35D4563611397C /* LEBaseEmptyTableViewCell.h in Headers */,
 				9516D36D77B179A2CFD85C4FE805B2C3 /* LEBasePopupEmptyPage.h in Headers */,
 				EB22EDAD3845C2CD0A3D034310C6E294 /* LEBaseTableView.h in Headers */,
+				801FBBB71D785621004CC69E /* LEBaseSettingsCell.h in Headers */,
 				63988833FA0E2F33048B15D31874ECB7 /* LEBaseTableViewCell.h in Headers */,
 				64400CBE9FA3E79076A479824E63FF7B /* LEBaseTableViewSection.h in Headers */,
 				B2E29B92B64F30E5562A296D8C3E4586 /* LEBaseTableViewSectionWithIcon.h in Headers */,
@@ -920,6 +927,7 @@
 				8CA3577E0138F0144D27314049874503 /* HMPageControl.m in Sources */,
 				54474C9A06CB7101F6F574DBC3912D24 /* LE_EmojiToolBar.m in Sources */,
 				1ABF17D471BBE2A0442B20DBF59EE9FE /* LE_NSDate+Category.m in Sources */,
+				801FBBB81D785621004CC69E /* LEBaseSettingsCell.m in Sources */,
 				FF07A3C193515E1322EB76D36841E8AC /* LEBadge.m in Sources */,
 				766C01BF318B5797BAA9CC6AE9096C73 /* LEBarChart.m in Sources */,
 				CF73A70C28AFA2855BB9169ECC23D3BC /* LEBaseCollectionView.m in Sources */,
