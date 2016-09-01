@@ -19,6 +19,7 @@
 #import "LEBaseTableViewWithRefresh.h"
 #import "LEBaseCollectionView.h"
 #import "LEBaseCollectionViewWithRefresh.h"
+#import "LEBaseSettingsCell.h"
 //
 #import "LEBadge.h"
 //导航栏界面跳转通知
