@@ -759,7 +759,7 @@ LESingleton_implementation(LEUIFramework)
 }
 -(void) leExtraInits{
     self.leNavigationButtonFontsize=LELayoutFontSize16;
-    self.leImageNavigationBar=[LEColorWhite leImageStrechedFromSizeOne];
+    self.leImageNavigationBar=[LEColorClear leImageStrechedFromSizeOne];
     self.leColorNavigationBar=LEColorWhite;
     self.leColorNavigationContent=LEColorBlack;
     self.leColorViewContainer=[UIColor colorWithRed:0.9647 green:0.9647 blue:0.9686 alpha:1.0];
