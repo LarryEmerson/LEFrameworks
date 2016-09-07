@@ -4,6 +4,21 @@ IOS Development Frameworks 持续更新中
 请使用：
 
 # #import "LEFrameworks.h"
+## LEBaseTableViewV2 优化列表滚动效果，大大增强滚动流畅性
+	16-09-07 在研究了开发者LiuWei（https://github.com/waynezxcv/LWAsyncDisplayView）的Gallop，主要是朋友圈模块后，顿然醒悟，原来Cell中的内容可以提前预加载并缓存，以空间换时间的概念，避免列表滚动过程中的计算，大大提高性能，列表滚动的流畅性。
+	
+	能发现Gallop并非偶然，最近刚完成的项目中就有朋友圈模块。于是完成LEBaseTableViewV2立马开始优化工作。
+	
+	优化工作非常简单，前提是列表继承LEBaseTableView：
+	
+	1-替换原有的LEBaseTableView为LEBaseTableViewV2
+	2-对应的Cell继承类从LEBaseTableViewCell换成LEBaseTableViewDisplayCell，并且把-(void) leSetData:(id) data IndexPath:(NSIndexPath *) path换成-(void) leSetData:(id) data
+	
+	当然如果列表Section>1，这种情况优化工作就不仅仅是替换这么简单了，得看列表具体情况。主要是复写tb的delegate及datasource。
+	
+	Demo工程中首页右上角新增了一个switch，用于切换列表的加载方式，默认使用了LEBaseTableViewV2。具体优化效果，还需要真机测试，Cell越复杂对比越明显！
+
+
 
 ## 新增Demo工程于Example目录下，Demo的gif
 

@@ -205,8 +205,7 @@
         for (int ind = 0; ind < self.leCellCountAppended; ind++) {
             NSIndexPath *newPath =  [NSIndexPath indexPathForRow:self.leItemsArray.count-self.leCellCountAppended+ind inSection:[self leNumberOfSections]>1?[self leNumberOfSections]-1:0];
             [insertIndexPaths addObject:newPath];
-        }
-        LELog(@"%u %u",self.leItemsArray.count,self.leCellCountAppended)
+        } 
         [self insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationNone];
     }
 }
