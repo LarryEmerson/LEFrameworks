@@ -295,6 +295,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 -(void) leSetRoundCornerWithRadius:(CGFloat) radius;
 -(UIImageView *) leAddTopSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width;
 -(UIImageView *) leAddBottomSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width;
+-(void) leReleaseView;
 @end
 
 @interface UIImage (LEExtension)

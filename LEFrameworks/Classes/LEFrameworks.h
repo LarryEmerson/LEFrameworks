@@ -12,6 +12,7 @@
 //基类 
 #import "LEBaseViewController.h"
 #import "LEBaseTableView.h"
+#import "LEBaseTableViewV2.h"
 #import "LEBaseTableViewCell.h"
 #import "LEBaseTableViewSection.h"
 #import "LEBaseTableViewSectionWithIcon.h"

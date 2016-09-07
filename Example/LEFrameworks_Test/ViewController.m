@@ -92,6 +92,23 @@
 }
 @end
 
+@interface TestDisplcayCell : LEBaseTableViewDisplayCell
+@end
+@implementation TestDisplcayCell{
+    UILabel *curLabel;
+}
+-(void) leExtraInits{
+    curLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:LEBoldFont(LELayoutFontSize14) Width:LESCREEN_WIDTH-LELayoutSideSpace*2 Height:0 Color:LEColorTextBlack Line:0 Alignment:NSTextAlignmentLeft]];//Line=0表示可以换行
+}
+-(void) leSetData:(id)data{
+    [super leSetData:data];
+    [curLabel leSetText:[NSString stringWithFormat:@"%@",data]];//设置文字需使用le开头的方法，类似的有leSetSize、leSetFrame、leSetOffset
+    [curLabel leSetLineSpace:LELayoutTextLineSpace];//设置行间距
+    [self leSetCellHeight:curLabel.bounds.size.height+LELayoutSideSpace*2];//文字刷新后即可重新设置Cell的高度了
+}
+
+
+@end
 @interface ViewControllerPage : LEBaseView<LETableViewDataSourceDelegate,LETableViewCellSelectionDelegate,LELineChartDelegate,LEBarChartDelegate,LECollectionViewDataSourceDelegate,LECollectionViewCellSelectionDelegate,LENavigationDelegate>
 @end
 @implementation ViewControllerPage{
@@ -103,6 +120,7 @@
     
     //测试所需临时变量
     LEBaseTableViewWithRefresh *curTableView;
+    LEBaseTableViewV2WithRefresh *curTableViewV2;
     UILabel *labelBarChart;
     UILabel *labelLineChart;
     LEWaveProgressView *curWaveProgressView;
@@ -118,18 +136,35 @@
 -(void) leExtraInits{
     navigationView=[[LEBaseNavigation alloc] initWithSuperViewAsDelegate:self Title:@"LEFrameworks 测试"];
     [navigationView leSetLeftNavigationItemWith:nil Image:nil Color:nil];
-//    [navigationView leSetLeftNavigationItemWith:@"取消" Image:nil Color:nil];
-//    [navigationView leSetRightNavigationItemWith:@"确定" Image:nil];
-//    [navigationView.leTitleViewContainer leAddTapEventWithSEL:@selector(onTestTitle) Target:self];
-        [self onTestLEBaseTableView];
+    UISwitch *swi=[UISwitch new].leSuperView(navigationView).leAnchor(LEAnchorInsideRightCenter).leOffset(CGPointMake(-LELayoutSideSpace, 0)).leAutoLayout.leType;
+    [swi addTarget:self action:@selector(onSwitch:) forControlEvents:UIControlEventTouchUpInside];
+    [swi leSetSize:swi.bounds.size];
+    //    [navigationView leSetLeftNavigationItemWith:@"取消" Image:nil Color:nil];
+    //    [navigationView leSetRightNavigationItemWith:@"确定" Image:nil];
+    //    [navigationView.leTitleViewContainer leAddTapEventWithSEL:@selector(onTestTitle) Target:self];
+    //    [self onTestLEBaseTableView];
+    [self onTestLEBaseTableViewV2];
     //    [self onTestAutoLayout];
     //    [self onTestCollectionView]; 
+}
+-(void) onSwitch:(UISwitch *) swi{
+    if(swi.isOn){
+        if(curTableViewV2){
+            [curTableViewV2 removeFromSuperview];
+            [self onTestLEBaseTableView];
+        }
+    }else{
+        if(curTableView){
+            [curTableView removeFromSuperview];
+            [self onTestLEBaseTableViewV2];
+        }
+    }
 }
 -(void) onTestTitle{
     NSString *str=@"LE Frame works";
     NSArray *array=@[@"爱上",@"阿斯达",@"啊啊撒打算的",@"啊",@"爱上谁打扫打扫",@"阿诗丹顿"];
     for (NSInteger i=0; i<rand()%6; i++) {
-        str=[str stringByAppendingString:[array objectAtIndex:i]];
+        str=[NSString stringWithFormat:@"Index:%d - %@",i,[str stringByAppendingString:[array objectAtIndex:i]]];
     }
     [navigationView leSetNavigationTitle:str];
 }
@@ -142,12 +177,29 @@
     [navigationView leSetLeftNavigationItemWith:isRight?@"阿达达":nil Image:isRight?[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_emoji_smileface"]:nil Color:nil];
 }
 -(void) leNavigationNotifyTitleViewContainerWidth:(int)width{ 
-//    LELogInt(width);
+    //    LELogInt(width);
 }
 //===================测试 LEBaseTableView TableView的封装
+-(void) onTestLEBaseTableViewV2{
+    curTableViewV2=[[LEBaseTableViewV2WithRefresh alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.leViewBelowCustomizedNavigation TableViewCell:@"TestDisplcayCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self AutoRefresh:YES]];
+    //        [curTableViewV2 leSetBottomRefresh:NO];
+}
 -(void) onTestLEBaseTableView{
     curTableView=[[LEBaseTableViewWithRefresh alloc] initWithSettings:[[LETableViewSettings alloc] initWithSuperViewContainer:self ParentView:self.leViewBelowCustomizedNavigation TableViewCell:@"TestLEbaseTableViewCell" EmptyTableViewCell:nil GetDataDelegate:self TableViewCellSelectionDelegate:self AutoRefresh:YES]];
-    [curTableView leSetBottomRefresh:NO];
+    //    [curTableView leSetBottomRefresh:NO];
+}
+-(void) leOnLoadMore{
+    NSMutableArray *muta=[[NSMutableArray alloc] init];
+    NSString *tmp=@"这是一段测试用字符串，根据随机获得的数字对其进行截取，并作为列表Cell的内容展示";
+    for (NSInteger i=0; i<100+random()%100; i++) {
+        [muta addObject:[NSString stringWithFormat:@"Index %d : %@",i,[tmp substringToIndex:rand()%tmp.length]]];
+    }
+    if(curTableView){
+        [curTableView leOnLoadedMoreWithData:muta];
+    }
+    if(curTableViewV2){
+        [curTableViewV2 leOnLoadedMoreWithData:muta];
+    }
 }
 -(void) leOnRefreshData{
     NSMutableArray *muta=[[NSMutableArray alloc] init];
@@ -161,7 +213,12 @@
     [muta addObject:@"LEFrameworks测试 之 自动排版 LEUIFramework"];
     [muta addObject:@"LEFrameworks测试 之 图片多选 LEMultiImagePicker"];
     [muta addObject:@"LEFrameworks测试 之 CollectionView封装 LEBaseCollectionViewWithRefresh"];
-    [curTableView leOnRefreshedWithData:muta];
+    if(curTableView){
+        [curTableView leOnRefreshedWithData:muta];
+    }
+    if(curTableViewV2){
+        [curTableViewV2 leOnRefreshedWithData:muta];
+    }
 }
 -(void) leOnTableViewCellSelectedWithInfo:(NSDictionary *)info{
     NSIndexPath *index=[info objectForKey:LEKeyOfIndexPath];
@@ -371,7 +428,7 @@
     [label=(LEFormatAsLabel [UILabel new].leBackground(LEColorRed).leRelativeView(view.leViewBelowCustomizedNavigation).leOffset(CGPointMake(LELayoutSideSpace16, 0)).leUserInteraction(YES)).leText(@"asdasdasda阿斯达达到爱上as爱上sdasdas").leFont(LEBoldFont(LELayoutFontSize12)).leWidth(100).leColor(LEColorBlue).leAlignment(NSTextAlignmentRight).leLine(2) leLabelLayout];
     [(LEFormatAsButton [UIButton new].leRelativeView(label).leEdgeInsects(UIEdgeInsetsZero)).leTapEvent(@selector(onClickForAutoLayout),self).leBackgroundImageHighlighted([LEColorRed leImageStrechedFromSizeOne]) leButtonLayout];
     UIView *bg=[UIView new].leSuperView(view.leViewBelowCustomizedNavigation).leRelativeView(autoLayoutTopButton).leAnchor(LEAnchorOutsideBottomCenter).leSize(CGSizeMake(LESCREEN_WIDTH-LENavigationBarHeight, LENavigationBarHeight)).leBackground(LEColorMask2).leAutoLayout;
-    [(LEFormatAsTextField[UITextField new].leSuperView(bg).leEdgeInsects(UIEdgeInsetsMake(0, LELayoutSideSpace, 0, LELayoutSideSpace)).leAutoLayout).lePlaceHolder(@"PlaceHolder") setClearButtonMode:UITextFieldViewModeAlways];
+    [(LEFormatAsTextField[UITextField new].leSuperView(bg).leEdgeInsects(UIEdgeInsetsMake(0, LELayoutSideSpace, 0, LELayoutSideSpace)).leAutoLayout).lePlaceHolder(@"PlaceHolder") setClearButtonMode:UITextFieldViewModeAlways]; 
 }
 -(void) onClickForAutoLayout{
     autoLayoutCounter++;

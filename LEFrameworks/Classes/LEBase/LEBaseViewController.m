@@ -55,7 +55,7 @@
 }
 -(void) leSwipGestureLogic{
     [self.leCurrentViewController.navigationController popViewControllerAnimated:YES];
-}
+} 
 @end
 @interface LEBaseViewController ()
 @property (nonatomic, readwrite) id<LEViewControllerPopDelegate> lePopDelegate;
@@ -77,9 +77,14 @@
     class=[class stringByAppendingString:@"Page"];
     NSObject *obj=[NSClassFromString(class) alloc];
     if(obj&&([obj isKindOfClass:[LEBaseView class]]||[obj isMemberOfClass:[LEBaseView class]])){
-        LEBaseView *view= [(LEBaseView *) obj initWithViewController:self];
-        [view setUserInteractionEnabled:YES];
+        self.leView= [(LEBaseView *) obj initWithViewController:self];
     }
+}
+-(void) viewDidDisappear:(BOOL)animated{
+    if(self.leView){
+        [self.leView leReleaseView];
+    }
+    [super viewDidDisappear:animated];
 }
 @end
 

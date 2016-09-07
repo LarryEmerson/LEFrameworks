@@ -75,7 +75,7 @@
     UIImageView *img= [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:offset CGSize:CGSizeMake(width, 0.5)] Image:[color leImageStrechedFromSizeOne]];
     return img;
 }
-
+-(void) leReleaseView{}
 @end
 
 @implementation UITableView (LEExtension)

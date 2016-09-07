@@ -10,9 +10,13 @@
 #import "LEBaseTableView.h"
 #import "LEBaseTableViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
+@interface LEMultiImagePickerFlowPage:LEBaseView<LENavigationDelegate>
+-(NSInteger) getRemainCount;
+-(void) setCell:(ALAsset *) asset Status:(BOOL) status;
+@end
 @interface LEMultiImagePickerFlowCell : UIImageView
 @property (nonatomic) BOOL isChecked;
+@property (nonatomic) LEMultiImagePickerFlowPage *curPage;
 @end
 @implementation LEMultiImagePickerFlowCell{
     UIImageView *curIcon;
@@ -28,21 +32,25 @@
     curIcon=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopRight Offset:CGPointMake(-2, 2) CGSize:CGSizeZero] Image:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_MultiImagePickerCheck"]];
     [curIcon setHidden:YES];
     [self leAddTapEventWithSEL:@selector(onTap) Target:self];
+    [self setContentMode:UIViewContentModeScaleAspectFill];
+    [self setClipsToBounds:YES];
 }
 -(void) onTap{
-    self.isChecked=!self.isChecked;
-    [curIcon setHidden:!self.isChecked];
+    if(self.isChecked||[self.curPage getRemainCount]>0){
+        self.isChecked=!self.isChecked;
+        [curIcon setHidden:!self.isChecked];
+        [self.curPage setCell:curAsset Status:self.isChecked];
+    }else{
+        [self leAddLocalNotification:@"无法选择更多图片"];
+    }
 }
 -(void) setAlAsset:(ALAsset *) asset{
     curAsset=asset;
-    [self setImage:[UIImage imageWithCGImage:[asset thumbnail]]];
+    [self setImage:[UIImage imageWithCGImage:[asset aspectRatioThumbnail]]];
 }
 -(ALAsset *) getAsset{
     return curAsset;
 }
-@end
-
-@interface LEMultiImagePickerFlowPage:LEBaseView<LENavigationDelegate>
 @end
 @implementation LEMultiImagePickerFlowPage{
     UIScrollView *curScrollView;
@@ -53,8 +61,31 @@
     int cellSize;
     LEBaseNavigation *curNavi;
     id<LEMultiImagePickerDelegate> curDelegate;
+    NSInteger remainCount;
+    NSMutableArray *curSelections;
+}
+-(void) setCell:(ALAsset *) asset Status:(BOOL) status{
+    if(status){
+        [curSelections addObject:asset];
+    }else {
+        [curSelections removeObject:asset];
+    }
+}
+-(NSInteger) getRemainCount{
+    if(remainCount==INT_MAX)return INT_MAX;
+    else{
+        NSInteger count=0;
+        for (int i=0; i<curCellCache.count; i++) {
+            LEMultiImagePickerFlowCell *cell=[curCellCache objectAtIndex:i];
+            if(cell.isChecked){
+                count++;
+            }
+        }
+        return remainCount-count;
+    }
 }
 -(void) leExtraInits{
+    curSelections=[NSMutableArray new];
     curNavi=[[LEBaseNavigation alloc] initWithSuperViewAsDelegate:self Title:@"照片图库"];
     [curNavi leSetRightNavigationItemWith:@"完成" Image:nil];
     //
@@ -87,23 +118,62 @@
         [curScrollView addSubview:cell];
         [cell setAlAsset:[curArray objectAtIndex:i]];
         [curCellCache addObject:cell];
+        [cell setCurPage:self];
     }
     [curScrollView setContentSize:CGSizeMake(LESCREEN_WIDTH, (cellSize+space)*(curArray.count/4+(curArray.count%4==0?0:1)))];
 }
+
 -(NSArray *) getData{
-    NSMutableArray *array=[[NSMutableArray alloc] init];
-    for (int i=0; i<curCellCache.count; i++) {
-        LEMultiImagePickerFlowCell *cell=[curCellCache objectAtIndex:i];
-        if(cell.isChecked){
-            ALAsset *asset=[cell getAsset];
-            [array addObject:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]]];
+    NSMutableArray *muta=[NSMutableArray new];
+    //    for (NSInteger i=curSelections.count-1; i>=0; i--) {
+    for (NSInteger i=0;i<curSelections.count;i++) {
+        ALAssetRepresentation *asset=[[curSelections objectAtIndex:i] defaultRepresentation];
+        UIImageOrientation ori=UIImageOrientationUp;
+        switch (asset.orientation) {
+            case ALAssetOrientationUp:
+                ori=UIImageOrientationUp;
+                break;
+            case ALAssetOrientationDown:
+                ori=UIImageOrientationDown;
+                break;
+            case ALAssetOrientationLeft:
+                ori=UIImageOrientationLeft;
+                break;
+            case ALAssetOrientationRight:
+                ori=UIImageOrientationRight;
+                break;
+            case ALAssetOrientationUpMirrored:
+                ori=UIImageOrientationUpMirrored;
+                break;
+            case ALAssetOrientationDownMirrored:
+                ori=UIImageOrientationDownMirrored;
+                break;
+            case ALAssetOrientationLeftMirrored:
+                ori=UIImageOrientationLeftMirrored;
+                break;
+            case ALAssetOrientationRightMirrored:
+                ori=UIImageOrientationRightMirrored;
+                break;
+            default:
+                break;
         }
+        [muta addObject:[UIImage imageWithCGImage:[asset fullResolutionImage] scale:1 orientation:ori]];
     }
-    return array;
+    return muta;
+    //    NSMutableArray *array=[[NSMutableArray alloc] init];
+    //    for (int i=0; i<curCellCache.count; i++) {
+    //        LEMultiImagePickerFlowCell *cell=[curCellCache objectAtIndex:i];
+    //        if(cell.isChecked){
+    //            ALAsset *asset=[cell getAsset];
+    //            [array addObject:[UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]]];
+    //        }
+    //    }
+    //    return array;
 }
--(id) initWithViewController:(LEBaseViewController *)vc AssetsGroup:(ALAssetsGroup *) group Delegate:(id<LEMultiImagePickerDelegate>) delegate{
+-(id) initWithViewController:(LEBaseViewController *)vc AssetsGroup:(ALAssetsGroup *) group Delegate:(id<LEMultiImagePickerDelegate>) delegate RemainCount:(NSInteger) remain{
     curGroup=group;
     curDelegate=delegate;
+    remainCount=remain;
     return [super initWithViewController:vc];
 }
 @end
@@ -111,9 +181,9 @@
 @interface LEMultiImagePickerFlow:LEBaseViewController
 @end
 @implementation LEMultiImagePickerFlow
--(id) initWithDelegate:(id<LEMultiImagePickerDelegate>)delegate AssetsGroup:(ALAssetsGroup *) group{
+-(id) initWithDelegate:(id<LEMultiImagePickerDelegate>)delegate AssetsGroup:(ALAssetsGroup *) group RemainCount:(NSInteger) remain{
     self=[super init];
-    [[[LEMultiImagePickerFlowPage alloc] initWithViewController:self AssetsGroup:group Delegate:delegate] setUserInteractionEnabled:YES];
+    [[[LEMultiImagePickerFlowPage alloc] initWithViewController:self AssetsGroup:group Delegate:delegate RemainCount:remain] setUserInteractionEnabled:YES];
     return self;
 }
 -(void) leExtraInits{}
@@ -158,9 +228,14 @@
     NSMutableArray *curArray;
     id<LEMultiImagePickerDelegate> curDelegate;
     LEBaseNavigation *curNavi;
+    NSInteger remainCount;
 }
--(id) initWithViewController:(LEBaseViewController *)vc Delegate:(id<LEMultiImagePickerDelegate>) delegate{
+//-(id) initWithViewController:(LEBaseViewController *)vc Delegate:(id<LEMultiImagePickerDelegate>) delegate{
+//    return [self initWithViewController:vc Delegate:delegate RemainCount:INT_MAX];
+//}
+-(id) initWithViewController:(LEBaseViewController *)vc Delegate:(id<LEMultiImagePickerDelegate>) delegate RemainCount:(NSInteger) remain{
     curDelegate=delegate;
+    remainCount=remain;
     return [super initWithViewController:vc];
 }
 -(void) leExtraInits{
@@ -178,7 +253,7 @@
 }
 -(void) leOnTableViewCellSelectedWithInfo:(NSDictionary *)info{
     NSIndexPath *index=[info objectForKey:LEKeyOfIndexPath];
-    LEMultiImagePickerFlow *vc=[[LEMultiImagePickerFlow alloc] initWithDelegate:curDelegate AssetsGroup:[[self.albumsArray objectAtIndex:index.row] objectForKey:@"group"]];
+    LEMultiImagePickerFlow *vc=[[LEMultiImagePickerFlow alloc] initWithDelegate:curDelegate AssetsGroup:[[self.albumsArray objectAtIndex:index.row] objectForKey:@"group"] RemainCount:remainCount];
     [self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
 }
 -(void) onLoadData{
@@ -217,8 +292,11 @@
 @end
 @implementation LEMultiImagePicker
 -(id) initWithImagePickerDelegate:(id<LEMultiImagePickerDelegate>) delegate{
+    return [self initWithImagePickerDelegate:delegate RemainCount:INT_MAX];
+}
+-(id) initWithImagePickerDelegate:(id<LEMultiImagePickerDelegate>) delegate RemainCount:(NSInteger)remain{
     self=[super init];
-    [[[LEMultiImagePickerPage alloc] initWithViewController:self Delegate:delegate] setUserInteractionEnabled:YES];
+    [[[LEMultiImagePickerPage alloc] initWithViewController:self Delegate:delegate RemainCount:remain] setUserInteractionEnabled:YES];
     return self;
 }
 -(void) leExtraInits{}

@@ -148,20 +148,29 @@
 @property (nonatomic, readonly) NSMutableArray *leItemsArray;
 @property (nonatomic, readonly) NSString *leEmptyTableViewCellClassName;
 @property (nonatomic, readonly) NSString *leTableViewCellClassName;
+@property (nonatomic, readonly) BOOL leIsDisbaleTap;
+@property (nonatomic)           NSInteger leCellCountAppended;
 -(void) leSetEmptyTableViewCell:(LEBaseEmptyTableViewCell *) emptyTableViewCell;
--(id)   initWithSettings:(LETableViewSettings *) settings;
+-(id)   initWithSettings:(LETableViewSettings *) settings; 
+#pragma mark Refresh
 -(void) leSetTopRefresh:(BOOL) enable;
--(void) leSetBottomRefresh:(BOOL) enable;
-//
--(void) leOnStopTopRefresh;
--(void) leOnStopBottomRefresh;
 -(void) leOnAutoRefresh;
 -(void) leOnAutoRefreshWithDuration:(float) duration;
+
 -(void) leOnRefreshedWithData:(NSMutableArray *)data;
+-(void) leOnRefreshedDataToDataSource:(NSMutableArray *) data;
+-(void) leOnReloadTableViewForRefreshedDataSource;
+-(void) leOnStopTopRefresh;
+#pragma mark Append
+-(void) leSetBottomRefresh:(BOOL) enable;
 -(void) leOnLoadedMoreWithData:(NSMutableArray *)data;
+-(void) leOnAppendedDataToDataSource:(NSMutableArray *) data;
+-(void) leOnReloadTableViewForAppendedDataSource;
+-(void) leOnStopBottomRefresh;
+#pragma mark TableView datasource & delegate
 -(NSInteger) leNumberOfSections;
 -(CGFloat) leHeightForSection:(NSInteger) section;
 -(UIView *) leViewForHeaderInSection:(NSInteger) section;
 -(NSInteger) leNumberOfRowsInSection:(NSInteger) section;
--(UITableViewCell *) leCellForRowAtIndexPath:(NSIndexPath *) indexPath;
+-(UITableViewCell *) leCellForRowAtIndexPath:(NSIndexPath *) indexPath; 
 @end

@@ -13,9 +13,11 @@
 -(void) leOnViewControllerPopedWithPageName:(NSString *) order AndData:(id) data;
 @end
 @interface LEBaseViewController : UIViewController
+@property (nonatomic) UIView *leView;
 @property (nonatomic, readonly) id<LEViewControllerPopDelegate> lePopDelegate;
 //@property (nonatomic) UIViewController *superViewController;
 -(id) initWithDelegate:(id<LEViewControllerPopDelegate>) delegate;
+-(void) viewDidDisappear:(BOOL)animated NS_REQUIRES_SUPER;
 @end
 @interface LEBaseView : UIView
 @property (nonatomic, readonly) UISwipeGestureRecognizer *leRecognizerRight;
@@ -28,7 +30,7 @@
 -(UIView *) leSuperViewContainer;
 -(id) initWithViewController:(LEBaseViewController *) vc;
 -(void) leSwipGestureLogic;
--(void) leOnSetRightSwipGesture:(BOOL) gesture;
+-(void) leOnSetRightSwipGesture:(BOOL) gesture; 
 @end
 
 @protocol LENavigationDelegate <NSObject>

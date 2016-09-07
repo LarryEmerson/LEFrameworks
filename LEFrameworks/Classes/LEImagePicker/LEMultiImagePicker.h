@@ -13,4 +13,5 @@
 
 @interface LEMultiImagePicker : LEBaseViewController
 -(id) initWithImagePickerDelegate:(id<LEMultiImagePickerDelegate>) delegate;
+-(id) initWithImagePickerDelegate:(id<LEMultiImagePickerDelegate>) delegate RemainCount:(NSInteger) remain;
 @end

@@ -32,6 +32,7 @@
 @property (nonatomic, readwrite) NSMutableArray *leItemsArray;
 @property (nonatomic, readwrite) NSString *leEmptyTableViewCellClassName;
 @property (nonatomic, readwrite) NSString *leTableViewCellClassName;
+@property (nonatomic, readwrite) BOOL leIsDisbaleTap;
 @end
 
 @implementation LETableViewCellSettings
@@ -80,7 +81,7 @@
 -(id) initWithSuperView:(UIView *) superView TableViewCell:(NSString *) cell EmptyTableViewCell:(NSString *) empty GetDataDelegate:(id<LETableViewDataSourceDelegate>) get TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection AutoRefresh:(BOOL) autorefresh{
     return [self initWithSuperViewContainer:superView ParentView:superView TableViewCell:cell EmptyTableViewCell:empty GetDataDelegate:get TableViewCellSelectionDelegate:selection AutoRefresh:NO];
 }
-
+//
 -(id) initWithSuperViewContainer:(UIView *) superView ParentView:(UIView *) parent GetDataDelegate:(id<LETableViewDataSourceDelegate>) get   TableViewCellSelectionDelegate:(id<LETableViewCellSelectionDelegate>) selection{
     return [self initWithSuperViewContainer:superView ParentView:parent TableViewCell:nil EmptyTableViewCell:nil GetDataDelegate:get TableViewCellSelectionDelegate:selection];
 }
@@ -108,14 +109,13 @@
 @interface LEBaseTableView()<UITableViewDelegate,UITableViewDataSource>
 @end
 @implementation LEBaseTableView{
-    BOOL ignoredFirstEmptyCell;
-    BOOL isDisbaleTap;
+    //    BOOL ignoredFirstEmptyCell; 
 }
 -(void) leSetEmptyTableViewCell:(LEBaseEmptyTableViewCell *) emptyTableViewCell{
     self.leEmptyTableViewCell=emptyTableViewCell;
 }
 - (id) initWithSettings:(LETableViewSettings *) settings{
-    isDisbaleTap=settings.leDisableTapEvent;
+    self.leIsDisbaleTap=settings.leDisableTapEvent;
     self.leEmptyTableViewCellClassName=settings.leEmptyTableViewCellClassName?settings.leEmptyTableViewCellClassName:@"LEBaseEmptyTableViewCell";
     self.leTableViewCellClassName=settings.leTableViewCellClassName;
     UIView *superView=settings.leSuperViewContainer;
@@ -142,20 +142,6 @@
     return self;
 } 
 //
--(void) leSetTopRefresh:(BOOL) enable{
-    
-}
--(void) leSetBottomRefresh:(BOOL) enable{
-    
-}
-//
--(void) leOnStopTopRefresh {
-    [self reloadData];
-}
--(void) leOnStopBottomRefresh {
-    //    [self reloadData];
-}
-//
 -(void) onDelegateRefreshData{
     if(self.leDataSourceDelegate){
         if([self.leDataSourceDelegate respondsToSelector:@selector(leOnRefreshData)]){
@@ -176,29 +162,55 @@
 -(void) leOnAutoRefreshWithDuration:(float) duration{
     [NSTimer scheduledTimerWithTimeInterval:duration target:self selector:@selector(leOnAutoRefresh) userInfo:nil repeats:NO];
 }
-//
+#pragma mark Refresh
+-(void) leSetTopRefresh:(BOOL) enable{
+    
+}
 -(void) leOnRefreshedWithData:(NSMutableArray *)data{
-    if(data){
-        self.leItemsArray=[data mutableCopy];
-    }
+    [self leOnRefreshedDataToDataSource:data];
+    [self leOnReloadTableViewForRefreshedDataSource];
     [self leOnStopTopRefresh];
 }
+-(void) leOnRefreshedDataToDataSource:(NSMutableArray *) data{
+    if(data){
+        self.leItemsArray=[data mutableCopy];
+        self.leCellCountAppended=data.count;
+    }
+}
+-(void) leOnReloadTableViewForRefreshedDataSource{
+    [self reloadData];
+}
+-(void) leOnStopTopRefresh{}
+#pragma mark Append
+-(void) leSetBottomRefresh:(BOOL) enable{
+    
+}
 -(void) leOnLoadedMoreWithData:(NSMutableArray *)data{
+    [self leOnAppendedDataToDataSource:data];
+    [self leOnReloadTableViewForAppendedDataSource];
+    [self leOnStopBottomRefresh];
+}
+-(void) leOnAppendedDataToDataSource:(NSMutableArray *) data{
     if(data){
         if(!self.leItemsArray){
             self.leItemsArray=[[NSMutableArray alloc] init];
         }
-        NSInteger loc=self.leItemsArray.count;
+        self.leCellCountAppended=data.count;
         [self.leItemsArray addObjectsFromArray:data];
-        NSMutableArray *insertIndexPaths = [NSMutableArray arrayWithCapacity:data.count];
-        for (int ind = 0; ind < [data count]; ind++) {
-            NSIndexPath *newPath =  [NSIndexPath indexPathForRow:loc+ind inSection:[self leNumberOfSections]>1?[self leNumberOfSections]-1:0];
+    }
+}
+-(void) leOnReloadTableViewForAppendedDataSource{
+    if(self.leCellCountAppended!=self.leItemsArray.count){
+        NSMutableArray *insertIndexPaths = [[NSMutableArray alloc] init];
+        for (int ind = 0; ind < self.leCellCountAppended; ind++) {
+            NSIndexPath *newPath =  [NSIndexPath indexPathForRow:self.leItemsArray.count-self.leCellCountAppended+ind inSection:[self leNumberOfSections]>1?[self leNumberOfSections]-1:0];
             [insertIndexPaths addObject:newPath];
         }
-        [self insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        LELog(@"%u %u",self.leItemsArray.count,self.leCellCountAppended)
+        [self insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationNone];
     }
-    [self leOnStopBottomRefresh];
 }
+-(void) leOnStopBottomRefresh{}
 //
 -(NSInteger) leNumberOfSections{
     return 1;
@@ -217,7 +229,7 @@
         UITableViewCell *cell=[self dequeueReusableCellWithIdentifier:LEReuseableCellIdentifier];
         if(!cell){
             LESuppressPerformSelectorLeakWarning(
-                                                 cell=[[self.leTableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.leCellSelectionDelegate EnableGesture:!isDisbaleTap]];
+                                                 cell=[[self.leTableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.leCellSelectionDelegate EnableGesture:!self.leIsDisbaleTap]];
                                                  );
         }
         if(self.leItemsArray&&indexPath.row<self.leItemsArray.count){
