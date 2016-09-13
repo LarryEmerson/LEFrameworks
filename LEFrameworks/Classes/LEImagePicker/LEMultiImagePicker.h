@@ -7,11 +7,12 @@
 //
 
 #import "LEBaseViewController.h"
+#import "LEBaseCollectionView.h"
 @protocol LEMultiImagePickerDelegate<NSObject>
 -(void) leOnMultiImagePickedWith:(NSArray *) images;
 @end
 
 @interface LEMultiImagePicker : LEBaseViewController
--(id) initWithImagePickerDelegate:(id<LEMultiImagePickerDelegate>) delegate;
--(id) initWithImagePickerDelegate:(id<LEMultiImagePickerDelegate>) delegate RemainCount:(NSInteger) remain;
+-(id) initWithImagePickerDelegate:(id<LEMultiImagePickerDelegate>) delegate RootVC:(UIViewController *) vc;
+-(id) initWithImagePickerDelegate:(id<LEMultiImagePickerDelegate>) delegate RemainCount:(NSInteger) remain MaxCount:(NSInteger) max RootVC:(UIViewController *) vc;
 @end

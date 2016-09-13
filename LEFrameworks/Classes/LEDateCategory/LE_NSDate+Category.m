@@ -38,31 +38,26 @@
 @implementation NSDate (LEExtension)
 
 /*距离当前的时间间隔描述*/
-- (NSString *)timeIntervalDescription
-{
-    
+- (NSString *)timeIntervalDescription{
     NSTimeInterval timeInterval = -[self timeIntervalSinceNow];
     if (timeInterval < 60) {
         return @"1分钟内";
-    } else if (timeInterval < 3600) {
-        return [NSString stringWithFormat:@"%.f分钟前", timeInterval / 60];
-    } else if (timeInterval < 86400) {
-        return [NSString stringWithFormat:@"%.f小时前", timeInterval / 3600];
-    } else if (timeInterval < 2592000) {//30天内
-        return [NSString stringWithFormat:@"%.f天前", timeInterval / 86400];
-    } else if (timeInterval < 31536000) {//30天至1年内
-        NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"M月d日"];
-        return [dateFormatter stringFromDate:self];
+    } else if (timeInterval < 3600) { // 1小时内
+        return [NSString stringWithFormat:@"%d分钟前", (int)timeInterval / 60];
+    } else if (timeInterval < 3600*3) { // 3小时内
+        return [NSString stringWithFormat:@"%d小时前", (int)timeInterval / 3600];
     } else {
-        return [NSString stringWithFormat:@"%.f年前", timeInterval / 31536000];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        return [dateFormatter stringFromDate:self];
     }
 }
 
-- (NSString *)dateDescription
-{
+- (NSString *)dateDescription{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSInteger timeInterval = -[self timeIntervalSinceNow];
+    
     if (timeInterval < 60) {
         return @"1分钟内";
     } else if (timeInterval < 3600) {//1小时内

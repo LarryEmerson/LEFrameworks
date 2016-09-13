@@ -19,6 +19,16 @@
 @implementation LEBaseView{
     UIView *curSuperView; 
 }
+-(void) leReleaseView{
+    [self.recognizerRight removeTarget:self action:@selector(swipGesture:)];
+    self.recognizerRight=nil;
+    self.leCurrentViewController=nil;
+    [self.leViewBelowCustomizedNavigation removeFromSuperview];
+    [self.leViewContainer removeFromSuperview];
+    self.leViewContainer=nil;
+    self.leViewBelowCustomizedNavigation=nil;
+    [self removeFromSuperview];
+} 
 -(id) initWithViewController:(LEBaseViewController *) vc{
     curSuperView=vc.view;
     self.leCurrentViewController=vc;
@@ -77,14 +87,8 @@
     class=[class stringByAppendingString:@"Page"];
     NSObject *obj=[NSClassFromString(class) alloc];
     if(obj&&([obj isKindOfClass:[LEBaseView class]]||[obj isMemberOfClass:[LEBaseView class]])){
-        self.leView= [(LEBaseView *) obj initWithViewController:self];
+        [[(LEBaseView *) obj initWithViewController:self] setUserInteractionEnabled:YES];
     }
-}
--(void) viewDidDisappear:(BOOL)animated{
-    if(self.leView){
-        [self.leView leReleaseView];
-    }
-    [super viewDidDisappear:animated];
 }
 @end
 

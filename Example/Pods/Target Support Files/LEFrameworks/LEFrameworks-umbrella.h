@@ -9,6 +9,7 @@
 #import "LEBaseEmptyTableViewCell.h"
 #import "LEBaseTableView.h"
 #import "LEBaseTableViewCell.h"
+#import "LEBaseTableViewDisplayCell.h"
 #import "LEBaseTableViewSection.h"
 #import "LEBaseTableViewSectionWithIcon.h"
 #import "LEBaseTableViewV2.h"

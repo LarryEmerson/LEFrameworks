@@ -11,7 +11,7 @@
 #import "LEUIFramework.h"
 
 @interface LEBaseTableViewCell : UITableViewCell 
-@property (nonatomic, readonly) id<LETableViewCellSelectionDelegate> leSelectionDelegate;
+@property (nonatomic, weak) id<LETableViewCellSelectionDelegate> leSelectionDelegate;
 @property (nonatomic, readonly) BOOL leHasTopSplit;
 @property (nonatomic, readonly) BOOL leHasBottomSplit; 
 @property (nonatomic, readonly) BOOL leHasArrow;  

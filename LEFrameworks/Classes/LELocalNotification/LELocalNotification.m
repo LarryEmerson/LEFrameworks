@@ -23,7 +23,7 @@
     
     UIImageView *BGView;
     int height;
-    LEUIFramework *globalVar;
+//    LEUIFramework *globalVar;
     BOOL isEverUsed;
     int MessageBoardWidth;
     int space;
@@ -31,22 +31,21 @@
     int MessageSpace;
     NSTimer *extraCheck;
 }
-- (id)initWithFrame:(CGRect)frame
-{
-    globalVar=[LEUIFramework sharedInstance];
+- (id)initWithFrame:(CGRect)frame{
+//    globalVar=[LEUIFramework sharedInstance];
     self = [super initWithFrame:frame];
     [self setUserInteractionEnabled:NO];
     if (self) {
 //        UIImage *BG=[UIImage imageNamed:@"LE_MessageBackground"];
-        UIImage *BG=[LEColorGrayDark leImageWithSize:CGSizeMake(20, 40)];
-        height=BG.size.height;
+        UIImage *BG=[LEColorGrayDark leImageStrechedFromSizeOne];
+        height=40;
         space=10;
         MessageFontSize =16;
         MessageSpace = 2;
         MessageBoardWidth=LESCREEN_WIDTH-space*2;
         [self setFrame:CGRectMake(space, LESCREEN_HEIGHT+MessageFontSize*10, MessageBoardWidth, BG.size.height)];
         BGView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MessageBoardWidth, height)];
-        [BGView setImage:[BG stretchableImageWithLeftCapWidth:BG.size.width/2 topCapHeight:BG.size.height/2]];
+        [BGView setImage:BG];
         [BGView leSetRoundCornerWithRadius:6];
         [self addSubview:BGView];
         curText=[[UILabel alloc]initWithFrame:CGRectMake(MessageBoardWidth/2, MessageSpace, MessageBoardWidth-MessageSpace*2, height-MessageSpace*2)];
@@ -74,9 +73,21 @@
     [self.layer removeAllAnimations];
     [self leSetText:text WithEnterTime:time AndPauseTime:pauseTime ReleaseWhenFinished:NO];
 }
+-(void) leReleaseView{
+    [BGView setImage:nil];
+    [BGView removeFromSuperview];
+    BGView=nil;
+    [curText removeFromSuperview];
+    curText=nil;
+    [extraCheck invalidate];
+    extraCheck=nil;
+    [transition setDelegate:nil];
+    transition=nil;
+    [self removeFromSuperview];
+}
 -(void) leSetText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime ReleaseWhenFinished:(BOOL) isRelease{
     if(!text){
-        [self removeFromSuperview];
+        [self leReleaseView];
         return;
     }
     [extraCheck invalidate];
@@ -108,16 +119,14 @@
             } completion:^(BOOL done){
                 if(isRelease){
                     [extraCheck invalidate];
-                    [self removeFromSuperview];
+                    [self leReleaseView];
                 }
             }];
         }
     }];
 }
 -(void) onCheck{
-    [extraCheck invalidate];
-    extraCheck=nil;
-    [self removeFromSuperview];
+    [self leReleaseView];
 }
 
 //- (id)initWithFrame:(CGRect)frame

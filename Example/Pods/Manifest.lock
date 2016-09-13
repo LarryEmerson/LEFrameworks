@@ -1,5 +1,5 @@
 PODS:
-  - LEFrameworks (0.5.6)
+  - LEFrameworks (0.5.8)
 
 DEPENDENCIES:
   - LEFrameworks (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LEFrameworks: a4f5f8c78c16ead243e7e02d799885c69563a6ea
+  LEFrameworks: a6751b650657c6766b1fffaa15d0d37b6bcb3927
 
 PODFILE CHECKSUM: 74ab4e615a829c792f2ff436b29d48189c18a606
 

@@ -20,6 +20,13 @@
     [_curScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
 }
 -(void) dealloc{
+    [self leRelease];
+}
+-(void) leRelease{
+    self.refreshBlock=nil;
+    [self.refreshContainer removeFromSuperview];
+    [self.curRefreshLabel removeFromSuperview];
+    [self.curIndicator removeFromSuperview];
     [self.curScrollView removeObserver:self forKeyPath:@"contentOffset"];
 }
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{

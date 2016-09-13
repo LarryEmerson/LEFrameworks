@@ -10,19 +10,7 @@
 #import "LEBaseTableView.h"
 #import "LEUIFrameworkExtra.h"
 #import "LERefresh.h"
-@interface LEBaseTableViewDisplayCell:UIView
-@property (nonatomic) id leData;
-@property (nonatomic) id<LETableViewCellSelectionDelegate> leSelectionDelegate;
-@property (nonatomic) NSIndexPath *leIndexPath;
-@property (nonatomic) UIButton *leSelfTapEvent;
--(id) initWithDelegate:(id<LETableViewCellSelectionDelegate>) delegate EnableGesture:(NSNumber *) gesture;
--(void) leSetData:(id)data NS_REQUIRES_SUPER;
--(void) leSetIndex:(NSIndexPath *)index;
--(void) leOnCellSelectedWithInfo:(NSDictionary *) info;
--(void) leOnCellSelectedWithIndex:(int) index;
--(void) leSetCellHeight:(CGFloat) height;
--(CGFloat) leGetHeight;
-@end
+#import "LEBaseTableViewDisplayCell.h" 
 @interface LEBaseTableViewCellV2 : UITableViewCell
 -(void) leSetDisplayCell:(LEBaseTableViewDisplayCell *) cell;
 @end

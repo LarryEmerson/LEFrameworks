@@ -238,8 +238,13 @@
         [curSettings.leDelegate performSelector:@selector(leOnPopupCenterButtonClicked)];
     }
 }
+-(void) onBackgroundLogic{
+    if(curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupBackgroundClicked)]){
+        [curSettings.leDelegate performSelector:@selector(leOnPopupBackgroundClicked)];
+    }
+}
 -(void) onBackgroundTapped{
-    [self leEaseOut:nil];
+    [self leEaseOut:@selector(onBackgroundLogic)];
 }
 -(void) leEaseIn{
     [UIView animateWithDuration:0.4 animations:^(void){

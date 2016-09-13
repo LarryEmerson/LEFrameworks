@@ -285,6 +285,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 @interface NSObject (LEExtension)
 -(NSString *) leStringValue;
 -(void) leExtraInits;
+-(void) leRelease;
 @end
 
 @interface UIView (LEExtension)

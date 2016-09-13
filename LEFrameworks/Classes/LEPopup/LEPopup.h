@@ -14,6 +14,7 @@
 
 @protocol LEPopupDelegate<NSObject>
 @optional
+-(void) leOnPopupBackgroundClicked;
 -(void) leOnPopupLeftButtonClicked;
 -(void) leOnPopupRightButtonClicked;
 -(void) leOnPopupCenterButtonClicked;

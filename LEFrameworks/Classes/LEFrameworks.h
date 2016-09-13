@@ -13,6 +13,7 @@
 #import "LEBaseViewController.h"
 #import "LEBaseTableView.h"
 #import "LEBaseTableViewV2.h"
+#import "LEBaseTableViewDisplayCell.h"
 #import "LEBaseTableViewCell.h"
 #import "LEBaseTableViewSection.h"
 #import "LEBaseTableViewSectionWithIcon.h"

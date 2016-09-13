@@ -106,9 +106,58 @@
     [curLabel leSetLineSpace:LELayoutTextLineSpace];//设置行间距
     [self leSetCellHeight:curLabel.bounds.size.height+LELayoutSideSpace*2];//文字刷新后即可重新设置Cell的高度了
 }
-
-
 @end
+
+@interface TestVCPage : LEBaseView
+@end
+@implementation TestVCPage
+{
+    NSTimer *curTimer;
+    UITapGestureRecognizer *tapEvent;
+}
+-(void) leExtraInits{
+    [self.leViewContainer setBackgroundColor:[UIColor redColor]];
+    tapEvent=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap)];
+    [self.leViewContainer addGestureRecognizer:tapEvent];
+    //    [self.leViewContainer leAddTapEventWithSEL:@selector(onTap) Target:self];
+    //    curTimer=[NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(counter) userInfo:nil repeats:YES];
+}
+-(void)counter{
+    LELogObject([NSDate new])
+}
+-(void) onTap{
+    [self.leCurrentViewController lePopSelfAnimated];
+    //    [self leReleaseView];
+    //    [self removeFromSuperview];
+}
+-(void) dealloc{
+    
+    LELogFunc
+}
+-(void) leReleaseView{
+    [tapEvent removeTarget:self action:@selector(onTap)];
+    tapEvent=nil;
+    [super leReleaseView]; 
+    LELogFunc
+}
+@end
+@interface TestVC : LEBaseViewController
+@end
+@implementation TestVC{
+    TestVCPage *page;
+}
+
+-(void) leExtraInits{
+    page=[[TestVCPage alloc] initWithViewController:self];
+}
+
+-(void) dealloc{
+    [page leReleaseView];
+    page=nil;
+    LELogFunc
+}
+@end
+
 @interface ViewControllerPage : LEBaseView<LETableViewDataSourceDelegate,LETableViewCellSelectionDelegate,LELineChartDelegate,LEBarChartDelegate,LECollectionViewDataSourceDelegate,LECollectionViewCellSelectionDelegate,LENavigationDelegate>
 @end
 @implementation ViewControllerPage{
@@ -145,9 +194,12 @@
     //    [self onTestLEBaseTableView];
     [self onTestLEBaseTableViewV2];
     //    [self onTestAutoLayout];
-    //    [self onTestCollectionView]; 
+    //    [self onTestCollectionView];
+    
 }
 -(void) onSwitch:(UISwitch *) swi{
+    //    [self.leCurrentViewController leThroughNavigationAnimatedPush:[TestVC new]];
+    //    if(YES)return;
     if(swi.isOn){
         if(curTableViewV2){
             [curTableViewV2 removeFromSuperview];
@@ -249,7 +301,7 @@
             break;
         case 8:
         {
-            LEMultiImagePicker *vc=[[LEMultiImagePicker alloc] initWithImagePickerDelegate:nil];
+            LEMultiImagePicker *vc=[[LEMultiImagePicker alloc] initWithImagePickerDelegate:nil RootVC:self.leCurrentViewController];
             [self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
         }
             break;

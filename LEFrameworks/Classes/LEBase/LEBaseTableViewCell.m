@@ -9,7 +9,7 @@
 #import "LEBaseTableViewCell.h" 
 
 @interface LEBaseTableViewCell ()
-@property (nonatomic, readwrite) id<LETableViewCellSelectionDelegate> leSelectionDelegate;
+//@property (nonatomic, weak, readwrite) id<LETableViewCellSelectionDelegate> leSelectionDelegate;
 @property (nonatomic, readwrite) BOOL leHasTopSplit;
 @property (nonatomic, readwrite) BOOL leHasBottomSplit;
 @property (nonatomic, readwrite) BOOL leHasArrow; 
