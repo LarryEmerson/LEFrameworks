@@ -218,29 +218,37 @@
     [self leEaseOut:@selector(onLeftLogic)];
 }
 -(void) onLeftLogic{
-    if(curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupLeftButtonClicked)]){
-        [curSettings.leDelegate performSelector:@selector(leOnPopupLeftButtonClicked)];
+    if(curSettings.identification&&curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupLeftButtonClickedWith:)]){
+        [curSettings.leDelegate leOnPopupLeftButtonClickedWith:curSettings.identification];
+    }else if(curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupLeftButtonClicked)]){
+        [curSettings.leDelegate leOnPopupLeftButtonClicked];
     }
 }
 -(void) onRight{
     [self leEaseOut:@selector(onRightLogic)];
 }
 -(void) onRightLogic{
-    if(curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupRightButtonClicked)]){
-        [curSettings.leDelegate performSelector:@selector(leOnPopupRightButtonClicked)];
+    if(curSettings.identification&&curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupRightButtonClickedWith:)]){
+        [curSettings.leDelegate leOnPopupRightButtonClickedWith:curSettings.identification];
+    }else if(curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupRightButtonClicked)]){
+        [curSettings.leDelegate leOnPopupRightButtonClicked];
     }
 }
 -(void) onCenter{
     [self leEaseOut:@selector(onCenterLogic)];
 }
 -(void) onCenterLogic{
-    if(curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupCenterButtonClicked)]){
-        [curSettings.leDelegate performSelector:@selector(leOnPopupCenterButtonClicked)];
+    if(curSettings.identification&&curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupCenterButtonClickedWith:)]){
+        [curSettings.leDelegate leOnPopupCenterButtonClickedWith:curSettings.identification];
+    }else if(curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupCenterButtonClicked)]){
+        [curSettings.leDelegate leOnPopupCenterButtonClicked];
     }
 }
 -(void) onBackgroundLogic{
-    if(curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupBackgroundClicked)]){
-        [curSettings.leDelegate performSelector:@selector(leOnPopupBackgroundClicked)];
+    if(curSettings.identification&&curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupBackgroundClickedWith:)]){
+        [curSettings.leDelegate leOnPopupBackgroundClickedWith:curSettings.identification];
+    }else if(curSettings.leDelegate&&[curSettings.leDelegate respondsToSelector:@selector(leOnPopupBackgroundClicked)]){
+        [curSettings.leDelegate leOnPopupBackgroundClicked];
     }
 }
 -(void) onBackgroundTapped{

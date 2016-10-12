@@ -76,6 +76,14 @@
     UIImageView *img= [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:offset CGSize:CGSizeMake(width, 0.5)] Image:[color leImageStrechedFromSizeOne]];
     return img;
 }
+-(UIImageView *) leAddLeftSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Height:(int) height{
+    UIImageView *img=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:offset CGSize:CGSizeMake(0.5, height)] Image:[color leImageStrechedFromSizeOne]];
+    return img;
+}
+-(UIImageView *) leAddRightSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Height:(int) height{
+    UIImageView *img= [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:offset CGSize:CGSizeMake(0.5, height)] Image:[color leImageStrechedFromSizeOne]];
+    return img;
+}
 -(void) leReleaseView{}
 @end
 
@@ -125,11 +133,33 @@
     return obj;
 }
 -(CGSize) leGetSizeWithFont:(UIFont *)font MaxSize:(CGSize) size{
+    return [self leGetSizeWithFont:font MaxSize:size ParagraphStyle:nil];
+}
+-(CGSize) leGetSizeWithFont:(UIFont *)font MaxSize:(CGSize) size ParagraphStyle:(NSMutableParagraphStyle *) style{
+    NSMutableDictionary *dic=[NSMutableDictionary new];
+    [dic setObject:font forKey:NSFontAttributeName];
+    if(style){
+        [dic setObject:style forKey:NSParagraphStyleAttributeName];
+    }
+    CGRect rect = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic  context:nil];
+    rect.size.height=(int)rect.size.height+1;
+    return rect.size;
+}
+-(CGSize) leGetSizeWithFont:(UIFont *)font MaxSize:(CGSize) size LineSpcae:(int) linespace Alignment:(NSTextAlignment) alignment{
     if(!self){
         return CGSizeZero;
     }
-    CGRect rect = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:font}  context:nil];
-    rect.size.height=(int)rect.size.height+2;
+    NSMutableDictionary *dic=[NSMutableDictionary new];
+    [dic setObject:font forKey:NSFontAttributeName];
+    if(linespace>0){
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setLineSpacing:linespace];
+        [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+        [paragraphStyle setAlignment:alignment];
+        [dic setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
+    }
+    CGRect rect = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
+    rect.size.height=(int)rect.size.height+1;
     return rect.size;
 }
 @end
@@ -158,6 +188,8 @@ static void * LEAutoLayoutLabelSettingsKey = (void *) @"LEAutoLayoutLabelSetting
                 size=[text leGetSizeWithFont:self.font MaxSize:CGSizeMake(width, height)];
                 if(self.leAutoLayoutLabelSettings.leLine==1&&self.leAutoLayoutLabelSettings.leHeight==0){
                     size.height=self.font.lineHeight;
+                }else{
+                    size.height=self.font.lineHeight*self.leAutoLayoutLabelSettings.leLine;
                 }
                 if(self.leAutoLayoutLabelSettings.leHeight!=0){
                     size.height=self.leAutoLayoutLabelSettings.leHeight;
@@ -797,7 +829,7 @@ LESingleton_implementation(LEUIFramework)
     return [NSString stringWithFormat:@"%d",i];
 }
 +(NSString *) leNumberToString:(NSNumber *) num{
-//    return [NSString stringWithFormat:@"%@",num];
+    //    return [NSString stringWithFormat:@"%@",num];
     return [[[NSNumberFormatter alloc] init] stringFromNumber:num];
 }
 +(UIFont *) leGetSystemFontWithSize:(int)size{

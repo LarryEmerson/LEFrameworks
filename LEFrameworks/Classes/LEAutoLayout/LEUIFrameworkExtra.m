@@ -24,6 +24,17 @@
 -(id) leType{
     return self;
 }
+- (LEInit)leInit {
+    __weak typeof(self) weakSelf = self;
+    return ^() {
+        [weakSelf leInitSelf];
+        return weakSelf;
+    };
+}
+-(id) leInitSelf{
+    [self leExtraInits];
+    return self;
+}
 - (LEAutoLayout)leLayout {
     __weak typeof(self) weakSelf = self;
     return ^() {
@@ -183,6 +194,9 @@
     }
 } 
 -(void)leLabelLayout{
+    if(!self.leAutoLayoutLabelSettings.leText||self.leAutoLayoutLabelSettings.leText.length==0){//解决未执行letext时，label不显示的问题
+        self.leText(@"");
+    }
     int width=self.leAutoLayoutLabelSettings.leWidth;
     int height=self.leAutoLayoutLabelSettings.leHeight;
     if(width<=0/*||width>LESCREEN_WIDTH*/){
@@ -198,6 +212,11 @@
             size=[self.leAutoLayoutLabelSettings.leText leGetSizeWithFont:self.leAutoLayoutLabelSettings.leFont MaxSize:CGSizeMake(width, height)];
         }else if(self.leAutoLayoutLabelSettings.leLine>=1){
             size=[self.leAutoLayoutLabelSettings.leText leGetSizeWithFont:self.leAutoLayoutLabelSettings.leFont MaxSize:CGSizeMake(width, height)];
+            if(self.leAutoLayoutLabelSettings.leLine==1&&self.leAutoLayoutLabelSettings.leHeight==0){
+                size.height=self.font.lineHeight;
+            }else{
+                size.height=self.font.lineHeight*self.leAutoLayoutLabelSettings.leLine;
+            }
             if(self.leAutoLayoutLabelSettings.leHeight!=0){
                 size.height=self.leAutoLayoutLabelSettings.leHeight;
             }
@@ -256,6 +275,9 @@
     __weak typeof(self) weakSelf = self;
     return ^(int value) {
         [weakSelf leLine:value];
+        if(value==1){
+            [weakSelf leHeight:weakSelf.font.lineHeight];
+        }
         return weakSelf;
     };
 }
@@ -319,6 +341,13 @@
         self.leAutoLayoutButtonSettings.leColorNormal=LEColorWhite;
         self.leAutoLayoutButtonSettings.leColorSelected=LEColorGray;
     }
+}
+-(LEButtonDeadSize) leButtonSize{
+    __weak typeof(self) weakSelf = self;
+    return ^(CGSize value) {
+        [weakSelf leButtonSize:value];
+        return weakSelf;
+    };
 }
 -(LEButtonText) leText{
     __weak typeof(self) weakSelf = self;
@@ -399,6 +428,10 @@
         return weakSelf;
     };
 }
+-(void) leButtonSize:(CGSize) size{
+    [self initAutoLayoutButtonSettings];
+    self.leAutoLayoutButtonSettings.leDeadSize=size;
+}
 -(void) leText:(NSString *) text{
     [self initAutoLayoutButtonSettings];
     self.leAutoLayoutButtonSettings.leTitle=text;
@@ -455,26 +488,24 @@
     [button setImage:self.leAutoLayoutButtonSettings.leImageHighlighted forState:UIControlStateHighlighted];
     [button setBackgroundImage:self.leAutoLayoutButtonSettings.leBackgroundImageHighlighted forState:UIControlStateHighlighted];
     [button addTarget:self.leAutoLayoutButtonSettings.leTarget action:self.leAutoLayoutButtonSettings.leSEL forControlEvents:UIControlEventTouchUpInside];
+    UIImage *img=self.leAutoLayoutButtonSettings.leImage;
     [button.titleLabel setFont:self.leAutoLayoutButtonSettings.leTitleFont];
     //
     int space=self.leAutoLayoutButtonSettings.leSpace;
     if(space==0){
         space=LEDefaultButtonHorizontalSpace;
     }
-    CGSize finalSize=self.leAutoLayoutSettings.leSize;
-    while (YES) {
+    CGSize finalSize=self.leAutoLayoutButtonSettings.leDeadSize;
+    if(finalSize.width==0||finalSize.height==0){
         CGSize textSize=[button.titleLabel leGetLabelTextSize];
-        if(textSize.width+space*2>finalSize.width){
-            finalSize.width = textSize.width+space*2;
+        finalSize.width = textSize.width+space*2+(img?img.size.width:0);
+        finalSize.height=MAX(textSize.height, img?img.size.height:0)+LEDefaultButtonVerticalSpace*2;
+        if(self.leAutoLayoutButtonSettings.leMaxWidth>0||self.leAutoLayoutButtonSettings.leDeadSize.width>0){
+            finalSize.width=MIN(self.leAutoLayoutButtonSettings.leMaxWidth, finalSize.width);
+            finalSize.width=MIN(self.leAutoLayoutButtonSettings.leDeadSize.width, finalSize.width);
         }
-        if(textSize.height+LEDefaultButtonVerticalSpace*2>finalSize.height){
-            finalSize.height = textSize.height+LEDefaultButtonVerticalSpace*2;
-        }
-        if(self.leAutoLayoutButtonSettings.leMaxWidth>0 && finalSize.width>self.leAutoLayoutButtonSettings.leMaxWidth){
-            finalSize.width=button.leAutoLayoutButtonSettings.leMaxWidth;
-            self.leAutoLayoutButtonSettings.leTitleFont=[self.leAutoLayoutButtonSettings.leTitleFont fontWithSize:self.leAutoLayoutButtonSettings.leTitleFont.pointSize-0.2];
-        }else{
-            break;
+        if(self.leAutoLayoutButtonSettings.leDeadSize.height>0){
+            finalSize.height=MIN(self.leAutoLayoutButtonSettings.leDeadSize.height, finalSize.height);
         }
     }
     self.leAutoLayoutSettings.leSize=finalSize;

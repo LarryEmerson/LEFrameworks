@@ -24,7 +24,7 @@ _Pragma("clang diagnostic pop") \
 
 #define LESingleton_implementation(className) \
 static id _instace = nil; \
-+ (id)allocWithZone:(struct _NSZone *)zone \
++ (instancetype)allocWithZone:(struct _NSZone *)zone \
 { \
 if (_instace == nil) { \
 static dispatch_once_t onceToken; \
@@ -35,7 +35,7 @@ _instace = [super allocWithZone:zone]; \
 return _instace; \
 } \
 \
-- (id)init \
+- (instancetype)init \
 { \
 static dispatch_once_t onceToken; \
 dispatch_once(&onceToken, ^{ \
@@ -49,12 +49,12 @@ return _instace; \
 { \
 return [[self alloc] init]; \
 } \
-+ (id)copyWithZone:(struct _NSZone *)zone \
++ (instancetype)copyWithZone:(struct _NSZone *)zone \
 { \
 return _instace; \
 } \
 \
-+ (id)mutableCopyWithZone:(struct _NSZone *)zone \
++ (instancetype)mutableCopyWithZone:(struct _NSZone *)zone \
 { \
 return _instace; \
 }
@@ -197,7 +197,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 #define LERadianToDegrees(radian) (radian*180.0)/(M_PI)
 
 #define LERandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
-#define LELabelMaxSize CGSizeMake(MAXFLOAT, MAXFLOAT)
+#define LELabelMaxSize CGSizeMake(INT16_MAX, INT16_MAX)
 #define LeTextShadowColor [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.3]
 #define LeTextShadowSize CGSizeMake(0.5, 0.5)
 
@@ -296,6 +296,8 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 -(void) leSetRoundCornerWithRadius:(CGFloat) radius;
 -(UIImageView *) leAddTopSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width;
 -(UIImageView *) leAddBottomSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width;
+-(UIImageView *) leAddLeftSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Height:(int) height;
+-(UIImageView *) leAddRightSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Height:(int) height;
 -(void) leReleaseView;
 @end
 
@@ -311,6 +313,8 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 @interface NSString (LEExtension)
 -(int) leAsciiLength;
 -(CGSize) leGetSizeWithFont:(UIFont *)font MaxSize:(CGSize) size;
+-(CGSize) leGetSizeWithFont:(UIFont *)font MaxSize:(CGSize) size ParagraphStyle:(NSMutableParagraphStyle *) style;
+-(CGSize) leGetSizeWithFont:(UIFont *)font MaxSize:(CGSize) size LineSpcae:(int) linespace Alignment:(NSTextAlignment) alignment;
 -(NSObject *) leGetInstanceFromClassName;
 -(NSString *) leGetTrimmedString;
 @end
@@ -362,6 +366,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 @property (nonatomic) SEL leSEL;
 @property (nonatomic) id leTarget;
 @property (nonatomic) int leSpace;
+@property (nonatomic) CGSize leDeadSize;
 -(id) initWithImage:(UIImage *) image SEL:(SEL) sel Target:(id) target;
 -(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(id) target;
 -(id) initWithTitle:(NSString *) title FontSize:(int) fontSize Font:(UIFont *) font Image:(UIImage *) image BackgroundImage:(UIImage *) background Color:(UIColor *) color SelectedColor:(UIColor *) colorSelected MaxWidth:(int) width SEL:(SEL) sel Target:(id) target HorizontalSpace:(int) space;
