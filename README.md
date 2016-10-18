@@ -8,11 +8,17 @@ IOS Development Frameworks 持续更新中
 
 # 2016-10-18 推出 自动排版V2
 特点：
+
 1- 一行生成UI控件：view、UILabel、UIImageView、UIButton、UITextfield
+
 2- 自动排版
+
 3- 每行最后需要追加方法leAutoLayout，逻辑是根据之前的设置进行排版
+
 gif演示：
+
 ![](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/LEUIFrameworkExtra.gif)
+
 主要接口：
 ```
 /**
