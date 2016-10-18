@@ -191,36 +191,37 @@
     for (NSInteger i=0;i<curSelections.count;i++) {
         NSIndexPath *index=[curSelections objectAtIndex:i];
         ALAssetRepresentation *asset=[[[curArray objectAtIndex:index.row] objectForKey:@"asset"] defaultRepresentation];
-        UIImageOrientation ori=UIImageOrientationUp;
-        switch (asset.orientation) {
-            case ALAssetOrientationUp:
-                ori=UIImageOrientationUp;
-                break;
-            case ALAssetOrientationDown:
-                ori=UIImageOrientationDown;
-                break;
-            case ALAssetOrientationLeft:
-                ori=UIImageOrientationLeft;
-                break;
-            case ALAssetOrientationRight:
-                ori=UIImageOrientationRight;
-                break;
-            case ALAssetOrientationUpMirrored:
-                ori=UIImageOrientationUpMirrored;
-                break;
-            case ALAssetOrientationDownMirrored:
-                ori=UIImageOrientationDownMirrored;
-                break;
-            case ALAssetOrientationLeftMirrored:
-                ori=UIImageOrientationLeftMirrored;
-                break;
-            case ALAssetOrientationRightMirrored:
-                ori=UIImageOrientationRightMirrored;
-                break;
-            default:
-                break;
-        }
-        [muta addObject:[UIImage imageWithCGImage:[asset fullResolutionImage] scale:1 orientation:ori]];
+//        UIImageOrientation ori=UIImageOrientationUp;
+//        switch (asset.orientation) {
+//            case ALAssetOrientationUp:
+//                ori=UIImageOrientationUp;
+//                break;
+//            case ALAssetOrientationDown:
+//                ori=UIImageOrientationDown;
+//                break;
+//            case ALAssetOrientationLeft:
+//                ori=UIImageOrientationLeft;
+//                break;
+//            case ALAssetOrientationRight:
+//                ori=UIImageOrientationRight;
+//                break;
+//            case ALAssetOrientationUpMirrored:
+//                ori=UIImageOrientationUpMirrored;
+//                break;
+//            case ALAssetOrientationDownMirrored:
+//                ori=UIImageOrientationDownMirrored;
+//                break;
+//            case ALAssetOrientationLeftMirrored:
+//                ori=UIImageOrientationLeftMirrored;
+//                break;
+//            case ALAssetOrientationRightMirrored:
+//                ori=UIImageOrientationRightMirrored;
+//                break;
+//            default:
+//                break;
+//        }
+//        [muta addObject:[UIImage imageWithCGImage:[asset fullResolutionImage] scale:1 orientation:ori]];
+        [muta addObject:[UIImage imageWithCGImage:[asset fullResolutionImage]]];
     }
     return muta;
     //    NSMutableArray *array=[[NSMutableArray alloc] init];

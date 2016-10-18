@@ -1,9 +1,163 @@
 # LEFrameworks
 IOS Development Frameworks 持续更新中 
 
-请使用：
+### 导入头文件
+```
+ #import <LEFrameworks/LEFrameworks.h>
+```
 
-# #import "LEFrameworks.h"
+# 2016-10-18 推出 自动排版V2
+特点：
+1- 一行生成UI控件：view、UILabel、UIImageView、UIButton、UITextfield
+2- 自动排版
+3- 每行最后需要追加方法leAutoLayout，逻辑是根据之前的设置进行排版
+gif演示：
+![](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/LEUIFrameworkExtra.gif)
+主要接口：
+```
+/**
+ 设置父view，配合leAnchor。
+ */
+-(void) leSuperView:(UIView *) view;
+/**
+ 设置参照view。等同父view时可忽略。配合leAnchor，参照view为父view时使用LEAnchorInside，否则使用LEAnchorOutside
+ */
+-(void) leRelativeView:(UIView *) view;
+/**
+ 设置对齐方式，配合leRelativeView参照view使用。参照view为父view时使用LEAnchorInside，否则使用LEAnchorOutside
+ */
+-(void) leAnchor:(LEAnchors) anchor;
+/**
+ 设置与参照view的偏移量。左:-x,右:x,上:-y,下:y
+ */
+-(void) leOffset:(CGPoint) offset;
+/**
+ 设置view的size。Label、image、button的设置可能会失效。
+ */
+-(void) leSize:(CGSize) size;
+/**
+ 设置内嵌于父view时的edgeInsects。设置后无需设置leAnchor、leOffset及leSize
+ */
+-(void) leEdgeInsects:(UIEdgeInsets) edgeInsects;
+/**
+ 设置背景色。
+ */
+-(void) leBackground:(UIColor *) color;
+/**
+ 根据提供条件排版
+ */
+-(UIView *) leAutoLayout;
+/**
+ 设置是否运行用户交互
+ */
+-(void) leUserInteraction:(BOOL) enable;
+/**
+ 为了去除类型的警告，进行类型适配。
+ */
+-(id) leType;
+/**
+ 等同于 leExtraInits+leType。使用情况：view比较复杂，初始化时需要执行并且已经实现了leExtraInits
+ */
+-(id) leInitSelf;
+/**
+ 给当前view添加tap事件，如果是button走addTarget方式
+ */
+-(void) leTapEvent:(SEL) sel Target:(id) target;
+/**
+ 设置view的圆角
+ */
+-(void) leRoundCorner:(CGFloat) radius;
+#pragma mark Common settings
+/**
+ 设置文字，用于label、textfield、button
+ */
+-(void) leText:(NSString *) text;
+/**
+ 设置文号，用于label、textfield、button
+ */
+-(void) leFont:(UIFont *) font;
+/**
+ 设置view最大宽度，用于所有
+ */
+-(void) leWidth:(CGFloat) width;
+/**
+ 设置view最大高度，用于所有
+ */
+-(void) leHeight:(CGFloat) height;
+/**
+ 设置颜色，用于label、textfield、button的normal未选中状态文字颜色
+ */
+-(void) leColor:(UIColor *) color;
+/**
+ 设置对齐方式，用于label、textfield
+ */
+-(void) leAlignment:(NSTextAlignment) alignment;
+/**
+ 设置image，用于imageview或button的normal状态的image
+ */
+-(void) leImage:(UIImage *) image;
+#pragma mark label
+/**
+ 设置文字行数
+ */
+-(void) leLine:(int) line;
+/**
+ 设置文字行间距
+ */
+-(void) leLineSpace:(CGFloat) linespace;
+#pragma mark _Button
+/**
+ 设置选中状态的image
+ */
+-(void) leImageHighlighted:(UIImage *) image;
+/**
+ 设置未选中状态的背景图backgroundimage
+ */
+-(void) leBackgroundImage:(UIImage *) image;
+/**
+ 设置选中状态的背景图backgroundimage
+ */
+-(void) leBackgroundImageHighlighted:(UIImage *) image;
+/**
+ 设置选中状态的文字颜色
+ */
+-(void) leHighlightedColor:(UIColor *) color;
+/**
+ 设置选中状态的image
+ */
+-(void) leButtonHorizontalEdgeInsects:(int) gap;
+#pragma mark _TextField
+/**
+ 设置文字占位符
+ */
+-(void) lePlaceHolder:(NSString *) placeHolder;
+/**
+ 设置键盘右下角按钮样式
+ */
+-(void) leRetureType:(UIReturnKeyType) returnType;
+/**
+ 设置textfield的delegate
+ */
+-(void) leDelegateOfTextField:(id<UITextFieldDelegate>) delegateOfTextField;
+```
+Demo代码示例：
+```
+UIView *BG=[UIView new].leSuperView(view.leViewBelowCustomizedNavigation).leEdgeInsects(UIEdgeInsetsMake(10, 10, 10, 10)).leBackground(LEColorMask).leRoundCorner(8).leAutoLayout;
+    autoLayoutLabel=[UILabel new].leSuperView(BG).leAnchor(LEAnchorInsideTopCenter).leOffset(CGPointMake(0, LELayoutSideSpace)).leSize(CGSizeMake(BG.bounds.size.width-LELayoutSideSpace, 0)).leWidth(BG.bounds.size.width-LELayoutSideSpace).leAlignment(NSTextAlignmentCenter).leFont(LEFont(LELayoutFontSize14)).leColor([UIColor colorWithRed:0.0879 green:0.6668 blue:0.079 alpha:1.0]).leAutoLayout.leType;
+    UIView *split=[UIView new].leSuperView(BG).leRelativeView(autoLayoutLabel).leAnchor(LEAnchorOutsideBottomCenter).leOffset(CGPointMake(0, LELayoutSideSpace)).leBackground(LEColorBlack).leSize(CGSizeMake(BG.bounds.size.width-LELayoutSideSpace, 1)).leAutoLayout;
+    UIButton *btnLeft=[UIButton new].leSuperView(BG).leRelativeView(split).leAnchor(LEAnchorOutsideBottomLeft).leOffset(CGPointMake(LELayoutSideSpace, LELayoutSideSpace)).leBackgroundImage([LEColorBlue leImageStrechedFromSizeOne]).leBackgroundImageHighlighted([LEColorMask leImageStrechedFromSizeOne]).leColor(LEColorWhite).leHighlightedColor(LEColorTextGray).leText(@"左侧按钮追加").leTapEvent(@selector(onClickForAppenddingPathComponent),self).leAutoLayout.leType;
+    [[UIButton new].leSuperView(BG).leRelativeView(split).leAnchor(LEAnchorOutsideBottomRight).leOffset(CGPointMake(-LELayoutSideSpace, LELayoutSideSpace)).leBackgroundImage([LEColorRed leImageStrechedFromSizeOne]).leBackgroundImageHighlighted([LEColorMask leImageStrechedFromSizeOne]).leColor(LEColorWhite).leHighlightedColor(LEColorTextGray).leText(@"右侧按钮删除").leTapEvent(@selector(onClickForDeletingLastPathComponent),self).leAutoLayout leExecAutoLayout];
+    UIView *viewGroup=[UIView new].leSuperView(BG).leRelativeView(btnLeft).leAnchor(LEAnchorOutsideBottomLeft).leSize(CGSizeMake(BG.bounds.size.width-LELayoutSideSpace*3, 80)).leOffset(CGPointMake(0, LELayoutSideSpace)).leBackground(LEColorWhite).leRoundCorner(8).leAutoLayout;
+    [[UIButton new].leSuperView(viewGroup).leEdgeInsects(UIEdgeInsetsZero).leTapEvent(@selector(onClickForDeletingLastPathComponent),self).leBackgroundImageHighlighted([LEColorMask leImageStrechedFromSizeOne]).leAutoLayout leExecAutoLayout];
+    UIImageView *icon=[UIImageView new].leSuperView(viewGroup).leAnchor(LEAnchorInsideLeftCenter).leOffset(CGPointMake(LELayoutSideSpace, 0)).leSize(LESquareSize(viewGroup.bounds.size.height-LELayoutSideSpace*2)).leBackground(LEColorMask2).leUserInteraction(YES).leRoundCorner(6).leAutoLayout.leType;
+    UIButton *iconTap=[UIButton new].leSuperView(icon).leEdgeInsects(UIEdgeInsetsZero).leAutoLayout.leType;
+    [iconTap leSetForTapEventWithSel:@selector(onClickForAppenddingPathComponent) Target:self];
+    autoLayoutMultiLineLabel=[UILabel new].leSuperView(viewGroup).leRelativeView(icon).leAnchor(LEAnchorOutsideRightTop).leOffset(CGPointMake(LELayoutSideSpace, 0)).leLine(2).leWidth(viewGroup.bounds.size.width-LELayoutSideSpace*3-icon.bounds.size.width).leFont(LEBoldFont(LELayoutFontSize14)).leAutoLayout.leType;
+    [[UILabel new].leSuperView(viewGroup).leRelativeView(icon).leAnchor(LEAnchorOutsideRightBottom).leOffset(CGPointMake(LELayoutSideSpace, 0)).leColor(LEColorTextGray).leText(@"副标题").leAutoLayout leExecAutoLayout];
+    
+```
+
+
 ## LEBaseTableViewV2 优化列表滚动效果，大大增强滚动流畅性
 	16-09-07 在研究了开发者LiuWei（https://github.com/waynezxcv/LWAsyncDisplayView）的Gallop，主要是朋友圈模块后，顿然醒悟，原来Cell中的内容可以提前预加载并缓存，以空间换时间的概念，避免列表滚动过程中的计算，大大提高性能，列表滚动的流畅性。
 	

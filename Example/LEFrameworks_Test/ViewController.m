@@ -48,6 +48,7 @@
     UILabel *curLabel;
 }
 -(void) leExtraInits{
+    [self leAddBottomSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
     curLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:LEBoldFont(LELayoutFontSize14) Width:LESCREEN_WIDTH-LELayoutSideSpace*2 Height:0 Color:LEColorTextBlack Line:0 Alignment:NSTextAlignmentLeft]];//Line=0表示可以换行
 }
 -(void) leSetData:(id)data IndexPath:(NSIndexPath *)path{
@@ -99,6 +100,7 @@
 }
 -(void) leExtraInits{
     curLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:LEBoldFont(LELayoutFontSize14) Width:LESCREEN_WIDTH-LELayoutSideSpace*2 Height:0 Color:LEColorTextBlack Line:0 Alignment:NSTextAlignmentLeft]];//Line=0表示可以换行
+    [self leAddBottomSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
 }
 -(void) leSetData:(id)data{
     [super leSetData:data];
@@ -265,6 +267,7 @@
     [muta addObject:@"LEFrameworks测试 之 自动排版 LEUIFramework"];
     [muta addObject:@"LEFrameworks测试 之 图片多选 LEMultiImagePicker"];
     [muta addObject:@"LEFrameworks测试 之 CollectionView封装 LEBaseCollectionViewWithRefresh"];
+    [muta addObject:@"LEFrameworks测试 之 自动排版V2 LEUIViewFrameWorksExtra"];
     if(curTableView){
         [curTableView leOnRefreshedWithData:muta];
     }
@@ -307,6 +310,9 @@
             break;
         case 9:
             [self onTestCollectionView];
+            break;
+        case 10:
+            [self onTestAutoLayoutV2];
             break;
         default:
             break;
@@ -467,6 +473,7 @@
     LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
     LEBaseNavigation *navi=[[LEBaseNavigation alloc] initWithDelegate:nil ViewController:vc SuperView:view.leViewContainer Offset:LEStatusBarHeight BackgroundImage:[LEColorWhite leImageStrechedFromSizeOne] TitleColor:LEColorTextBlack LeftItemImage:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"]];
     [navi leSetNavigationTitle:@"LEUIFramework 自动排版"];
+    [view.leViewBelowCustomizedNavigation leAddTapEventWithSEL:@selector(leEndEdit)];
     autoLayoutCounter=0;
     autoLayoutTopButton=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewBelowCustomizedNavigation Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, 10) CGSize:CGSizeMake(60, 100)] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:@"点击改变大小" FontSize:10 Font:nil Image:[[UIColor redColor] leImageWithSize:CGSizeMake(20, 20)] BackgroundImage:[[[UIColor yellowColor] leImageWithSize:CGSizeMake(1,1)] leMiddleStrechedImage] Color:LEColorBlack SelectedColor:LEColorMask5 MaxWidth:120 SEL:@selector(onClickForAutoLayout) Target:self]];
     autoLayoutLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:view.leViewBelowCustomizedNavigation Anchor:LEAnchorOutsideBottomCenter RelativeView:autoLayoutTopButton Offset:CGPointMake(0, 10) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:10 Font:nil Width:0 Height:0 Color:LEColorBlack Line:1 Alignment:NSTextAlignmentCenter]];
@@ -494,6 +501,37 @@
         text=[text stringByAppendingString:@"测试的句子"];
     }
     [autoLayoutMultiLineLabel leSetText:text];
+}
+//==================测试 自动排版V2
+-(void) onTestAutoLayoutV2{
+    LEBaseViewController *vc=[[LEBaseViewController alloc] init];
+    [self.leCurrentViewController.navigationController pushViewController:vc animated:YES];
+    LEBaseView *view=[[LEBaseView alloc] initWithViewController:vc];
+    LEBaseNavigation *navi=[[LEBaseNavigation alloc] initWithDelegate:nil ViewController:vc SuperView:view.leViewContainer Offset:LEStatusBarHeight BackgroundImage:[LEColorWhite leImageStrechedFromSizeOne] TitleColor:LEColorTextBlack LeftItemImage:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_on"]];
+    [navi leSetNavigationTitle:@"自动排版V2"];
+    UIView *BG=[UIView new].leSuperView(view.leViewBelowCustomizedNavigation).leEdgeInsects(UIEdgeInsetsMake(10, 10, 10, 10)).leBackground(LEColorMask).leRoundCorner(8).leAutoLayout;
+    autoLayoutLabel=[UILabel new].leSuperView(BG).leAnchor(LEAnchorInsideTopCenter).leOffset(CGPointMake(0, LELayoutSideSpace)).leSize(CGSizeMake(BG.bounds.size.width-LELayoutSideSpace, 0)).leWidth(BG.bounds.size.width-LELayoutSideSpace).leAlignment(NSTextAlignmentCenter).leFont(LEFont(LELayoutFontSize14)).leColor([UIColor colorWithRed:0.0879 green:0.6668 blue:0.079 alpha:1.0]).leAutoLayout.leType;
+    UIView *split=[UIView new].leSuperView(BG).leRelativeView(autoLayoutLabel).leAnchor(LEAnchorOutsideBottomCenter).leOffset(CGPointMake(0, LELayoutSideSpace)).leBackground(LEColorBlack).leSize(CGSizeMake(BG.bounds.size.width-LELayoutSideSpace, 1)).leAutoLayout;
+    UIButton *btnLeft=[UIButton new].leSuperView(BG).leRelativeView(split).leAnchor(LEAnchorOutsideBottomLeft).leOffset(CGPointMake(LELayoutSideSpace, LELayoutSideSpace)).leBackgroundImage([LEColorBlue leImageStrechedFromSizeOne]).leBackgroundImageHighlighted([LEColorMask leImageStrechedFromSizeOne]).leColor(LEColorWhite).leHighlightedColor(LEColorTextGray).leText(@"左侧按钮追加").leTapEvent(@selector(onClickForAppenddingPathComponent),self).leAutoLayout.leType;
+    [[UIButton new].leSuperView(BG).leRelativeView(split).leAnchor(LEAnchorOutsideBottomRight).leOffset(CGPointMake(-LELayoutSideSpace, LELayoutSideSpace)).leBackgroundImage([LEColorRed leImageStrechedFromSizeOne]).leBackgroundImageHighlighted([LEColorMask leImageStrechedFromSizeOne]).leColor(LEColorWhite).leHighlightedColor(LEColorTextGray).leText(@"右侧按钮删除").leTapEvent(@selector(onClickForDeletingLastPathComponent),self).leAutoLayout leExecAutoLayout];
+    UIView *viewGroup=[UIView new].leSuperView(BG).leRelativeView(btnLeft).leAnchor(LEAnchorOutsideBottomLeft).leSize(CGSizeMake(BG.bounds.size.width-LELayoutSideSpace*3, 80)).leOffset(CGPointMake(0, LELayoutSideSpace)).leBackground(LEColorWhite).leRoundCorner(8).leAutoLayout;
+    [[UIButton new].leSuperView(viewGroup).leEdgeInsects(UIEdgeInsetsZero).leTapEvent(@selector(onClickForDeletingLastPathComponent),self).leBackgroundImageHighlighted([LEColorMask leImageStrechedFromSizeOne]).leAutoLayout leExecAutoLayout];
+    UIImageView *icon=[UIImageView new].leSuperView(viewGroup).leAnchor(LEAnchorInsideLeftCenter).leOffset(CGPointMake(LELayoutSideSpace, 0)).leSize(LESquareSize(viewGroup.bounds.size.height-LELayoutSideSpace*2)).leBackground(LEColorMask2).leUserInteraction(YES).leRoundCorner(6).leAutoLayout.leType;
+    UIButton *iconTap=[UIButton new].leSuperView(icon).leEdgeInsects(UIEdgeInsetsZero).leAutoLayout.leType;
+    [iconTap leSetForTapEventWithSel:@selector(onClickForAppenddingPathComponent) Target:self];
+    autoLayoutMultiLineLabel=[UILabel new].leSuperView(viewGroup).leRelativeView(icon).leAnchor(LEAnchorOutsideRightTop).leOffset(CGPointMake(LELayoutSideSpace, 0)).leLine(2).leWidth(viewGroup.bounds.size.width-LELayoutSideSpace*3-icon.bounds.size.width).leFont(LEBoldFont(LELayoutFontSize14)).leAutoLayout.leType;
+    [[UILabel new].leSuperView(viewGroup).leRelativeView(icon).leAnchor(LEAnchorOutsideRightBottom).leOffset(CGPointMake(LELayoutSideSpace, 0)).leColor(LEColorTextGray).leText(@"副标题").leAutoLayout leExecAutoLayout];
+    [[UILabel new].leSuperView(BG).leWidth(BG.bounds.size.width-LELayoutSideSpace).leAnchor(LEAnchorInsideBottomCenter).leOffset(CGPointMake(0, -LELayoutSideSpace)).leText(@"一、自动排版V2的主要特点有：\n1)-1行代码创建一个view，包括label、imageview、button、textfield。顶部绿色label举例：[UILabel new].leSuperView(xx).leAnchor(LEAnchorInsideTopCenter).leOffset(Point).leSize(size).leWidth(width).leAlignment(Alignment).leFont(font).leColor(color).leAutoLayout;\n2)-创建完成后的view可以自动排版，无需繁杂的计算。\n3）更多功能请查看文档\n二、UI说明：\n1)-绿色字体部分会自动根据内容撑开下方的内容，并且居中显示。\n2)-左侧蓝色按钮及灰色矩形框点击后，会追加一段文字，右侧红色按钮及白色矩形框点击后删除最后追加的一段文字").leAutoLayout leExecAutoLayout];
+}
+-(void) onClickForAppenddingPathComponent{
+    [autoLayoutLabel.leText([autoLayoutLabel.text stringByAppendingPathComponent:@"新建文件夹"]) leLabelLayout];
+    [autoLayoutMultiLineLabel.leText(autoLayoutLabel.text) leLabelLayout];
+    [autoLayoutMultiLineLabel leSetLineSpace:4];
+}
+-(void) onClickForDeletingLastPathComponent{
+    [autoLayoutLabel.leText([autoLayoutLabel.text stringByDeletingLastPathComponent]) leLabelLayout];
+    [autoLayoutMultiLineLabel.leText(autoLayoutLabel.text) leLabelLayout];
+    [autoLayoutMultiLineLabel leSetLineSpace:4];
 }
 @end
 @implementation ViewController
