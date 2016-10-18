@@ -148,7 +148,7 @@ gif演示：
 ```
 Demo代码示例：
 ```
-UIView *BG=[UIView new].leSuperView(view.leViewBelowCustomizedNavigation).leEdgeInsects(UIEdgeInsetsMake(10, 10, 10, 10)).leBackground(LEColorMask).leRoundCorner(8).leAutoLayout;
+    UIView *BG=[UIView new].leSuperView(view.leViewBelowCustomizedNavigation).leEdgeInsects(UIEdgeInsetsMake(10, 10, 10, 10)).leBackground(LEColorMask).leRoundCorner(8).leAutoLayout;
     autoLayoutLabel=[UILabel new].leSuperView(BG).leAnchor(LEAnchorInsideTopCenter).leOffset(CGPointMake(0, LELayoutSideSpace)).leSize(CGSizeMake(BG.bounds.size.width-LELayoutSideSpace, 0)).leWidth(BG.bounds.size.width-LELayoutSideSpace).leAlignment(NSTextAlignmentCenter).leFont(LEFont(LELayoutFontSize14)).leColor([UIColor colorWithRed:0.0879 green:0.6668 blue:0.079 alpha:1.0]).leAutoLayout.leType;
     UIView *split=[UIView new].leSuperView(BG).leRelativeView(autoLayoutLabel).leAnchor(LEAnchorOutsideBottomCenter).leOffset(CGPointMake(0, LELayoutSideSpace)).leBackground(LEColorBlack).leSize(CGSizeMake(BG.bounds.size.width-LELayoutSideSpace, 1)).leAutoLayout;
     UIButton *btnLeft=[UIButton new].leSuperView(BG).leRelativeView(split).leAnchor(LEAnchorOutsideBottomLeft).leOffset(CGPointMake(LELayoutSideSpace, LELayoutSideSpace)).leBackgroundImage([LEColorBlue leImageStrechedFromSizeOne]).leBackgroundImageHighlighted([LEColorMask leImageStrechedFromSizeOne]).leColor(LEColorWhite).leHighlightedColor(LEColorTextGray).leText(@"左侧按钮追加").leTapEvent(@selector(onClickForAppenddingPathComponent),self).leAutoLayout.leType;
