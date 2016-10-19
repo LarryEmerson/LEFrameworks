@@ -1,6 +1,18 @@
 # LEFrameworks
 IOS Development Frameworks 持续更新中 
 
+## Installation
+
+LEFrameworks is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```
+platform :ios, '7.0'
+target "ProjectName” do 
+pod "LEFrameworks"
+end 
+```
+
 ### 导入头文件
 ```
  #import <LEFrameworks/LEFrameworks.h>
@@ -451,24 +463,7 @@ _______________
 [![License](https://img.shields.io/cocoapods/l/LEFrameworks.svg?style=flat)](http://cocoapods.org/pods/LEFrameworks)
 [![Platform](https://img.shields.io/cocoapods/p/LEFrameworks.svg?style=flat)](http://cocoapods.org/pods/LEFrameworks)
 
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-## Requirements
-
-## Installation
-
-LEFrameworks is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-
-platform :ios, '7.0'
-target "ProjectName” do 
-pod "LEFrameworks"
-end 
-```
+ 
 
 ## Author
 
