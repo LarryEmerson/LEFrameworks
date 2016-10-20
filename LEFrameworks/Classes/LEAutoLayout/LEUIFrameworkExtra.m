@@ -454,6 +454,11 @@
 -(void) leSize:(CGSize) size{
     [self initAutoLayoutSettings];
     self.leAutoLayoutSettings.leSize=size;
+    if([self isKindOfClass:[UIButton class]]){
+        UIButton *view=(UIButton *)self;
+        [self initAutoLayoutButtonSettingsUIBUWith:view];
+        view.leAutoLayoutButtonSettings.leDeadSize=size;
+    }
 }
 -(void) leEdgeInsects:(UIEdgeInsets) edgeInsects{
     [self initAutoLayoutSettings];
@@ -806,11 +811,10 @@
     int space=self.leAutoLayoutButtonSettings.leSpace;
     if(space==0){
         space=LEDefaultButtonHorizontalSpace;
-    }
+    } 
     CGSize finalSize=self.leAutoLayoutButtonSettings.leDeadSize;
-    if(self.tag==12345)NSLog(@"%@",NSStringFromCGSize(self.leAutoLayoutButtonSettings.leDeadSize));
     if(finalSize.width==0||finalSize.height==0){
-        CGSize textSize=[button.titleLabel leGetLabelTextSize];
+        CGSize textSize=[self.leAutoLayoutButtonSettings.leTitle leGetSizeWithFont:self.leAutoLayoutButtonSettings.leTitleFont MaxSize:LELabelMaxSize];
         finalSize.width = textSize.width+space*2+(img?img.size.width:0);
         finalSize.height=MAX(textSize.height, img?img.size.height:0)+LEDefaultButtonVerticalSpace*2;
         if(self.leAutoLayoutButtonSettings.leMaxWidth>0||self.leAutoLayoutButtonSettings.leDeadSize.width>0){
