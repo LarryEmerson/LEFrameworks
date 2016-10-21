@@ -9,7 +9,7 @@
 #import "LEMultiImagePicker.h"
 #import "LEBaseTableView.h"
 #import "LEBaseTableViewCell.h"
-#import <AssetsLibrary/AssetsLibrary.h>
+
 @interface LEMultiImagePickerFlowPage:LEBaseView<LENavigationDelegate>
 //-(NSInteger) getRemainCount;
 //-(void) setCell:(ALAsset *) asset Status:(BOOL) status;
@@ -221,7 +221,7 @@
 //                break;
 //        }
 //        [muta addObject:[UIImage imageWithCGImage:[asset fullResolutionImage] scale:1 orientation:ori]];
-        [muta addObject:[UIImage imageWithCGImage:[asset fullResolutionImage]]];
+        [muta addObject:[UIImage imageWithCGImage:[asset fullScreenImage]]];
     }
     return muta;
     //    NSMutableArray *array=[[NSMutableArray alloc] init];
