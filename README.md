@@ -408,8 +408,8 @@ LEUIFramework，主要的用法是在新建视图时确定好其父视图，相�
 锚点说明：（粗体红色矩形表示父视图）
 1-蓝色字体部分表示参照视图为父视图的情况，使用九宫格的方式划分区域，因而共用9种停靠情况。
 2-黑色字体部分表示参照视图为父视图中的某一同级子视图。有12中停靠点+4个对角线延伸线上，共16种情况。
-![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/LEAnchor.png)
 ```
+![image](https://github.com/LarryEmerson/LEAllFrameworksGif/blob/master/LEAnchor.png)
 
 3）、快速初始化组件（1句话初始化）：UILabel，UIImageView，UIButton
 
