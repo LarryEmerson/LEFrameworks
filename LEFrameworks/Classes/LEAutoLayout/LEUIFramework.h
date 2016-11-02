@@ -273,6 +273,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 #define LEKeyOfClickStatusAsDefault     0
 #define LEKeyOfCellTitle                @"emptycelltitle"
 #define LESquareSize(__integer)         CGSizeMake(__integer,__integer)
+
 @interface UIViewController (LEExtension)
 -(void) leSetLeftBarButtonWithImage:(UIImage *) img SEL:(SEL) sel;
 -(void) leSetRightBarButtonWithImage:(UIImage *)img SEL:(SEL) sel;
@@ -285,12 +286,10 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 @interface NSObject (LEExtension)
 -(NSString *) leStringValue;
 /**
- 用于初始化，来自于NSObject意味着每个对象都可以实现该方法
- */
+ 用于初始化，来自于NSObject意味着每个对象都可以实现该方法 */
 -(void) leExtraInits;
 /**
- 用于给每个对象添加释放代码逻辑
- */
+ 用于给每个对象添加释放代码逻辑 */
 -(void) leRelease;
 @end
 
@@ -433,33 +432,19 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 #pragma Singleton
 LESingleton_interface(LEUIFramework)
 #pragma public Variables
-/*
- * @brief 设置导航栏按钮字体大小
- */
+/** 设置导航栏按钮字体大小 */
 -(void) leSetNavigationButtonFontsize:(int) fontsize;
-/*
- * @brief 设置导航栏返回按钮
- */
+/** 设置导航栏返回按钮 */
 -(void) leSetImageNavigationBack:(UIImage *) image;
-/*
- * @brief 设置导航栏颜色
- */
+/** 设置导航栏颜色 */
 -(void) leSetImageNavigationBar:(UIImage *) image;
-/*
- * @brief 设置导航栏颜色
- */
+/** 设置导航栏颜色 */
 -(void) leSetColorNavigationBar:(UIColor *) color;
-/*
- * @brief 设置导航栏标题颜色
- */
+/** 设置导航栏标题颜色 */
 -(void) leSetColorNavigationContent:(UIColor *) color;
-/*
- * @brief 设置导航栏下方View的底色
- */
+/** 设置导航栏下方View的底色 */
 -(void) leSetColorViewContainer:(UIColor *) color;
-/*
- * @brief 设置时间打印格式
- */
+/** 设置时间打印格式 */
 -(void) leSetDateFormatter:(NSDateFormatter *) formatter;
 -(BOOL) leCanItBeTapped;
 #pragma Common

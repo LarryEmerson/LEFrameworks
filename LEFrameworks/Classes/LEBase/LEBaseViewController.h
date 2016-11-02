@@ -13,7 +13,7 @@
 -(void) leOnViewControllerPopedWithPageName:(NSString *) order AndData:(id) data;
 @end
 /**
- *@brief 如果LEBaseViewController的子类（XXX）对应的view为LEBaseView的子类，并且LEBaseView的子类类名定义为“XXXPage"，则”XXXPage“类会被主动创建。如果需要重新定义子类的init方法，则需要复写XXX的方法：-(void) leExtraInits{}，这样可以避免XXX自动创建“XXXPage”。
+ * 如果LEBaseViewController的子类（XXX）对应的view为LEBaseView的子类，并且LEBaseView的子类类名定义为“XXXPage"，则”XXXPage“类会被主动创建。如果需要重新定义子类的init方法，则需要复写XXX的方法：-(void) leExtraInits{}，这样可以避免XXX自动创建“XXXPage”。
  */
 @interface LEBaseViewController : UIViewController 
 @property (nonatomic, readonly) id<LEViewControllerPopDelegate> lePopDelegate;

@@ -166,8 +166,7 @@
     return self;
 }
 
-/*
- // Only override drawRect: if you perform custom drawing.
+/** // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.
  - (void)drawRect:(CGRect)rect
  {
@@ -357,8 +356,7 @@
 
 @end
 
-/*
- // 使用举例
+/** // 使用举例
  
  EmojiInputView *emojiInputView = [[[EmojiInputView alloc] init] autorelease];
  [emojiInputView changeEmojiCategoryByIndex:EMOJI_CATEGORY_MOOD];
