@@ -14,39 +14,39 @@
 
 #pragma mark Typedef
 #pragma mark _View
-typedef UIView * (^LESuperView)         (UIView *value);
-typedef UIView * (^LERelativeView)      (UIView *value);
-typedef UIView * (^LEAnchor)            (LEAnchors value);
-typedef UIView * (^LEOffset)            (CGPoint value);
-typedef UIView * (^LESize)              (CGSize value);
-typedef UIView * (^LEEdgeInsects)       (UIEdgeInsets value);
-typedef UIView * (^LEBackground)        (UIColor *value);
-typedef id       (^LEAutoLayout)        (void);
-typedef id       (^LETypeAdapter)       (void);
-typedef id       (^LEInit)              (void);
-typedef UIView * (^LEUserInteraction)   (BOOL value);
-typedef UIView * (^LETapEvent)          (SEL sel, id target);
-typedef UIView * (^LERoundCorner)       (CGFloat radius);
+typedef __kindof UIView * (^LESuperView)         (UIView *value);
+typedef __kindof UIView * (^LERelativeView)      (UIView *value);
+typedef __kindof UIView * (^LEAnchor)            (LEAnchors value);
+typedef __kindof UIView * (^LEOffset)            (CGPoint value);
+typedef __kindof UIView * (^LESize)              (CGSize value);
+typedef __kindof UIView * (^LEEdgeInsects)       (UIEdgeInsets value);
+typedef __kindof UIView * (^LEBackground)        (UIColor *value);
+typedef __kindof UIView * (^LEAutoLayout)        (void);
+typedef __kindof UIView * (^LETypeAdapter)       (void);
+typedef __kindof UIView * (^LEInit)              (void);
+typedef __kindof UIView * (^LEUserInteraction)   (BOOL value);
+typedef __kindof UIView * (^LETapEvent)          (SEL sel, id target);
+typedef __kindof UIView * (^LERoundCorner)       (CGFloat radius);
 #pragma mark _Label
-typedef UIView * (^LEText)              (NSString *value);
-typedef UIView * (^LEFont)              (UIFont *value);
-typedef UIView * (^LEMaxWidth)          (CGFloat value);
-typedef UIView * (^LEMaxHeight)         (CGFloat value);
-typedef UIView * (^LEColor)             (UIColor *value);
-typedef UIView * (^LELine)              (int value);
-typedef UIView * (^LEAlignment)         (NSTextAlignment value);
-typedef UIView * (^LELineSpace)         (CGFloat value);
+typedef __kindof UIView * (^LEText)              (NSString *value);
+typedef __kindof UIView * (^LEFont)              (UIFont *value);
+typedef __kindof UIView * (^LEMaxWidth)          (CGFloat value);
+typedef __kindof UIView * (^LEMaxHeight)         (CGFloat value);
+typedef __kindof UIView * (^LEColor)             (UIColor *value);
+typedef __kindof UIView * (^LELine)              (int value);
+typedef __kindof UIView * (^LEAlignment)         (NSTextAlignment value);
+typedef __kindof UIView * (^LELineSpace)         (CGFloat value);
 #pragma mark _Button
-typedef UIView * (^LEImage)                         (UIImage *value);
-typedef UIView * (^LEImageHighlighted)              (UIImage *value);
-typedef UIView * (^LEBackgroundImage)               (UIImage *value);
-typedef UIView * (^LEBackgroundImageHighlighted)    (UIImage *value);
-typedef UIView * (^LEHighlightedColor)              (UIColor *value);
-typedef UIView * (^LEButtonHorizontalEdgeInsects)   (int value);
+typedef __kindof UIView * (^LEImage)                         (UIImage *value);
+typedef __kindof UIView * (^LEImageHighlighted)              (UIImage *value);
+typedef __kindof UIView * (^LEBackgroundImage)               (UIImage *value);
+typedef __kindof UIView * (^LEBackgroundImageHighlighted)    (UIImage *value);
+typedef __kindof UIView * (^LEHighlightedColor)              (UIColor *value);
+typedef __kindof UIView * (^LEButtonHorizontalEdgeInsects)   (int value);
 #pragma mark _TextField
-typedef UIView * (^LEPlaceHolder)                   (NSString *value);
-typedef UIView * (^LEReturnType)                    (UIReturnKeyType value);
-typedef UIView * (^LEDelegateOfTextField)           (id<UITextFieldDelegate> value);
+typedef __kindof UIView * (^LEPlaceHolder)                   (NSString *value);
+typedef __kindof UIView * (^LEReturnType)                    (UIReturnKeyType value);
+typedef __kindof UIView * (^LEDelegateOfTextField)           (id<UITextFieldDelegate> value);
 
 #pragma mark Properties
 #pragma mark _View
@@ -115,19 +115,19 @@ typedef UIView * (^LEDelegateOfTextField)           (id<UITextFieldDelegate> val
 /**
  根据提供条件排版
  */
--(UIView *) leAutoLayout;
+-(__kindof UIView *) leAutoLayout;
 /**
  设置是否运行用户交互
  */
 -(void) leUserInteraction:(BOOL) enable;
 /**
- 为了去除类型的警告，进行类型适配。
+ (接口已废弃，无需使用)为了去除类型的警告，进行类型适配。
  */
--(id) leType;
+-(__kindof UIView *) leType;
 /**
- 等同于 leExtraInits+leType。使用情况：view比较复杂，初始化时需要执行并且已经实现了leExtraInits
+ 新：用于创建view时调用初始化leExtraInits。旧：等同于 leExtraInits+leType。使用情况：view比较复杂，初始化时需要执行并且已经实现了leExtraInits
  */
--(id) leInitSelf;
+-(__kindof UIView *) leInitSelf;
 /**
  给当前view添加tap事件，如果是button走addTarget方式
  */
