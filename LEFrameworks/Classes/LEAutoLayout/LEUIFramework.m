@@ -45,9 +45,7 @@
 }
 -(void) leAddLocalNotification:(NSString *) notification{
     if(notification&&notification.length>0){
-        LELocalNotification *noti=[LELocalNotification new];
-        [noti leSetText:notification WithEnterTime:0.3 AndPauseTime:0.8 ReleaseWhenFinished:YES];
-        [[UIApplication sharedApplication].keyWindow addSubview:noti];
+        [LELocalNotification showText:notification WithEnterTime:0.3 AndPauseTime:0.8 ReleaseWhenFinished:YES]; 
     }
 }
 //

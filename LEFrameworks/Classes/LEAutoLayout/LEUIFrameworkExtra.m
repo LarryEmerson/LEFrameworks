@@ -548,7 +548,10 @@
     [label setTextColor:self.leAutoLayoutLabelSettings.leColor];
     [label setFont:self.leAutoLayoutLabelSettings.leFont];
     [label setNumberOfLines:self.leAutoLayoutLabelSettings.leLine];
+    #ifdef __IPHONE_7_0
+    #else
     [label setBackgroundColor:LEColorClear];
+    #endif
     [label setText:self.leAutoLayoutLabelSettings.leText];
     [self leExecAutoLayout]; 
 }

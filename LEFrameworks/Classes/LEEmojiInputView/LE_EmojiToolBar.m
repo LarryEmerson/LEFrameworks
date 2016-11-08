@@ -330,6 +330,10 @@
     msgForSomebody=@"";
 }
 #pragma mark Responding to keyboard events
+-(void) dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
 - (void)keyboardWillShow:(NSNotification *)notification {
     isKeyboardShowing=YES;
     NSDictionary *userInfo = [notification userInfo];
