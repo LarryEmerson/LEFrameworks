@@ -23,13 +23,7 @@
 //    [imagePageStateHighlighted release], imagePageStateHighlighted = nil;
 //    [super dealloc];
 }
-
-- (void)awakeFromNib
-{
-    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
-    self.imagePageStateNormal =[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"black_page_control"]];
-    self.imagePageStateHighlighted =[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"black_page_control_active"]];
-}
+ 
 
 - (id)initWithFrame:(CGRect)frame
 {

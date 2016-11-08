@@ -34,7 +34,7 @@
     [transition setDuration:MessageEnterTime];
     [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [transition setType:kCATransitionFade];
-    [transition setDelegate: self];
+//    [transition setDelegate: self];
     [self setAlpha:0];
 }
 -(void) leSetText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime {
