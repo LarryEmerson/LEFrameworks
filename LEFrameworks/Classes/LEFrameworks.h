@@ -5,7 +5,7 @@
 //  Created by emerson larry on 16/7/2.
 //  Copyright © 2016年 Larry Emerson. All rights reserved.
 //
-
+#import <LEFoundation/LEFoundation.h>
 //自动排版，UI组件Category
 #import "LEUIFramework.h"
 #import "LEUIFrameworkExtra.h"
@@ -22,9 +22,7 @@
 #import "LEBaseCollectionView.h"
 #import "LEBaseCollectionViewWithRefresh.h"
 //
-#import "LEBadge.h"
-//导航栏界面跳转通知
-#import "LEAppMessageDelegate.h"
+#import "LEBadge.h" 
 //表格显示组件
 #import "LEExcelView.h"
 //底部Tabbar组件

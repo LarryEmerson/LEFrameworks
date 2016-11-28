@@ -92,10 +92,11 @@
 }
 @end
 
-
+@interface LEBaseNavigation ()
+@property (nonatomic, weak) UIViewController *curViewController;
+@end
 @implementation LEBaseNavigation{
     id<LENavigationDelegate> curDelegate;
-    UIViewController *curViewController;
     UIImageView *background;
     UIView *bottomSplit;
 }
@@ -109,7 +110,7 @@
 }
 -(id) initWithDelegate:(id<LENavigationDelegate>) delegate ViewController:(UIViewController *) viewController SuperView:(UIView *) superview Offset:(int) offset BackgroundImage:(UIImage *) bg TitleColor:(UIColor *) color LeftItemImage:(UIImage *) left{
     self=[super initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:superview Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, offset) CGSize:CGSizeMake(LESCREEN_WIDTH, LENavigationBarHeight)]];
-    curViewController=viewController;
+    self.curViewController=viewController;
     curDelegate=delegate;
     background=[UIImageView new].leSuperView(self).leAnchor(LEAnchorInsideBottomCenter).leSize(CGSizeMake(LESCREEN_WIDTH, LENavigationBarHeight+offset)).leBackground([LEUIFramework sharedInstance].leColorNavigationBar).leAutoLayout.leType;
     [background setImage:bg];
@@ -203,7 +204,7 @@
     if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationLeftButtonTapped)]){
         [curDelegate leNavigationLeftButtonTapped];
     }else{
-        [curViewController.navigationController popViewControllerAnimated:YES];
+        [self.curViewController.navigationController popViewControllerAnimated:YES];
     }
 }
 -(void) onRight{

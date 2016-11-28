@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'LEFrameworks'
-s.version          = '0.6.1'
+s.version          = '0.6.2'
 s.summary          = 'LarryEmerson 之 IOS 基础封装'
 s.homepage         = 'https://github.com/LarryEmerson/LEFrameworks'
 s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -11,4 +11,5 @@ s.resource_bundles = {
 'LEFrameworks' => ['LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/*.png']
 }
 s.source_files = 'LEFrameworks/Classes/**/*.{h,m}'
+s.dependency 'LEFoundation'
 end

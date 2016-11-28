@@ -10,57 +10,10 @@
 #import "sys/sysctl.h"
 #import <objc/runtime.h> 
 #import "LELocalNotification.h"
-
-#define LESuppressPerformSelectorLeakWarning(Stuff) \
-do { \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
-Stuff; \
-_Pragma("clang diagnostic pop") \
-} while (0);
-
-#define LESingleton_interface(className) \
-+ (className *)sharedInstance;
-
-#define LESingleton_implementation(className) \
-static id _instace = nil; \
-+ (instancetype)allocWithZone:(struct _NSZone *)zone \
-{ \
-if (_instace == nil) { \
-static dispatch_once_t onceToken; \
-dispatch_once(&onceToken, ^{ \
-_instace = [super allocWithZone:zone]; \
-}); \
-} \
-return _instace; \
-} \
-\
-- (instancetype)init \
-{ \
-static dispatch_once_t onceToken; \
-dispatch_once(&onceToken, ^{ \
-_instace = [super init]; \
-[_instace leExtraInits];\
-}); \
-return _instace; \
-} \
-\
-+ (instancetype)sharedInstance \
-{ \
-return [[self alloc] init]; \
-} \
-+ (instancetype)copyWithZone:(struct _NSZone *)zone \
-{ \
-return _instace; \
-} \
-\
-+ (instancetype)mutableCopyWithZone:(struct _NSZone *)zone \
-{ \
-return _instace; \
-}
+#import <LEFoundation/LEFoundations.h>
 
 
-
+ 
 #pragma mark 资源名称需要对应
 #define LEIMG_Cell_RightArrow     [[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_tableview_icon_arrow"]
 #define LEIMG_ArrowLeft           [[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_common_navigation_btn_back"]
@@ -148,18 +101,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 #pragma mark Layout Input Height
 #define LELayoutCommentInputHeight                                 100
 #define LELayoutInputHeight                                        35
-#pragma mark Logs
-#define LELogFunc   fprintf(stderr,"=> FUNC: %s\n",__FUNCTION__);
-#define LELogObject(...) fprintf(stderr,"=> FUNC: %s %s\n",__FUNCTION__,[[NSString stringWithFormat:@"%@", ##__VA_ARGS__] UTF8String]);
-#define LELogInt(...) fprintf(stderr,"=> FUNC: %s %s\n",__FUNCTION__,[[NSString stringWithFormat:@"%d", ##__VA_ARGS__] UTF8String]);
-#define LELogStringAngInt(...) fprintf(stderr,"=> FUNC: %s %s\n",__FUNCTION__,[[NSString stringWithFormat:@"%@ : %d", ##__VA_ARGS__] UTF8String]);
-#define LELogTwoObjects(...) fprintf(stderr,"=> FUNC: %s %s\n",__FUNCTION__,[[NSString stringWithFormat:@"@@\n-->%@\n-->%@", ##__VA_ARGS__] UTF8String]);
-#define LELog(FORMAT, ...) fprintf(stderr,"=> (Line:%d) %s %s\n",__LINE__,__FUNCTION__,[[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
-#pragma mark 数据存储
-#define LEUserDefaults  [NSUserDefaults standardUserDefaults]
-#define LECacheDir      [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]
-#define LEDocumentDir   [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
-#define LETempDir       NSTemporaryDirectory()
+ 
 #pragma mark DeviceInfo
 #define LEIS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define LEIS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -181,8 +123,7 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 //#define iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242,2208), [[UIScreen mainScreen] currentMode].size) : NO)
 #define LEDevice    TARGET_OS_IPHONE
 #define LESimulator TARGET_IPHONE_SIMULATOR
-
-#define LEWeakSelf(type)  __weak typeof(type) weak##type = type;
+ 
 #define LEStrongSelf(type)  __strong typeof(type) type = weak##type;
 
 #pragma mark View
@@ -260,10 +201,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 #define LEDISPATCH_MAIN_THREAD(mainQueueBlock) dispatch_async(dispatch_get_main_queue(), mainQueueBlock);
 //GCD - 开启异步线程
 #define LEDISPATCH_GLOBAL_QUEUE_DEFAULT(globalQueueBlock) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), globalQueueBlocl);
-#pragma mark ? To String
-#define LEIntToString(__int) [NSString stringWithFormat:@"%d",(int)__int]
-#define LENumberToString(__number) [NSString stringWithFormat:@"%@",(NSNumber *)__number]
-#define LEIntegerToInt(__integer) ((int)__integer)
+ 
 #pragma mark 
 #define LEKeyOfCellSplit                @"cellsplit"
 #define LEKeyOfIndexPath                @"cellindex"

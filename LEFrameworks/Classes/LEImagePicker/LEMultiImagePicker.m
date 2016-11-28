@@ -70,7 +70,7 @@
     id<LEMultiImagePickerDelegate> curDelegate;
     NSInteger remainCount;
     NSMutableArray *curSelections;
-    UIViewController *curRootVC;
+    __weak UIViewController *curRootVC;
     LEBaseCollectionView *collection;
     NSInteger maxCount;
 }
@@ -302,7 +302,7 @@
     id<LEMultiImagePickerDelegate> curDelegate;
     LEBaseNavigation *curNavi;
     NSInteger remainCount;
-    UIViewController *curRootVC;
+    __weak UIViewController *curRootVC;
     NSInteger maxCount;
 }
 //-(id) initWithViewController:(LEBaseViewController *)vc Delegate:(id<LEMultiImagePickerDelegate>) delegate{

@@ -1,6 +1,7 @@
+#ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#endif
 
-#import "LEAppMessageDelegate.h"
 #import "LEUIFramework.h"
 #import "LEUIFrameworkExtra.h"
 #import "LEBadge.h"

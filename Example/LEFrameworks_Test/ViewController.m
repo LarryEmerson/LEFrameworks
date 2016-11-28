@@ -218,7 +218,7 @@
     NSString *str=@"LE Frame works";
     NSArray *array=@[@"爱上",@"阿斯达",@"啊啊撒打算的",@"啊",@"爱上谁打扫打扫",@"阿诗丹顿"];
     for (NSInteger i=0; i<rand()%6; i++) {
-        str=[NSString stringWithFormat:@"Index:%d - %@",i,[str stringByAppendingString:[array objectAtIndex:i]]];
+        str=[NSString stringWithFormat:@"Index:%zd - %@",i,[str stringByAppendingString:[array objectAtIndex:i]]];
     }
     [navigationView leSetNavigationTitle:str];
 }
@@ -246,7 +246,7 @@
     NSMutableArray *muta=[[NSMutableArray alloc] init];
     NSString *tmp=@"这是一段测试用字符串，根据随机获得的数字对其进行截取，并作为列表Cell的内容展示";
     for (NSInteger i=0; i<100+random()%100; i++) {
-        [muta addObject:[NSString stringWithFormat:@"Index %d : %@",i,[tmp substringToIndex:rand()%tmp.length]]];
+        [muta addObject:[NSString stringWithFormat:@"Index %zd : %@",i,[tmp substringToIndex:rand()%tmp.length]]];
     }
     if(curTableView){
         [curTableView leOnLoadedMoreWithData:muta];
