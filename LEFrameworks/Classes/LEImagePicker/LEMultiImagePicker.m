@@ -60,7 +60,7 @@
 @interface LEMultiImagePickerFlowPage ()<LECollectionViewCellSelectionDelegate>
 @end
 @implementation LEMultiImagePickerFlowPage{
-    UIScrollView *curScrollView;
+//    UIScrollView *curScrollView;
     NSMutableArray *curArray;
 //    NSMutableArray *curCellCache;
     ALAssetsGroup *curGroup;

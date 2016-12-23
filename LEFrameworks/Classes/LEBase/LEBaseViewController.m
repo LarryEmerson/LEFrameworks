@@ -208,8 +208,10 @@
     }
 }
 -(void) onRight{
-    if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationRightButtonTapped)]){
-        [curDelegate leNavigationRightButtonTapped];
+    if([LEUIFramework sharedInstance].leCanItBeTapped){
+        if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationRightButtonTapped)]){
+            [curDelegate leNavigationRightButtonTapped];
+        }
     }
 }
 @end

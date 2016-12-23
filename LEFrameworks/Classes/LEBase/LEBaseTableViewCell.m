@@ -19,6 +19,27 @@
 
 @implementation LEBaseTableViewCell{
     BOOL hasGesture;
+    BOOL isInited;
+}
+-(void) onSetSettings:(LETableViewCellSettings *) settings{
+    if(isInited)return;
+    isInited=YES;
+    self.leSelectionDelegate=settings.leSelectionDelegate;
+    hasGesture=settings.leGesture;
+    [self setFrame:CGRectMake(0, 0, LESCREEN_WIDTH, LEDefaultCellHeight)];
+    [self setBackgroundColor:LEColorWhite];
+    self.leHasBottomSplit=YES;
+    if(hasGesture){
+        self.leTapEffect=[[UIButton alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
+        [self.leTapEffect setBackgroundImage:[LEColorMask2 leImageStrechedFromSizeOne] forState:UIControlStateHighlighted];
+        [self.leTapEffect addTarget:self action:@selector(onButtonTaped) forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self leExtraInits];
+    [self initCellStyle];
+    if(self.leTapEffect){
+        [self addSubview:self.leTapEffect];
+    }
+    [self leExtraInitsForTopViews];
 }
 - (id)initWithSettings:(LETableViewCellSettings *) settings {
     self.leSelectionDelegate=settings.leSelectionDelegate;

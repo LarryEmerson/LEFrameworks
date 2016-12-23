@@ -21,8 +21,21 @@
     return self;
 }
 +(void) showText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime ReleaseWhenFinished:(BOOL) isRealse{
-    LELocalNotification *noti=[[LELocalNotification alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:[UIApplication sharedApplication].keyWindow Anchor:LEAnchorInsideBottomCenter Offset:CGPointMake(0, -LEStatusBarHeight) CGSize:CGSizeMake(LESCREEN_WIDTH-LENavigationBarHeight, LENavigationBarHeight)]];
+    LELocalNotification *noti=[[LELocalNotification alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:[LELocalNotification findTheMainWindow] Anchor:LEAnchorInsideBottomCenter Offset:CGPointMake(0, -LEStatusBarHeight) CGSize:CGSizeMake(LESCREEN_WIDTH-LENavigationBarHeight, LENavigationBarHeight)]];
     [noti leSetText:text WithEnterTime:time AndPauseTime:pauseTime ReleaseWhenFinished:isRealse];
+}
++ (UIWindow *)findTheMainWindow
+{
+    NSEnumerator *frontToBackWindows = [UIApplication.sharedApplication.windows reverseObjectEnumerator];
+    for (UIWindow *window in frontToBackWindows) {
+        BOOL windowOnMainScreen = window.screen == UIScreen.mainScreen;
+        BOOL windowIsVisible = !window.hidden && window.alpha > 0;
+        BOOL windowLevelSupported = (window.windowLevel >= UIWindowLevelNormal);
+        if(windowOnMainScreen && windowIsVisible && windowLevelSupported) {
+            return window;
+        }
+    }
+    return [[[UIApplication sharedApplication] delegate] window];
 }
 -(void) leExtraInits{
     [self setUserInteractionEnabled:NO];

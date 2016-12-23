@@ -228,16 +228,12 @@
 }
 -(UITableViewCell *) leCellForRowAtIndexPath:(NSIndexPath *) indexPath{
     if(indexPath.section==0){
-        UITableViewCell *cell=[self dequeueReusableCellWithIdentifier:LEReuseableCellIdentifier];
+        LEBaseTableViewCell *cell=[self dequeueReusableCellWithIdentifier:LEReuseableCellIdentifier];
         if(!cell){
-            LESuppressPerformSelectorLeakWarning(
-                                                 cell=[[self.leTableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.leCellSelectionDelegate EnableGesture:!self.leIsDisbaleTap]];
-                                                 );
+            cell=[(LEBaseTableViewCell *)[self.leTableViewCellClassName leGetInstanceFromClassName] initWithSettings:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.leCellSelectionDelegate EnableGesture:!self.leIsDisbaleTap]];
         }
         if(self.leItemsArray&&indexPath.row<self.leItemsArray.count){
-            LESuppressPerformSelectorLeakWarning(
-                                                 [cell performSelector:NSSelectorFromString(@"leSetData:IndexPath:") withObject:[self.leItemsArray objectAtIndex:indexPath.row] withObject:indexPath];
-                                                 );
+            [cell leSetData:[self.leItemsArray objectAtIndex:indexPath.row] IndexPath:indexPath];
         }
         return cell;
     }
@@ -269,9 +265,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section==0 && [self leNumberOfRowsInSection:0]==0 && [self leNumberOfSections] <=1){
         if(!self.leEmptyTableViewCell){
-            LESuppressPerformSelectorLeakWarning(
-                                                 self.leEmptyTableViewCell=[[self.leEmptyTableViewCellClassName leGetInstanceFromClassName] performSelector:NSSelectorFromString(@"initWithSettings:") withObject:@{LEKeyOfCellTitle:@"暂时还没有相关内容"}];
-                                                 );
+            self.leEmptyTableViewCell=[(LEBaseEmptyTableViewCell *)[self.leEmptyTableViewCellClassName leGetInstanceFromClassName] initWithSettings:@{LEKeyOfCellTitle:@"暂时还没有相关内容"}];
         }
         return self.leEmptyTableViewCell;
     }
