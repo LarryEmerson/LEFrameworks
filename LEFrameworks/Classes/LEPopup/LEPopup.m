@@ -118,12 +118,15 @@
     if(!curSettings.leColorSplit){
         curSettings.leColorSplit=LEColorSplit;
     }
+    if(curSettings.leSubtitleLineSpace==0){
+        curSettings.leSubtitleLineSpace=8;
+    }
     //  
 } 
 -(void) leExtraInits{
     [self setAlpha:0]; 
     [self leAddTapEventWithSEL:@selector(onBackgroundTapped) Target:self];
-    curBackground=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(W-curSettings.leSideEdge*2, curSettings.leMaxHeight)] Image:curSettings.leBckgroundImage?[[UIImage imageNamed:curSettings.leBckgroundImage] leMiddleStrechedImage]:(LEPopupBGImage?LEPopupBGImage:[LEColorWhite leImageStrechedFromSizeOne])];
+    curBackground=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(W-curSettings.leSideEdge*2, curSettings.leMaxHeight)] Image:curSettings.leBckgroundImage?[[UIImage imageNamed:curSettings.leBckgroundImage] leMiddleStrechedImage]:(LEPopupBGImage?[LEPopupBGImage leMiddleStrechedImage]:[LEColorWhite leImageStrechedFromSizeOne])];
     [curBackground setUserInteractionEnabled:YES];
     [curBackground leAddTapEventWithSEL:nil];
     curContentContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curBackground EdgeInsects:curSettings.leContentInsects]];
@@ -134,6 +137,9 @@
     [curSplit setHidden:!curSettings.leHasTopSplit];
     curSubtitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curContentContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:curSplit Offset:CGPointMake(0, curSettings.leHasTopSplit?LELayoutSideSpace:0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:curSettings.leSubtitle FontSize:0 Font:curSettings.leSubtitleFont Width:ContentW Height:0 Color:curSettings.leSubTitleColor Line:0 Alignment:curSettings.leTextAlignment]];
     [curSubtitle leSetLineSpace:curSettings.leSubtitleLineSpace];
+    if(curSubtitle.textAlignment==NSTextAlignmentLeft){
+        [curSubtitle leSetSize:CGSizeMake(ContentW, curSubtitle.bounds.size.height)];
+    }
     btnHeight=LENavigationBarHeight;
     if(curSettings.leLeftButtonSetting.leBackgroundImage){
         btnHeight=MAX(LENavigationBarHeight, curSettings.leLeftButtonSetting.leBackgroundImage.size.height);
@@ -159,6 +165,9 @@
     [curSubtitle leSetText:curSettings.leSubtitle];
     [curSubtitle leSetLineSpace:curSettings.leSubtitleLineSpace];
     [curSubtitle leSetOffset:CGPointMake(0, curSettings.leHasTopSplit?LELayoutSideSpace:0)];
+    if(curSubtitle.textAlignment==NSTextAlignmentLeft){
+        [curSubtitle leSetSize:CGSizeMake(ContentW, curSubtitle.bounds.size.height)];
+    }
     [self initLeftButton];
     [self initRightButton];
     [self initCenterButton];

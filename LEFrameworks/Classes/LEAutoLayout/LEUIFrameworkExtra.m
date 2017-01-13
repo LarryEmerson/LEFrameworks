@@ -818,7 +818,14 @@
     CGSize finalSize=self.leAutoLayoutButtonSettings.leDeadSize;
     if(finalSize.width==0||finalSize.height==0){
         CGSize textSize=[self.leAutoLayoutButtonSettings.leTitle leGetSizeWithFont:self.leAutoLayoutButtonSettings.leTitleFont MaxSize:LELabelMaxSize];
-        finalSize.width = textSize.width+space*2+(img?img.size.width:0);
+        finalSize.width = textSize.width+space*2+(img?img.size.width:0)+(img&&textSize.width>0?space:0);
+        if(img&&textSize.width>0){
+            [button setImageEdgeInsets:UIEdgeInsetsMake(0, -space/2, 0, 0)];
+            [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -space/2)];
+        }else{
+            [button setImageEdgeInsets:UIEdgeInsetsZero];
+            [button setImageEdgeInsets:UIEdgeInsetsZero];
+        }
         finalSize.height=MAX(textSize.height, img?img.size.height:0)+LEDefaultButtonVerticalSpace*2;
         if(self.leAutoLayoutButtonSettings.leMaxWidth>0||self.leAutoLayoutButtonSettings.leDeadSize.width>0){
             finalSize.width=MIN(self.leAutoLayoutButtonSettings.leMaxWidth, finalSize.width);
