@@ -57,6 +57,8 @@
 -(id) initWithSettings:(LEPopupSettings *) settings;
 -(void) leOnUpdatePopupLayout;
 -(void) leOnResetPopupContent;
+
+-(void) leResetContentWithAttribute:(NSMutableAttributedString *) attr;
 -(void) leEaseIn;
 +(LEPopup *) leShowLEPopupWithSettings:(LEPopupSettings *) settings;
 +(LEPopup *) leShowQuestionPopupWithSubtitle:(NSString *)leSubtitle Delegate:(id<LEPopupDelegate>) delegate;

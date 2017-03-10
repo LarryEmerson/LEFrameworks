@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "LEBaseCollectionView.h"
+#import "LERecordVideo.h"
 
 @interface TestCollectionViewCell : LEBaseCollectionViewCell
 @end
@@ -198,6 +199,8 @@
     //    [self onTestAutoLayout];
     //    [self onTestCollectionView];
     
+//    [self.leCurrentViewController leThroughNavigationAnimatedPush:[[LERecordVideo alloc] initWithDelegate:nil]];
+    
 }
 -(void) onSwitch:(UISwitch *) swi{
     //    [self.leCurrentViewController leThroughNavigationAnimatedPush:[TestVC new]];
@@ -257,6 +260,7 @@
 }
 -(void) leOnRefreshData{
     NSMutableArray *muta=[[NSMutableArray alloc] init];
+    
     [muta addObject:@"LEFrameworks测试 之 LESegmentView"];
     [muta addObject:@"LEFrameworks测试 之 LEWebView"];
     [muta addObject:@"LEFrameworks测试 之 圆弧进度条 LECurveProgressView"];
@@ -268,6 +272,7 @@
     [muta addObject:@"LEFrameworks测试 之 图片多选 LEMultiImagePicker"];
     [muta addObject:@"LEFrameworks测试 之 CollectionView封装 LEBaseCollectionViewWithRefresh"];
     [muta addObject:@"LEFrameworks测试 之 自动排版V2 LEUIViewFrameWorksExtra"];
+    [muta addObject:@"LEFrameworks测试 之 LERecordVideo"];
     if(curTableView){
         [curTableView leOnRefreshedWithData:muta];
     }
@@ -313,6 +318,11 @@
             break;
         case 10:
             [self onTestAutoLayoutV2];
+        case 11:
+        {
+            [self.leCurrentViewController.navigationController pushViewController:[[LERecordVideo alloc] initWithDelegate:nil] animated:YES];
+        }
+            
             break;
         default:
             break;
