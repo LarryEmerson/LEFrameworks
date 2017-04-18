@@ -1,5 +1,13 @@
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#else
+#ifndef FOUNDATION_EXPORT
+#if defined(__cplusplus)
+#define FOUNDATION_EXPORT extern "C"
+#else
+#define FOUNDATION_EXPORT extern
+#endif
+#endif
 #endif
 
 #import "LEUIFramework.h"
@@ -14,6 +22,7 @@
 #import "LEBaseTableViewSection.h"
 #import "LEBaseTableViewSectionWithIcon.h"
 #import "LEBaseTableViewV2.h"
+#import "LEBaseTableViewV3.h"
 #import "LEBaseTableViewWithRefresh.h"
 #import "LEBaseViewController.h"
 #import "LERefresh.h"
