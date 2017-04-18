@@ -132,13 +132,13 @@
         [self.leSelectionDelegate leOnTableViewCellSelectedWithInfo:@{LEKeyOfIndexPath:self.leIndexPath,LEKeyOfClickStatus:info}];
     }
 }
--(void) leOnCellSelectedWithIndex:(int) index{
+-(void) leOnCellSelectedWithIndex:(NSInteger) index{
     if(self.leSelectionDelegate){
         if(!self.leIndexPath){
             LELogObject(@"点击事件无效。继承LEBaseTableViewCell后，重写SetData方法中需要设置indexPath：self.leIndexPath=path;")
             return;
         }
-        [self.leSelectionDelegate leOnTableViewCellSelectedWithInfo:@{LEKeyOfIndexPath:self.leIndexPath,LEKeyOfClickStatus:[NSNumber numberWithInt:index]}];
+        [self.leSelectionDelegate leOnTableViewCellSelectedWithInfo:@{LEKeyOfIndexPath:self.leIndexPath,LEKeyOfClickStatus:[NSNumber numberWithInteger:index]}];
     }
 }
 -(void) leSetData:(id) data IndexPath:(NSIndexPath *) path{

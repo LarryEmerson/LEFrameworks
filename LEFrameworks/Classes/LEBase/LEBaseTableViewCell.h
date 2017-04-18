@@ -57,5 +57,5 @@
 -(void) leSetCellHeight:(int) height TapWidth:(int) width ;
 -(void) leSetData:(id) data IndexPath:(NSIndexPath *) path NS_REQUIRES_SUPER;
 -(void) leOnCellSelectedWithInfo:(NSDictionary *) info;
--(void) leOnCellSelectedWithIndex:(int) index;
+-(void) leOnCellSelectedWithIndex:(NSInteger) index;
 @end

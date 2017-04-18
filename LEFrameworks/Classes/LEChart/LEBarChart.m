@@ -85,6 +85,9 @@
 
 @interface LEBarChartItem:UIView
 @end
+
+typedef void(^BarChartItemBlock)(NSNumber *index);
+
 @implementation LEBarChartItem{
     LEBarChartSettings *curBarChartSetting;
     UILabel *labelValue;
@@ -94,7 +97,7 @@
     int H;
     int barH;
     BOOL isChecked;
-    id curTarget;
+    BarChartItemBlock curTarget;
     int curIndex;
 }
 -(id) initWithSettings:(LEBarChartSettings *) settings Height:(int) height{
@@ -125,7 +128,7 @@
     [curBar leAddTapEventWithSEL:@selector(onClick) Target:self];
     
 }
--(void) onSetWith:(int) index Tag:(NSString *) tag Value:(float) value MinValue:(float) min MaxValue:(float) max Target:(id) target{
+-(void) onSetWith:(int) index Tag:(NSString *) tag Value:(float) value MinValue:(float) min MaxValue:(float) max Target:(BarChartItemBlock) target{
     curTarget=target;
     curIndex=index;
     [self setFrame:CGRectMake(W*index, 0, W, H)];
@@ -135,10 +138,8 @@
     [labelValue leSetText:[NSString stringWithFormat:@"%.1f",value]];
 }
 -(void) onClick{
-    if(curTarget&&[curTarget respondsToSelector:NSSelectorFromString(@"onCheckedWithIndex:")]){
-        LESuppressPerformSelectorLeakWarning(
-                                             [curTarget performSelector:NSSelectorFromString(@"onCheckedWithIndex:") withObject:[NSNumber numberWithInt:curIndex]];
-                                             );
+    if(curTarget){
+        curTarget([NSNumber numberWithInt:curIndex]);
     }
 }
 -(void) onCheck:(BOOL) check{
@@ -210,7 +211,10 @@
         if(tags&&i<tags.count){
             tag=[tags objectAtIndex:i];
         }
-        [item onSetWith:i Tag:tag Value:cur MinValue:min MaxValue:max Target:self];
+        LEWeakSelf(self);
+        [item onSetWith:i Tag:tag Value:cur MinValue:min MaxValue:max Target:^(NSNumber *index) {
+            [weakself onCheckedWithIndex:index];
+        }];
         [item setHidden:i>=array.count];
     }
     NSInteger W=array.count*(curBarChartSettings.barWidth+curBarChartSettings.barSpace);

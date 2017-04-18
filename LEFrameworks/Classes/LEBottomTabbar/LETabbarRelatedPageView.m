@@ -24,21 +24,26 @@
     return rootView;
 }
 -(void) leEaseInView{
+//    [self.layer removeAllAnimations];
     [self setHidden:NO];
     [self setAlpha:0];
-    [UIView animateWithDuration:0 delay:0 options:UIViewAnimationOptionCurveLinear animations:^(void){
+    [UIView animateWithDuration:.2 animations:^(void){
         [self setAlpha:1];
     }completion:^(BOOL isDone){
         [self leEaseInViewLogic];
+        [self setHidden:NO];
+        [self setAlpha:1];
     }];
 }
 -(void) leEaseOutView{
+//    [self.layer removeAllAnimations];
     [self setHidden:NO];
     [self leEaseOutViewLogic];
-    [UIView animateWithDuration:0 animations:^(void){
+    [UIView animateWithDuration:.2 animations:^(void){
         [self setAlpha:0];
     } completion:^(BOOL isDone){
         [self setHidden:YES];
+        [self setAlpha:0];
     }];
 }
 -(void) leEaseInViewLogic{

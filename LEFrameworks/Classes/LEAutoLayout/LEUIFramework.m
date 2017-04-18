@@ -67,19 +67,19 @@
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:target action:sel]];
 }
 -(UIImageView *) leAddTopSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width{
-    UIImageView *img=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:offset CGSize:CGSizeMake(width, 0.5)] Image:[color leImageStrechedFromSizeOne]];
+    UIImageView *img=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:offset CGSize:CGSizeMake(width, 1.0/LESCREEN_SCALE)] Image:[color leImageStrechedFromSizeOne]];
     return img;
 }
 -(UIImageView *) leAddBottomSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Width:(int) width{
-    UIImageView *img= [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:offset CGSize:CGSizeMake(width, 0.5)] Image:[color leImageStrechedFromSizeOne]];
+    UIImageView *img= [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:offset CGSize:CGSizeMake(width, 1.0/LESCREEN_SCALE)] Image:[color leImageStrechedFromSizeOne]];
     return img;
 }
 -(UIImageView *) leAddLeftSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Height:(int) height{
-    UIImageView *img=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:offset CGSize:CGSizeMake(0.5, height)] Image:[color leImageStrechedFromSizeOne]];
+    UIImageView *img=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:offset CGSize:CGSizeMake(1.0/LESCREEN_SCALE, height)] Image:[color leImageStrechedFromSizeOne]];
     return img;
 }
 -(UIImageView *) leAddRightSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Height:(int) height{
-    UIImageView *img= [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:offset CGSize:CGSizeMake(0.5, height)] Image:[color leImageStrechedFromSizeOne]];
+    UIImageView *img= [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideRightCenter Offset:offset CGSize:CGSizeMake(1.0/LESCREEN_SCALE, height)] Image:[color leImageStrechedFromSizeOne]];
     return img;
 }
 -(void) leReleaseView{}

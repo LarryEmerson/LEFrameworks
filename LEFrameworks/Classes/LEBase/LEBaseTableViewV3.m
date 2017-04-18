@@ -13,7 +13,7 @@
     LEBaseEmptyTableViewCell *emptyCellForHeightCalc;
 } 
 -(void) leExtraInits{
-    [self registerClass:NSStringFromClass(self.leTableViewCellClassName) forCellReuseIdentifier:self.leTableViewCellClassName]; 
+    [self registerClass:NSClassFromString(self.leTableViewCellClassName) forCellReuseIdentifier:self.leTableViewCellClassName];
 }
 -(UITableViewCell *) leCellForRowAtIndexPath:(NSIndexPath *) indexPath{
     if(indexPath.section==0){

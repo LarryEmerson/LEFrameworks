@@ -110,9 +110,12 @@
         }
         id obj=[arrayPages objectAtIndex:i];
         if([obj isKindOfClass:[LETabbarRelatedPageView class]]){
-            LESuppressPerformSelectorLeakWarning(
-                                                 [obj performSelector:NSSelectorFromString(i==index?@"leEaseInView":@"leEaseOutView")];
-                                                 );
+            LETabbarRelatedPageView *view=(LETabbarRelatedPageView *) obj;
+            if(i==index){
+                [view leEaseInView];
+            }else{
+                [view leEaseOutView];
+            }
         }
     }
     if(self.leDelegate&&[self.leDelegate respondsToSelector:@selector(leTabbarDidTappedWith:)]){

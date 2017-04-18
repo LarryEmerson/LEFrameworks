@@ -95,14 +95,17 @@
 -(void) initExtra{
     W=self.bounds.size.width;
     H=self.bounds.size.height;
+    float space=LESCREEN_WIDTH*1.0/20;
+    LELogObject([NSNumber numberWithFloat:space])
+    LELogObject([NSNumber numberWithFloat:LESCREEN_WIDTH])
     if(curSettings.leSideEdge==0){
-        curSettings.leSideEdge=LENavigationBarHeight;
+        curSettings.leSideEdge=space;
     }
     if(curSettings.leMaxHeight==0){
         curSettings.leMaxHeight=H-LENavigationBarHeight;
     }
     if(UIEdgeInsetsEqualToEdgeInsets(curSettings.leContentInsects, UIEdgeInsetsZero)){
-        curSettings.leContentInsects=UIEdgeInsetsMake(LELayoutContentTopSpace, LELayoutSideSpace, LELayoutContentBottomSpace, LELayoutSideSpace);
+        curSettings.leContentInsects=UIEdgeInsetsMake(space, space, space, space);
     }
     if(!curSettings.leTitleFont){
         curSettings.leTitleFont=[UIFont boldSystemFontOfSize:LELayoutFontSize14];
