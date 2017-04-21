@@ -110,7 +110,7 @@
     output=nil;
     session=nil;
 }
--(void) leExtraInits {
+-(void) leAdditionalInits {
     samples=[NSMutableArray new];
     self.leViewContainer.backgroundColor=LEColorBlack;
     LEBaseNavigation *navi=[[LEBaseNavigation alloc] initWithSuperViewAsDelegate:self Title:nil];
@@ -201,5 +201,5 @@
     return UIStatusBarStyleLightContent;
 }
 
--(void) leExtraInits{}
+-(void) leAdditionalInits{}
 @end

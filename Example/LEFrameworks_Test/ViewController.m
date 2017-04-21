@@ -15,7 +15,7 @@
 @implementation TestCollectionViewCell{
     UILabel *label;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     label=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:LELayoutFontSize10 Font:nil Width:0 Height:0 Color:LEColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
     self.backgroundView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero] Image:[LEColorMask leImageStrechedFromSizeOne]];
     self.selectedBackgroundView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero] Image:[LEColorTest leImageStrechedFromSizeOne]];
@@ -30,7 +30,7 @@
 @implementation TestCollectionReusableView{
     UILabel *label;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     //        [self setBackgroundColor:LEColorTest];
     label=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace16, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:LELayoutFontSize10 Font:nil Width:0 Height:0 Color:LEColorTextBlack Line:1 Alignment:NSTextAlignmentCenter]];
 }
@@ -48,7 +48,7 @@
 @implementation TestLEbaseTableViewCell{
     UILabel *curLabel;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     [self leAddBottomSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
     curLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:LEBoldFont(LELayoutFontSize14) Width:LESCREEN_WIDTH-LELayoutSideSpace*2 Height:0 Color:LEColorTextBlack Line:0 Alignment:NSTextAlignmentLeft]];//Line=0表示可以换行
 }
@@ -66,7 +66,7 @@
     UILabel *labelLeft;
     UILabel *labelRight;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     [self.leImmovableViewContainer setBackgroundColor:[UIColor colorWithRed:0.8947 green:0.527 blue:0.3107 alpha:1.0]];
     [self.leMovableViewContainer setBackgroundColor:[UIColor colorWithRed:0.6922 green:0.4729 blue:0.6923 alpha:1.0]];
     [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leMovableViewContainer EdgeInsects:UIEdgeInsetsZero] Image:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"lewave"]];
@@ -84,8 +84,8 @@
 @interface TestExcelViewTabbar : LEExcelViewTabbar
 @end
 @implementation TestExcelViewTabbar
--(void) leExtraInits{
-    [super leExtraInits];
+-(void) leAdditionalInits{
+    [super leAdditionalInits];
     [self.leImmovableViewContainer setBackgroundColor:[UIColor colorWithRed:0.9991 green:0.5522 blue:0.9683 alpha:1.0]];
     [self.leMovableViewContainer setBackgroundColor:[UIColor colorWithRed:0.4642 green:0.6434 blue:0.9982 alpha:1.0]];
     [LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leMovableViewContainer EdgeInsects:UIEdgeInsetsZero] Image:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"lewave"]];
@@ -99,7 +99,7 @@
 @implementation TestDisplcayCell{
     UILabel *curLabel;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     curLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:nil FontSize:0 Font:LEBoldFont(LELayoutFontSize14) Width:LESCREEN_WIDTH-LELayoutSideSpace*2 Height:0 Color:LEColorTextBlack Line:0 Alignment:NSTextAlignmentLeft]];//Line=0表示可以换行
     [self leAddBottomSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
 }
@@ -118,7 +118,7 @@
     NSTimer *curTimer;
     UITapGestureRecognizer *tapEvent;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     [self.leViewContainer setBackgroundColor:[UIColor redColor]];
     tapEvent=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap)];
     [self.leViewContainer addGestureRecognizer:tapEvent];
@@ -150,7 +150,7 @@
     TestVCPage *page;
 }
 
--(void) leExtraInits{
+-(void) leAdditionalInits{
     page=[[TestVCPage alloc] initWithViewController:self];
 }
 
@@ -185,7 +185,7 @@
     BOOL isLeft;
     BOOL isRight;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     navigationView=[[LEBaseNavigation alloc] initWithSuperViewAsDelegate:self Title:@"LEFrameworks 测试"];
     [navigationView leSetLeftNavigationItemWith:nil Image:nil Color:nil];
     UISwitch *swi=[UISwitch new].leSuperView(navigationView).leAnchor(LEAnchorInsideRightCenter).leOffset(CGPointMake(-LELayoutSideSpace, 0)).leAutoLayout.leType;

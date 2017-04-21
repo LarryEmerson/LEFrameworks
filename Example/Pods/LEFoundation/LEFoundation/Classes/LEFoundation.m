@@ -34,9 +34,23 @@
 -(NSString *) leStringValue{
     return [NSString stringWithFormat:@"%@",self];
 }
--(void) leExtraInits{}
+//-(void) leExtraInits{
+//    [self leAdditionalInits];
+//}
+-(void) leAdditionalInits{}
 -(void) leRelease{}
+-(void(^)()) leReleased{
+    return ^void(){
+        [self leRelease];
+    };
+}
 
++(instancetype) leNew{
+    return [[self class] new];
+}
+-(void(^)()) leEnd{
+    return ^void(){};
+}
 -(NSString *) leObjToJSONString{
     NSString *jsonString = @"";
     if([[[UIDevice currentDevice].name lowercaseString] rangeOfString:@"simulator"].location !=NSNotFound){
@@ -110,6 +124,8 @@
     [jsonString appendString:@"]"];
     return jsonString;
 }
+//
+
 @end
 
 @implementation NSString (LEFoundation)
@@ -162,4 +178,4 @@
 }
 @end
 
- 
+

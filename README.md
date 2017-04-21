@@ -74,7 +74,7 @@ gif演示：
  */
 -(id) leType;
 /**
- 等同于 leExtraInits+leType。使用情况：view比较复杂，初始化时需要执行并且已经实现了leExtraInits
+ 等同于 leAdditionalInits+leType。使用情况：view比较复杂，初始化时需要执行并且已经实现了leAdditionalInits
  */
 -(id) leInitSelf;
 /**
@@ -199,7 +199,7 @@ Demo代码示例：
 ### 关于库中导航栏处理说明：
 
 		之前因为使用第三方库的原因不得不使用UINavigationController，从而表示之后不再自定义导航栏，但是后期发现系统导航栏自定义实在是不方便，同时考虑到界面跳转最合理的方式还是使用系统导航栏提供的push方式。现提出的方案是：应用导航栏隐藏，界面拉伸到全屏。导航栏处理则使用LEBaseNavigation来自定义。界面跳转则还是使用导航栏的push、pop方式。这样既可以自定义导航栏，也可以在特殊需求时使用系统导航栏，方式灵活。
-		另外，目前为NSobject提供了一个隐式的方法leExtraInits，这个方法的定义是，凡是在初始化后需要做进一步初始化时统一使用这个方法。目前所有的View，凡是使用initWithAutoLayoutSettings初始化的都已经自动执行了该方法。
+		另外，目前为NSobject提供了一个隐式的方法leAdditionalInits，这个方法的定义是，凡是在初始化后需要做进一步初始化时统一使用这个方法。目前所有的View，凡是使用initWithAutoLayoutSettings初始化的都已经自动执行了该方法。
 
 一、组件封装：
 
@@ -347,7 +347,7 @@ GIF中组件测试代码如下：
 UILabel *labelLeft;
 UILabel *labelRight;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
 	[self.leImmovableViewContainer setBackgroundColor:[UIColor colorWithRed:0.8947 green:0.527 blue:0.3107 alpha:1.0]];
 	[self.leMovableViewContainer setBackgroundColor:[UIColor colorWithRed:0.6922 green:0.4729 blue:0.6923 alpha:1.0]];
 	[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leMovableViewContainer EdgeInsects:UIEdgeInsetsZero] Image:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"lewave"]];
@@ -364,7 +364,7 @@ UILabel *labelRight;
 @interface TestExcelViewTabbar : LEExcelViewTabbar
 @end
 @implementation TestExcelViewTabbar
--(void) leExtraInits{
+-(void) leAdditionalInits{
 	[self.leImmovableViewContainer setBackgroundColor:[UIColor colorWithRed:0.9991 green:0.5522 blue:0.9683 alpha:1.0]];
 	[self.leMovableViewContainer setBackgroundColor:[UIColor colorWithRed:0.4642 green:0.6434 blue:0.9982 alpha:1.0]];
 	[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leMovableViewContainer EdgeInsects:UIEdgeInsetsZero] Image:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"lewave"]];
