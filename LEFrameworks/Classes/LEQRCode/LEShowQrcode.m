@@ -14,7 +14,7 @@
     NSString *curQrcode;
     UIImageView *curQrcodeView;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     int size=self.leCurrentFrameWidth*3/4;
     curQrcodeView=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self.leViewContainer Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(size,size)] Image:[LEUIFramework leCreateQRForString:curQrcode Size:size]];
 }
@@ -41,5 +41,5 @@
     [self.view addSubview:page];
     [self leSetLeftBarButtonAsBackWith:LEIMG_ArrowLeft];
 }
--(void) leExtraInits{}
+-(void) leAdditionalInits{}
 @end

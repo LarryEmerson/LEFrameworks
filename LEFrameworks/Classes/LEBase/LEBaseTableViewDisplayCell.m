@@ -15,7 +15,7 @@
     self=[super initWithFrame:CGRectMake(0, 0, LESCREEN_WIDTH, 0)];
     self.leSelectionDelegate=delegate;
     leSelfHeight=LEDefaultCellHeight;
-    [self leExtraInits];
+    [self leAdditionalInits];
     if(![gesture boolValue]){
         self.leSelfTapEvent=[UIButton new].leSuperView(self).leEdgeInsects(UIEdgeInsetsZero).leAutoLayout.leType;
         [self.leSelfTapEvent leSetForTapEventWithSel:@selector(onSelfTapEvent) Target:self];

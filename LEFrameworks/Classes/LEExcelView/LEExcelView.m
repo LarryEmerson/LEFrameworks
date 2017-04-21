@@ -25,7 +25,7 @@
     viewImmovableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
     self.leImmovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewImmovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(self.immovableWidth, cellHeight)]];
     self.leMovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewMovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(self.immovableWidth, 0) CGSize:CGSizeMake(self.leMovableWidth, cellHeight)]];
-    [self leExtraInits];
+    [self leAdditionalInits];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(leOnExcelViewScrolledWith:) name:LEExcelViewNotification object:nil];
     return self;
 }
@@ -58,7 +58,7 @@
     self=[super initWithAutoLayoutSettings:settings];
     return self;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     int immovable=[[curParam objectForKey:@"immovable"] intValue];
     int movable  =[[curParam objectForKey:@"movable"] intValue];
     UIView *movableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
@@ -216,11 +216,11 @@
     self.leImmovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewImmovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(self.immovableWidth, cellHeight)]];
     self.leMovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewMovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(self.immovableWidth, 0) CGSize:CGSizeMake(self.leMovableWidth, cellHeight)]];
     [self leSetCellHeight:cellHeight];
-    [self leExtraInits];
+    [self leAdditionalInits];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(leOnExcelViewScrolledWith:) name:LEExcelViewNotification object:nil];
     return self;
 }
--(void) leExtraInits{}
+-(void) leAdditionalInits{}
 -(void) leOnExcelViewScrolledWith:(NSNotification *) info{
     if(info){
         id offsetx=[info.userInfo objectForKey:LEExcelViewNotification];
@@ -402,7 +402,7 @@
     viewImmovableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
     self.leImmovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewImmovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(self.immovableWidth, cellHeight)]];
     self.leMovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewMovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(self.immovableWidth, 0) CGSize:CGSizeMake(self.leMovableWidth, cellHeight)]];
-    [self leExtraInits];
+    [self leAdditionalInits];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(leOnExcelViewScrolledWith:) name:LEExcelViewNotification object:nil];
 }
 -(void) leOnExcelViewScrolledWith:(NSNotification *) info{

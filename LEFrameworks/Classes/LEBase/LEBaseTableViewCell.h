@@ -48,7 +48,7 @@
 - (id)initWithSettings:(LETableViewCellSettings *)settings;
 -(void) onSetSettings:(LETableViewCellSettings *) settings;
 //
--(void) leExtraInitsForTopViews;
+-(void) leAdditionalInitsForTopViews;
 -(void) leSetBottomSplit:(BOOL) hasSplit;
 -(void) leSetBottomSplit:(BOOL) hasSplit Width:(int) width;
 -(void) leSetBottomSplit:(BOOL) hasSplit Width:(int) width Offset:(CGPoint) offset;

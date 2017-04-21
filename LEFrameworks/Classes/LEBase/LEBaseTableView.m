@@ -134,7 +134,7 @@
         [self setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         [self setAllowsSelection:NO];
         //
-        [self leExtraInits];
+        [self leAdditionalInits];
         if(settings.leIsAutoRefresh){
             [self leOnAutoRefresh];
         } 

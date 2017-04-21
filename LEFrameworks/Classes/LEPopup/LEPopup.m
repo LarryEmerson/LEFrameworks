@@ -89,7 +89,7 @@
     [self setBackgroundColor:LEColorMask5];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     [self initExtra];
-    [self leExtraInits];
+    [self leAdditionalInits];
     return self;
 }
 -(void) initExtra{
@@ -127,7 +127,7 @@
     }
     //  
 } 
--(void) leExtraInits{
+-(void) leAdditionalInits{
     [self setAlpha:0]; 
     [self leAddTapEventWithSEL:@selector(onBackgroundTapped) Target:self];
     curBackground=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeMake(W-curSettings.leSideEdge*2, curSettings.leMaxHeight)] Image:curSettings.leBckgroundImage?[[UIImage imageNamed:curSettings.leBckgroundImage] leMiddleStrechedImage]:(LEPopupBGImage?[LEPopupBGImage leMiddleStrechedImage]:[LEColorWhite leImageStrechedFromSizeOne])];

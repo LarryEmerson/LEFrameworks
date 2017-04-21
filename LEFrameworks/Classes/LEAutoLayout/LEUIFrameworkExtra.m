@@ -325,7 +325,7 @@
     };
 }
 -(id) leInitSelf{
-    [self leExtraInits];
+    [self leAdditionalInits];
     return self;
 }
 - (LEAutoLayout)leLayout {

@@ -62,12 +62,12 @@
     self=[super initWithFrame:frame];
     if(self){
         [self setUserInteractionEnabled:YES];
-        [self leExtraInits];
+        [self leAdditionalInits];
     }
     return self;
 }
 
--(void) leExtraInits{
+-(void) leAdditionalInits{
     [self leAddTopSplitWithColor:LEColorSplit Offset:CGPointZero Width:LESCREEN_WIDTH];
     [self setBackgroundColor:LEColorWhite];
     int buttonWidth=(int)LESCREEN_WIDTH/arrayNormalIcons.count;

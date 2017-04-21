@@ -17,7 +17,7 @@
 }
 -(id) init{
     self=[super init];
-    [self leExtraInits];
+    [self leAdditionalInits];
     return self;
 }
 +(void) showText:(NSString *) text WithEnterTime:(float) time AndPauseTime:(float) pauseTime ReleaseWhenFinished:(BOOL) isRealse{
@@ -37,7 +37,7 @@
     }
     return [[[UIApplication sharedApplication] delegate] window];
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     [self setUserInteractionEnabled:NO];
     [self leSetRoundCornerWithRadius:6];
     [self setBackgroundColor:LEColorGrayDark];

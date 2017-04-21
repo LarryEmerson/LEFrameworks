@@ -15,7 +15,7 @@
         [self setFrame:CGRectMake(0, 0, LESCREEN_WIDTH, LEDefaultCellHeight)];
         [self setBackgroundColor:LEColorClear];
         self.leCurSettings=settings;
-        [self leExtraInits];
+        [self leAdditionalInits];
         [self setAlpha:0];
         [self leEaseInView];
     }

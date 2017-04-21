@@ -11,8 +11,8 @@
 
 //#import "MJRefresh.h"
 //@implementation LEBaseTableViewWithMJRefresh
-//-(void) leExtraInits{
-//    [super leExtraInits];
+//-(void) leAdditionalInits{
+//    [super leAdditionalInits];
 //    self.mj_header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
 //        LESuppressPerformSelectorLeakWarning(
 //                                           [self performSelector:NSSelectorFromString(@"onDelegateRefreshData")];
@@ -57,8 +57,8 @@
     LERefreshFooter *refreshFooter;
 }
 
--(void) leExtraInits{
-    [super leExtraInits];
+-(void) leAdditionalInits{
+    [super leAdditionalInits];
     
     refreshHeader=[[LERefreshHeader alloc] initWithTarget:self];
     typeof(self) __weak weakSelf = self;

@@ -25,7 +25,7 @@
 -(void) setNavigationTitle:(NSString *) title{
     [navi leSetNavigationTitle:title];
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     navi=[[LEBaseNavigation alloc] initWithDelegate:nil SuperView:self Title:nil];
     curButtons=[[NSMutableArray alloc] init];
     UIImage *imgIconRefresh=[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_web_icon_refresh"];
@@ -187,5 +187,5 @@
     page=[[LEWebViewPage alloc] initWithViewController:self URLString:urlString];
     return self;
 } 
--(void) leExtraInits{}
+-(void) leAdditionalInits{}
 @end

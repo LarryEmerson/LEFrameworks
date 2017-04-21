@@ -87,7 +87,7 @@
         
     }
 }
--(void) leExtraInits {
+-(void) leAdditionalInits {
     //
     DefaultScanRect=self.leCurrentFrameWidth*2.0/3;
     scanSpaceH=LENavigationBarHeight*1.5;
@@ -228,5 +228,5 @@
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:isBarHidden animated:YES];
 }
--(void) leExtraInits{}
+-(void) leAdditionalInits{}
 @end

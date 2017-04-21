@@ -35,7 +35,7 @@
 -(NSString *) leStringValue{
     return [NSString stringWithFormat:@"%@",self];
 }
--(void) leExtraInits{}
+-(void) leAdditionalInits{}
 -(void) leRelease{}
 @end
 
@@ -595,7 +595,7 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
             [settings.leRelativeChangeView.leAutoResizeObservers addObject:self];
         }
     }
-    [self leExtraInits];
+    [self leAdditionalInits];
     return self;
 }
 -(void) leAddAutoResizeRelativeView:(UIView *) changeView EdgeInsects:(UIEdgeInsets) edge{
@@ -790,7 +790,8 @@ LESingleton_implementation(LEUIFramework)
 -(void) leTapVariableLogic{
     canItBeTappedVariable=NO;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
+//-(void) leAdditionalInits{
     self.leNavigationButtonFontsize=LELayoutFontSize16;
     self.leImageNavigationBar=[LEColorClear leImageStrechedFromSizeOne];
     self.leColorNavigationBar=LEColorWhite;

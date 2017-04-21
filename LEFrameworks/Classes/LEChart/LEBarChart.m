@@ -103,10 +103,10 @@ typedef void(^BarChartItemBlock)(NSNumber *index);
 -(id) initWithSettings:(LEBarChartSettings *) settings Height:(int) height{
     curBarChartSetting=settings;
     self=[super initWithFrame:CGRectMake(0, 0, settings.barWidth+settings.barSpace, height)];
-    [self leExtraInits];
+    [self leAdditionalInits];
     return self;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     W=self.bounds.size.width;
     H=self.bounds.size.height;
     UIView *viewTag=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideBottomCenter Offset:CGPointZero CGSize:CGSizeMake(W, LELayoutSideSpace*2+curBarChartSetting.tagFontsize)]];
@@ -161,10 +161,10 @@ typedef void(^BarChartItemBlock)(NSNumber *index);
     self=[super initWithAutoLayoutSettings:settings];
     curDelegate=delegate;
     curBarChartSettings=barSettings;
-    [self leExtraInits];
+    [self leAdditionalInits];
     return self;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     curItems=[[NSMutableArray alloc] init];
     curScrollView=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:self.bounds.size]];
     noDataLabel=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curScrollView Anchor:LEAnchorInsideCenter Offset:CGPointZero CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"暂无数据" FontSize:LELayoutFontSize14 Font:nil Width:0 Height:0 Color:LEColorTextGray Line:1 Alignment:NSTextAlignmentCenter]];

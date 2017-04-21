@@ -49,7 +49,7 @@
     [self.recognizerRight setDirection:UISwipeGestureRecognizerDirectionRight];
     [self.leViewContainer addGestureRecognizer:self.recognizerRight];
     //
-    [self leExtraInits];
+    [self leAdditionalInits];
     return self;
 }
 -(void) leOnSetRightSwipGesture:(BOOL) gesture{
@@ -80,9 +80,9 @@
     [self setEdgesForExtendedLayout:UIRectEdgeAll];
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     [super viewDidLoad];
-    [self leExtraInits];
+    [self leAdditionalInits];
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     NSString *class=NSStringFromClass(self.class);
     class=[class stringByAppendingString:@"Page"];
     NSObject *obj=[NSClassFromString(class) alloc];

@@ -46,10 +46,10 @@
 
 -(id) initWithFrame:(CGRect)frame{
     self=[super initWithFrame:frame];
-    [self leExtraInits];
+    [self leAdditionalInits];
     return self;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     curSize=self.bounds.size.width;
     [self.layer setMasksToBounds:YES];
     [self.layer setCornerRadius:curSize/2];

@@ -34,12 +34,12 @@
         [self.leTapEffect setBackgroundImage:[LEColorMask2 leImageStrechedFromSizeOne] forState:UIControlStateHighlighted];
         [self.leTapEffect addTarget:self action:@selector(onButtonTaped) forControlEvents:UIControlEventTouchUpInside];
     }
-    [self leExtraInits];
+    [self leAdditionalInits];
     [self initCellStyle];
     if(self.leTapEffect){
         [self addSubview:self.leTapEffect];
     }
-    [self leExtraInitsForTopViews];
+    [self leAdditionalInitsForTopViews];
 }
 - (id)initWithSettings:(LETableViewCellSettings *) settings {
     self.leSelectionDelegate=settings.leSelectionDelegate;
@@ -54,20 +54,20 @@
             [self.leTapEffect setBackgroundImage:[LEColorMask2 leImageStrechedFromSizeOne] forState:UIControlStateHighlighted];
             [self.leTapEffect addTarget:self action:@selector(onButtonTaped) forControlEvents:UIControlEventTouchUpInside];
         } 
-        [self leExtraInits];
+        [self leAdditionalInits];
         [self initCellStyle];
         if(self.leTapEffect){
             [self addSubview:self.leTapEffect];
         }
-        [self leExtraInitsForTopViews];
+        [self leAdditionalInitsForTopViews];
     }
     return self;
 }
 
--(void) leExtraInits{
+-(void) leAdditionalInits{
     self.leTitle=[LEUIFramework leGetLabelWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace, 0) CGSize:CGSizeZero] LabelSettings:[[LEAutoLayoutLabelSettings alloc] initWithText:@"" FontSize:LENavigationBarFontSize Font:nil Width:LESCREEN_WIDTH-LELayoutSideSpace*2 Height:self.bounds.size.height Color:LEColorBlack Line:0 Alignment:NSTextAlignmentLeft]];
 }
--(void) leExtraInitsForTopViews{}
+-(void) leAdditionalInitsForTopViews{}
 -(void) setHasBottomSplit:(BOOL)leHasBottomSplit{
     _leHasBottomSplit=leHasBottomSplit;
     if(leHasBottomSplit){

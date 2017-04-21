@@ -125,7 +125,7 @@ typedef __kindof UIView * (^LEDelegateOfTextField)           (id<UITextFieldDele
  */
 -(__kindof UIView *) leType;
 /**
- 新：用于创建view时调用初始化leExtraInits。旧：等同于 leExtraInits+leType。使用情况：view比较复杂，初始化时需要执行并且已经实现了leExtraInits
+ 新：用于创建view时调用初始化leAdditionalInits。旧：等同于 leAdditionalInits+leType。使用情况：view比较复杂，初始化时需要执行并且已经实现了leAdditionalInits
  */
 -(__kindof UIView *) leInitSelf;
 /**

@@ -225,7 +225,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 -(NSString *) leStringValue;
 /**
  用于初始化，来自于NSObject意味着每个对象都可以实现该方法 */
--(void) leExtraInits;
+-(void) leAdditionalInits;
 /**
  用于给每个对象添加释放代码逻辑 */
 -(void) leRelease;

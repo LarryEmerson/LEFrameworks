@@ -37,14 +37,14 @@
 @property (nonatomic) UIView *leMovableViewContainer;
 @property (nonatomic, weak) id<LETableViewCellSelectionDelegate> delegate;
 -(void) leOnSetTabbarData:(id) data;
--(void) leExtraInits NS_REQUIRES_SUPER;
+-(void) leAdditionalInits NS_REQUIRES_SUPER;
 @end
 @interface LEExcelViewTableViewCellV2 : LEBaseTableViewDisplayCell
 @property (nonatomic) UIView *leImmovableViewContainer;
 @property (nonatomic) UIView *leMovableViewContainer;
 @property (nonatomic) int immovableWidth;
 @property (nonatomic) int leMovableWidth;
--(void) leExtraInits NS_REQUIRES_SUPER;
+-(void) leAdditionalInits NS_REQUIRES_SUPER;
 @end
 @interface LEExcelViewV2 : UIScrollView<UIScrollViewDelegate>
 -(id) initWithSettings:(LETableViewSettings *)settings ImmovableViewWidth:(int) immovable MovableViewWidth:(int) movable TabbarHeight:(int) tabbarH TabbarClassname:(NSString *) tabbar;

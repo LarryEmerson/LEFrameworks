@@ -106,8 +106,8 @@
     LERefreshHeader *refreshHeader;
     LERefreshFooter *refreshFooter;
 }
--(void) leExtraInits{
-    [super leExtraInits];
+-(void) leAdditionalInits{
+    [super leAdditionalInits];
     refreshHeader=[[LERefreshHeader alloc] initWithTarget:self];
     typeof(self) __weak weakSelf = self;
     refreshHeader.refreshBlock=^(){

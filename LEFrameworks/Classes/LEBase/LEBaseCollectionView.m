@@ -146,7 +146,7 @@
         [self registerClass:NSClassFromString(settings.leReusableViewClassname) forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:LEReuseableCollectionViewIdentifier];
     }
     [self setBackgroundColor:LEColorClear];
-    [self leExtraInits];
+    [self leAdditionalInits];
     [self setAlwaysBounceVertical:YES];
     autoDeselect=YES;
     return self;
@@ -197,7 +197,7 @@
     cell.leCollectionView=self;
     if(!cell.isInited){
         cell.isInited=YES;
-        [cell leExtraInits];
+        [cell leAdditionalInits];
     }
     BOOL hasSet=NO;
     if(self.leItemsArray&&self.self.leItemsArray.count>0){
@@ -242,7 +242,7 @@
     LEBaseCollectionReusableView *view=[self dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:LEReuseableCollectionViewIdentifier forIndexPath:indexPath];
     if(!view.isInited){
         view.isInited=YES;
-        [view leExtraInits];
+        [view leAdditionalInits];
     }
     [view leSetData:self.leSectionHeaderArray&&indexPath.section<self.leSectionHeaderArray.count?[self.leSectionHeaderArray objectAtIndex:indexPath.section]:nil Kind:kind IndexPath:indexPath]; 
     return view;

@@ -19,11 +19,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self leExtraInits];
+        [self leAdditionalInits];
     }
     return self;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
     UIImage *img=[[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",bundle.bundlePath,@"sr_refresh"]];
     [self setFrame:CGRectMake(0,0, img.size.width, img.size.height)];

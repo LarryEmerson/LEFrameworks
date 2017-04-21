@@ -18,7 +18,7 @@
     self.delegate = delegate; 
     self=[super initWithFrame:CGRectMake(0, 0, LESCREEN_WIDTH, LESCREEN_HEIGHT)];
     [self setBackgroundColor:LEColorMask8];
-    [self leExtraInits];
+    [self leAdditionalInits];
     return self;
 }
 -(id) initWithDelegate:(id) delegate EaseInOrOutWithDelayWhenInited:(BOOL) isEaseIn{

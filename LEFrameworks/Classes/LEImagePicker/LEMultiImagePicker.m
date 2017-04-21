@@ -25,10 +25,10 @@
 }
 //-(id) initWithFrame:(CGRect)frame{
 //    self=[super initWithFrame:frame];
-//    [self leExtraInits];
+//    [self leAdditionalInits];
 //    return self;
 //}
--(void) leExtraInits{
+-(void) leAdditionalInits{
     curImage=[[UIImageView alloc] initWithFrame:self.bounds];
     [self addSubview:curImage];
     curIcon=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopRight Offset:CGPointMake(-2, 2) CGSize:CGSizeZero] Image:[[LEUIFramework sharedInstance] leGetImageFromLEFrameworksWithName:@"LE_MultiImagePickerCheck"]];
@@ -117,7 +117,7 @@
 //        return remainCount-count;
 //    }
 //}
--(void) leExtraInits{
+-(void) leAdditionalInits{
     curSelections=[NSMutableArray new];
     curNavi=[[LEBaseNavigation alloc] initWithSuperViewAsDelegate:self Title:@"照片图库"];
     [curNavi leSetRightNavigationItemWith:@"完成" Image:nil];
@@ -259,7 +259,7 @@
 -(void) onSetRootVC:(UIViewController *) root{
     [page onSetRootVC:root];
 }
--(void) leExtraInits{}
+-(void) leAdditionalInits{}
 @end
 
 //==============================
@@ -272,7 +272,7 @@
     UILabel *curSubtitle;
     int cellH;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     cellH=LESCREEN_WIDTH/4;
     [self leSetCellHeight:cellH];
     curIcon=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(LELayoutSideSpace20, 0) CGSize:CGSizeMake(cellH-LELayoutSideSpace20, cellH-LELayoutSideSpace20)] Image:nil];
@@ -315,7 +315,7 @@
     maxCount=max;
     return [super initWithViewController:vc];
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     curNavi=[[LEBaseNavigation alloc] initWithSuperViewAsDelegate:self Title:@"照片"];
     [curNavi leSetRightNavigationItemWith:@"取消" Image:nil];
     self.assetsLibrary = [[ALAssetsLibrary alloc] init];
@@ -377,5 +377,5 @@
     [[[LEMultiImagePickerPage alloc] initWithViewController:self Delegate:delegate RemainCount:remain MaxCount:max RootVC:vc] setUserInteractionEnabled:YES];
     return self;
 }
--(void) leExtraInits{}
+-(void) leAdditionalInits{}
 @end

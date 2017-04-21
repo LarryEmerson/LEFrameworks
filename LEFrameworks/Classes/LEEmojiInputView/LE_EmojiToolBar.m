@@ -70,7 +70,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setUserInteractionEnabled:YES];
-        [self leExtraInits];
+        [self leAdditionalInits];
     }
     return self;
 }
@@ -250,7 +250,7 @@
     sendButtonText=@"发送";
     InputTextFontSize=15;
 }
--(void) leExtraInits{
+-(void) leAdditionalInits{
     [self initDefaultUI];
     
     [self setFrame:CGRectMake(0,  LESCREEN_HEIGHT-heightOfToolBar,  LESCREEN_WIDTH, heightOfToolBar)];

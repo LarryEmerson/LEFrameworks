@@ -13,7 +13,7 @@
     LERefreshFooter *refreshFooter;
 }
 
--(void) leExtraInits{
+-(void) leAdditionalInits{
     typeof(self) __weak weakSelf = self;
     refreshHeader=[[LERefreshHeader alloc] initWithTarget:self];
     refreshHeader.refreshBlock=^(){
