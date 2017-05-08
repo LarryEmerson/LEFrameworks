@@ -1,6 +1,7 @@
 # LEFrameworks
-IOS Development Frameworks 持续更新中 
-
+20170508 最新开发库LEUIMaker中已经整合了LEFrameworks的所有必要内容，并且对自动排版做了进一步升级，详见https://github.com/LarryEmerson/LEUIMaker （Layout、BottomTabbar、Hud、ListView、Popup、Segment、VC、QRCode）
+LEFrameworks不再更新维护。
+LEUIMaker持续更新中...
 ## Installation
 
 LEFrameworks is available through [CocoaPods](http://cocoapods.org). To install
