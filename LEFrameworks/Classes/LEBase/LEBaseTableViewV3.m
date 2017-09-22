@@ -17,8 +17,8 @@
 }
 -(UITableViewCell *) leCellForRowAtIndexPath:(NSIndexPath *) indexPath{
     if(indexPath.section==0){
-        LEBaseTableViewCell *cell=[self dequeueReusableCellWithIdentifier:LEReuseableCellIdentifier forIndexPath:indexPath];
-        if(!cell){ 
+        LEBaseTableViewCell *cell=[self dequeueReusableCellWithIdentifier:self.leTableViewCellClassName forIndexPath:indexPath];
+        if(cell){
             [cell onSetSettings:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.leCellSelectionDelegate EnableGesture:!self.leIsDisbaleTap]];
         }
         if(self.leItemsArray&&indexPath.row<self.leItemsArray.count){
@@ -36,7 +36,7 @@
         return emptyCellForHeightCalc.bounds.size.height;
     }else{
         if(!cellForHeightCalc){
-            cellForHeightCalc=[(LEBaseTableViewCell *)[self.leTableViewCellClassName leGetInstanceFromClassName] initWithSettings:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.leCellSelectionDelegate reuseIdentifier:self.leTableViewCellClassName EnableGesture:!self.leIsDisbaleTap]];
+            cellForHeightCalc=[(LEBaseTableViewCell *)[self.leTableViewCellClassName leGetInstanceFromClassName] initWithSettings:[[LETableViewCellSettings alloc] initWithSelectionDelegate:self.leCellSelectionDelegate reuseIdentifier:LEReuseableCellIdentifier EnableGesture:!self.leIsDisbaleTap]];
         }
         if(indexPath.row<self.leItemsArray.count){
             [cellForHeightCalc leSetData:[self.leItemsArray objectAtIndex:indexPath.row] IndexPath:indexPath];

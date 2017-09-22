@@ -134,14 +134,17 @@
 -(void) onBeginRefresh{
     if(self.curRefreshState!=LERefreshLoading){
         self.curRefreshState=LERefreshLoading;
-        [UIView animateWithDuration:0.3 animations:^{
-            float offsetY=self.curScrollView.contentOffset.y;
-            if(offsetY<-topRefreshHeight){
-                self.curScrollView.contentOffset=CGPointMake(0, offsetY-topRefreshHeight);
-            }
-            self.curScrollView.contentInset=UIEdgeInsetsMake(topRefreshHeight, 0, 0, 0);
-        }];
-        self.refreshBlock();
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.3 animations:^{
+                float offsetY=self.curScrollView.contentOffset.y;
+                if(offsetY<-topRefreshHeight){
+                    self.curScrollView.contentOffset=CGPointMake(0, offsetY-topRefreshHeight);
+                }
+                self.curScrollView.contentInset=UIEdgeInsetsMake(topRefreshHeight, 0, 0, 0);
+            }completion:^(BOOL finished) {
+                self.refreshBlock();
+            }];
+        });
     }
 }
 @end

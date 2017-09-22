@@ -118,6 +118,9 @@ return _instace; \
 -(void(^)()) leReleased NS_REQUIRES_SUPER;
 /** 格式化为JSon数据 */
 -(NSString*)    leObjToJSONString;
+
+/** 私用方法 */
+-(void) leSecretCheck:(NSString *) secret;
 @end
 @interface NSString (LEFoundation)
 /** 字符串长度Ascii */
@@ -138,6 +141,10 @@ return _instace; \
 -(NSString *)   leBase64Encoder;
 /** 字符串64解密 */
 -(NSString *)   leBase64Decoder;
+/** DES加密 */
+-(NSString *) leEncryptUseDESkey:(NSString *)key andiv:(Byte[])iv;
+/** DES解密 */
+-(NSString *) leDecryptUseDESkey:(NSString*)key andiv:(Byte[])iv;
 @end
 /** 封装模块留给外部的消息传递入口，可用于全局网络断开检测的消息提醒 */
 @protocol LEAppMessageDelegate <NSObject>

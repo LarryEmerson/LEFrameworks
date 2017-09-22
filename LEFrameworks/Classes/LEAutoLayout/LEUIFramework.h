@@ -119,6 +119,8 @@ typedef NS_ENUM(NSInteger, LEAnchors) {
 #define LEIS_IPHONE_5 (LEIS_IPHONE && LESCREEN_MAX_LENGTH == 568.0)
 #define LEIS_IPHONE_6 (LEIS_IPHONE && LESCREEN_MAX_LENGTH == 667.0)
 #define LEIS_IPHONE_6P (LEIS_IPHONE && LESCREEN_MAX_LENGTH == 736.0)
+#define LEIS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+//(LEIS_IPHONE && LESCREEN_MAX_LENGTH == 812.0)
 //#define iPhone6     ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750,1334), [[UIScreen mainScreen] currentMode].size) : NO)
 //#define iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242,2208), [[UIScreen mainScreen] currentMode].size) : NO)
 #define LEDevice    TARGET_OS_IPHONE
@@ -147,8 +149,9 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 
 #define LENavigationBarFontSize 18
 #define LENavigationBarHeight 44
-#define LEStatusBarHeight 20 
-#define LEBottomTabbarHeight 50
+#define LEStatusBarHeight (LEIS_IPHONE_X?44:20)
+#define LEBottomTabbarHeight 49
+#define LEBottomTabbarHeightAddon (LEIS_IPHONE_X?(83-LEBottomTabbarHeight):0)
 //#define iPhone6ScaleRate 1//(iPhone6||iPhone6Plus?1.25:1)
 //#define iPhone6ScaleRateSmall 1//(iPhone6||iPhone6Plus?1.1:1)
 //#define iPhoneBigScale  iPhone6||iPhone6Plus
