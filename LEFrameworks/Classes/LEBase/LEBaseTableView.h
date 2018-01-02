@@ -85,6 +85,7 @@
 -(void) leOnStopTopRefresh;
 #pragma mark Append
 -(void) leSetBottomRefresh:(BOOL) enable;
+-(void) leClearCells;
 -(void) leOnLoadedMoreWithData:(NSMutableArray *)data;
 -(void) leOnAppendedDataToDataSource:(NSMutableArray *) data;
 -(void) leOnReloadTableViewForAppendedDataSource;

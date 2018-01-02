@@ -109,7 +109,8 @@
 @interface LEBaseTableView()<UITableViewDelegate,UITableViewDataSource>
 @end
 @implementation LEBaseTableView{
-    //    BOOL ignoredFirstEmptyCell; 
+    //    BOOL ignoredFirstEmptyCell;
+    BOOL flagForClearCells;
 }
 -(void) leSetEmptyTableViewCell:(LEBaseEmptyTableViewCell *) emptyTableViewCell{
     self.leEmptyTableViewCell=emptyTableViewCell;
@@ -185,6 +186,13 @@
 -(void) leSetBottomRefresh:(BOOL) enable{
     
 }
+-(void) leClearCells{
+    flagForClearCells=YES;
+    [self leOnAppendedDataToDataSource:@[].mutableCopy];
+    [self leOnReloadTableViewForAppendedDataSource];
+    [self leOnStopBottomRefresh];
+    
+}
 -(void) leOnLoadedMoreWithData:(NSMutableArray *)data{
     [self leOnAppendedDataToDataSource:data];
     [self leOnReloadTableViewForAppendedDataSource];
@@ -252,13 +260,14 @@
 //
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rows=[self leNumberOfRowsInSection:section];
-    if(rows==0 && section==0 && [self leNumberOfSections] <=1){
+    if(!flagForClearCells && rows==0 && section==0 && [self leNumberOfSections] <=1){
         if(self.leItemsArray){
             return 1;
         }else{
             return 0;
         }
     }else{
+        flagForClearCells=NO;
         return [self leNumberOfRowsInSection:section];
     }
 }
