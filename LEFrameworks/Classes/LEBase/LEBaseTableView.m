@@ -139,9 +139,9 @@
         if(settings.leIsAutoRefresh){
             [self leOnAutoRefresh];
         } 
-    }
+    } 
     return self;
-} 
+}
 //
 -(void) onDelegateRefreshData{
     if(self.leDataSourceDelegate){
@@ -282,5 +282,13 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
+}
+@end
+@implementation LEBaseTableView (StatusBarChange)
+-(void) leRelayout{
+    [super leRelayout];
+//    LELog(@"TB %@ %@",NSStringFromCGRect(self.leAutoLayoutSettings.leSuperView.frame),NSStringFromCGRect(self.frame))
+    [self leSetSize:self.leAutoLayoutSettings.leSuperView.frame.size];
+//    LELog(@"TB2 %@ %@",NSStringFromCGRect(self.leAutoLayoutSettings.leSuperView.frame),NSStringFromCGRect(self.frame))
 }
 @end

@@ -83,6 +83,7 @@
     return img;
 }
 -(void) leReleaseView{}
+-(void) leRelayout{}
 @end
 
 @implementation UITableView (LEExtension)
@@ -762,6 +763,7 @@ static void * LEAutoResizeObserversKey = (void *) @"LEAutoResizeObservers";
 @end
 
 @interface LEUIFramework ()
+@property (nonatomic,readwrite) BOOL isStatusBarChanged;
 @property (nonatomic,readwrite) int leNavigationButtonFontsize;
 @property (nonatomic,readwrite) UIImage *leImageNavigationBack;
 @property (nonatomic,readwrite) UIImage *leImageNavigationBar;
@@ -801,6 +803,15 @@ LESingleton_implementation(LEUIFramework)
     [self.leDateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
     self.leFrameworksBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LEFrameworks" ofType:@"bundle"]];
     self.leImageNavigationBack=[self leGetImageFromLEFrameworksWithName:@"LE_web_icon_backward_off"];
+    self.isStatusBarChanged=LEIS_IPHONE_X?NO:(LEStatusBarHeight-20>0);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotifyStatusBarChanged) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+}
+-(void) onNotifyStatusBarChanged{
+    self.isStatusBarChanged=LEIS_IPHONE_X?NO:(LEStatusBarHeight-20>0);
+//    LELog(@"onNotifyStatusBarChanged isStatusBarChanged %d %d %d ",self.isStatusBarChanged,LEIS_IPHONE_X,LEStatusBarHeight)
+}
+-(void) dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
 }
 -(void) leSetNavigationButtonFontsize:(int) fontsize{
     self.leNavigationButtonFontsize=fontsize;

@@ -149,7 +149,8 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 
 #define LENavigationBarFontSize 18
 #define LENavigationBarHeight 44
-#define LEStatusBarHeight (LEIS_IPHONE_X?44:20)
+#define LEStatusBarHeight ((int)[[UIApplication sharedApplication] statusBarFrame].size.height)//(LEIS_IPHONE_X?44:20)
+
 #define LEBottomTabbarHeight 49
 #define LEBottomTabbarHeightAddon (LEIS_IPHONE_X?(83-LEBottomTabbarHeight):0)
 //#define iPhone6ScaleRate 1//(iPhone6||iPhone6Plus?1.25:1)
@@ -245,6 +246,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 -(UIImageView *) leAddLeftSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Height:(int) height;
 -(UIImageView *) leAddRightSplitWithColor:(UIColor *) color Offset:(CGPoint) offset Height:(int) height;
 -(void) leReleaseView;
+-(void) leRelayout NS_REQUIRES_SUPER;
 @end
 
 @interface UIImage (LEExtension)
@@ -362,6 +364,7 @@ if(Color)[View.layer setBorderColor:[Color CGColor]]
 @end
 
 @interface LEUIFramework : NSObject
+@property (nonatomic,readonly) BOOL isStatusBarChanged;
 @property (nonatomic,readonly) int leNavigationButtonFontsize;
 @property (nonatomic,readonly) UIImage *leImageNavigationBack;
 @property (nonatomic,readonly) UIImage *leImageNavigationBar;

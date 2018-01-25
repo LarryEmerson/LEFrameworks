@@ -52,11 +52,12 @@
     segmentSpace=space;
     self=[super initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:container EdgeInsects:UIEdgeInsetsZero]];
     [self setBackgroundColor:LEColorWhite];
-    pageWidth=self.bounds.size.width;
+    pageWidth=container.bounds.size.width;
     curSegmentContainer=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopCenter Offset:CGPointZero CGSize:CGSizeMake(pageWidth, segmentHeight)]];
     curIndicator=[LEUIFramework leGetImageViewWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curSegmentContainer Anchor:LEAnchorInsideBottomLeft Offset:CGPointZero CGSize:CGSizeZero] Image:indicator];
     [curIndicator leSetOffset:CGPointMake(0, segmentHeight-curIndicator.bounds.size.height+0.5)];
-    curPageContainer=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:container Anchor:LEAnchorOutsideBottomCenter RelativeView:curSegmentContainer Offset:CGPointZero CGSize:CGSizeMake(pageWidth, self.bounds.size.height-segmentHeight)]];
+//    curPageContainer=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:container Anchor:LEAnchorOutsideBottomCenter RelativeView:curSegmentContainer Offset:CGPointZero CGSize:CGSizeMake(pageWidth, self.bounds.size.height-segmentHeight)]];
+    curPageContainer=[[UIScrollView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:container EdgeInsects:UIEdgeInsetsMake(segmentHeight, 0, 0, 0)]];
     [curPageContainer setDelegate:self];
     [curPageContainer setScrollEnabled:YES];
     [curPageContainer setBounces:NO];
@@ -261,5 +262,9 @@
         [curPageContainer addSubview:view];
         [view setFrame:CGRectMake(pageWidth*i, 0, pageWidth, curPageContainer.bounds.size.height)];
     }
+}
+-(void) leRelayout{
+    [super leRelayout];
+    [curPageContainer setContentSize:CGSizeMake(curPageContainer.contentSize.width, self.bounds.size.height-segmentHeight)];
 }
 @end

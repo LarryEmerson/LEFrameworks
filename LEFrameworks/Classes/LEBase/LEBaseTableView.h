@@ -97,3 +97,6 @@
 -(NSInteger) leNumberOfRowsInSection:(NSInteger) section;
 -(UITableViewCell *) leCellForRowAtIndexPath:(NSIndexPath *) indexPath; 
 @end
+@interface LEBaseTableView (StatusBarChange) 
+@end
+

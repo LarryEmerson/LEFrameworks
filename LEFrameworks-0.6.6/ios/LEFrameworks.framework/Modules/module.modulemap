@@ -1,0 +1,6 @@
+framework module LEFrameworks {
+  umbrella header "LEFrameworks.h"
+
+  export *
+  module * { export * }
+}

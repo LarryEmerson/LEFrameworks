@@ -13,12 +13,17 @@
 @protocol LEViewControllerPopDelegate <NSObject>
 -(void) leOnViewControllerPopedWithPageName:(NSString *) order AndData:(id) data;
 @end
+@interface UIViewController (StatusBarChange)
+-(void) leRelayout NS_REQUIRES_SUPER;
+-(void) addStatusBarChangeNotification NS_REQUIRES_SUPER;
+-(void) removeStatusBarChangeNotification NS_REQUIRES_SUPER;
+@end
 /**
  * 如果LEBaseViewController的子类（XXX）对应的view为LEBaseView的子类，并且LEBaseView的子类类名定义为“XXXPage"，则”XXXPage“类会被主动创建。如果需要重新定义子类的init方法，则需要复写XXX的方法：-(void) leAdditionalInits{}，这样可以避免XXX自动创建“XXXPage”。
  */
 @interface LEBaseViewController : UIViewController 
 @property (nonatomic, readonly) id<LEViewControllerPopDelegate> lePopDelegate;
--(id) initWithDelegate:(id<LEViewControllerPopDelegate>) delegate; 
+-(id) initWithDelegate:(id<LEViewControllerPopDelegate>) delegate;
 @end
 @interface LEBaseView : UIView
 @property (nonatomic, readonly) int leCurrentFrameWidth;
@@ -45,7 +50,7 @@
     UIButton *leBackButton;
     UIButton *leRightButton;
     
-}
+} 
 @property (nonatomic) UIView *leTitleViewContainer;
 -(id) initWithSuperViewAsDelegate:(LEBaseView *)superview Title:(NSString *) title;
 -(id) initWithDelegate:(id<LENavigationDelegate>)delegate SuperView:(LEBaseView *)superview Title:(NSString *) title;
