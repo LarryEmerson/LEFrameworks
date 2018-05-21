@@ -22,6 +22,7 @@
     NSMutableArray *curTitlesWidthSum;
     int segmentHeight;
     NSInteger curSelectedIndex;
+    BOOL isSelectedIndexSet;
     float segmentSpeed;
     UIView *curIndicator;
     UIColor *normalColor;
@@ -224,7 +225,12 @@
     } 
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    curSelectedIndex = scrollView.contentOffset.x/pageWidth;
+    NSInteger newIndex=scrollView.contentOffset.x/pageWidth;
+    if(isSelectedIndexSet&&curSelectedIndex==newIndex){
+        return;
+    }
+    isSelectedIndexSet=YES;
+    curSelectedIndex=newIndex;
     if(curDelegate&&[curDelegate respondsToSelector:@selector(leOnSegmentViewSelectedWithIndex:)]){
         [curDelegate leOnSegmentViewSelectedWithIndex:curSelectedIndex];
     }
@@ -241,7 +247,12 @@
     }
 }
 -(void) onTitleTapped:(UIButton *) button{
-    curSelectedIndex=[curTitlesCache indexOfObject:button];
+    NSInteger newIndex=[curTitlesCache indexOfObject:button];
+//    if(isSelectedIndexSet&&curSelectedIndex==newIndex){
+//        return;
+//    }
+//    isSelectedIndexSet=YES;
+    curSelectedIndex=newIndex;
     if(curDelegate&&[curDelegate respondsToSelector:@selector(leOnSegmentViewSelectedWithIndex:)]){
         [curDelegate leOnSegmentViewSelectedWithIndex:curSelectedIndex];
     }

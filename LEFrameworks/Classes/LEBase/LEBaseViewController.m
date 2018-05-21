@@ -74,7 +74,8 @@
     for (NSInteger i=0; i<array.count; i++) {
         UIView *v=[array objectAtIndex:i];
         if([v isKindOfClass:[LEBaseView class]]){
-            LEBaseView *base=(LEBaseView *)v; 
+            LEBaseView *base=(LEBaseView *)v;
+            base.leCurrentFrameWidth=base.bounds.size.width;
             base.leCurrentFrameHight=base.bounds.size.height-(base.leCurrentViewController.extendedLayoutIncludesOpaqueBars?0:(LEStatusBarHeight+LENavigationBarHeight));
             [base.leViewContainer leSetSize:CGSizeMake(base.leCurrentFrameWidth,base.leCurrentFrameHight)];
             [base.leViewBelowCustomizedNavigation leSetSize:CGSizeMake(LESCREEN_WIDTH, LESCREEN_HEIGHT-LEStatusBarHeight-LENavigationBarHeight)];
@@ -163,15 +164,18 @@
 -(void) leRelayout{
     [super leRelayout];
     if(!LEIS_IPHONE_X){
-        [self leSetOffset:CGPointMake(0, 20)];
+        UIInterfaceOrientation orien= [[UIApplication sharedApplication] statusBarOrientation];
+        if(orien!= UIInterfaceOrientationLandscapeLeft&&orien!= UIInterfaceOrientationLandscapeRight){
+            [self leSetOffset:CGPointMake(0, 20)];            
+        }
     }
 }
 -(id) initWithDelegate:(id<LENavigationDelegate>) delegate ViewController:(UIViewController *) viewController SuperView:(UIView *) superview Offset:(int) offset BackgroundImage:(UIImage *) bg TitleColor:(UIColor *) color LeftItemImage:(UIImage *) left{
     offset=LEStatusBarHeight;
-    self=[super initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:superview Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, offset) CGSize:CGSizeMake(LESCREEN_WIDTH, LENavigationBarHeight)]];
+    self=[super initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:superview Anchor:LEAnchorInsideTopCenter Offset:CGPointMake(0, offset) CGSize:CGSizeMake(superview.bounds.size.width, LENavigationBarHeight)]];
     self.curViewController=viewController;
     curDelegate=delegate;
-    background=[UIImageView new].leSuperView(self).leAnchor(LEAnchorInsideBottomCenter).leSize(CGSizeMake(LESCREEN_WIDTH, LENavigationBarHeight+(LEIS_IPHONE_X?LEStatusBarHeight:20))).leBackground([LEUIFramework sharedInstance].leColorNavigationBar).leAutoLayout.leType;
+    background=[UIImageView new].leSuperView(self).leAnchor(LEAnchorInsideBottomCenter).leSize(CGSizeMake(superview.bounds.size.width, LENavigationBarHeight+(LEIS_IPHONE_X?LEStatusBarHeight:20))).leBackground([LEUIFramework sharedInstance].leColorNavigationBar).leAutoLayout.leType;
     [background setImage:bg];
     //
     leBackButton=[UIButton new].leSuperView(self).leAnchor(LEAnchorInsideLeftCenter).leAutoLayout.leType;
@@ -181,7 +185,7 @@
     [leRightButton.leGap(LELayoutSideSpace).leFont(LEFont([LEUIFramework sharedInstance].leNavigationButtonFontsize)).leNormalColor(LEColorBlack).leHighlightedColor(LEColorGray).leTapEvent(@selector(onRight),self) leButtonLayout];
     [leRightButton setClipsToBounds:YES]; 
     //
-    self.leTitleViewContainer=[UIView new].leSuperView(self).leRelativeView(leBackButton).leAnchor(LEAnchorOutsideRightCenter).leSize(CGSizeMake(LESCREEN_WIDTH-LENavigationBarHeight*2, LENavigationBarHeight)).leAutoLayout;
+    self.leTitleViewContainer=[UIView new].leSuperView(self).leRelativeView(leBackButton).leAnchor(LEAnchorOutsideRightCenter).leSize(CGSizeMake(superview.bounds.size.width-LENavigationBarHeight*2, LENavigationBarHeight)).leAutoLayout;
     leNavigationTitle=[UILabel new].leSuperView(self).leAnchor(LEAnchorInsideCenter).leAutoLayout.leType;
     [leNavigationTitle.leFont(LEBoldFont(LENavigationBarFontSize)).leLine(1).leColor(color).leAlignment(NSTextAlignmentCenter) leLabelLayout];
     //
@@ -195,7 +199,7 @@
 -(void) onCheckTitleViewWith:(NSString *) title{
     [UIView animateWithDuration:0.2 animations:^{
         [leNavigationTitle leSetText:title];
-        float width=LESCREEN_WIDTH-leBackButton.bounds.size.width-leRightButton.bounds.size.width;
+        float width=background.bounds.size.width-leBackButton.bounds.size.width-leRightButton.bounds.size.width;
         [self.leTitleViewContainer leSetSize:CGSizeMake(width, LENavigationBarHeight)];
         if(curDelegate&&[curDelegate respondsToSelector:@selector(leNavigationNotifyTitleViewContainerWidth:)]){
             [curDelegate leNavigationNotifyTitleViewContainerWidth:width];
@@ -217,7 +221,7 @@
 //}
 -(void) leEnableBottomSplit:(BOOL) enable Color:(UIColor *) color{
     if(enable&&bottomSplit==nil){
-        bottomSplit=[self leAddBottomSplitWithColor:color Offset:CGPointZero Width:LESCREEN_WIDTH];
+        bottomSplit=[self leAddBottomSplitWithColor:color Offset:CGPointZero Width:background.bounds.size.width];
     }
     [bottomSplit setHidden:!enable];
 }
@@ -256,7 +260,7 @@
 }
 
 -(void) leSetNavigationOffset:(int) offset{
-    [background leSetSize:CGSizeMake(LESCREEN_WIDTH, offset+LENavigationBarHeight)];
+    [background leSetSize:CGSizeMake(background.bounds.size.width, offset+LENavigationBarHeight)];
     [self leSetOffset:CGPointMake(0, offset)];
 }
 -(void) onLeft{

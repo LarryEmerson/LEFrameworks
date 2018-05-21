@@ -72,6 +72,7 @@
 @property (nonatomic, readonly) NSString *leTableViewCellClassName;
 @property (nonatomic, readonly) BOOL leIsDisbaleTap;
 @property (nonatomic)           NSInteger leCellCountAppended;
+@property (nonatomic)           BOOL leAppendDataAsInsert;
 -(void) leSetEmptyTableViewCell:(LEBaseEmptyTableViewCell *) emptyTableViewCell;
 -(id)   initWithSettings:(LETableViewSettings *) settings; 
 #pragma mark Refresh

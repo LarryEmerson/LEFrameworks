@@ -158,8 +158,8 @@
     }
     [contentScrollView leSetSize:CGSizeMake(ContentW, MIN(curSettings.leMaxHeight-contentScrollView.frame.origin.y -curSettings.leContentInsects.top-btnHeight-curSettings.leContentInsects.bottom-LELayoutSideSpace, curSubtitle.bounds.size.height))];
     curBottomBar=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curContentContainer Anchor:LEAnchorOutsideBottomCenter RelativeView:contentScrollView Offset:CGPointMake(0, LELayoutSideSpace) CGSize:CGSizeMake(ContentW, btnHeight)]];
-    curLeftBar=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curBottomBar Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(ContentW/2.0, btnHeight)]];
-    curRightBar=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curBottomBar Anchor:LEAnchorInsideRightCenter Offset:CGPointZero CGSize:CGSizeMake(ContentW/2.0, btnHeight)]];
+    curLeftBar=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curBottomBar Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(ContentW/2.1, btnHeight)]];
+    curRightBar=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curBottomBar Anchor:LEAnchorInsideRightCenter Offset:CGPointZero CGSize:CGSizeMake(ContentW/2.1, btnHeight)]];
     [self initLeftButton];
     [self initRightButton];
     [self initCenterButton];
