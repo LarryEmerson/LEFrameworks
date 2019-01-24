@@ -202,8 +202,6 @@
 //==========================================
 
 @implementation LEExcelViewTableViewCellV2{
-    UIView *viewMovableContainer;
-    UIView *viewImmovableContainer;
 }
 -(id) initWithDelegate:(id<LETableViewCellSelectionDelegate>)delegate EnableGesture:(NSNumber *)gesture MovableWidth:(int) movable ImmovableWidth:(int) immovable CellHeight:(int) height{
     self.immovableWidth=immovable;
@@ -211,14 +209,17 @@
     int cellHeight=height;
     self=[super initWithDelegate:delegate EnableGesture:gesture];
     [self setFrame:CGRectMake(0, 0, self.immovableWidth+self.leMovableWidth, cellHeight)];
-    viewMovableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
-    viewImmovableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
-    self.leImmovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewImmovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(self.immovableWidth, cellHeight)]];
-    self.leMovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewMovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(self.immovableWidth, 0) CGSize:CGSizeMake(self.leMovableWidth, cellHeight)]];
+    UIView *viewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
+    self.leImmovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(self.immovableWidth, cellHeight)]];
+    self.leMovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(self.immovableWidth, 0) CGSize:CGSizeMake(self.leMovableWidth, cellHeight)]];
     [self leSetCellHeight:cellHeight];
     [self leAdditionalInits];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(leOnExcelViewScrolledWith:) name:LEExcelViewNotification object:nil];
+    [viewContainer leAddTapEventWithSEL:@selector(onCellTapped) Target:self];
     return self;
+}
+-(void) onCellTapped{
+    [self leOnCellSelectedWithIndex:0];
 }
 -(void) leAdditionalInits{}
 -(void) leOnExcelViewScrolledWith:(NSNotification *) info{
@@ -385,8 +386,6 @@
 //
 //#########################################
 @implementation LEExcelViewTableViewCellV3{
-    UIView *viewMovableContainer;
-    UIView *viewImmovableContainer;
     BOOL isInited;
 }
 - (void)setWithUIParam:(NSDictionary *) param {
@@ -398,12 +397,15 @@
     [self leSetBottomSplit:NO Width:0];
     
     [self setFrame:CGRectMake(0, 0, self.immovableWidth+self.leMovableWidth, cellHeight)];
-    viewMovableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
-    viewImmovableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
-    self.leImmovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewImmovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(self.immovableWidth, cellHeight)]];
-    self.leMovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewMovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(self.immovableWidth, 0) CGSize:CGSizeMake(self.leMovableWidth, cellHeight)]];
+    UIView *viewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsZero]];
+    self.leMovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(self.immovableWidth, 0) CGSize:CGSizeMake(self.leMovableWidth, cellHeight)]];
+    self.leImmovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:viewContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(self.immovableWidth, cellHeight)]];
     [self leAdditionalInits];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(leOnExcelViewScrolledWith:) name:LEExcelViewNotification object:nil];
+    [viewContainer leAddTapEventWithSEL:@selector(onCellTapped) Target:self];
+}
+-(void) onCellTapped{
+    [self leOnCellSelectedWithIndex:0];
 }
 -(void) leOnExcelViewScrolledWith:(NSNotification *) info{
     if(info){
@@ -460,6 +462,7 @@
     return tabbarHeight;
 }
 -(void) leOnSetTabbarData:(id) data{
+    curTabbar=(LEExcelViewTabbar *)[self leViewForHeaderInSection:0];
     [curTabbar leOnSetTabbarData:data];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -470,6 +473,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LEExcelViewTableViewCellV3 *cell=[self dequeueReusableCellWithIdentifier:self.leTableViewCellClassName forIndexPath:indexPath];
+    cell.leSelectionDelegate=self.leCellSelectionDelegate;
     NSDictionary *dic=@{@"immovable":[NSNumber numberWithInt:immovableWidth],@"movable":[NSNumber numberWithInt:movableWidth],@"height":[NSNumber numberWithInt:curHeight]};
     [cell setWithUIParam:dic];
     if(self.leItemsArray&&indexPath.row<self.leItemsArray.count){
@@ -502,6 +506,9 @@
     return curTableView;
 }
 -(id) initWithSettings:(LETableViewSettings *)settings ImmovableViewWidth:(int) immovable MovableViewWidth:(int) movable TabbarHeight:(int) tabbarH TabbarClassname:(NSString *) tabbar{
+    return [self initWithSettings:settings ImmovableViewWidth:immovable MovableViewWidth:movable TabbarHeight:tabbarH CellHeight:LEDefaultCellHeightBig TabbarClassname:tabbar];
+}
+-(id) initWithSettings:(LETableViewSettings *)settings ImmovableViewWidth:(int) immovable MovableViewWidth:(int) movable TabbarHeight:(int) tabbarH CellHeight:(int) cellHeight TabbarClassname:(NSString *) tabbar{
     immovableWidth=immovable;
     movableWidth=movable;
     self=[super initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:settings.leParentView Anchor:LEAnchorInsideTopLeft Offset:CGPointZero CGSize:settings.leParentView.bounds.size]];
@@ -511,7 +518,7 @@
     [self setContentOffset:CGPointZero];
     UIView *tv=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointZero CGSize:CGSizeMake(immovableWidth+movableWidth, self.bounds.size.height)]];
     [settings leSetParentView:tv];
-    curTableView=[[LEExcelViewTableViewV3 alloc] initWithSettings:settings ImmovableViewWidth:immovable MovableViewWidth:movable TabbarHeight:tabbarH CellHeight:LEDefaultCellHeightBig TabbarClassname:tabbar];
+    curTableView=[[LEExcelViewTableViewV3 alloc] initWithSettings:settings ImmovableViewWidth:immovable MovableViewWidth:movable TabbarHeight:tabbarH CellHeight:cellHeight TabbarClassname:tabbar];
     [curTableView leSetTopRefresh:NO];
     [curTableView leSetBottomRefresh:NO];
     return self;

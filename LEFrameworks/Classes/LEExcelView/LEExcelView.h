@@ -57,6 +57,7 @@
 
 @interface LEExcelViewV3 : UIScrollView<UIScrollViewDelegate>
 -(id) initWithSettings:(LETableViewSettings *)settings ImmovableViewWidth:(int) immovable MovableViewWidth:(int) movable TabbarHeight:(int) tabbarH TabbarClassname:(NSString *) tabbar;
+-(id) initWithSettings:(LETableViewSettings *)settings ImmovableViewWidth:(int) immovable MovableViewWidth:(int) movable TabbarHeight:(int) tabbarH CellHeight:(int) cellHeight TabbarClassname:(NSString *) tabbar;
 -(void) leOnRefreshedWithData:(NSMutableArray *) data;
 -(void) leOnSetTabbarData:(id) data;
 -(void) leScrollToTop;

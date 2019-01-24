@@ -7,9 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "LEBaseCollectionView.h"
+//#import "LEBaseCollectionView.h"
 #import "LERecordVideo.h"
-
+#import "LeaderBoard.h"
 @interface TestCollectionViewCell : LEBaseCollectionViewCell
 @end
 @implementation TestCollectionViewCell{
@@ -200,7 +200,10 @@
     //    [self onTestCollectionView];
     
 //    [self.leCurrentViewController leThroughNavigationAnimatedPush:[[LERecordVideo alloc] initWithDelegate:nil]];
-    
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onTest) userInfo:nil repeats:NO];
+}
+-(void) onTest{
+    [self.leCurrentViewController leThroughNavigationAnimatedPush:[LeaderBoard new]];
 }
 -(void) onSwitch:(UISwitch *) swi{
     //    [self.leCurrentViewController leThroughNavigationAnimatedPush:[TestVC new]];

@@ -28,6 +28,7 @@
     UIColor *normalColor;
     UIColor *highlightedColor;
     id<LESegmentViewDelegate> curDelegate;
+    id customMaxWidth;
 }
 -(NSArray *) getTitleCache{
     return curTitlesCache;
@@ -75,6 +76,12 @@
 -(void) leSetIndicatorOffset:(float) offset{
     [curIndicator leSetOffset:CGPointMake(curIndicator.leAutoLayoutSettings.leOffset.x, offset)];
 }
+
+-(void) leOnSetTitles:(NSArray *) titles MaxWidth:(id) width{
+    customMaxWidth=width;
+    [self leOnSetTitles:titles];
+}
+
 -(void) leOnSetTitles:(NSArray *) titles{
     [curTitlesWidth removeAllObjects];
     [curTitlesWidthSum removeAllObjects];
@@ -121,6 +128,9 @@
             [curTitlesCache addObject:btn];
         }
         maxWidth=MAX(maxWidth, btn.bounds.size.width);
+        if(customMaxWidth){
+            maxWidth=MIN([customMaxWidth intValue], maxWidth);
+        }
     }
     for (NSInteger i=titles.count; i<curTitlesCache.count; i++) {
         [[curTitlesCache objectAtIndex:i] setHidden:YES];

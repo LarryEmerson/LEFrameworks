@@ -23,4 +23,5 @@
 -(void) leSetIndicatorOffset:(float) offset;
 -(void) leSetDelegate:(id<LESegmentViewDelegate>) delegate;
 -(NSArray *) getTitleCache;
+-(void) leOnSetTitles:(NSArray *) titles MaxWidth:(id) width;
 @end

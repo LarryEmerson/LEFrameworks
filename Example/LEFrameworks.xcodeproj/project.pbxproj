@@ -15,6 +15,7 @@
 		8080032F1D2B8096000A926F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8080032D1D2B8096000A926F /* Main.storyboard */; };
 		808003311D2B8096000A926F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 808003301D2B8096000A926F /* Assets.xcassets */; };
 		808003341D2B8096000A926F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 808003321D2B8096000A926F /* LaunchScreen.storyboard */; };
+		80FC75C520B26E0000659911 /* LeaderBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FC75C420B26E0000659911 /* LeaderBoard.m */; };
 		A812B6910DD586F946CB2F22 /* Pods_LEFrameworks_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D779B046EEC3DD76E66675 /* Pods_LEFrameworks_Test.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,8 @@
 		808003301D2B8096000A926F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		808003331D2B8096000A926F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		808003351D2B8096000A926F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80FC75C320B26E0000659911 /* LeaderBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderBoard.h; sourceTree = "<group>"; };
+		80FC75C420B26E0000659911 /* LeaderBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderBoard.m; sourceTree = "<group>"; };
 		98037C3B8C1F56F9159DBCA9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		AD9FAA0A913866DEA0463F02 /* Pods-LEFrameworks_Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LEFrameworks_Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LEFrameworks_Test/Pods-LEFrameworks_Test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +101,8 @@
 		808003231D2B8096000A926F /* LEFrameworks_Test */ = {
 			isa = PBXGroup;
 			children = (
+				80FC75C320B26E0000659911 /* LeaderBoard.h */,
+				80FC75C420B26E0000659911 /* LeaderBoard.m */,
 				803569E91D76DABE0069AAD0 /* LEFrameworks.bundle */,
 				808003271D2B8096000A926F /* AppDelegate.h */,
 				808003281D2B8096000A926F /* AppDelegate.m */,
@@ -278,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80FC75C520B26E0000659911 /* LeaderBoard.m in Sources */,
 				8080032C1D2B8096000A926F /* ViewController.m in Sources */,
 				800E0D4D1E496EAE00906EA7 /* LERecordVideo.m in Sources */,
 				808003291D2B8096000A926F /* AppDelegate.m in Sources */,
