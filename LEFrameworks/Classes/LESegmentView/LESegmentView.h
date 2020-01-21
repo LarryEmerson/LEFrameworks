@@ -24,4 +24,6 @@
 -(void) leSetDelegate:(id<LESegmentViewDelegate>) delegate;
 -(NSArray *) getTitleCache;
 -(void) leOnSetTitles:(NSArray *) titles MaxWidth:(id) width;
+-(void) leSetSegmentBackgroundColor:(UIColor *) color;
+-(void) leTap:(NSInteger) index;
 @end

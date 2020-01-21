@@ -46,6 +46,12 @@
     return [self initWithTitles:titles Pages:pages ViewContainer:container SegmentHeight:segmentH Indicator:indicator SegmentSpace:space EqualWidth:equal Color:LEColorGray HighlightedColor:LEColorBlack];
 }
 
+-(void) leSetSegmentBackgroundColor:(UIColor *) color{
+//    for (int i=0; i<curTitlesCache.count; i++) {
+//        [[curTitlesCache objectAtIndex:i] setBackgroundColor:color];
+//    }
+    [curSegmentContainer setBackgroundColor:color];
+}
 -(id) initWithTitles:(NSArray *) titles Pages:(NSArray *) pages ViewContainer:(UIView *) container SegmentHeight:(int) segmentH Indicator:(UIImage *) indicator SegmentSpace:(int) space EqualWidth:(BOOL)equal Color:(UIColor *) normal HighlightedColor:(UIColor *) high{
     isEqualWidth=equal;
     normalColor=normal;
@@ -121,6 +127,7 @@
                 [curTitlesWidth addObject:@(btn.bounds.size.width/2+last.bounds.size.width/2)];
             }else{
                 btn=[LEUIFramework leGetButtonWithSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:curSegmentContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeZero] ButtonSettings:[[LEAutoLayoutUIButtonSettings alloc] initWithTitle:[titles objectAtIndex:i] FontSize:15 Font:nil Image:nil BackgroundImage:nil Color:highlightedColor SelectedColor:normalColor MaxWidth:0 SEL:@selector(onTitleTapped:) Target:self HorizontalSpace:segmentSpace]];
+                [btn setBackgroundColor:LEColorClear];
                 [curIndicator leSetOffset:CGPointMake(btn.bounds.size.width/2-curIndicator.bounds.size.width/2, 0)];
                 [curTitlesWidthSum addObject:[NSNumber numberWithFloat:btn.bounds.size.width/2]];
             }
@@ -255,6 +262,9 @@
     }else if(rightSpace>0){
         [curSegmentContainer setContentOffset:CGPointMake(curSegmentContainer.contentOffset.x+rightSpace, 0) animated:YES ];
     }
+}
+-(void) leTap:(NSInteger) index{
+    [self onTitleTapped:[curTitlesCache objectAtIndex:index%curTitlesCache.count]];
 }
 -(void) onTitleTapped:(UIButton *) button{
     NSInteger newIndex=[curTitlesCache indexOfObject:button];

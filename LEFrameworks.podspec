@@ -6,7 +6,7 @@ s.homepage         = 'https://github.com/LarryEmerson/LEFrameworks'
 s.license          = { :type => 'MIT', :file => 'LICENSE' }
 s.author           = { 'LarryEmerson' => 'larryemerson@163.com' }
 s.source           = { :git => 'https://github.com/LarryEmerson/LEFrameworks.git', :tag => s.version.to_s }
-s.ios.deployment_target = '7.0'
+s.ios.deployment_target = '8.1'
 s.resource_bundles = {
 'LEFrameworks' => ['LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/*.png']
 }
