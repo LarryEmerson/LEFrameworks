@@ -26,6 +26,7 @@
 }
 + (UIWindow *)findTheMainWindow
 {
+    /*
     NSEnumerator *frontToBackWindows = [UIApplication.sharedApplication.windows reverseObjectEnumerator];
     for (UIWindow *window in frontToBackWindows) {
         BOOL windowOnMainScreen = window.screen == UIScreen.mainScreen;
@@ -36,6 +37,8 @@
         }
     }
     return [[[UIApplication sharedApplication] delegate] window];
+    //*/ 
+    return [UIApplication sharedApplication].keyWindow;
 }
 -(void) leAdditionalInits{
     [self setUserInteractionEnabled:NO];
