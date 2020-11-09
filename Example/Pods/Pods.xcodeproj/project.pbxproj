@@ -63,12 +63,10 @@
 		60BE2E7FADD294A69EEB219B2AE887CD /* LEBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5DB4745DDEBB429D5B6C1CCFF5BD55 /* LEBaseCollectionView.m */; };
 		62517B9EC8295C9B492EB6147855F91C /* LEBaseCollectionViewWithRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C35261810F195855EE405E814D48FDCF /* LEBaseCollectionViewWithRefresh.m */; };
 		6295EA8672DE9F4137D9CEC9F6488CC5 /* LE_MessageBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F2ACB024C4147C1874980CE062E068B3 /* LE_MessageBackground@2x.png */; };
-		695A9C64AABCE078123C7095738A458C /* LEWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CC2E246BBC62537E26FC649B175E10 /* LEWebView.m */; };
 		69F0047B9FCE1BD638B3A0EC2F75C78A /* LEBottomTabbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DA4E3EB2D7CFAC4C460A02067353EEE /* LEBottomTabbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6CACADF547E00D97C2774FABBA3EA288 /* LEBasePopupEmptyPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6F7DF37D7DFDC3EE4B56C97F82C325 /* LEBasePopupEmptyPage.m */; };
 		6DBB378756E09B7242628AF53D55D972 /* LEFoundations.h in Headers */ = {isa = PBXBuildFile; fileRef = FEED843A3FF22653900070CE0D23C296 /* LEFoundations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DC15CE24AC181D7FCF4D8A2F2AAF938 /* LE_NSDate+Category.h in Headers */ = {isa = PBXBuildFile; fileRef = 91C2980A8D3FF873CFD27C4DE460FC37 /* LE_NSDate+Category.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		70AA99254401C57BE8A8BD25AF3A13BE /* LEWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9228B589CB999373E6B5ABECBE88676C /* LEWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		719986C6734ED9744280D6F80A8E51B3 /* LEBaseCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = F1259ABCF5E4910972C87479F2858BEA /* LEBaseCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7444D043277706CF5322365518792BBB /* LE_popup_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E85536301463698EA12F76A2BAF3249 /* LE_popup_bg@2x.png */; };
 		7694888CA9657F3F3869BEBFA2B50984 /* LEBarChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ABF6963EBAD5DB5DA85313032A0E807 /* LEBarChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -172,7 +170,6 @@
 		007E6003B99A3212766F3574687185AF /* LEExcelView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LEExcelView.h; sourceTree = "<group>"; };
 		0156BE1CEF20E8591F072CD210F0E3A0 /* LEBaseEmptyTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LEBaseEmptyTableViewCell.m; sourceTree = "<group>"; };
 		01B740A36A5D38AA4F355EC90146B00C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		01CC2E246BBC62537E26FC649B175E10 /* LEWebView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LEWebView.m; sourceTree = "<group>"; };
 		01D6DEF7C185F0A01B04957E6AB7A13F /* LEFrameworks.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LEFrameworks.xcconfig; sourceTree = "<group>"; };
 		045B38169C09E23BB376F4D653A1EE1C /* LE_emoji_smileface@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_emoji_smileface@2x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_emoji_smileface@2x.png"; sourceTree = "<group>"; };
 		0E04A7A099D3C8B14A0695B781A6313E /* Pods-LEFrameworks_Test-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-LEFrameworks_Test-dummy.m"; sourceTree = "<group>"; };
@@ -219,7 +216,7 @@
 		4FB3AD74A8E34DE0F8A7F65827475D93 /* LEPieChart.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LEPieChart.h; sourceTree = "<group>"; };
 		4FC73D5B21FF8B8DAD23B9C51D81CC01 /* LE_web_icon_backward_on@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_web_icon_backward_on@3x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_web_icon_backward_on@3x.png"; sourceTree = "<group>"; };
 		5110BC9E5FFCE309827A4BB864A94C01 /* LEFoundation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LEFoundation.m; path = LEFoundation/Classes/LEFoundation.m; sourceTree = "<group>"; };
-		54D26E440F3499B94127DBAD4E2CE453 /* LEFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LEFoundation.framework; path = LEFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54D26E440F3499B94127DBAD4E2CE453 /* LEFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LEFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		550E175909E7FAA5C69A81AAEDA318B7 /* LEFoundation.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = LEFoundation.xcconfig; sourceTree = "<group>"; };
 		55D2C5A78A4F293ADEA3D5299F0A999A /* LE_web_icon_close@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_web_icon_close@2x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_web_icon_close@2x.png"; sourceTree = "<group>"; };
 		58E7CAEC152685D1DF26EA4978642D45 /* LE_web_icon_refresh@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_web_icon_refresh@3x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_web_icon_refresh@3x.png"; sourceTree = "<group>"; };
@@ -227,7 +224,7 @@
 		5951DB4DCCED1C7A63A8DD31700F53AA /* Pods-LEFrameworks_Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LEFrameworks_Test.release.xcconfig"; sourceTree = "<group>"; };
 		598DCE6579B08AB9B021FF485CE12C42 /* LECurveProgressView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LECurveProgressView.h; sourceTree = "<group>"; };
 		5BDC97780072AAD843CA04937D65CA13 /* LE_lewave.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = LE_lewave.png; path = LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_lewave.png; sourceTree = "<group>"; };
-		5C127942D465FB4734053C6E51D7B8C2 /* LEFrameworks.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = LEFrameworks.modulemap; sourceTree = "<group>"; };
+		5C127942D465FB4734053C6E51D7B8C2 /* LEFrameworks.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = LEFrameworks.modulemap; sourceTree = "<group>"; };
 		5C71C965F51D66B56278D03D7233BC4A /* LE_web_icon_backward_off@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_web_icon_backward_off@3x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_web_icon_backward_off@3x.png"; sourceTree = "<group>"; };
 		5E41B077E6003525F48382AA30D51C77 /* LE_qrcode_scan_line@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_qrcode_scan_line@2x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_qrcode_scan_line@2x.png"; sourceTree = "<group>"; };
 		5E85536301463698EA12F76A2BAF3249 /* LE_popup_bg@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_popup_bg@2x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_popup_bg@2x.png"; sourceTree = "<group>"; };
@@ -238,14 +235,14 @@
 		65C139E8D95305C5920B3F4268D0A08C /* LEFrameworks-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LEFrameworks-prefix.pch"; sourceTree = "<group>"; };
 		662568CA10274E55AC950AAEB53D66C0 /* LESegmentView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LESegmentView.m; sourceTree = "<group>"; };
 		66E970DBB3F741E7AD4A1180D2B120BD /* LEBaseTableView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LEBaseTableView.h; sourceTree = "<group>"; };
-		688466EF71D39E385A69E22D5DB3CD6D /* LEFrameworks.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = LEFrameworks.bundle; path = LEFrameworks.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		688466EF71D39E385A69E22D5DB3CD6D /* LEFrameworks.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LEFrameworks.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A92BE004300A0488FA67AF51D5D388D /* EmojiInputView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = EmojiInputView.m; sourceTree = "<group>"; };
 		6BFB4B1BF0EEBA863D055B42F9EC0508 /* LERefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LERefresh.m; sourceTree = "<group>"; };
-		6F4925A07A2490A3D35AE992CACC87AD /* Pods_LEFrameworks_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_LEFrameworks_Test.framework; path = "Pods-LEFrameworks_Test.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F4925A07A2490A3D35AE992CACC87AD /* Pods_LEFrameworks_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LEFrameworks_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77BCE62F4487DCC196DF13624FC6C78F /* LE_qrcode_scan_line@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_qrcode_scan_line@3x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_qrcode_scan_line@3x.png"; sourceTree = "<group>"; };
 		799AFD552596A1963BE6FAD65B6ABFB2 /* LE_common_btn_gray@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_common_btn_gray@2x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_common_btn_gray@2x.png"; sourceTree = "<group>"; };
 		7AE64EEAB7BF67D65EDD10CBEC12BF01 /* LEPieChart.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LEPieChart.m; sourceTree = "<group>"; };
-		7BAEE14D96E7AD226EFD84EB6C43B2ED /* LEFoundation.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = LEFoundation.modulemap; sourceTree = "<group>"; };
+		7BAEE14D96E7AD226EFD84EB6C43B2ED /* LEFoundation.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = LEFoundation.modulemap; sourceTree = "<group>"; };
 		7C013A08B3BE2CE9D0FA602F84E22088 /* Pods-LEFrameworks_Test-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LEFrameworks_Test-frameworks.sh"; sourceTree = "<group>"; };
 		7C11343414F551687C6AFA6BC33F2BA4 /* LE_web_icon_forward_off@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_web_icon_forward_off@2x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_web_icon_forward_off@2x.png"; sourceTree = "<group>"; };
 		7C207C1DFDD344B999CAF5F316E518AB /* LE_NSDate+Category.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LE_NSDate+Category.m"; sourceTree = "<group>"; };
@@ -262,12 +259,11 @@
 		8F5943AEC94A2010F7B84F5D2D0F7928 /* LE_qrcode_scan_bg@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_qrcode_scan_bg@3x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_qrcode_scan_bg@3x.png"; sourceTree = "<group>"; };
 		8F725768D3305EAD914A44FB2430B6F0 /* LESegmentView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LESegmentView.h; sourceTree = "<group>"; };
 		8F7AB1130231A2FE4E4AF3CF6CF84E3C /* LE_common_btn_gray@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_common_btn_gray@3x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_common_btn_gray@3x.png"; sourceTree = "<group>"; };
-		901AB800C588BE5CD61FDF1C7313CF85 /* Pods-LEFrameworks_Test.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-LEFrameworks_Test.modulemap"; sourceTree = "<group>"; };
+		901AB800C588BE5CD61FDF1C7313CF85 /* Pods-LEFrameworks_Test.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-LEFrameworks_Test.modulemap"; sourceTree = "<group>"; };
 		90A0D2EEB94990557C1C9347E09CD122 /* LEBaseEmptyTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LEBaseEmptyTableViewCell.h; sourceTree = "<group>"; };
 		91C2980A8D3FF873CFD27C4DE460FC37 /* LE_NSDate+Category.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LE_NSDate+Category.h"; sourceTree = "<group>"; };
 		91E22B2D6FE0F05C82DC952DFBE6C63C /* LE_emoji_keyboardface@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_emoji_keyboardface@3x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_emoji_keyboardface@3x.png"; sourceTree = "<group>"; };
-		9228B589CB999373E6B5ABECBE88676C /* LEWebView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LEWebView.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		958589326D3629FABFDD166360C79B3C /* LEMultiImagePicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LEMultiImagePicker.m; sourceTree = "<group>"; };
 		95E596C0147BD1D12C66EEBCD081259E /* LE_common_btn_blue@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_common_btn_blue@2x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_common_btn_blue@2x.png"; sourceTree = "<group>"; };
 		973712B8D644F8EE688726FD1B834BC7 /* LEBaseTableViewDisplayCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LEBaseTableViewDisplayCell.m; sourceTree = "<group>"; };
@@ -289,7 +285,7 @@
 		BCF687F29D6D1735EA1346BD0D04245C /* LERefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LERefresh.h; sourceTree = "<group>"; };
 		BEF8FC90C04AB8760BBA55C4F693416A /* LE_MultiImagePickerCheck@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "LE_MultiImagePickerCheck@2x.png"; path = "LEFrameworks/LEFrameworksRes/LEFrameworks.bundle/LE_MultiImagePickerCheck@2x.png"; sourceTree = "<group>"; };
 		C35261810F195855EE405E814D48FDCF /* LEBaseCollectionViewWithRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LEBaseCollectionViewWithRefresh.m; sourceTree = "<group>"; };
-		C48544C20E46EB7418F62C4D53398032 /* LEFrameworks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LEFrameworks.framework; path = LEFrameworks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C48544C20E46EB7418F62C4D53398032 /* LEFrameworks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LEFrameworks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81D6E0DE96B2CDAD19CE239AA2CFD15 /* LEBaseViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LEBaseViewController.h; sourceTree = "<group>"; };
 		CC74222B56CFAE929495FD1EC94917B7 /* LEBasePopupEmptyPage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LEBasePopupEmptyPage.h; sourceTree = "<group>"; };
 		D014E1C5AA86D6FCC010D11CB00FF875 /* LEBaseTableViewSection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LEBaseTableViewSection.h; sourceTree = "<group>"; };
@@ -373,7 +369,6 @@
 				082C71BB703E0D0B36BCCBA4E55C6CE3 /* LEProgress */,
 				A65FFCFEA56154908E27179268817136 /* LEQRCode */,
 				6E8CE8532CBFE880DD454B532476384F /* LESegmentView */,
-				4E54EC0926E73ACCCC1CC26E23D14745 /* LEWebview */,
 				48EC30B1509B318680464DB12C771897 /* Resources */,
 				2FEF84C68805C902BAD59E30F686D39D /* Support Files */,
 			);
@@ -414,7 +409,6 @@
 				8F246BD14034C02126FE63CEC42EB6C2 /* HMPageControl.h */,
 				8501AE2B5D405E474DB66E444DA5A4F6 /* HMPageControl.m */,
 			);
-			name = HMPageControl;
 			path = HMPageControl;
 			sourceTree = "<group>";
 		};
@@ -512,16 +506,6 @@
 				41C98FABCFDB61B1C8EC89FA0092061E /* LE_web_icon_share@3x.png */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		4E54EC0926E73ACCCC1CC26E23D14745 /* LEWebview */ = {
-			isa = PBXGroup;
-			children = (
-				9228B589CB999373E6B5ABECBE88676C /* LEWebView.h */,
-				01CC2E246BBC62537E26FC649B175E10 /* LEWebView.m */,
-			);
-			name = LEWebview;
-			path = LEFrameworks/Classes/LEWebview;
 			sourceTree = "<group>";
 		};
 		6E8CE8532CBFE880DD454B532476384F /* LESegmentView */ = {
@@ -684,7 +668,6 @@
 				FEED843A3FF22653900070CE0D23C296 /* LEFoundations.h */,
 				F1F578B990BA39F36199DB587A6DBDD1 /* Support Files */,
 			);
-			name = LEFoundation;
 			path = LEFoundation;
 			sourceTree = "<group>";
 		};
@@ -807,7 +790,6 @@
 				D36089E17E42DFC8043556768499819F /* LEUIFramework.h in Headers */,
 				8F48C4614D7F9323D4F098F3B309671F /* LEUIFrameworkExtra.h in Headers */,
 				3CF1E88E86E6DC7D6C6D36CD82FAC3CC /* LEWaveProgressView.h in Headers */,
-				70AA99254401C57BE8A8BD25AF3A13BE /* LEWebView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -919,6 +901,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
@@ -1056,7 +1039,6 @@
 				9EFC681BF970E452EE49A18CA56DCC18 /* LEUIFramework.m in Sources */,
 				3F3E8AB2F091E88B4FFCC043F954D590 /* LEUIFrameworkExtra.m in Sources */,
 				246B20DDA22FF78DE53726B7A43FF555 /* LEWaveProgressView.m in Sources */,
-				695A9C64AABCE078123C7095738A458C /* LEWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
