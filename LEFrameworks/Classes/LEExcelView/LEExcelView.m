@@ -341,6 +341,7 @@
     int movableWidth;
     LEExcelViewTableViewV2 *curTableView;
     float lastOffsetX;
+    UIView *tv;
 }
 -(UITableView *) leGetTableView{
     return curTableView;
@@ -353,12 +354,16 @@
     [self setDelegate:self];
     [self setContentInset:UIEdgeInsetsZero];
     [self setContentOffset:CGPointZero];
-    UIView *tv=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointZero CGSize:CGSizeMake(immovableWidth+movableWidth, self.bounds.size.height)]];
+    tv=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self Anchor:LEAnchorInsideTopLeft Offset:CGPointZero CGSize:CGSizeMake(immovableWidth+movableWidth, self.bounds.size.height)]];
     [settings leSetParentView:tv];
     curTableView=[[LEExcelViewTableViewV2 alloc] initWithSettings:settings ImmovableViewWidth:immovable MovableViewWidth:movable TabbarHeight:tabbarH CellHeight:LEDefaultCellHeight TabbarClassname:tabbar];
     [curTableView leSetTopRefresh:NO];
     [curTableView leSetBottomRefresh:NO];
     return self;
+}
+-(void) leSetContainerHeight:(CGFloat) height{
+    [tv leSetSize:CGSizeMake(immovableWidth+movableWidth,height)];
+    [curTableView leSetSize:CGSizeMake(immovableWidth+movableWidth,height)];
 }
 -(void) leScrollToTop{
     [curTableView setContentOffset:CGPointZero animated:NO];

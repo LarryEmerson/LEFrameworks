@@ -52,6 +52,7 @@
 -(void) leOnSetTabbarData:(id) data;
 -(void) leScrollToTop;
 -(UITableView *) leGetTableView;
+-(void) leSetContainerHeight:(CGFloat) height;
 @end
 
 

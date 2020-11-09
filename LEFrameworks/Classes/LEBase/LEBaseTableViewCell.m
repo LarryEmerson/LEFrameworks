@@ -45,6 +45,7 @@
     self.leSelectionDelegate=settings.leSelectionDelegate;
     hasGesture=settings.leGesture;
     self = [super initWithStyle:settings.leStyle reuseIdentifier:settings.leReuseIdentifier];
+    [self.contentView setHidden:YES];
     if (self) {
         [self setFrame:CGRectMake(0, 0, LESCREEN_WIDTH, LEDefaultCellHeight)];
         [self setBackgroundColor:LEColorWhite];

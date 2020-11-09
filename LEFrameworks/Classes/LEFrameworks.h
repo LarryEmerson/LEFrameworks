@@ -52,9 +52,7 @@
 #import "LEBasePopupEmptyPage.h"
 #import "LEPopup.h"
 //二维码扫码
-#import "LEScanQRCode.h" 
-//Webview
-#import "LEWebView.h"
+#import "LEScanQRCode.h"  
 
 
 
