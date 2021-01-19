@@ -92,7 +92,7 @@
     [curTitlesWidth removeAllObjects];
     [curTitlesWidthSum removeAllObjects];
     UIButton *last=nil;
-    float maxWidth;
+    float maxWidth=0;
     for (int i=0; i<titles.count; i++) {
         UIButton *btn=nil;
         if(i<curTitlesCache.count){

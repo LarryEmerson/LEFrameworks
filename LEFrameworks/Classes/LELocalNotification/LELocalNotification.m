@@ -37,8 +37,28 @@
         }
     }
     return [[[UIApplication sharedApplication] delegate] window];
-    //*/ 
-    return [UIApplication sharedApplication].keyWindow;
+    //*/
+    if (@available(iOS 13.0, *))
+    {
+        for (UIWindowScene* windowScene in [UIApplication sharedApplication].connectedScenes) {
+            if (windowScene.activationState == UISceneActivationStateForegroundActive)
+            {
+                for (UIWindow *window in windowScene.windows)
+                {
+                    if (window.isKeyWindow)
+                    {
+                        return window;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        return [UIApplication sharedApplication].keyWindow;
+    }
+    return nil;
 }
 -(void) leAdditionalInits{
     [self setUserInteractionEnabled:NO];
