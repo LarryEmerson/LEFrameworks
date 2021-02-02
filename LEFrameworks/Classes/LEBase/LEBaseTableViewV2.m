@@ -82,7 +82,7 @@
     if(indexPath.row<self.leDisplayCellCache.count){
         return [[self.leDisplayCellCache objectAtIndex:indexPath.row] leGetHeight];
     }else{
-        return 0;
+        return [self leEmptyTableViewCell]?[self leEmptyTableViewCell].frame.size.height:0;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
