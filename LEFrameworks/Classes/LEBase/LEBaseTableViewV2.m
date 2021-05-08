@@ -14,6 +14,7 @@
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self=[super initWithStyle:style reuseIdentifier:reuseIdentifier];
     [self setFrame:CGRectMake(0, 0, LESCREEN_WIDTH, LEDefaultCellHeight)];
+    [self.contentView setHidden:YES];
     return self;
 }
 -(void) leSetDisplayCell:(LEBaseTableViewDisplayCell *)cell{
