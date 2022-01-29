@@ -120,10 +120,13 @@
     self.leEmptyTableViewCellClassName=settings.leEmptyTableViewCellClassName?settings.leEmptyTableViewCellClassName:@"LEBaseEmptyTableViewCell";
     self.leTableViewCellClassName=settings.leTableViewCellClassName;
     UIView *superView=settings.leSuperViewContainer;
-    UIView *leParentView=settings.leParentView; 
+    UIView *leParentView=settings.leParentView;
     [self setLeDataSourceDelegate:settings.leDataSourceDelegate];
     [self setLeCellSelectionDelegate:settings.leCellSelectionDelegate];
     self = [super initWithFrame:leParentView.bounds style:UITableViewStylePlain];
+    if(@available(iOS 15.0, *)){
+        self.sectionHeaderTopPadding=0;
+    }
     [self setLeAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:leParentView EdgeInsects:UIEdgeInsetsZero]];
     [self leExecAutoLayout];
     self.leSuperViewContainer=superView; 
