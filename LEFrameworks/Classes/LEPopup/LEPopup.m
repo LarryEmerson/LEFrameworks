@@ -96,10 +96,13 @@
     W=self.bounds.size.width;
     H=self.bounds.size.height;
     float space=LESCREEN_WIDTH*1.0/20;
-    LELogObject([NSNumber numberWithFloat:space])
-    LELogObject([NSNumber numberWithFloat:LESCREEN_WIDTH])
+//    LELogObject([NSNumber numberWithFloat:space])
+//    LELogObject([NSNumber numberWithFloat:LESCREEN_WIDTH])
     if(curSettings.leSideEdge==0){
         curSettings.leSideEdge=space;
+        if(LESCREEN_WIDTH>LESCREEN_HEIGHT){
+            curSettings.leSideEdge=(LESCREEN_MAX_LENGTH-LESCREEN_MIN_LENGTH)/2;
+        }
     }
     if(curSettings.leMaxHeight==0){
         curSettings.leMaxHeight=H-LENavigationBarHeight;
