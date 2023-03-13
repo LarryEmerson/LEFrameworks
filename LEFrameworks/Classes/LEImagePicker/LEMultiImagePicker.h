@@ -9,6 +9,8 @@
 #import "LEBaseViewController.h"
 #import "LEBaseCollectionView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <PhotosUI/PhotosUI.h>
+#import <Photos/Photos.h>
 @protocol LEMultiImagePickerDelegate<NSObject>
 @optional
 -(void) leOnMultiImagePickedWith:(NSArray *) images;

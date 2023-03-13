@@ -228,6 +228,9 @@
 -(void) leSetBackground:(UIImage *) image{
     [background setImage:image];
 }
+-(void) leSetBackgroundColor:(UIColor *) color{
+    [background setBackgroundColor:color];
+}
 -(void) leSetNavigationTitle:(NSString *) title{
     [self onCheckTitleViewWith:title];
 }
