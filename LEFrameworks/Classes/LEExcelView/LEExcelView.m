@@ -65,7 +65,7 @@
     UIView *immovableContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:self EdgeInsects:UIEdgeInsetsMake(0, 0, 0, movable)]];
     self.leImmovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:immovableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointZero CGSize:CGSizeMake(immovable, self.bounds.size.height)]];
     self.leMovableViewContainer=[[UIView alloc] initWithAutoLayoutSettings:[[LEAutoLayoutSettings alloc] initWithSuperView:movableContainer Anchor:LEAnchorInsideLeftCenter Offset:CGPointMake(0, 0) CGSize:CGSizeMake(movable, self.bounds.size.height)]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(leOnExcelViewScrolledWith:) name:LEExcelViewNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(leOnExcelViewScrolledWith:) name:LEExcelViewNotification object:nil]; 
 }
 -(void) dealloc{
     [self leReleaseView];
